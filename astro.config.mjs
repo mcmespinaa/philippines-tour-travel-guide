@@ -4,6 +4,7 @@ export default defineConfig({
   output: 'static',
   build: {
     format: 'directory',
-    assets: '_astro'
+    assets: '_astro',
+    inlineStylesheets: 'always'
   }
 });
