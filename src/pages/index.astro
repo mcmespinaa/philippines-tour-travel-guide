@@ -1,0 +1,2032 @@
+---
+import { DESTINATION_HUBS, FLIGHT_ROUTES, DAILY_ITINERARY, PACKING_CATEGORIES } from '../data/tourData';
+
+const totalHotels = DESTINATION_HUBS.reduce((acc, h) => acc + h.hotels.length, 0);
+const totalPackingItems = PACKING_CATEGORIES.reduce((acc, c) => acc + c.items.length, 0);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#006972" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>KAPULUAN OS · Philippines 32-Day Personal Travel Guide (MC & Christian)</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+
+  <!-- Google Fonts: Fraunces (Editorial Display), Plus Jakarta Sans (Clean Modern Philippine UI), JetBrains Mono (Flight Telemetry & Rates) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet Interactive Map CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <style>
+    :root {
+      --bg-abyss: #051117;
+      --bg-panel: #091b24;
+      --bg-card: #0d2430;
+      --bg-card-hover: #133140;
+      --bg-glass: rgba(9, 27, 36, 0.9);
+      --teal-brand: #006972;
+      --teal-glow: #14b8a6;
+      --cyan-lagoon: #38bdf8;
+      --cebpac-gold: #facc15;
+      --cebpac-amber: #f59e0b;
+      --coral-sunset: #fb7185;
+      --capiz-cream: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-subtle: rgba(56, 189, 248, 0.16);
+      --border-gold: rgba(250, 204, 21, 0.38);
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-abyss);
+      background-image:
+        radial-gradient(circle at 12% 8%, rgba(20, 184, 166, 0.14), transparent 38%),
+        radial-gradient(circle at 88% 15%, rgba(250, 204, 21, 0.08), transparent 35%),
+        linear-gradient(180deg, #040d12 0%, #071821 100%);
+      color: var(--capiz-cream);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      overflow-x: hidden;
+      padding-bottom: 84px; /* space for mobile bottom nav */
+    }
+
+    /* Philippine Banig / Hablon geometric weave accent bar */
+    .banig-top-strip {
+      height: 5px;
+      background: repeating-linear-gradient(
+        90deg,
+        #006972 0px,
+        #006972 24px,
+        #14b8a6 24px,
+        #14b8a6 48px,
+        #facc15 48px,
+        #facc15 60px,
+        #0284c7 60px,
+        #0284c7 84px
+      );
+    }
+
+    /* Header / Telemetry Bar */
+    .top-command-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.9rem 1.5rem;
+      background: rgba(5, 17, 23, 0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .sun-emblem {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #006972 0%, #0d9488 100%);
+      border: 1px solid rgba(250, 204, 21, 0.55);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 20px rgba(20, 184, 166, 0.25);
+      flex-shrink: 0;
+    }
+
+    .brand-titles h1 {
+      font-family: var(--font-display);
+      font-size: 1.28rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--capiz-cream);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .badge-pill {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.18rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(20, 184, 166, 0.16);
+      color: #5eead4;
+      border: 1px solid rgba(20, 184, 166, 0.35);
+    }
+
+    .badge-cebpac {
+      background: rgba(250, 204, 21, 0.15);
+      color: var(--cebpac-gold);
+      border-color: rgba(250, 204, 21, 0.4);
+    }
+
+    .brand-titles p {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .kpi-ribbon {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      align-items: center;
+    }
+
+    .kpi-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 0.35rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .kpi-chip span.label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+    }
+
+    .kpi-chip span.val {
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--capiz-cream);
+    }
+
+    .kpi-chip.gold span.val {
+      color: var(--cebpac-gold);
+    }
+
+    /* Currency Toggle Switch */
+    .currency-toggle {
+      display: inline-flex;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .curr-btn {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.45rem 0.65rem;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .curr-btn.active {
+      background: var(--cebpac-gold);
+      color: #051117;
+    }
+
+    .sheet-sync-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: linear-gradient(135deg, #006972 0%, #0284c7 100%);
+      color: #ffffff;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .sheet-sync-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35);
+    }
+
+    /* Destination Hub Selector Bar */
+    .hub-nav-strip {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.5rem;
+      background: rgba(9, 27, 36, 0.9);
+      border-bottom: 1px solid var(--border-subtle);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .hub-nav-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hub-tab-btn {
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.52rem 0.9rem;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .hub-tab-btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--capiz-cream);
+      border-color: rgba(20, 184, 166, 0.45);
+    }
+
+    .hub-tab-btn.active {
+      background: linear-gradient(135deg, rgba(0, 105, 114, 0.92), rgba(14, 116, 144, 0.92));
+      color: #ffffff;
+      border-color: var(--cebpac-gold);
+      box-shadow: 0 0 16px rgba(20, 184, 166, 0.32);
+    }
+
+    .hub-tab-btn .num {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.1rem 0.38rem;
+      border-radius: 6px;
+      background: rgba(5, 17, 23, 0.65);
+      color: var(--cebpac-gold);
+    }
+
+    /* Main Split Cockpit Layout */
+    .cockpit-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 1.25rem;
+      padding: 1.25rem 1.5rem;
+      max-width: 1920px;
+      margin: 0 auto;
+    }
+
+    /* Left Column: Interactive Map + SVG Flight Schematic */
+    .map-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .map-frame-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .map-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.8rem 1.1rem;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .map-toolbar-title {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .live-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseDot 2s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.55; }
+    }
+
+    .map-control-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .map-btn {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.42rem 0.72rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-panel);
+      color: var(--capiz-cream);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .map-btn:hover, .map-btn.active {
+      background: var(--teal-brand);
+      border-color: var(--cyan-lagoon);
+    }
+
+    .map-btn.gold {
+      background: rgba(250, 204, 21, 0.15);
+      border-color: rgba(250, 204, 21, 0.5);
+      color: var(--cebpac-gold);
+    }
+
+    .map-btn.gold:hover {
+      background: rgba(250, 204, 21, 0.28);
+    }
+
+    #ph-interactive-map {
+      width: 100%;
+      height: 510px;
+      background: #041016;
+      z-index: 1;
+    }
+
+    .map-legend-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.65rem 1.1rem;
+      background: rgba(5, 17, 23, 0.92);
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+    }
+
+    .legend-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      align-items: center;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .legend-swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* Cebu Pacific Flight Vector & Island Transit Card */
+    .flight-schematic-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.15rem;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .section-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .section-header-row h2 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--capiz-cream);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* SVG Animated Flight Arc Diagram */
+    .svg-flight-banner {
+      width: 100%;
+      background: linear-gradient(180deg, rgba(4, 15, 22, 0.95) 0%, rgba(9, 31, 43, 0.9) 100%);
+      border: 1px solid rgba(250, 204, 21, 0.25);
+      border-radius: 12px;
+      padding: 0.65rem;
+      margin-bottom: 0.95rem;
+      overflow-x: auto;
+    }
+
+    .svg-flight-banner svg {
+      min-width: 640px;
+    }
+
+    .flight-arc-line {
+      stroke-dasharray: 7 5;
+      animation: dashFlow 18s linear infinite;
+    }
+
+    @keyframes dashFlow {
+      to {
+        stroke-dashoffset: -240;
+      }
+    }
+
+    .flight-legs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .flight-leg-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .flight-leg-card:hover {
+      border-color: var(--cebpac-gold);
+      transform: translateY(-2px);
+      background: var(--bg-card-hover);
+    }
+
+    .flight-leg-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .route-code {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--cebpac-gold);
+    }
+
+    .fare-tag {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      background: rgba(20, 184, 166, 0.16);
+      color: #5eead4;
+    }
+
+    .carrier-line {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--capiz-cream);
+    }
+
+    .flight-notes {
+      font-size: 0.73rem;
+      color: var(--text-secondary);
+    }
+
+    .baggage-tip {
+      font-size: 0.7rem;
+      color: #bae6fd;
+      background: rgba(56, 189, 248, 0.08);
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      border-left: 2px solid var(--cyan-lagoon);
+    }
+
+    .flight-leg-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.2rem;
+      padding-top: 0.45rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .flight-duration {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    .cebpac-book-link {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #051117;
+      background: var(--cebpac-gold);
+      padding: 0.28rem 0.62rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .cebpac-book-link:hover {
+      background: #fde047;
+      box-shadow: 0 0 12px rgba(250, 204, 21, 0.5);
+    }
+
+    /* Right Column: Active Destination Hub Spotlight & Minimum 6 Curated 4-5★ Hotel Cards */
+    .hotels-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .hub-spotlight-panel {
+      display: none;
+      flex-direction: column;
+      gap: 0.95rem;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.25rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .hub-spotlight-panel.active {
+      display: flex;
+    }
+
+    .hub-banner-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .hub-title-block .region-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--teal-glow);
+    }
+
+    .hub-title-block h2 {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--capiz-cream);
+      margin-top: 0.1rem;
+    }
+
+    .hub-title-block p.tagline {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      margin-top: 0.15rem;
+    }
+
+    .hub-meta-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .hub-dates-pill {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 0.35rem 0.7rem;
+      border-radius: 9px;
+      background: rgba(0, 105, 114, 0.35);
+      border: 1px solid var(--cyan-lagoon);
+      color: var(--capiz-cream);
+    }
+
+    .hub-weather-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 9px;
+      background: rgba(250, 204, 21, 0.1);
+      border: 1px solid rgba(250, 204, 21, 0.3);
+      color: #fde047;
+    }
+
+    /* Dual Highlight Strip (Motorsport + Romance/Culture + Cebu Pacific Gateway) */
+    .dual-highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.7rem;
+    }
+
+    .highlight-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 0.72rem 0.85rem;
+    }
+
+    .highlight-box.cebpac-box {
+      border-color: var(--border-gold);
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.09), rgba(9, 27, 36, 0.92));
+    }
+
+    .highlight-box .h-label {
+      font-family: var(--font-mono);
+      font-size: 0.67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.22rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .highlight-box p {
+      font-size: 0.78rem;
+      color: var(--capiz-cream);
+    }
+
+    /* Landmarks Chip Row */
+    .landmarks-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.75rem;
+    }
+
+    .landmark-chip {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #bae6fd;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-size: 0.73rem;
+      text-align: left;
+    }
+
+    .landmark-chip:hover {
+      background: rgba(56, 189, 248, 0.28);
+      color: #ffffff;
+    }
+
+    /* 6+ Hotel Options Grid */
+    .hotels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .hotel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 13px;
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.55rem;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .hotel-card:hover {
+      border-color: var(--teal-glow);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .hotel-card.selected-stay {
+      border-color: var(--cebpac-gold);
+      box-shadow: 0 0 18px rgba(250, 204, 21, 0.22);
+    }
+
+    .hotel-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.45rem;
+    }
+
+    .option-badge {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 0.15rem 0.48rem;
+      border-radius: 6px;
+      background: rgba(0, 105, 114, 0.55);
+      color: #5eead4;
+      border: 1px solid rgba(20, 184, 166, 0.4);
+    }
+
+    .rate-pill {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--cebpac-gold);
+      background: rgba(250, 204, 21, 0.12);
+      border: 1px solid rgba(250, 204, 21, 0.35);
+      padding: 0.16rem 0.52rem;
+      border-radius: 7px;
+      white-space: nowrap;
+    }
+
+    .hotel-name {
+      font-family: var(--font-display);
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--capiz-cream);
+      line-height: 1.25;
+    }
+
+    .stars-line {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: #38bdf8;
+      margin-top: 0.1rem;
+    }
+
+    .proximity-box {
+      background: rgba(5, 17, 23, 0.65);
+      border-left: 3px solid var(--teal-glow);
+      padding: 0.42rem 0.6rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.74rem;
+    }
+
+    .proximity-box strong {
+      color: #5eead4;
+      display: block;
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .hotel-highlight {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .hotel-card-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+      padding-top: 0.48rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .locate-pin-btn, .shortlist-btn {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.32rem 0.58rem;
+      border-radius: 7px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(56, 189, 248, 0.1);
+      color: #bae6fd;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .locate-pin-btn:hover, .shortlist-btn:hover {
+      background: var(--teal-brand);
+      color: #ffffff;
+    }
+
+    .shortlist-btn.active {
+      background: rgba(250, 204, 21, 0.22);
+      border-color: var(--cebpac-gold);
+      color: var(--cebpac-gold);
+    }
+
+    .hotel-book-btn {
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      font-weight: 700;
+      padding: 0.34rem 0.68rem;
+      border-radius: 7px;
+      background: linear-gradient(135deg, #006972, #0d9488);
+      color: #ffffff;
+      text-decoration: none;
+      border: 1px solid rgba(94, 234, 212, 0.4);
+      transition: all 0.15s ease;
+    }
+
+    .hotel-book-btn:hover {
+      background: linear-gradient(135deg, #0d9488, #14b8a6);
+      box-shadow: 0 0 12px rgba(20, 184, 166, 0.45);
+    }
+
+    /* Curated Culinary & Coffee Strip per Hub */
+    .dining-strip {
+      margin-top: 0.35rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .dining-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.65rem;
+      margin-top: 0.55rem;
+    }
+
+    .dining-card {
+      background: rgba(5, 17, 23, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+      font-size: 0.75rem;
+    }
+
+    .dining-cat {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--cebpac-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Secondary Full-Width Sections (32-Day Timeline + Packing & Prep Guide) */
+    .fullwidth-section {
+      padding: 0 1.5rem 1.5rem;
+      max-width: 1920px;
+      margin: 0 auto;
+    }
+
+    .surface-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.25rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .filter-pill {
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .filter-pill.active, .filter-pill:hover {
+      background: var(--teal-brand);
+      color: #ffffff;
+      border-color: var(--cyan-lagoon);
+    }
+
+    .itinerary-table-wrap {
+      overflow-x: auto;
+      margin-top: 0.9rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    table.itinerary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    table.itinerary-table th {
+      background: #005b63;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.7rem 0.85rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    table.itinerary-table td {
+      padding: 0.7rem 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      vertical-align: top;
+    }
+
+    table.itinerary-table tr.day-row {
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    table.itinerary-table tr.day-row:nth-child(even) {
+      background: rgba(13, 36, 48, 0.55);
+    }
+
+    table.itinerary-table tr.day-row:hover {
+      background: rgba(20, 184, 166, 0.18);
+    }
+
+    .day-badge {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--cebpac-gold);
+      white-space: nowrap;
+    }
+
+    /* Packing & Pre-Departure Interactive Checklist Grid */
+    .packing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.9rem;
+    }
+
+    .packing-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 0.95rem;
+    }
+
+    .packing-box h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      margin-bottom: 0.65rem;
+      color: var(--capiz-cream);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .pack-item-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      font-size: 0.78rem;
+      color: var(--capiz-cream);
+      padding: 0.35rem 0;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .pack-item-label input[type="checkbox"] {
+      margin-top: 0.2rem;
+      accent-color: var(--teal-glow);
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    .pack-item-label.checked span {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    /* Sticky Mobile Bottom Navigation Bar */
+    .mobile-bottom-dock {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(5, 17, 23, 0.96);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-subtle);
+      padding: 0.45rem 0.5rem calc(0.45rem + env(safe-area-inset-bottom));
+      z-index: 1500;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .dock-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.15rem;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .dock-btn.active, .dock-btn:hover {
+      color: var(--cebpac-gold);
+      background: rgba(250, 204, 21, 0.1);
+    }
+
+    .dock-btn span.icon {
+      font-size: 1.05rem;
+    }
+
+    /* Responsive Breakpoints & Mobile Touch Optimizations */
+    @media (max-width: 1200px) {
+      .cockpit-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-command-bar {
+        padding: 0.75rem 1rem;
+      }
+      .brand-titles h1 {
+        font-size: 1.08rem;
+      }
+      .kpi-ribbon {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .kpi-chip {
+        padding: 0.3rem 0.55rem;
+      }
+      .hub-nav-strip {
+        padding: 0.55rem 1rem;
+        position: sticky;
+        top: 66px;
+        z-index: 990;
+      }
+      .cockpit-grid {
+        padding: 0.85rem 1rem;
+        gap: 1rem;
+      }
+      #ph-interactive-map {
+        height: 360px;
+      }
+      .fullwidth-section {
+        padding: 0 1rem 1.25rem;
+      }
+      .mobile-bottom-dock {
+        display: flex;
+      }
+      /* Convert 32-day table into mobile cards on narrow screens */
+      table.itinerary-table thead {
+        display: none;
+      }
+      table.itinerary-table,
+      table.itinerary-table tbody,
+      table.itinerary-table tr,
+      table.itinerary-table td {
+        display: block;
+        width: 100%;
+      }
+      table.itinerary-table tr.day-row {
+        padding: 0.65rem;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+      table.itinerary-table td {
+        padding: 0.25rem 0.4rem;
+        border: none;
+      }
+    }
+
+    /* Custom Leaflet Popup Styling */
+    :global(.leaflet-popup-content-wrapper) {
+      background: #091b24 !important;
+      color: #f8fafc !important;
+      border: 1px solid rgba(20, 184, 166, 0.5);
+      border-radius: 12px !important;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65) !important;
+    }
+    :global(.leaflet-popup-tip) {
+      background: #091b24 !important;
+    }
+    :global(.custom-pin-marker) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 11px;
+      color: #051117;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+      border: 2px solid #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="banig-top-strip"></div>
+
+  <!-- Top Telemetry & KPI Header -->
+  <header class="top-command-bar" id="top-cockpit">
+    <div class="brand-cluster">
+      <div class="sun-emblem" title="Philippine Archipelago Travel OS">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2">
+          <circle cx="12" cy="12" r="4" fill="#facc15" />
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M19.07 4.93l-2.12 2.12M7.05 16.95l-2.12 2.12" />
+        </svg>
+      </div>
+      <div class="brand-titles">
+        <h1>
+          KAPULUAN TRAVEL OS
+          <span class="badge-pill">MC &amp; Christian</span>
+          <span class="badge-pill badge-cebpac">Cebu Pacific 5J · DG · T6</span>
+        </h1>
+        <p>Philippines 32-Day Personal Guide · {totalHotels} Vetted 4–5★ Landmark Hotels (6+ / Hub) · Nov 8 – Dec 9</p>
+      </div>
+    </div>
+
+    <div class="kpi-ribbon">
+      <div class="kpi-chip">
+        <span class="label">Duration</span>
+        <span class="val">32 Days · 7 Hubs</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="label">4–5★ Hotels</span>
+        <span class="val">{totalHotels} Options (6+ / Hub)</span>
+      </div>
+      <div class="kpi-chip gold">
+        <span class="label">Shortlisted Budget</span>
+        <span class="val" id="shortlist-total-badge">7 Hubs Ready</span>
+      </div>
+      <div class="currency-toggle" role="group" aria-label="Currency Converter">
+        <button type="button" class="curr-btn active" data-curr="DKK">DKK</button>
+        <button type="button" class="curr-btn" data-curr="PHP">PHP (₱)</button>
+        <button type="button" class="curr-btn" data-curr="EUR">EUR (€)</button>
+      </div>
+      <a
+        class="sheet-sync-btn"
+        href="https://docs.google.com/spreadsheets/d/1OrCABb_TqMRWFFenlpoUbLRfmU9W5rxHlB7B2sXCkdY/edit?usp=drivesdk"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>📊 Google Sheet</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Destination Hub Navigation Strip -->
+  <nav class="hub-nav-strip" aria-label="Destination Hubs">
+    <button class="hub-tab-btn" id="btn-overview-all" type="button">
+      <span class="num">ALL</span>
+      <span>🇵🇭 All 7 Hubs</span>
+    </button>
+    {DESTINATION_HUBS.map((hub, idx) => (
+      <button
+        class={`hub-tab-btn hub-selector ${idx === 0 ? 'active' : ''}`}
+        data-hub-id={hub.id}
+        type="button"
+      >
+        <span class="num">{hub.number}</span>
+        <span>{hub.name}</span>
+        <span style="font-size:0.68rem; opacity:0.75;">({hub.hotels.length}★)</span>
+      </button>
+    ))}
+  </nav>
+
+  <!-- Main Interactive Split Cockpit -->
+  <main class="cockpit-grid">
+    <!-- LEFT COLUMN: Interactive Leaflet Map + Cebu Pacific Vector Flight Matrix -->
+    <section class="map-column" id="section-map">
+      <div class="map-frame-card">
+        <div class="map-toolbar">
+          <div class="map-toolbar-title">
+            <span class="live-dot"></span>
+            <span id="map-status-label">Interactive Archipelago Map · Tap Any Hub, Hotel, Landmark or Flight Arc</span>
+          </div>
+          <div class="map-control-group">
+            <button class="map-btn" id="btn-fit-archipelago" type="button">🗺️ Fit All Islands</button>
+            <button class="map-btn active" id="btn-toggle-flights" type="button">✈️ Flight Arcs</button>
+            <button class="map-btn gold" id="btn-play-tour" type="button">▶ Play 7-Hub Flyover</button>
+          </div>
+        </div>
+
+        <div id="ph-interactive-map"></div>
+
+        <div class="map-legend-footer">
+          <div class="legend-items">
+            <span class="legend-item"><i class="legend-swatch" style="background:#facc15;"></i> 5★ Flagship Hotel (H1–H7)</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#14b8a6;"></i> 4★+ Boutique Stay</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#fb7185;"></i> Key Landmark / Circuit</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#38bdf8;"></i> Cebu Pacific / Sea Route</span>
+          </div>
+          <span style="font-family:var(--font-mono);">1 DKK ≈ 8.4 PHP · Tap any pin for booking links</span>
+        </div>
+      </div>
+
+      <!-- Cebu Pacific & Island Transit Schematic + Cards -->
+      <div class="flight-schematic-card" id="section-flights">
+        <div class="section-header-row">
+          <h2>
+            <span>✈️ Cebu Pacific (5J / DG / T6) &amp; Island Transit Network</span>
+          </h2>
+          <a
+            href="https://www.cebupacificair.com/en-PH/pages/plan/book-flights"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="cebpac-book-link"
+          >
+            Book on CebuPacificAir.com ↗
+          </a>
+        </div>
+
+        <!-- Custom Philippine Flight Vector SVG Diagram -->
+        <div class="svg-flight-banner">
+          <svg viewBox="0 0 860 135" width="100%" height="135" xmlns="http://www.w3.org/2000/svg">
+            <line x1="20" y1="95" x2="840" y2="95" stroke="rgba(56,189,248,0.2)" stroke-width="1" />
+            <path d="M 55 95 Q 115 35 175 95" fill="none" stroke="#38bdf8" stroke-width="2" class="flight-arc-line" />
+            <path d="M 175 95 Q 245 20 315 95" fill="none" stroke="#facc15" stroke-width="2.5" class="flight-arc-line" />
+            <path d="M 315 95 Q 385 35 455 95" fill="none" stroke="#14b8a6" stroke-width="2" class="flight-arc-line" />
+            <path d="M 455 95 Q 525 18 595 95" fill="none" stroke="#facc15" stroke-width="2.5" class="flight-arc-line" />
+            <path d="M 595 95 Q 665 40 735 95" fill="none" stroke="#38bdf8" stroke-width="2" class="flight-arc-line" />
+            <path d="M 735 95 Q 775 20 815 95" fill="none" stroke="#facc15" stroke-width="2.5" class="flight-arc-line" />
+
+            <g transform="translate(55,95)">
+              <circle r="7" fill="#006972" stroke="#facc15" stroke-width="2" />
+              <text y="-14" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="10" font-weight="700">MNL T3</text>
+              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Makati &amp; Bay</text>
+            </g>
+            <g transform="translate(175,95)">
+              <circle r="7" fill="#006972" stroke="#38bdf8" stroke-width="2" />
+              <text y="-14" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="10" font-weight="700">CRK</text>
+              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Clark Speedway</text>
+              <text x="-60" y="-36" text-anchor="middle" fill="#bae6fd" font-family="JetBrains Mono" font-size="8">NLEX 1.5h</text>
+            </g>
+            <g transform="translate(315,95)">
+              <circle r="7" fill="#006972" stroke="#facc15" stroke-width="2" />
+              <text y="-14" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="10" font-weight="700">USU</text>
+              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Coron Lagoon</text>
+              <text x="-70" y="-42" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="8">✈ Cebgo DG 6031</text>
+            </g>
+            <g transform="translate(455,95)">
+              <circle r="7" fill="#006972" stroke="#14b8a6" stroke-width="2" />
+              <text y="-14" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="10" font-weight="700">ENI</text>
+              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">El Nido Bacuit</text>
+              <text x="-70" y="-38" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="8">⛵ Tao Paraw 4D</text>
+            </g>
+            <g transform="translate(595,95)">
+              <circle r="7" fill="#006972" stroke="#facc15" stroke-width="2" />
+              <text y="-14" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="10" font-weight="700">CEB</text>
+              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Cebu &amp; Mactan</text>
+              <text x="-70" y="-42" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="8">✈ CEB Group T6</text>
+            </g>
+            <g transform="translate(735,95)">
+              <circle r="7" fill="#006972" stroke="#38bdf8" stroke-width="2" />
+              <text y="-14" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="10" font-weight="700">TAG / SIQ</text>
+              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Bohol &amp; Siquijor</text>
+              <text x="-70" y="-36" text-anchor="middle" fill="#bae6fd" font-family="JetBrains Mono" font-size="8">⛴ OceanJet / 5J</text>
+            </g>
+            <g transform="translate(815,95)">
+              <circle r="7" fill="#facc15" stroke="#ffffff" stroke-width="2" />
+              <text y="-14" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="10" font-weight="700">MNL ✈ CPH</text>
+              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">5J 562 Finale</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Interactive Flight Leg Cards -->
+        <div class="flight-legs-grid">
+          {FLIGHT_ROUTES.map((fl) => (
+            <div
+              class="flight-leg-card"
+              data-from-lat={fl.fromCoords[0]}
+              data-from-lng={fl.fromCoords[1]}
+              data-to-lat={fl.toCoords[0]}
+              data-to-lng={fl.toCoords[1]}
+              data-route-code={fl.code}
+            >
+              <div>
+                <div class="flight-leg-top">
+                  <span class="route-code">{fl.code}</span>
+                  <span class="fare-tag price-convertible" data-dkk={fl.fareDkk} data-suffix="">~{fl.fareDkk.toLocaleString()} DKK</span>
+                </div>
+                <div class="carrier-line">{fl.carrier} · <span style="color:#38bdf8;font-family:var(--font-mono);">{fl.flightNo}</span></div>
+                <p class="flight-notes" style="margin-top:0.25rem;">{fl.notes}</p>
+                <div class="baggage-tip" style="margin-top:0.4rem;">🧳 {fl.baggageTip}</div>
+              </div>
+              <div class="flight-leg-actions">
+                <span class="flight-duration">⏱ {fl.duration}</span>
+                <a
+                  href={fl.bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="cebpac-book-link"
+                  onclick="event.stopPropagation();"
+                >
+                  Book Flight ↗
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN: Destination Spotlight & Minimum 6 Curated 4-5★ Hotels Closest to Landmarks -->
+    <section class="hotels-column" id="section-hotels">
+      {DESTINATION_HUBS.map((hub, idx) => (
+        <div
+          class={`hub-spotlight-panel ${idx === 0 ? 'active' : ''}`}
+          id={`hub-panel-${hub.id}`}
+          data-hub-panel={hub.id}
+        >
+          <div class="hub-banner-head">
+            <div class="hub-title-block">
+              <div class="region-kicker">HUB {hub.number} · {hub.region}</div>
+              <h2>{hub.name}</h2>
+              <p class="tagline">{hub.tagline}</p>
+            </div>
+            <div class="hub-meta-badges">
+              <div class="hub-dates-pill">📅 {hub.dates}</div>
+              <div class="hub-weather-pill">☀️ {hub.weatherAvg}</div>
+            </div>
+          </div>
+
+          <!-- Key Landmarks (Click to Zoom Map) -->
+          <div class="landmarks-bar">
+            <span style="font-family:var(--font-mono);color:var(--text-secondary);font-weight:600;">📍 Key Landmarks:</span>
+            {hub.primaryLandmarks.map((lm) => (
+              <button
+                type="button"
+                class="landmark-chip"
+                data-lat={lm.lat}
+                data-lng={lm.lng}
+                data-title={lm.name}
+                title={`Hours: ${lm.openHours}`}
+              >
+                🎯 {lm.name} · <span style="opacity:0.8;">{lm.openHours}</span>
+              </button>
+            ))}
+          </div>
+
+          <!-- Dual Highlights + Cebu Pacific Hub Box -->
+          <div class="dual-highlights-grid">
+            <div class="highlight-box">
+              <div class="h-label" style="color:#38bdf8;">🏎️ Motorsport &amp; Driving Highlight</div>
+              <p>{hub.motorsportHighlight}</p>
+            </div>
+            <div class="highlight-box">
+              <div class="h-label" style="color:#fb7185;">🌺 Romance &amp; Cultural Highlight</div>
+              <p>{hub.romanceHighlight}</p>
+              <p style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.3rem;">☔ <strong>Weather Backup:</strong> {hub.weatherBackup}</p>
+            </div>
+            <div class="highlight-box cebpac-box">
+              <div class="h-label" style="color:#facc15;">✈️ Cebu Pacific Gateway &amp; Direct Booking</div>
+              <p style="margin-bottom:0.35rem;"><strong>{hub.cebuPacGateway}</strong><br/><span style="font-family:var(--font-mono);font-size:0.72rem;color:#fde047;">{hub.cebuPacFlightNos}</span></p>
+              <a href={hub.cebuPacBookingUrl} target="_blank" rel="noopener noreferrer" class="cebpac-book-link" style="display:inline-block;">
+                Book Cebu Pacific ({hub.number}) ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- 6+ Curated 4-5 Star Hotels Closest to Landmarks -->
+          <div class="section-header-row" style="margin-top:0.2rem; margin-bottom:0.1rem;">
+            <h3 style="font-family:var(--font-display);font-size:1.08rem;color:var(--capiz-cream);">
+              🏨 Top {hub.hotels.length} Curated 4–5★ Hotels Closest to {hub.name} Landmarks
+            </h3>
+            <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--teal-glow);">
+              Tap ⭐ Shortlist to estimate trip lodging total
+            </span>
+          </div>
+
+          <div class="hotels-grid">
+            {hub.hotels.map((hotel) => (
+              <article
+                class="hotel-card"
+                data-hub-id={hub.id}
+                data-nights={hub.nights}
+                data-rate-dkk={hotel.rateDkk}
+                data-lat={hotel.lat}
+                data-lng={hotel.lng}
+                data-hotel-name={hotel.name}
+              >
+                <div>
+                  <div class="hotel-card-header">
+                    <span class="option-badge">OPTION {hotel.rank} · {hotel.tier}</span>
+                    <span class="rate-pill price-convertible" data-dkk={hotel.rateDkk} data-suffix=" / night">{hotel.rateDkk.toLocaleString()} DKK / night</span>
+                  </div>
+                  <h4 class="hotel-name" style="margin-top:0.42rem;">{hotel.name}</h4>
+                  <div class="stars-line">{hotel.stars}</div>
+
+                  <div class="proximity-box" style="margin-top:0.5rem;">
+                    <strong>📍 Closest Landmark ({hotel.distance})</strong>
+                    <span>{hotel.landmark}</span>
+                  </div>
+
+                  <p class="hotel-highlight" style="margin-top:0.45rem;">{hotel.highlight}</p>
+                </div>
+
+                <div class="hotel-card-footer">
+                  <div style="display:flex;gap:0.35rem;">
+                    <button
+                      type="button"
+                      class="locate-pin-btn"
+                      data-lat={hotel.lat}
+                      data-lng={hotel.lng}
+                    >
+                      📍 Map Pin
+                    </button>
+                    <button
+                      type="button"
+                      class="shortlist-btn"
+                      data-hub-id={hub.id}
+                      data-hotel-name={hotel.name}
+                      data-rate-dkk={hotel.rateDkk}
+                      data-nights={hub.nights}
+                    >
+                      ⭐ Shortlist
+                    </button>
+                  </div>
+                  <a
+                    href={hotel.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hotel-book-btn"
+                  >
+                    Book Hotel ↗
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <!-- Curated Specialty Coffee, Casual Lunch & Destination Dinner per Hub -->
+          <div class="dining-strip">
+            <h4 style="font-family:var(--font-display);font-size:0.98rem;color:var(--capiz-cream);">
+              ☕🍽️ Curated Specialty Coffee &amp; Culinary Anchors in {hub.name}
+            </h4>
+            <div class="dining-grid">
+              {hub.dining.map((spot) => (
+                <div class="dining-card">
+                  <div class="dining-cat">{spot.category} · {spot.neighborhood}</div>
+                  <div style="font-weight:700;color:#fff;margin:0.15rem 0;">{spot.name}</div>
+                  <div style="color:var(--text-secondary);">{spot.specialty}</div>
+                  <div style="font-size:0.69rem;color:#5eead4;margin-top:0.25rem;">💡 {spot.bookingTip}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </section>
+  </main>
+
+  <!-- 32-Day Interactive Master Schedule -->
+  <section class="fullwidth-section" id="section-schedule">
+    <div class="surface-card">
+      <div class="section-header-row">
+        <div>
+          <h2>🗓️ Interactive 32-Day Philippines Tour Master Schedule (Nov 8 – Dec 9)</h2>
+          <p style="font-size:0.79rem;color:var(--text-secondary);">Tap any day row to fly the map directly to that day's coordinates and inspect its 4–5★ hotel options &amp; weather backup.</p>
+        </div>
+        <div class="filter-pills">
+          <button class="filter-pill active" data-day-filter="all" type="button">All 32 Days</button>
+          {DESTINATION_HUBS.map((hub) => (
+            <button class="filter-pill" data-day-filter={hub.id} type="button">
+              {hub.number} · {hub.name.split(':')[0]}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="itinerary-table-wrap">
+        <table class="itinerary-table">
+          <thead>
+            <tr>
+              <th>Day &amp; Date</th>
+              <th>Destination / Location</th>
+              <th>General Activity &amp; Civilized Pacing</th>
+              <th>🏎️ Car &amp; Engineering Highlight</th>
+              <th>🌺 Romance, Culture &amp; Weather Backup</th>
+              <th>Map Pin</th>
+            </tr>
+          </thead>
+          <tbody id="itinerary-tbody">
+            {DAILY_ITINERARY.map((item) => (
+              <tr
+                class="day-row"
+                data-hub-id={item.hubId}
+                data-lat={item.coords[0]}
+                data-lng={item.coords[1]}
+                data-day-title={`Day ${item.day} (${item.date}) — ${item.location}`}
+                data-day-desc={item.generalActivity}
+              >
+                <td class="day-badge">Day {item.day} · {item.date}</td>
+                <td style="font-weight:600;color:#5eead4;">{item.location}</td>
+                <td>{item.generalActivity}</td>
+                <td style="color:#bae6fd;">{item.carHighlight}</td>
+                <td>
+                  <div style="color:#fecdd3;">{item.romanceHighlight}</div>
+                  <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">☔ Backup: {item.weatherBackup}</div>
+                </td>
+                <td>
+                  <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--cebpac-gold);">
+                    📍 Fly to Pin →
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Pre-Departure & Tropical Packing Checklist (Persistent in LocalStorage) -->
+  <section class="fullwidth-section" id="section-packing">
+    <div class="surface-card">
+      <div class="section-header-row">
+        <div>
+          <h2>🎒 Philippines Tropical &amp; Track Packing Readiness (MC &amp; Christian)</h2>
+          <p style="font-size:0.79rem;color:var(--text-secondary);">
+            Synced with <code>travel/packing-list.md</code> · Checkboxes save automatically on your phone or laptop (<span id="pack-progress-text">0 / {totalPackingItems} packed</span>).
+          </p>
+        </div>
+        <button type="button" class="map-btn" id="btn-reset-packing">↺ Reset Checklist</button>
+      </div>
+
+      <div class="packing-grid">
+        {PACKING_CATEGORIES.map((cat) => (
+          <div class="packing-box">
+            <h3><span>{cat.icon}</span> <span>{cat.title}</span></h3>
+            <div>
+              {cat.items.map((item, iIdx) => {
+                const checkId = `pack-${cat.id}-${iIdx}`;
+                return (
+                  <label class="pack-item-label" for={checkId}>
+                    <input type="checkbox" id={checkId} class="pack-checkbox" data-pack-id={checkId} />
+                    <span>{item}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Sticky Bottom App Navigation Bar -->
+  <nav class="mobile-bottom-dock" aria-label="Mobile Quick Navigation">
+    <a href="#section-map" class="dock-btn active">
+      <span class="icon">🗺️</span>
+      <span>Map</span>
+    </a>
+    <a href="#section-hotels" class="dock-btn">
+      <span class="icon">🏨</span>
+      <span>4–5★ Hotels</span>
+    </a>
+    <a href="#section-flights" class="dock-btn">
+      <span class="icon">✈️</span>
+      <span>Cebu Pac</span>
+    </a>
+    <a href="#section-schedule" class="dock-btn">
+      <span class="icon">🗓️</span>
+      <span>32 Days</span>
+    </a>
+    <a href="#section-packing" class="dock-btn">
+      <span class="icon">🎒</span>
+      <span>Pack List</span>
+    </a>
+  </nav>
+
+  <!-- Client-side Interactive Map, Currency Converter, Shortlist & Packing Controller -->
+  <script is:inline define:vars={{ hubsData: DESTINATION_HUBS, flightsData: FLIGHT_ROUTES, totalPackCount: totalPackingItems }}>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Initialize Leaflet Map
+      const map = L.map('ph-interactive-map', {
+        center: [12.35, 121.65],
+        zoom: 6,
+        zoomControl: true
+      });
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap &copy; CARTO | Kapuluan Travel OS',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map);
+
+      const hotelMarkersLayer = L.layerGroup().addTo(map);
+      const landmarkMarkersLayer = L.layerGroup().addTo(map);
+      const flightArcsLayer = L.layerGroup().addTo(map);
+
+      const hotelMarkersByCoord = {};
+
+      function getCurvedPoints(start, end, offsetCurve = 0.22) {
+        const lat1 = start[0], lng1 = start[1];
+        const lat2 = end[0], lng2 = end[1];
+        const midLat = (lat1 + lat2) / 2 + (lng2 - lng1) * offsetCurve;
+        const midLng = (lng1 + lng2) / 2 - (lat2 - lat1) * offsetCurve;
+        const pts = [];
+        for (let t = 0; t <= 1; t += 0.04) {
+          const lat = (1 - t) * (1 - t) * lat1 + 2 * (1 - t) * t * midLat + t * t * lat2;
+          const lng = (1 - t) * (1 - t) * lng1 + 2 * (1 - t) * t * midLng + t * t * lng2;
+          pts.push([lat, lng]);
+        }
+        return pts;
+      }
+
+      // Render Flight Route Polylines
+      flightsData.forEach((fl) => {
+        const curvePts = getCurvedPoints(fl.fromCoords, fl.toCoords, 0.18);
+        const color = fl.mode === 'cebu-pacific' || fl.mode === 'airswift-cebpac'
+          ? '#facc15'
+          : (fl.mode === 'paraw-sail' ? '#14b8a6' : '#38bdf8');
+
+        const poly = L.polyline(curvePts, {
+          color,
+          weight: 2.8,
+          opacity: 0.85,
+          dashArray: '8, 6'
+        }).addTo(flightArcsLayer);
+
+        poly.bindPopup(`
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:220px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#facc15;">
+              ${fl.code} · ~${fl.fareDkk} DKK
+            </div>
+            <div style="font-weight:700;margin:3px 0;">${fl.carrier} (${fl.flightNo})</div>
+            <div style="font-size:12px;color:#cbd5e1;margin-bottom:8px;">${fl.notes}</div>
+            <a href="${fl.bookingUrl}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 10px;background:#facc15;color:#051117;font-weight:700;font-size:11px;border-radius:6px;text-decoration:none;">
+              Book on Cebu Pacific / Portal ↗
+            </a>
+          </div>
+        `);
+      });
+
+      // Render All Landmarks & 43 Hotel Options Across All 7 Hubs
+      hubsData.forEach((hub) => {
+        hub.primaryLandmarks.forEach((lm) => {
+          const lmIcon = L.divIcon({
+            className: 'custom-pin-marker',
+            html: `<div style="width:24px;height:24px;border-radius:50%;background:#fb7185;color:#fff;display:grid;place-items:center;font-size:12px;border:2px solid #fff;box-shadow:0 0 10px #fb7185;">🎯</div>`,
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+          });
+          const m = L.marker([lm.lat, lm.lng], { icon: lmIcon }).addTo(landmarkMarkersLayer);
+          m.bindPopup(`
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;">
+              <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:#fb7185;font-weight:700;">KEY LANDMARK · ${hub.name}</div>
+              <div style="font-size:14px;font-weight:700;margin:3px 0;">${lm.name}</div>
+              <div style="font-size:12px;color:#94a3b8;">${lm.category} · ${lm.openHours}</div>
+            </div>
+          `);
+        });
+
+        hub.hotels.forEach((hotel) => {
+          const isFiveStar = hotel.stars.includes('5★');
+          const bgColor = isFiveStar ? '#facc15' : '#14b8a6';
+          const icon = L.divIcon({
+            className: 'custom-pin-marker',
+            html: `<div style="width:26px;height:26px;border-radius:50%;background:${bgColor};color:#051117;display:grid;place-items:center;font-weight:800;font-size:11px;border:2px solid #fff;">H${hotel.rank}</div>`,
+            iconSize: [26, 26],
+            iconAnchor: [13, 13]
+          });
+
+          const marker = L.marker([hotel.lat, hotel.lng], { icon }).addTo(hotelMarkersLayer);
+          marker.bindPopup(`
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:240px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5eead4;font-weight:700;">
+                ${hub.name} · OPTION ${hotel.rank} (${hotel.stars})
+              </div>
+              <div style="font-size:15px;font-weight:700;margin:4px 0;color:#fff;">${hotel.name}</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#facc15;font-weight:700;margin-bottom:6px;">
+                Est. ${hotel.rateDkk.toLocaleString()} DKK / night
+              </div>
+              <div style="font-size:12px;color:#cbd5e1;margin-bottom:4px;">
+                <strong>📍 Closest Landmark:</strong> ${hotel.landmark} (${hotel.distance})
+              </div>
+              <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">${hotel.highlight}</div>
+              <div style="display:flex;gap:6px;">
+                <a href="${hotel.url}" target="_blank" rel="noopener" style="padding:5px 10px;background:#0d9488;color:#fff;font-weight:700;font-size:11px;border-radius:6px;text-decoration:none;">
+                  Book Hotel ↗
+                </a>
+                <a href="${hub.cebuPacBookingUrl}" target="_blank" rel="noopener" style="padding:5px 10px;background:#facc15;color:#051117;font-weight:700;font-size:11px;border-radius:6px;text-decoration:none;">
+                  Cebu Pacific Flights ↗
+                </a>
+              </div>
+            </div>
+          `);
+
+          hotelMarkersByCoord[`${hotel.lat},${hotel.lng}`] = marker;
+        });
+      });
+
+      // 2. Hub Activation
+      function activateHub(hubId, flyMap = true) {
+        const hub = hubsData.find((h) => h.id === hubId);
+        if (!hub) return;
+
+        document.querySelectorAll('.hub-selector').forEach((btn) => {
+          btn.classList.toggle('active', btn.getAttribute('data-hub-id') === hubId);
+        });
+        document.getElementById('btn-overview-all')?.classList.remove('active');
+
+        document.querySelectorAll('.hub-spotlight-panel').forEach((panel) => {
+          panel.classList.toggle('active', panel.getAttribute('data-hub-panel') === hubId);
+        });
+
+        const statusLabel = document.getElementById('map-status-label');
+        if (statusLabel) {
+          statusLabel.textContent = `Hub ${hub.number}: ${hub.name} — Showing ${hub.hotels.length} Curated 4–5★ Hotels Closest to Landmarks`;
+        }
+
+        if (flyMap) {
+          map.flyTo(hub.center, hub.zoom, { duration: 1.25 });
+        }
+      }
+
+      document.querySelectorAll('.hub-selector').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const hubId = btn.getAttribute('data-hub-id');
+          if (hubId) activateHub(hubId, true);
+        });
+      });
+
+      const fitArchipelago = () => {
+        map.flyTo([12.25, 121.5], 6, { duration: 1.2 });
+        const statusLabel = document.getElementById('map-status-label');
+        if (statusLabel) {
+          statusLabel.textContent = 'Full Philippine Archipelago Overview · 7 Hubs, 43 Hotels & 8 Cebu Pacific / Island Legs';
+        }
+      };
+
+      document.getElementById('btn-overview-all')?.addEventListener('click', fitArchipelago);
+      document.getElementById('btn-fit-archipelago')?.addEventListener('click', fitArchipelago);
+
+      let flightsVisible = true;
+      document.getElementById('btn-toggle-flights')?.addEventListener('click', (e) => {
+        flightsVisible = !flightsVisible;
+        if (flightsVisible) {
+          flightArcsLayer.addTo(map);
+          e.currentTarget.classList.add('active');
+        } else {
+          map.removeLayer(flightArcsLayer);
+          e.currentTarget.classList.remove('active');
+        }
+      });
+
+      document.querySelectorAll('.locate-pin-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const lat = parseFloat(btn.getAttribute('data-lat'));
+          const lng = parseFloat(btn.getAttribute('data-lng'));
+          map.flyTo([lat, lng], 16, { duration: 1.1 });
+          const marker = hotelMarkersByCoord[`${lat},${lng}`];
+          if (marker) {
+            setTimeout(() => marker.openPopup(), 650);
+          }
+          if (window.innerWidth < 900) {
+            document.getElementById('section-map')?.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+
+      document.querySelectorAll('.landmark-chip').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const lat = parseFloat(chip.getAttribute('data-lat'));
+          const lng = parseFloat(chip.getAttribute('data-lng'));
+          map.flyTo([lat, lng], 15, { duration: 1.1 });
+        });
+      });
+
+      document.querySelectorAll('.flight-leg-card').forEach((card) => {
+        card.addEventListener('click', () => {
+          const lat1 = parseFloat(card.getAttribute('data-from-lat'));
+          const lng1 = parseFloat(card.getAttribute('data-from-lng'));
+          const lat2 = parseFloat(card.getAttribute('data-to-lat'));
+          const lng2 = parseFloat(card.getAttribute('data-to-lng'));
+          map.flyToBounds([[lat1, lng1], [lat2, lng2]], { padding: [55, 55], duration: 1.2 });
+        });
+      });
+
+      // 3. Guided 7-Hub Flyover Tour
+      let tourTimer = null;
+      let tourIdx = 0;
+      const playBtn = document.getElementById('btn-play-tour');
+      playBtn?.addEventListener('click', () => {
+        if (tourTimer) {
+          clearInterval(tourTimer);
+          tourTimer = null;
+          playBtn.textContent = '▶ Play 7-Hub Flyover';
+          return;
+        }
+        tourIdx = 0;
+        playBtn.textContent = '⏹ Stop Flyover';
+        activateHub(hubsData[tourIdx].id, true);
+        tourTimer = setInterval(() => {
+          tourIdx = (tourIdx + 1) % hubsData.length;
+          activateHub(hubsData[tourIdx].id, true);
+        }, 3800);
+      });
+
+      // 4. Live Currency Switcher (DKK / PHP / EUR)
+      const rates = { DKK: 1, PHP: 8.4, EUR: 0.134 };
+      let currentCurr = 'DKK';
+
+      function formatCurrency(dkkVal, curr) {
+        const converted = Math.round(dkkVal * rates[curr]);
+        if (curr === 'PHP') return `₱${converted.toLocaleString()}`;
+        if (curr === 'EUR') return `€${converted.toLocaleString()}`;
+        return `${converted.toLocaleString()} DKK`;
+      }
+
+      document.querySelectorAll('.curr-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          currentCurr = btn.getAttribute('data-curr') || 'DKK';
+          document.querySelectorAll('.curr-btn').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          document.querySelectorAll('.price-convertible').forEach((el) => {
+            const dkk = parseFloat(el.getAttribute('data-dkk'));
+            const suffix = el.getAttribute('data-suffix') || '';
+            const prefix = suffix === '' ? '~' : '';
+            el.textContent = `${prefix}${formatCurrency(dkk, currentCurr)}${suffix}`;
+          });
+          updateShortlistSummary();
+        });
+      });
+
+      // 5. Interactive Hotel Shortlist & Trip Lodging Estimator
+      const shortlistedByHub = JSON.parse(localStorage.getItem('kapuluan_shortlist') || '{}');
+      // Default to Option 1 in each hub if none shortlisted yet
+      if (Object.keys(shortlistedByHub).length === 0) {
+        hubsData.forEach((h) => {
+          shortlistedByHub[h.id] = {
+            name: h.hotels[0].name,
+            rateDkk: h.hotels[0].rateDkk,
+            nights: h.nights
+          };
+        });
+      }
+
+      function updateShortlistSummary() {
+        let totalDkk = 0;
+        Object.values(shortlistedByHub).forEach((item) => {
+          totalDkk += (item.rateDkk || 0) * (item.nights || 1);
+        });
+        const badge = document.getElementById('shortlist-total-badge');
+        if (badge) {
+          badge.textContent = `${formatCurrency(totalDkk, currentCurr)} (29N)`;
+        }
+
+        document.querySelectorAll('.shortlist-btn').forEach((btn) => {
+          const hubId = btn.getAttribute('data-hub-id');
+          const hName = btn.getAttribute('data-hotel-name');
+          const isSelected = shortlistedByHub[hubId] && shortlistedByHub[hubId].name === hName;
+          btn.classList.toggle('active', Boolean(isSelected));
+          btn.textContent = isSelected ? '★ Selected' : '⭐ Shortlist';
+          const card = btn.closest('.hotel-card');
+          if (card) card.classList.toggle('selected-stay', Boolean(isSelected));
+        });
+      }
+
+      document.querySelectorAll('.shortlist-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const hubId = btn.getAttribute('data-hub-id');
+          const name = btn.getAttribute('data-hotel-name');
+          const rateDkk = parseFloat(btn.getAttribute('data-rate-dkk'));
+          const nights = parseInt(btn.getAttribute('data-nights'), 10);
+          shortlistedByHub[hubId] = { name, rateDkk, nights };
+          localStorage.setItem('kapuluan_shortlist', JSON.stringify(shortlistedByHub));
+          updateShortlistSummary();
+        });
+      });
+      updateShortlistSummary();
+
+      // 6. 32-Day Itinerary Filter & Row Click
+      document.querySelectorAll('.filter-pill').forEach((pill) => {
+        pill.addEventListener('click', () => {
+          document.querySelectorAll('.filter-pill').forEach((p) => p.classList.remove('active'));
+          pill.classList.add('active');
+          const filterHub = pill.getAttribute('data-day-filter');
+          document.querySelectorAll('#itinerary-tbody tr.day-row').forEach((row) => {
+            const rowHub = row.getAttribute('data-hub-id');
+            row.style.display = (filterHub === 'all' || rowHub === filterHub) ? '' : 'none';
+          });
+          if (filterHub && filterHub !== 'all') {
+            activateHub(filterHub, true);
+          }
+        });
+      });
+
+      document.querySelectorAll('#itinerary-tbody tr.day-row').forEach((row) => {
+        row.addEventListener('click', () => {
+          const hubId = row.getAttribute('data-hub-id');
+          const lat = parseFloat(row.getAttribute('data-lat'));
+          const lng = parseFloat(row.getAttribute('data-lng'));
+          const title = row.getAttribute('data-day-title');
+          const desc = row.getAttribute('data-day-desc');
+          if (hubId) activateHub(hubId, false);
+          map.flyTo([lat, lng], 14, { duration: 1.15 });
+          L.popup()
+            .setLatLng([lat, lng])
+            .setContent(`
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;max-width:240px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#facc15;font-weight:700;">${title}</div>
+                <div style="font-size:12px;margin-top:4px;color:#e2e8f0;">${desc}</div>
+              </div>
+            `)
+            .openOn(map);
+        });
+      });
+
+      // 7. Persistent Packing Checklist
+      const savedPack = JSON.parse(localStorage.getItem('kapuluan_packing') || '{}');
+      function updatePackingProgress() {
+        let count = 0;
+        document.querySelectorAll('.pack-checkbox').forEach((cb) => {
+          const id = cb.getAttribute('data-pack-id');
+          const checked = Boolean(savedPack[id]);
+          cb.checked = checked;
+          if (checked) count++;
+          cb.closest('.pack-item-label')?.classList.toggle('checked', checked);
+        });
+        const progEl = document.getElementById('pack-progress-text');
+        if (progEl) progEl.textContent = `${count} / ${totalPackCount} packed`;
+      }
+
+      document.querySelectorAll('.pack-checkbox').forEach((cb) => {
+        cb.addEventListener('change', () => {
+          const id = cb.getAttribute('data-pack-id');
+          savedPack[id] = cb.checked;
+          localStorage.setItem('kapuluan_packing', JSON.stringify(savedPack));
+          updatePackingProgress();
+        });
+      });
+
+      document.getElementById('btn-reset-packing')?.addEventListener('click', () => {
+        Object.keys(savedPack).forEach((k) => delete savedPack[k]);
+        localStorage.removeItem('kapuluan_packing');
+        updatePackingProgress();
+      });
+
+      updatePackingProgress();
+    });
+  </script>
+</body>
+</html>
