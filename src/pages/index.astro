@@ -601,6 +601,220 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       gap: 1.25rem;
     }
 
+    /* Accommodation Budget Optimizer & Filter Card */
+    .budget-optimizer-card {
+      background: linear-gradient(145deg, rgba(9, 27, 36, 0.98) 0%, rgba(13, 36, 48, 0.95) 100%);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 1.15rem 1.25rem;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.42);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .budget-opt-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .budget-opt-title {
+      font-family: var(--font-display);
+      font-size: 1.14rem;
+      font-weight: 700;
+      color: var(--capiz-cream);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .budget-status-pill {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.18);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #6ee7b7;
+    }
+
+    .budget-status-pill.over-target {
+      background: rgba(251, 113, 133, 0.16);
+      border-color: rgba(251, 113, 133, 0.45);
+      color: #fda4af;
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.55rem;
+    }
+
+    .preset-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 11px;
+      padding: 0.62rem 0.78rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      color: var(--capiz-cream);
+    }
+
+    .preset-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--teal-glow);
+      transform: translateY(-1px);
+    }
+
+    .preset-btn.active {
+      background: linear-gradient(135deg, rgba(0, 105, 114, 0.55), rgba(250, 204, 21, 0.14));
+      border-color: var(--cebpac-gold);
+      box-shadow: 0 0 16px rgba(250, 204, 21, 0.22);
+    }
+
+    .preset-btn .p-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .preset-btn .p-price {
+      color: var(--cebpac-gold);
+    }
+
+    .preset-btn .p-desc {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      line-height: 1.3;
+    }
+
+    .budget-meter-wrap {
+      background: rgba(5, 17, 23, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 0.6rem 0.8rem;
+    }
+
+    .budget-meter-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.35rem;
+    }
+
+    .budget-bar-track {
+      height: 10px;
+      background: #041016;
+      border-radius: 999px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .budget-target-zone {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 45%;
+      width: 12%;
+      background: rgba(16, 185, 129, 0.28);
+      border-left: 1px dashed #10b981;
+      border-right: 1px dashed #10b981;
+      z-index: 1;
+    }
+
+    .budget-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #14b8a6 0%, #facc15 100%);
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    .stay-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding-top: 0.45rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .stay-filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.38rem;
+    }
+
+    .stay-filter-btn {
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      font-weight: 600;
+      padding: 0.32rem 0.62rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .stay-filter-btn.active, .stay-filter-btn:hover {
+      background: var(--teal-brand);
+      color: #ffffff;
+      border-color: var(--cyan-lagoon);
+    }
+
+    .hub-breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 0.45rem;
+      margin-top: 0.25rem;
+    }
+
+    .hub-mini-summary {
+      background: rgba(5, 17, 23, 0.65);
+      border: 1px solid rgba(56, 189, 248, 0.16);
+      border-radius: 8px;
+      padding: 0.4rem 0.58rem;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: border-color 0.15s ease;
+    }
+
+    .hub-mini-summary:hover {
+      border-color: var(--cebpac-gold);
+    }
+
+    .hotel-card.filtered-out {
+      display: none !important;
+    }
+
+    .tier-tag-serviced {
+      background: rgba(56, 189, 248, 0.18);
+      color: #7dd3fc;
+      border-color: rgba(56, 189, 248, 0.45);
+    }
+
+    .tier-tag-airbnb {
+      background: rgba(251, 113, 133, 0.18);
+      color: #fda4af;
+      border-color: rgba(251, 113, 133, 0.45);
+    }
+
     .hub-spotlight-panel {
       display: none;
       flex-direction: column;
@@ -1276,10 +1490,11 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
         <div class="map-legend-footer">
           <div class="legend-items">
-            <span class="legend-item"><i class="legend-swatch" style="background:#facc15;"></i> 5★ Flagship Hotel (H1–H7)</span>
-            <span class="legend-item"><i class="legend-swatch" style="background:#14b8a6;"></i> 4★+ Boutique Stay</span>
-            <span class="legend-item"><i class="legend-swatch" style="background:#fb7185;"></i> Key Landmark / Circuit</span>
-            <span class="legend-item"><i class="legend-swatch" style="background:#38bdf8;"></i> Cebu Pacific / Sea Route</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#facc15;"></i> 5★ Flagship</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#38bdf8;"></i> Somerset / Serviced</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#c084fc;"></i> Luxury Airbnb</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#14b8a6;"></i> 4★+ Boutique</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#fb7185;"></i> Landmark</span>
           </div>
           <span style="font-family:var(--font-mono);">1 DKK ≈ 8.4 PHP · Tap any pin for booking links</span>
         </div>
@@ -1395,6 +1610,86 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
     <!-- RIGHT COLUMN: Destination Spotlight & Minimum 6 Curated 4-5★ Hotels Closest to Landmarks -->
     <section class="hotels-column" id="section-hotels">
+      <!-- Interactive Accommodation Budget Optimizer & Ayala Triangle Serviced/Airbnb Filter -->
+      <div class="budget-optimizer-card" id="budget-optimizer">
+        <div class="budget-opt-header">
+          <div>
+            <div class="budget-opt-title">
+              <span>💰 Accommodation Budget Optimizer (29 Nights · Flights Unchanged)</span>
+            </div>
+            <p style="font-size:0.75rem;color:var(--text-secondary);margin-top:0.15rem;">
+              Compare the <strong>51,065 DKK (€6,843)</strong> 5★ Flagship benchmark against our <strong>25,000–30,000 DKK</strong> Target Mix using Somerset/Citadines near Ayala Triangle &amp; boutique island resorts.
+            </p>
+          </div>
+          <span class="budget-status-pill" id="budget-status-indicator">
+            🎯 Within 25k–30k DKK Target
+          </span>
+        </div>
+
+        <!-- 4 One-Click Trip Accommodation Presets -->
+        <div class="preset-grid" role="group" aria-label="Accommodation Budget Presets">
+          <button type="button" class="preset-btn active" data-preset="target-somerset">
+            <div class="p-top">
+              <span>🎯 Target 25k–30k (Somerset + Paolyn)</span>
+              <span class="p-price price-convertible" data-dkk="28440" data-suffix="">~28,440 DKK</span>
+            </div>
+            <div class="p-desc">Somerset Central Salcedo (480m to Ayala Triangle), Admiral MGallery, Paolyn Houseboat, Cadlao El Nido &amp; Fili NUSTAR. Saves 22,625 DKK!</div>
+          </button>
+
+          <button type="button" class="preset-btn" data-preset="target-citadines">
+            <div class="p-top">
+              <span>🎯 Target 25k–30k (Citadines + Boutique)</span>
+              <span class="p-price price-convertible" data-dkk="25870" data-suffix="">~25,870 DKK</span>
+            </div>
+            <div class="p-desc">Citadines Salcedo (380m to Ayala Triangle), Funny Lion Coron, Cadlao El Nido, Fili NUSTAR &amp; Coco Grove. Saves 25,195 DKK!</div>
+          </button>
+
+          <button type="button" class="preset-btn" data-preset="value-airbnb">
+            <div class="p-top">
+              <span>🏡 Smart Airbnb &amp; Somerset Value</span>
+              <span class="p-price price-convertible" data-dkk="18770" data-suffix="">~18,770 DKK</span>
+            </div>
+            <div class="p-desc">Paseo Parkview Airbnb (140m to Ayala Triangle) or Somerset Millennium, Shore Bayfront Airbnb, Huni Lio &amp; Marco Polo.</div>
+          </button>
+
+          <button type="button" class="preset-btn" data-preset="flagship-51k">
+            <div class="p-top">
+              <span>💎 5★ Flagship Benchmark (29N)</span>
+              <span class="p-price price-convertible" data-dkk="51065" data-suffix="">~51,065 DKK</span>
+            </div>
+            <div class="p-desc">Peninsula Manila, Manila Hotel, Clark Marriott, Club Paradise Coron, Pangulasian Island El Nido, Fili NUSTAR &amp; Amorita.</div>
+          </button>
+        </div>
+
+        <!-- Visual Budget Meter Bar (0 to 55,000 DKK with 25k–30k Target Zone highlighted) -->
+        <div class="budget-meter-wrap">
+          <div class="budget-meter-labels">
+            <span>Selected 29N Total: <strong style="color:var(--cebpac-gold);" id="meter-current-total">28,440 DKK</strong></span>
+            <span style="color:#6ee7b7;">🎯 Target Zone: 25,000 – 30,000 DKK (€3,350–€4,020)</span>
+            <span>Flagship Max: 51,065 DKK (€6,843)</span>
+          </div>
+          <div class="budget-bar-track">
+            <div class="budget-target-zone" title="Target Budget Zone: 25,000 to 30,000 DKK"></div>
+            <div class="budget-bar-fill" id="budget-bar-fill" style="width: 55%;"></div>
+          </div>
+          <div class="hub-breakdown-grid" id="hub-breakdown-grid"></div>
+        </div>
+
+        <!-- Filter Hotel Cards & Map Pins by Budget Tier / Property Type -->
+        <div class="stay-filter-bar">
+          <span style="font-family:var(--font-mono);font-size:0.71rem;color:var(--text-secondary);">
+            🔍 Filter Options on Cards &amp; Map:
+          </span>
+          <div class="stay-filter-pills">
+            <button type="button" class="stay-filter-btn active" data-stay-filter="all">All {totalHotels} Stays</button>
+            <button type="button" class="stay-filter-btn" data-stay-filter="under-1100">🎯 Fits 25k–30k Budget (≤ 1,100 DKK/n)</button>
+            <button type="button" class="stay-filter-btn" data-stay-filter="serviced-airbnb">🏢 Somerset / Citadines &amp; Airbnb</button>
+            <button type="button" class="stay-filter-btn" data-stay-filter="value-under-750">💚 Under 750 DKK/n</button>
+            <button type="button" class="stay-filter-btn" data-stay-filter="flagship">💎 5★ Flagships</button>
+          </div>
+        </div>
+      </div>
+
       {DESTINATION_HUBS.map((hub, idx) => (
         <div
           class={`hub-spotlight-panel ${idx === 0 ? 'active' : ''}`}
@@ -1453,72 +1748,85 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           <!-- 6+ Curated 4-5 Star Hotels Closest to Landmarks -->
           <div class="section-header-row" style="margin-top:0.2rem; margin-bottom:0.1rem;">
             <h3 style="font-family:var(--font-display);font-size:1.08rem;color:var(--capiz-cream);">
-              🏨 Top {hub.hotels.length} Curated 4–5★ Hotels Closest to {hub.name} Landmarks
+              🏨 Top {hub.hotels.length} Curated Hotels, Serviced Suites &amp; Airbnbs Closest to {hub.name} Landmarks
             </h3>
             <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--teal-glow);">
-              Tap ⭐ Shortlist to estimate trip lodging total
+              {hub.nights} Nights in Hub · Tap ⭐ Shortlist to customize budget
             </span>
           </div>
 
           <div class="hotels-grid">
-            {hub.hotels.map((hotel) => (
-              <article
-                class="hotel-card"
-                data-hub-id={hub.id}
-                data-nights={hub.nights}
-                data-rate-dkk={hotel.rateDkk}
-                data-lat={hotel.lat}
-                data-lng={hotel.lng}
-                data-hotel-name={hotel.name}
-              >
-                <div>
-                  <div class="hotel-card-header">
-                    <span class="option-badge">OPTION {hotel.rank} · {hotel.tier}</span>
-                    <span class="rate-pill price-convertible" data-dkk={hotel.rateDkk} data-suffix=" / night">{hotel.rateDkk.toLocaleString()} DKK / night</span>
+            {hub.hotels.map((hotel) => {
+              const tierClass = hotel.tier === 'Luxury Airbnb'
+                ? 'tier-tag-airbnb'
+                : (hotel.tier === '4-Star Serviced' ? 'tier-tag-serviced' : '');
+              const hubSubtotalDkk = hotel.rateDkk * hub.nights;
+              return (
+                <article
+                  class="hotel-card"
+                  data-hub-id={hub.id}
+                  data-nights={hub.nights}
+                  data-rate-dkk={hotel.rateDkk}
+                  data-tier={hotel.tier}
+                  data-budget-band={hotel.budgetBand}
+                  data-lat={hotel.lat}
+                  data-lng={hotel.lng}
+                  data-hotel-name={hotel.name}
+                >
+                  <div>
+                    <div class="hotel-card-header">
+                      <span class={`option-badge ${tierClass}`}>OPTION {hotel.rank} · {hotel.tier}</span>
+                      <span class="rate-pill price-convertible" data-dkk={hotel.rateDkk} data-suffix=" / night">{hotel.rateDkk.toLocaleString()} DKK / night</span>
+                    </div>
+                    <h4 class="hotel-name" style="margin-top:0.42rem;">{hotel.name}</h4>
+                    <div class="stars-line" style="display:flex;justify-content:space-between;align-items:center;gap:0.4rem;">
+                      <span>{hotel.stars}</span>
+                      <span class="price-convertible" data-dkk={hubSubtotalDkk} data-suffix={` (${hub.nights}N)`} style="color:#94a3b8;font-size:0.68rem;">
+                        {hubSubtotalDkk.toLocaleString()} DKK ({hub.nights}N)
+                      </span>
+                    </div>
+
+                    <div class="proximity-box" style="margin-top:0.5rem;">
+                      <strong>📍 Closest Landmark ({hotel.distance})</strong>
+                      <span>{hotel.landmark}</span>
+                    </div>
+
+                    <p class="hotel-highlight" style="margin-top:0.45rem;">{hotel.highlight}</p>
                   </div>
-                  <h4 class="hotel-name" style="margin-top:0.42rem;">{hotel.name}</h4>
-                  <div class="stars-line">{hotel.stars}</div>
 
-                  <div class="proximity-box" style="margin-top:0.5rem;">
-                    <strong>📍 Closest Landmark ({hotel.distance})</strong>
-                    <span>{hotel.landmark}</span>
-                  </div>
-
-                  <p class="hotel-highlight" style="margin-top:0.45rem;">{hotel.highlight}</p>
-                </div>
-
-                <div class="hotel-card-footer">
-                  <div style="display:flex;gap:0.35rem;">
-                    <button
-                      type="button"
-                      class="locate-pin-btn"
-                      data-lat={hotel.lat}
-                      data-lng={hotel.lng}
+                  <div class="hotel-card-footer">
+                    <div style="display:flex;gap:0.35rem;">
+                      <button
+                        type="button"
+                        class="locate-pin-btn"
+                        data-lat={hotel.lat}
+                        data-lng={hotel.lng}
+                      >
+                        📍 Map Pin
+                      </button>
+                      <button
+                        type="button"
+                        class="shortlist-btn"
+                        data-hub-id={hub.id}
+                        data-hotel-name={hotel.name}
+                        data-rate-dkk={hotel.rateDkk}
+                        data-nights={hub.nights}
+                      >
+                        ⭐ Shortlist
+                      </button>
+                    </div>
+                    <a
+                      href={hotel.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="hotel-book-btn"
                     >
-                      📍 Map Pin
-                    </button>
-                    <button
-                      type="button"
-                      class="shortlist-btn"
-                      data-hub-id={hub.id}
-                      data-hotel-name={hotel.name}
-                      data-rate-dkk={hotel.rateDkk}
-                      data-nights={hub.nights}
-                    >
-                      ⭐ Shortlist
-                    </button>
+                      Book Stay ↗
+                    </a>
                   </div>
-                  <a
-                    href={hotel.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="hotel-book-btn"
-                  >
-                    Book Hotel ↗
-                  </a>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
 
           <!-- Curated Specialty Coffee, Casual Lunch & Destination Dinner per Hub -->
@@ -1802,10 +2110,12 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
         hub.hotels.forEach((hotel) => {
           const isFiveStar = hotel.stars.includes('5★');
-          const bgColor = isFiveStar ? '#facc15' : '#14b8a6';
+          const bgColor = hotel.tier === 'Luxury Airbnb'
+            ? '#c084fc'
+            : (hotel.tier === '4-Star Serviced' ? '#38bdf8' : (isFiveStar ? '#facc15' : '#14b8a6'));
           const icon = L.divIcon({
             className: 'custom-pin-marker',
-            html: `<div style="width:26px;height:26px;border-radius:50%;background:${bgColor};color:#051117;display:grid;place-items:center;font-weight:800;font-size:11px;border:2px solid #fff;">H${hotel.rank}</div>`,
+            html: `<div style="width:26px;height:26px;border-radius:50%;background:${bgColor};color:#051117;display:grid;place-items:center;font-weight:800;font-size:10px;border:2px solid #fff;">H${hotel.rank}</div>`,
             iconSize: [26, 26],
             iconAnchor: [13, 13]
           });
@@ -1973,27 +2283,133 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         });
       });
 
-      // 5. Interactive Hotel Shortlist & Trip Lodging Estimator
-      const shortlistedByHub = JSON.parse(localStorage.getItem('kapuluan_shortlist') || '{}');
-      // Default to Option 1 in each hub if none shortlisted yet
-      if (Object.keys(shortlistedByHub).length === 0) {
+      // 5. Interactive Hotel Shortlist, 25k-30k DKK Budget Presets & Stay Filter Engine
+      const budgetPresets = {
+        'target-somerset': {
+          'makati-bgc': 7,     // Somerset Central Salcedo Makati (780 DKK/n × 8N = 6,240 DKK)
+          'manila-bay': 3,     // Admiral Hotel Manila - MGallery (920 DKK/n × 2N = 1,840 DKK)
+          'clark': 3,          // Hilton Clark Sun Valley Resort (950 DKK/n × 1N = 950 DKK)
+          'coron': 1,          // Paolyn Houseboats Coron Island (1,340 DKK/n × 5N = 6,700 DKK)
+          'el-nido': 4,        // Cadlao Resort & Restaurant (1,080 DKK/n × 6N = 6,480 DKK)
+          'cebu-mactan': 1,    // Fili Hotel at NUSTAR Cebu (890 DKK/n × 3N = 2,670 DKK)
+          'bohol-siquijor': 4  // Coco Grove Beach Resort, Siquijor (890 DKK/n × 4N = 3,560 DKK) -> Total = 28,440 DKK
+        },
+        'target-citadines': {
+          'makati-bgc': 6,     // Citadines Salcedo Makati (740 DKK/n × 8N = 5,920 DKK)
+          'manila-bay': 3,     // Admiral Hotel Manila - MGallery (920 DKK/n × 2N = 1,840 DKK)
+          'clark': 3,          // Hilton Clark Sun Valley Resort (950 DKK/n × 1N = 950 DKK)
+          'coron': 4,          // The Funny Lion - Coron (890 DKK/n × 5N = 4,450 DKK)
+          'el-nido': 4,        // Cadlao Resort & Restaurant (1,080 DKK/n × 6N = 6,480 DKK)
+          'cebu-mactan': 1,    // Fili Hotel at NUSTAR Cebu (890 DKK/n × 3N = 2,670 DKK)
+          'bohol-siquijor': 4  // Coco Grove Beach Resort, Siquijor (890 DKK/n × 4N = 3,560 DKK) -> Total = 25,870 DKK
+        },
+        'value-airbnb': {
+          'makati-bgc': 4,     // Airbnb: Paseo Parkview Suites / The Ellis (490 DKK/n × 8N = 3,920 DKK)
+          'manila-bay': 6,     // Airbnb: Shore 2/3 Luxury Bayfront Balcony Suite (390 DKK/n × 2N = 780 DKK)
+          'clark': 5,          // Park Inn by Radisson Clark (680 DKK/n × 1N = 680 DKK)
+          'coron': 5,          // Bacau Bay Resort Coron (760 DKK/n × 5N = 3,800 DKK)
+          'el-nido': 5,        // Huni Lio / Piece Lio Boutique Hotel (820 DKK/n × 6N = 4,920 DKK)
+          'cebu-mactan': 3,    // Marco Polo Plaza Cebu (690 DKK/n × 3N = 2,070 DKK)
+          'bohol-siquijor': 6  // White Villas Resort, Siquijor (650 DKK/n × 4N = 2,600 DKK) -> Total = 18,770 DKK
+        },
+        'flagship-51k': {
+          'makati-bgc': 1,     // The Peninsula Manila (1,450 DKK/n × 8N = 11,600 DKK)
+          'manila-bay': 1,     // The Manila Hotel (980 DKK/n × 2N = 1,960 DKK)
+          'clark': 1,          // Clark Marriott Hotel (1,205 DKK/n × 1N = 1,205 DKK)
+          'coron': 3,          // Club Paradise Palawan (1,650 DKK/n × 5N = 8,250 DKK)
+          'el-nido': 1,        // Pangulasian Island Resort (3,350 DKK/n × 6N = 20,100 DKK)
+          'cebu-mactan': 1,    // Fili Hotel at NUSTAR Cebu (890 DKK/n × 3N = 2,670 DKK)
+          'bohol-siquijor': 1  // Amorita Resort, Panglao Bohol (1,320 DKK/n × 4N = 5,280 DKK) -> Total = 51,065 DKK
+        }
+      };
+
+      const shortlistedByHub = JSON.parse(localStorage.getItem('kapuluan_shortlist_v2') || '{}');
+
+      function applyPresetSelection(presetKey) {
+        const presetMap = budgetPresets[presetKey] || budgetPresets['target-somerset'];
         hubsData.forEach((h) => {
+          const targetRank = presetMap[h.id] || 1;
+          const chosen = h.hotels.find((ht) => ht.rank === targetRank) || h.hotels[0];
           shortlistedByHub[h.id] = {
-            name: h.hotels[0].name,
-            rateDkk: h.hotels[0].rateDkk,
+            name: chosen.name,
+            rateDkk: chosen.rateDkk,
             nights: h.nights
           };
         });
+        localStorage.setItem('kapuluan_shortlist_v2', JSON.stringify(shortlistedByHub));
+        document.querySelectorAll('.preset-btn').forEach((b) => {
+          b.classList.toggle('active', b.getAttribute('data-preset') === presetKey);
+        });
+        updateShortlistSummary();
+      }
+
+      if (Object.keys(shortlistedByHub).length === 0) {
+        applyPresetSelection('target-somerset');
       }
 
       function updateShortlistSummary() {
         let totalDkk = 0;
-        Object.values(shortlistedByHub).forEach((item) => {
-          totalDkk += (item.rateDkk || 0) * (item.nights || 1);
+        const breakdownGrid = document.getElementById('hub-breakdown-grid');
+        if (breakdownGrid) breakdownGrid.innerHTML = '';
+
+        hubsData.forEach((h) => {
+          const item = shortlistedByHub[h.id] || {
+            name: h.hotels[0].name,
+            rateDkk: h.hotels[0].rateDkk,
+            nights: h.nights
+          };
+          const subDkk = (item.rateDkk || 0) * (item.nights || 1);
+          totalDkk += subDkk;
+
+          if (breakdownGrid) {
+            const div = document.createElement('div');
+            div.className = 'hub-mini-summary';
+            div.innerHTML = `
+              <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#5eead4;font-weight:700;">
+                <span>H${h.number} (${h.nights}N)</span>
+                <span style="color:#facc15;">${formatCurrency(subDkk, currentCurr)}</span>
+              </div>
+              <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#f8fafc;font-weight:600;margin-top:2px;" title="${item.name}">
+                ${item.name}
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:#94a3b8;">
+                ${formatCurrency(item.rateDkk, currentCurr)} / night
+              </div>
+            `;
+            div.addEventListener('click', () => activateHub(h.id, true));
+            breakdownGrid.appendChild(div);
+          }
         });
+
         const badge = document.getElementById('shortlist-total-badge');
         if (badge) {
           badge.textContent = `${formatCurrency(totalDkk, currentCurr)} (29N)`;
+        }
+
+        const meterTotal = document.getElementById('meter-current-total');
+        if (meterTotal) {
+          meterTotal.textContent = `${formatCurrency(totalDkk, currentCurr)} (29N)`;
+        }
+
+        const fillEl = document.getElementById('budget-bar-fill');
+        if (fillEl) {
+          const pct = Math.min(100, Math.max(8, Math.round((totalDkk / 55000) * 100)));
+          fillEl.style.width = `${pct}%`;
+        }
+
+        const statusPill = document.getElementById('budget-status-indicator');
+        if (statusPill) {
+          if (totalDkk >= 25000 && totalDkk <= 30000) {
+            statusPill.className = 'budget-status-pill';
+            statusPill.textContent = `🎯 Inside 25k–30k DKK Target (${formatCurrency(totalDkk, currentCurr)})`;
+          } else if (totalDkk < 25000) {
+            statusPill.className = 'budget-status-pill';
+            statusPill.textContent = `💚 Under 25k DKK Value Zone (${formatCurrency(totalDkk, currentCurr)})`;
+          } else {
+            statusPill.className = 'budget-status-pill over-target';
+            const diff = totalDkk - 30000;
+            statusPill.textContent = `💎 +${formatCurrency(diff, currentCurr)} Above 30k Target`;
+          }
         }
 
         document.querySelectorAll('.shortlist-btn').forEach((btn) => {
@@ -2007,6 +2423,13 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         });
       }
 
+      document.querySelectorAll('.preset-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const presetKey = btn.getAttribute('data-preset');
+          if (presetKey) applyPresetSelection(presetKey);
+        });
+      });
+
       document.querySelectorAll('.shortlist-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
           const hubId = btn.getAttribute('data-hub-id');
@@ -2014,10 +2437,50 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           const rateDkk = parseFloat(btn.getAttribute('data-rate-dkk'));
           const nights = parseInt(btn.getAttribute('data-nights'), 10);
           shortlistedByHub[hubId] = { name, rateDkk, nights };
-          localStorage.setItem('kapuluan_shortlist', JSON.stringify(shortlistedByHub));
+          localStorage.setItem('kapuluan_shortlist_v2', JSON.stringify(shortlistedByHub));
+          document.querySelectorAll('.preset-btn').forEach((b) => b.classList.remove('active'));
           updateShortlistSummary();
         });
       });
+
+      // Filter Hotel Cards & Map Pins by Budget Tier / Somerset / Airbnb
+      document.querySelectorAll('.stay-filter-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.stay-filter-btn').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          const mode = btn.getAttribute('data-stay-filter') || 'all';
+
+          document.querySelectorAll('.hotel-card').forEach((card) => {
+            const rate = parseFloat(card.getAttribute('data-rate-dkk') || '0');
+            const tier = card.getAttribute('data-tier') || '';
+            const band = card.getAttribute('data-budget-band') || '';
+            const lat = card.getAttribute('data-lat');
+            const lng = card.getAttribute('data-lng');
+            const marker = hotelMarkersByCoord[`${lat},${lng}`];
+
+            let show = true;
+            if (mode === 'under-1100') {
+              show = rate <= 1100;
+            } else if (mode === 'serviced-airbnb') {
+              show = tier === '4-Star Serviced' || tier === 'Luxury Airbnb';
+            } else if (mode === 'value-under-750') {
+              show = rate <= 750;
+            } else if (mode === 'flagship') {
+              show = band === 'flagship' || tier === '5-Star Flagship';
+            }
+
+            card.classList.toggle('filtered-out', !show);
+            if (marker) {
+              if (show) {
+                if (!hotelMarkersLayer.hasLayer(marker)) hotelMarkersLayer.addLayer(marker);
+              } else {
+                if (hotelMarkersLayer.hasLayer(marker)) hotelMarkersLayer.removeLayer(marker);
+              }
+            }
+          });
+        });
+      });
+
       updateShortlistSummary();
 
       // 6. 32-Day Itinerary Filter & Row Click
