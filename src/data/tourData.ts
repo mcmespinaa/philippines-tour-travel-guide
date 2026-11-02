@@ -404,7 +404,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Ayala Triangle Gardens & Blackbird Nielson Tower',
         distance: '80m walk (directly across Ayala Ave & Makati Ave)',
         rateDkk: 1450,
-        url: 'https://www.peninsula.com/en/manila',
+        url: 'https://www.hotels.com/Hotel-Search?destination=The+Peninsula+Manila+Philippines',
         lat: 14.5548,
         lng: 121.0266,
         highlight: 'Literally across the crosswalk from Ayala Triangle Gardens & Blackbird; iconic lobby string orchestra.'
@@ -418,7 +418,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Ayala Triangle Gardens South & Glorietta',
         distance: '180m walk across Ayala Avenue',
         rateDkk: 1050,
-        url: 'https://www.discoveryprimea.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Discovery+Primea+Makati+Philippines',
         lat: 14.5516,
         lng: 121.0282,
         highlight: 'Quiet luxury along Ayala Ave with heated infinity pool & huge residential suites.'
@@ -432,7 +432,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Ayala Museum, Greenbelt & Ayala Triangle',
         distance: '220m covered garden walk',
         rateDkk: 1750,
-        url: 'https://www.raffles.com/makati/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Raffles+Makati+Philippines',
         lat: 14.5504,
         lng: 121.0246,
         highlight: 'Ultra-serene all-suite sanctuary with Writers Bar & Long Bar right beside Greenbelt.'
@@ -446,7 +446,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Ayala Triangle North Gate & Salcedo Saturday Market',
         distance: '140m walk (2 mins to Ayala Triangle & Blackbird)',
         rateDkk: 490,
-        url: 'https://www.airbnb.com/s/Salcedo-Village--Makati--Philippines/homes',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Paseo+Parkview+Suites+/+The+Ellis+Philippines',
         lat: 14.5588,
         lng: 121.0238,
         highlight: 'Steps from Ayala Triangle along Valero/Sedeño St & right beside Salcedo Weekend Market; washer/dryer & kitchen.'
@@ -460,7 +460,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Ayala Triangle Gardens (Valero St Entrance)',
         distance: '200m walk (2–3 mins behind Ayala Ave towers)',
         rateDkk: 460,
-        url: 'https://www.swiss-belhotel.com/en-gb/valero-grand-suites-by-swiss-belhotel',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Valero+Grand+Suites+by+Swiss-Belhotel+Philippines',
         lat: 14.5582,
         lng: 121.0229,
         highlight: 'One of the closest physical buildings to Ayala Triangle; spacious suites in quiet Salcedo Village.'
@@ -474,7 +474,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Ayala Triangle Gardens & Jaime Velasquez Park',
         distance: '380m tree-lined walk (4 mins down Valero St)',
         rateDkk: 740,
-        url: 'https://www.discoverasr.com/en/citadines/philippines/citadines-salcedo-makati',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Citadines+Salcedo+Makati+Philippines',
         lat: 14.5602,
         lng: 121.0214,
         highlight: 'Sister brand to Somerset: full kitchen, washer/dryer, lap pool & 4-min walk to Ayala Triangle.'
@@ -488,7 +488,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Ayala Triangle Gardens & Salcedo Park',
         distance: '480m walk (6 mins along HV Dela Costa St)',
         rateDkk: 780,
-        url: 'https://www.discoverasr.com/en/somerset-serviced-residence/philippines/somerset-central-salcedo-makati',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Somerset+Central+Salcedo+Makati+Philippines',
         lat: 14.5614,
         lng: 121.0205,
         highlight: 'Brand-new Somerset property in Salcedo Village with rooftop pool & third-wave coffee downstairs.'
@@ -502,7 +502,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Greenbelt Pavilions, Ayala Museum & Ayala Triangle',
         distance: '320m covered walk to Ayala Triangle via Greenbelt',
         rateDkk: 680,
-        url: 'https://www.airbnb.com/s/Legazpi-Village--Makati--Philippines/homes',
+        url: 'https://www.hotels.com/Hotel-Search?destination=The+Residences+at+Greenbelt+—+TRAG+Philippines',
         lat: 14.5508,
         lng: 121.0212,
         highlight: 'Makati’s #1 luxury Airbnb tower: huge 70sqm 1-bedroom layouts, resort pool & direct Greenbelt skybridge.'
@@ -516,7 +516,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Ayala Museum, Greenbelt & Ayala Triangle',
         distance: '550m walk through Legazpi Village (7 mins)',
         rateDkk: 610,
-        url: 'https://www.discoverasr.com/en/somerset-serviced-residence/philippines/somerset-millennium-makati',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Somerset+Millennium+Makati+Philippines',
         lat: 14.5522,
         lng: 121.0185,
         highlight: 'Located on Aguirre St in Legazpi Village surrounded by Yardstick Coffee & artisan bistros.'
@@ -530,7 +530,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Legazpi Active Park, Ayala Museum & Ayala Triangle',
         distance: '450m walk along Palanca / Gamboa St (5 mins)',
         rateDkk: 440,
-        url: 'https://www.airbnb.com/s/Legazpi-Village--Makati--Philippines/homes',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Greenbelt+Hamilton+/+KL+Tower+Serviced+Residences+Philippines',
         lat: 14.5542,
         lng: 121.0178,
         highlight: 'Incredible value in the most walkable coffee & dining pocket of Legazpi Village.'
@@ -544,7 +544,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Ayala Avenue North & Ayala Triangle',
         distance: '390m walk straight down Ayala Ave (5 mins)',
         rateDkk: 750,
-        url: 'https://makatiresidences.sedahotels.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Seda+Residences+Makati+Philippines',
         lat: 14.5594,
         lng: 121.0182,
         highlight: '35th-floor Straight Up rooftop bar overlooking Ayala Ave & kitchenette king studios.'
@@ -558,7 +558,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Bonifacio High Street & BGC Supercar Showrooms',
         distance: '50m step-out onto High Street (10m drive to Ayala Triangle)',
         rateDkk: 1675,
-        url: 'https://www.shangri-la.com/en/manila/shangrilathefort/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Shangri-La+The+Fort,+Manila+Philippines',
         lat: 14.5523,
         lng: 121.0468,
         highlight: 'Best for Dec 4–6 finale nights right on Bonifacio High Street for Wednesday supercar meets.'
@@ -604,7 +604,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Intramuros Walls & Rizal Park / Manila Bay',
         distance: '250m from Intramuros Gate',
         rateDkk: 980,
-        url: 'https://www.manilahotel.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=The+Manila+Hotel+Philippines',
         lat: 14.5832,
         lng: 120.9736,
         highlight: '1912 historic icon with Champagne Room, sunset bay pier & heritage museum.'
@@ -618,7 +618,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Manila Bay Esplanade & Shore Residences',
         distance: '80m direct waterfront boardwalk',
         rateDkk: 1380,
-        url: 'https://www.hilton.com/en/hotels/mnlmbci-conrad-manila/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Conrad+Manila+Philippines',
         lat: 14.5318,
         lng: 120.9794,
         highlight: 'C Lounge veranda boasts the most unobstructed sunset view over Manila Bay.'
@@ -632,7 +632,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Roxas Boulevard & Manila Yacht Club',
         distance: '100m across from Yacht Basin',
         rateDkk: 920,
-        url: 'https://all.accor.com/hotel/B9C6/index.en.shtml',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Admiral+Hotel+Manila+-+MGallery+Philippines',
         lat: 14.5648,
         lng: 120.9852,
         highlight: 'Filipino-Spanish Golden Age boutique aesthetic with rooftop catwalk pool.'
@@ -646,7 +646,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Manila Bay Shore Residences & Esplanade',
         distance: '200m walk along Bay Blvd',
         rateDkk: 880,
-        url: 'https://lansonplace.com/mallofasia/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Lanson+Place+Mall+of+Asia+Manila+Philippines',
         lat: 14.5332,
         lng: 120.9799,
         highlight: 'Brand-new quiet bayfront serviced apartments with rooftop infinity edge pool.'
@@ -660,7 +660,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'San Agustin Church & Baluarte de San Diego',
         distance: 'Inside Intramuros Walls (250m walk)',
         rateDkk: 580,
-        url: 'https://www.thebayleaf.com.ph/intramuros/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=The+Bayleaf+Intramuros+Philippines',
         lat: 14.5881,
         lng: 120.9788,
         highlight: '9 Spoons & Sky Deck rooftop overlooking the 16th-century Intramuros ramparts.'
@@ -674,7 +674,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Manila Bay Esplanade (Exact Day 6–7 Itinerary Base)',
         distance: '0m — Directly inside Manila Bay Shore Residences',
         rateDkk: 390,
-        url: 'https://www.airbnb.com/s/Shore-Residences--Pasay--Philippines/homes',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Shore+2+/+Shore+3+Luxury+Bayfront+Balcony+Suite+Philippines',
         lat: 14.5365,
         lng: 120.9822,
         highlight: 'Matches your exact Nov 13–14 "Manila Bay Shore Residences" itinerary stop at a fraction of hotel cost.'
@@ -719,7 +719,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Clark International Speedway & CRK Terminal',
         distance: '8 min drive to CRK / 10 min to Speedway',
         rateDkk: 1205,
-        url: 'https://www.marriott.com/en-us/hotels/crkmc-clark-marriott-hotel/overview/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Swiss%C3%B4tel+Clark+Philippines+Philippines',
         lat: 15.1862,
         lng: 120.5284,
         highlight: 'Highest-rated 5-star in Pampanga with Smoki Moto & Quan Spa.'
@@ -733,7 +733,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Clark Parade Grounds & Speedway Approach',
         distance: '9 min drive to Clark Speedway',
         rateDkk: 1120,
-        url: 'https://www.swissotel.com/hotels/clark/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Swissôtel+Clark+Philippines+Philippines',
         lat: 15.1874,
         lng: 120.5278,
         highlight: 'Floor-to-ceiling Zambales mountain views and Pürovel Spa recovery.'
@@ -747,7 +747,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Clark International Speedway Paddock',
         distance: '7 min scenic drive along hillside ridge',
         rateDkk: 950,
-        url: 'https://www.hilton.com/en/hotels/crksvhi-hilton-clark-sun-valley-resort/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Hilton+Clark+Sun+Valley+Resort+Philippines',
         lat: 15.1995,
         lng: 120.5065,
         highlight: 'Closest 5-star resort to Clark International Speedway with quiet green views.'
@@ -761,7 +761,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Clark Museum & Parade Grounds',
         distance: '400m from Clark Green Loop',
         rateDkk: 805,
-        url: 'https://www.midorihotel.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Midori+Clark+Hotel+and+Casino+Philippines',
         lat: 15.1822,
         lng: 120.5198,
         highlight: 'Lush botanical architecture and serene outdoor pool surrounded by mature acacia trees.'
@@ -775,7 +775,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'SM City Clark & NLEX Clark Spur Exit',
         distance: '10 min to CRK Airport',
         rateDkk: 680,
-        url: 'https://www.radissonhotels.com/en-us/hotels/park-inn-clark',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Park+Inn+by+Radisson+Clark+Philippines',
         lat: 15.1684,
         lng: 120.5802,
         highlight: 'Smart contemporary rooms ideal for an effortless overnight before morning flight.'
@@ -789,7 +789,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Mimosa Plus Golf Course & Clark Parade Grounds',
         distance: '9 min drive to Clark Speedway & CRK',
         rateDkk: 620,
-        url: 'https://www.questhotelsandresorts.com/clark/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Quest+Plus+Conference+Center,+Clark+Philippines',
         lat: 15.1765,
         lng: 120.5312,
         highlight: 'Set inside lush Mimosa acacia parklands with Charley’s Bar & pool villas.'
@@ -834,7 +834,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Twin Lagoon & Kayangan Lake (Coron Island)',
         distance: '0m — Anchored directly inside private turquoise lagoon',
         rateDkk: 1340,
-        url: 'https://www.paolynhouseboats.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Two+Seasons+Coron+Island+Resort+Philippines',
         lat: 11.9612,
         lng: 120.2115,
         highlight: 'Your signature Coron stay: kayak straight from your bedroom deck into Twin Lagoon before dayboats arrive.'
@@ -848,7 +848,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Kayangan Lake & Barracuda Lake',
         distance: '15 min private speedboat across Coron Bay',
         rateDkk: 2345,
-        url: 'https://www.twoseasonsresorts.com/coron/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Two+Seasons+Coron+Island+Resort+Philippines',
         lat: 11.7985,
         lng: 120.2512,
         highlight: 'Dual-beach sandbar peninsula with transparent bottom kayaks and house reef.'
@@ -862,7 +862,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Dimakya Island Turtle Sanctuary & USU Airport',
         distance: '30 min car + boat from Busuanga USU Airport',
         rateDkk: 1650,
-        url: 'https://www.clubparadisepalawan.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Club+Paradise+Palawan+Philippines',
         lat: 12.2356,
         lng: 120.0918,
         highlight: 'UNESCO Biosphere private island with resident sea turtles and sunset sandbar.'
@@ -876,7 +876,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Coron Town Pier & Tao Expedition Launch',
         distance: '5 min transfer to Tao Expedition Pier & Kayangan boats',
         rateDkk: 890,
-        url: 'https://www.thefunnylion.com/coron-palawan/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=The+Funny+Lion+-+Coron+Philippines',
         lat: 12.0038,
         lng: 120.1912,
         highlight: 'Pride Rock rooftop plunge tubs watching sunset over mangrove bay; effortless for morning Tao boarding.'
@@ -890,7 +890,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Coron Harbour & Maquinit Hot Springs Road',
         distance: '1.5 km from Coron Town Boat Dock',
         rateDkk: 760,
-        url: 'https://www.bacaubayresortcoron.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Bacau+Bay+Resort+Coron+Philippines',
         lat: 12.0019,
         lng: 120.1945,
         highlight: 'Private jetty for island-hopping departures and tranquil pool lounge.'
@@ -904,7 +904,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Coron Seaport & Tao Philippines Pier',
         distance: '300m from Coron Harbour boat launch',
         rateDkk: 790,
-        url: 'https://www.twoseasonsresorts.com/bayside/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Two+Seasons+Coron+Bayside+Hotel+Philippines',
         lat: 11.9942,
         lng: 120.1982,
         highlight: 'Infinity pool directly overlooking Coron Bay with private pier for early Kayangan Lake banca launch.'
@@ -950,7 +950,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Big Lagoon & Secret Lagoon (Bacuit Bay)',
         distance: '8 min private speedboat to Big Lagoon',
         rateDkk: 3350,
-        url: 'https://www.elnidoresorts.com/pangulasian-island/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Cauayan+Island+Resort+Philippines',
         lat: 11.1156,
         lng: 119.3302,
         highlight: 'The "Island of the Sun" with canopy villas and private sunset catamaran cruises.'
@@ -964,7 +964,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Cadlao Lagoon & Helicopter Island',
         distance: '10 min boat to Helicopter Island & Secret Beach',
         rateDkk: 2345,
-        url: 'https://www.cauayanresort.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Cauayan+Island+Resort+Philippines',
         lat: 11.2012,
         lng: 119.3425,
         highlight: 'Dramatic limestone cliff backdrop with water villas and infinity pool.'
@@ -978,7 +978,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Lio Beach & El Nido Lio Airport (ENI)',
         distance: '0m on 4km Lio Beach · 3 min free shuttle to ENI Airport',
         rateDkk: 1550,
-        url: 'https://lio.sedahotels.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Seda+Lio+Beach+Resort+Philippines',
         lat: 11.2035,
         lng: 119.4135,
         highlight: 'Flagship resort of Ayala’s 325-hectare Lio Estate (~₱13,000/n): huge pool, spa villas & direct Lio Beach boat pier.'
@@ -992,7 +992,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Caalan Beach facing Cadlao Island Monolith',
         distance: '800m beachfront stroll to El Nido Town',
         rateDkk: 1080,
-        url: 'https://cadlaoresort.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Cadlao+Resort+&+Restaurant+Philippines',
         lat: 11.1885,
         lng: 119.3878,
         highlight: 'Matches your Day 14–15 Cadlao cliffside boutique itinerary highlight; twin infinity pools facing Bacuit Bay.'
@@ -1006,7 +1006,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Las Cabañas / Maremegmeg Sunset Beach',
         distance: '0m — Directly on the sand at Las Cabañas Beach',
         rateDkk: 1150,
-        url: 'https://www.mbcelnido.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Maremegmeg+Beach+Club+—+MBC+Philippines',
         lat: 11.1458,
         lng: 119.3948,
         highlight: 'The most upscale modern boutique hotel right on Las Cabañas Beach (~₱9,600/n) with private infinity pool & beach club.'
@@ -1020,7 +1020,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Las Cabañas Sunset Point & Depeldet Sandbar',
         distance: '0m — At the western sunset tip of Las Cabañas Beach',
         rateDkk: 1050,
-        url: 'https://www.lascabanasbeachresort.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Las+Cabañas+Beach+Resort+Philippines',
         lat: 11.1422,
         lng: 119.3918,
         highlight: 'The original namesake resort on the quietest tip of Las Cabañas (~₱8,800/n); step off your veranda into sunset waters.'
@@ -1034,7 +1034,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Lio Beach Promenade & Kalye Artisano',
         distance: '150m walk to Lio Beach · 3 min free shuttle to ENI Airport',
         rateDkk: 950,
-        url: 'https://www.piecelio.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Piece+Lio+Philippines',
         lat: 11.2012,
         lng: 119.4142,
         highlight: 'MICHELIN Guide selected minimalist design hotel (~₱8,000/n) with loft suites, courtyard pool & tranquil forest-beach vibe.'
@@ -1048,7 +1048,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Lio Beach Pier & Promenade',
         distance: '50m to Lio Beach sand & boat pier · 3 min to ENI Airport',
         rateDkk: 890,
-        url: 'https://hunilio.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Huni+Lio+Philippines',
         lat: 11.2018,
         lng: 119.4122,
         highlight: 'Modern Filipino beachfront sanctuary (~₱7,500/n) with pool bar and free airport transfers inside Lio Estate.'
@@ -1062,7 +1062,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Lio Beach Dining Strip & Boat Pier',
         distance: '40m to Lio Beach & restaurants · 3 min to ENI Airport',
         rateDkk: 820,
-        url: 'https://www.liobeach.com/stay/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Balai+Adlao+/+Isla+Amara+Philippines',
         lat: 11.2024,
         lng: 119.4128,
         highlight: 'Best value inside Lio Tourism Estate (~₱6,850/n incl. breakfast & airport shuttle) steps from the beach.'
@@ -1076,7 +1076,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Las Cabañas Beach & Corong-Corong Sunset Bay',
         distance: '300m hillside above Las Cabañas Beach (free buggy shuttle)',
         rateDkk: 880,
-        url: 'https://www.airbnb.com/s/Corong-Corong--El-Nido--Philippines/homes',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Karuna+El+Nido+Villas+/+Sunset+Cliff+Airbnb+Philippines',
         lat: 11.1512,
         lng: 119.3962,
         highlight: 'Famous hillside infinity pool & spacious 1BR glass-front apartments (~₱7,400/n) with jaw-dropping Bacuit Bay sunsets.'
@@ -1090,7 +1090,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'El Nido Beach & Tao Expedition Arrival Pier',
         distance: '50m from Boat Tour Departure Beach',
         rateDkk: 720,
-        url: 'https://www.hhotel-elnido.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=H+Hotel+El+Nido+Philippines',
         lat: 11.1802,
         lng: 119.3872,
         highlight: 'Managed by H Hospitality (same group as Piece Lio); rooftop bar overlooking Cadlao cliffs right where Tao Paraw lands.'
@@ -1136,7 +1136,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'CCLEX Bridge Landing & Santo Niño Heritage Quarter',
         distance: '500m from CCLEX Ramp / 8 min to Magellan’s Cross',
         rateDkk: 890,
-        url: 'https://nustar.ph/hotels/fili/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Shangri-La+Mactan%2C+Cebu+Philippines',
         lat: 10.2642,
         lng: 123.8805,
         highlight: 'Brand-new 5-star waterfront icon directly overlooking the CCLEX Bridge at an exceptional rate.'
@@ -1150,7 +1150,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Punta Engaño Marine Sanctuary & MCIA Airport',
         distance: '18 min drive to Mactan-Cebu Airport (CEB)',
         rateDkk: 1580,
-        url: 'https://www.shangri-la.com/en/cebu/mactanresort/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Shangri-La+Mactan,+Cebu+Philippines',
         lat: 10.3078,
         lng: 124.0218,
         highlight: '6-hectare private marine sanctuary, CHI The Spa village & Cowrie Cove seafood.'
@@ -1164,7 +1164,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Cebu Transcentral Highway & Tops Lookout',
         distance: '0 km — Right at the Nivel Hills start of Transcentral Hwy',
         rateDkk: 690,
-        url: 'https://www.marcopolohotels.com/en/marco-polo-plaza-cebu/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Marco+Polo+Plaza+Cebu+Philippines',
         lat: 10.3418,
         lng: 123.8962,
         highlight: 'Perched 600ft in Nivel Hills—pull out of the driveway straight onto the mountain pass.'
@@ -1178,7 +1178,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Punta Engaño North Peninsula (Sunset Facing)',
         distance: '20 min to MCIA Airport Terminal',
         rateDkk: 790,
-        url: 'https://www.dusit.com/dusitthani-mactancebu/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Dusit+Thani+Mactan+Cebu+Resort+Philippines',
         lat: 10.3245,
         lng: 124.0352,
         highlight: '100-meter infinity pool facing northwest for dramatic Magellan Bay sunsets.'
@@ -1192,7 +1192,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Cebu Pier 1 (Bohol Ferry) & Basilica del Santo Niño',
         distance: '5 min drive to OceanJet Bohol Ferry Pier 1',
         rateDkk: 680,
-        url: 'https://www.radissonhotels.com/en-us/hotels/radisson-blu-cebu',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Radisson+Blu+Cebu+Philippines',
         lat: 10.3102,
         lng: 123.9185,
         highlight: 'Unbeatable logistics for morning fast-ferry transfer to Bohol and Old Cebu sights.'
@@ -1206,7 +1206,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Cebu Business Park & Transcentral Approach',
         distance: '10 min to Transcentral Hwy foot & Pier 1',
         rateDkk: 590,
-        url: 'https://ayalacentercebu.sedahotels.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Seda+Ayala+Center+Cebu+Philippines',
         lat: 10.3182,
         lng: 123.9058,
         highlight: 'Walkable to Abaca Baking Company & lush garden pool in the heart of Cebu.'
@@ -1252,7 +1252,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Alona Beach Eastern Limestone Cliff & TAG Airport',
         distance: '8 min to Panglao TAG Airport / Overlooks Alona Bay',
         rateDkk: 1320,
-        url: 'https://www.amoritaresort.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Eskaya+Beach+Resort+and+Spa%2C+Bohol+Philippines',
         lat: 9.5488,
         lng: 123.7772,
         highlight: 'Small Luxury Hotels of the World member perched quietly on the cliff above Alona.'
@@ -1266,7 +1266,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Bolod / Tawala Coastline, Panglao Island',
         distance: '10 min to Panglao Airport & Bohol Coastal Road',
         rateDkk: 2850,
-        url: 'https://www.eskayaresort.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Eskaya+Beach+Resort+&+Spa,+Bohol+Philippines',
         lat: 9.5542,
         lng: 123.7985,
         highlight: 'Thatched luxury pool villas with private infinity pools and Handuraw cliff spa.'
@@ -1280,7 +1280,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Doljo Sunset Beach & Tagbilaran Causeway',
         distance: '18 min to Tagbilaran Fast Ferry Port',
         rateDkk: 980,
-        url: 'https://www.thebellevuebohol.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=The+Bellevue+Resort,+Panglao+Bohol+Philippines',
         lat: 9.5912,
         lng: 123.7245,
         highlight: 'Quiet Sunset side of Panglao away from crowds with private white-sand cove.'
@@ -1294,7 +1294,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Tubod Marine Sanctuary & San Juan Sunset Coast',
         distance: '15 min ride on Coastal Ring Road to Cambugahay Falls',
         rateDkk: 890,
-        url: 'https://www.cocogrovebeachresort.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Coco+Grove+Beach+Resort,+Siquijor+Philippines',
         lat: 9.1468,
         lng: 123.5112,
         highlight: 'Siquijor’s flagship luxury resort on an 800m beach bordering a protected coral reef.'
@@ -1308,7 +1308,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Bolod Beach & Bohol Coastal Road',
         distance: '10 min to TAG Airport / 35 min to Tarsier Sanctuary',
         rateDkk: 820,
-        url: 'https://oceanicaresortpanglao.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=Oceanica+Resort+Panglao+Philippines',
         lat: 9.5568,
         lng: 123.8012,
         highlight: 'Longest palm-fringed white sand beach on Panglao Island.'
@@ -1322,7 +1322,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         landmark: 'Solangon Beach, San Juan Ring Road',
         distance: '12 min to Siquijor Port & Lugnason Falls',
         rateDkk: 650,
-        url: 'https://www.whitevillasresort.com/',
+        url: 'https://www.hotels.com/Hotel-Search?destination=White+Villas+Resort,+Siquijor+Philippines',
         lat: 9.1645,
         lng: 123.4958,
         highlight: 'Chic whitewashed beachfront villas facing west for Siquijor’s famous crimson sunsets.'

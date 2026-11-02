@@ -1,6 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="16" fill="#006972"/>
-  <circle cx="32" cy="32" r="12" fill="#FACC15"/>
-  <path d="M32 8v8M32 48v8M8 32h8M48 32h8M15.03 15.03l5.66 5.66M43.31 43.31l5.66 5.66M48.97 15.03l-5.66 5.66M20.69 43.31l-5.66 5.66" stroke="#FACC15" stroke-width="4" stroke-linecap="round"/>
+  <rect width="64" height="64" rx="14" fill="#0A0D12"/>
+  <rect x="1" y="1" width="62" height="62" rx="13" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+  <!-- ///M Tri-Color Slanted Stripes -->
+  <path d="M12 46L20 18H25L17 46H12Z" fill="#0066B1"/>
+  <path d="M22 46L30 18H35L27 46H22Z" fill="#1C2674"/>
+  <path d="M32 46L40 18H45L37 46H32Z" fill="#E30613"/>
+  <!-- MC Monogram -->
+  <text x="44" y="44" font-family="'JetBrains Mono', 'Plus Jakarta Sans', -apple-system, sans-serif" font-weight="900" font-style="italic" font-size="20" fill="#F8FAFC" letter-spacing="-1">MC</text>
 </svg>
-

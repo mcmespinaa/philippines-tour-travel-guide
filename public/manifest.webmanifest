@@ -1,11 +1,11 @@
 {
-  "name": "KAPULUAN OS · Philippines 32-Day Travel Guide",
-  "short_name": "Kapuluan OS",
-  "description": "Personal Philippine Archipelago Travel Command Center for MC & Christian — 7 Hubs, 43 Curated 4-5★ Hotels, Interactive Maps & Cebu Pacific Flight Telemetry.",
+  "name": "MC TRAVEL OS · Philippines 32-Day Nordic & M-Sport Cockpit",
+  "short_name": "MC Travel OS",
+  "description": "Personal Philippine Archipelago Travel Cockpit for MC & Christian — 7 Hubs, 53 Curated Stays, Interactive Maps, Car Meets & Cebu Pacific Flight Telemetry.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#051117",
-  "theme_color": "#006972",
+  "background_color": "#0A0D12",
+  "theme_color": "#0A0D12",
   "icons": [
     {
       "src": "./favicon.svg",
@@ -15,4 +15,3 @@
     }
   ]
 }
-

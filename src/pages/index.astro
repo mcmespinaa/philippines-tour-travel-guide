@@ -14,7 +14,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
   <meta name="theme-color" content="#0A0D12" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>KAPULUAN ///M OS · Philippines 32-Day Nordic &amp; M-Sport Travel Cockpit (MC &amp; Christian)</title>
+  <title>MC TRAVEL OS · Philippines 32-Day Nordic &amp; M-Sport Travel Cockpit (MC &amp; Christian)</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <link rel="manifest" href="./manifest.webmanifest" />
 
@@ -152,8 +152,9 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     }
 
     .m-crest {
-      width: 38px;
+      width: 48px;
       height: 38px;
+      padding: 0 4px;
       border-radius: 9px;
       background: var(--bg-card);
       border: 1px solid var(--border-strong);
@@ -558,19 +559,22 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
     .hub-breakdown-grid {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 0.32rem;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.28rem;
       margin-top: 0.5rem;
+      width: 100%;
+      overflow: hidden;
     }
 
     .hub-mini-summary {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
       border-radius: 6px;
-      padding: 0.32rem 0.4rem;
+      padding: 0.32rem 0.3rem;
       font-size: 0.62rem;
       cursor: pointer;
       transition: all 0.15s ease;
+      min-width: 0;
       overflow: hidden;
     }
 
@@ -945,9 +949,9 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     }
 
     .hotel-card.selected-stay {
-      border-color: var(--m-Sky-glow);
-      box-shadow: inset 3px 0 0 var(--m-light-blue);
-      background: rgba(0, 102, 177, 0.09);
+      border: 1.5px solid var(--m-Sky-glow) !important;
+      box-shadow: 0 0 14px rgba(46, 154, 254, 0.22), inset 3px 0 0 var(--m-light-blue);
+      background: rgba(0, 102, 177, 0.12) !important;
     }
 
     .hotel-card.filtered-out {
@@ -1453,15 +1457,15 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
   <!-- Sticky Top Telemetry Header -->
   <header class="top-command-bar" id="top-cockpit">
     <div class="brand-cluster">
-      <div class="m-crest" title="KAPULUAN ///M Nordic &amp; M-Sport Travel OS">
-        <span style="font-family:var(--font-mono);font-weight:800;font-style:italic;font-size:0.82rem;z-index:1;">
-          <span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>M
+      <div class="m-crest" title="MC TRAVEL OS · Nordic &amp; M-Sport Travel OS">
+        <span style="font-family:var(--font-mono);font-weight:800;font-style:italic;font-size:0.78rem;z-index:1;letter-spacing:-0.03em;">
+          <span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>MC
         </span>
       </div>
       <div class="brand-titles">
         <h1>
-          KAPULUAN
-          <span class="m-badge-inline"><span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>M OS</span>
+          MC TRAVEL OS
+          <span class="m-badge-inline"><span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>MC</span>
           <span class="badge-pill">MC &amp; Christian</span>
           <span class="badge-pill badge-m-red">Clark Track · Liberty Walk · Cebu→Bohol 4x4</span>
         </h1>
@@ -1777,8 +1781,9 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
                         target="_blank"
                         rel="noopener noreferrer"
                         class="hotel-book-btn"
+                        title="Book or redeem One Key / Hotels.com points"
                       >
-                        Book ↗
+                        Hotels.com ↗
                       </a>
                     </div>
                   </article>
@@ -2242,21 +2247,21 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           label: '🌑 Dark Map',
           darkFilter: true,
           url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          attribution: '&copy; OpenStreetMap | Kapuluan ///M OS'
+          attribution: '&copy; OpenStreetMap | MC Travel OS'
         },
         {
           id: 'osm-light',
           label: '☀️ Nordic Map',
           darkFilter: false,
           url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          attribution: '&copy; OpenStreetMap | Kapuluan ///M OS'
+          attribution: '&copy; OpenStreetMap | MC Travel OS'
         },
         {
           id: 'esri-satellite',
           label: '🛰️ Satellite',
           darkFilter: false,
           url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-          attribution: '&copy; Esri | Kapuluan ///M OS'
+          attribution: '&copy; Esri | MC Travel OS'
         },
         {
           id: 'carto-voyager',
@@ -2469,7 +2474,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
               </div>
               <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">${hotel.highlight}</div>
               <a href="${hotel.url}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 10px;background:#0066B1;color:#fff;font-weight:700;font-size:11px;border-radius:5px;text-decoration:none;">
-                Book Stay ↗
+                Hotels.com Points ↗
               </a>
             </div>
           `);
@@ -2720,13 +2725,14 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           if (breakdownGrid) {
             const div = document.createElement('div');
             div.className = 'hub-mini-summary';
+            const shortName = item.name.split('(')[0].replace('Airbnb: ', '').replace('Hotel ', '').trim();
             div.innerHTML = `
-              <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:#2E9AFE;font-weight:700;">
-                <span>H${h.number}·${h.nights}N</span>
+              <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:0.56rem;color:#2E9AFE;font-weight:700;">
+                <span>H${h.number}</span>
                 <span style="color:#10B981;">${formatCurrency(subDkk, currentCurr)}</span>
               </div>
-              <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;margin-top:1px;" title="${item.name}">
-                ${item.name}
+              <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;font-size:0.6rem;margin-top:2px;color:var(--text-secondary);" title="${item.name} (${h.nights}N)">
+                ${shortName}
               </div>
             `;
             div.addEventListener('click', () => {
