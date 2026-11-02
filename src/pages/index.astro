@@ -11,17 +11,17 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#006972" />
+  <meta name="theme-color" content="#0A0D12" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>KAPULUAN OS · Philippines 32-Day Personal Travel Guide (MC & Christian)</title>
+  <title>KAPULUAN ///M OS · Philippines 32-Day Nordic &amp; M-Sport Travel Cockpit (MC &amp; Christian)</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <link rel="manifest" href="./manifest.webmanifest" />
 
-  <!-- Google Fonts: Fraunces (Editorial Display), Plus Jakarta Sans (Clean Modern Philippine UI), JetBrains Mono (Flight Telemetry & Rates) -->
+  <!-- Google Fonts: Plus Jakarta Sans (Nordic Geometric UI) & JetBrains Mono (Tabular M-Telemetry) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Leaflet Interactive Map CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -29,25 +29,48 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
   <style>
     :root {
-      --bg-abyss: #051117;
-      --bg-panel: #091b24;
-      --bg-card: #0d2430;
-      --bg-card-hover: #133140;
-      --bg-glass: rgba(9, 27, 36, 0.9);
-      --teal-brand: #006972;
-      --teal-glow: #14b8a6;
-      --cyan-lagoon: #38bdf8;
-      --cebpac-gold: #facc15;
-      --cebpac-amber: #f59e0b;
-      --coral-sunset: #fb7185;
-      --capiz-cream: #f8fafc;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --border-subtle: rgba(56, 189, 248, 0.16);
-      --border-gold: rgba(250, 204, 21, 0.38);
-      --font-display: 'Fraunces', Georgia, serif;
+      /* Default: BMW M-Sport Carbon Dark × Nordic Precision */
+      --bg-canvas: #0A0D12;
+      --bg-panel: #111620;
+      --bg-card: #161C28;
+      --bg-card-hover: #1C2433;
+      --bg-elevated: #0D1119;
+      --bg-glass: rgba(17, 22, 32, 0.88);
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --border-hairline: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+
+      /* Authentic BMW ///M Tri-Color System & Nordic Accents */
+      --m-light-blue: #0066B1;
+      --m-Sky-glow: #2E9AFE;
+      --m-violet-navy: #1C2674;
+      --m-indigo-pill: #6366F1;
+      --m-red: #E30613;
+      --m-red-glow: #FF2836;
+      --nordic-mint: #10B981;
+      --amber-telemetry: #F59E0B;
+
+      --shadow-panel: 0 16px 36px rgba(0, 0, 0, 0.45);
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    /* 1-Click Nordic Alpine Daylight Theme */
+    body.theme-nordic-light {
+      --bg-canvas: #F3F5F8;
+      --bg-panel: #FFFFFF;
+      --bg-card: #F8FAFC;
+      --bg-card-hover: #EEF2F6;
+      --bg-elevated: #EBF0F5;
+      --bg-glass: rgba(255, 255, 255, 0.92);
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #64748B;
+      --border-hairline: rgba(15, 23, 42, 0.09);
+      --border-strong: rgba(15, 23, 42, 0.18);
+      --shadow-panel: 0 10px 28px rgba(15, 23, 42, 0.06);
     }
 
     * {
@@ -62,153 +85,181 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     }
 
     body {
-      background-color: var(--bg-abyss);
-      background-image:
-        radial-gradient(circle at 12% 8%, rgba(20, 184, 166, 0.14), transparent 38%),
-        radial-gradient(circle at 88% 15%, rgba(250, 204, 21, 0.08), transparent 35%),
-        linear-gradient(180deg, #040d12 0%, #071821 100%);
-      color: var(--capiz-cream);
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
       font-family: var(--font-sans);
-      line-height: 1.5;
+      line-height: 1.48;
       overflow-x: hidden;
-      padding-bottom: 84px; /* space for mobile bottom nav */
+      padding-bottom: 80px;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
-    /* Philippine Banig / Hablon geometric weave accent bar */
-    .banig-top-strip {
-      height: 5px;
-      background: repeating-linear-gradient(
+    /* Authentic BMW ///M Tri-Color Skewed Stripe */
+    .m-tricolor-strip {
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(
         90deg,
-        #006972 0px,
-        #006972 24px,
-        #14b8a6 24px,
-        #14b8a6 48px,
-        #facc15 48px,
-        #facc15 60px,
-        #0284c7 60px,
-        #0284c7 84px
+        #0066B1 0%,
+        #0066B1 33.3%,
+        #1C2674 33.3%,
+        #1C2674 66.6%,
+        #E30613 66.6%,
+        #E30613 100%
       );
+      position: sticky;
+      top: 0;
+      z-index: 1100;
     }
 
-    /* Header / Telemetry Bar */
+    .m-badge-inline {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-style: italic;
+      font-size: 0.76rem;
+      letter-spacing: -0.03em;
+      padding: 0.12rem 0.45rem;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-strong);
+    }
+    .m-slash-1 { color: #2E9AFE; }
+    .m-slash-2 { color: #6366F1; }
+    .m-slash-3 { color: #FF2836; margin-right: 2px; }
+
+    /* Sticky Top Telemetry Header */
     .top-command-bar {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 0.9rem;
-      padding: 0.9rem 1.5rem;
-      background: rgba(5, 17, 23, 0.94);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-subtle);
+      gap: 0.75rem;
+      padding: 0.65rem 1.25rem;
+      background: var(--bg-glass);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-hairline);
       position: sticky;
-      top: 0;
-      z-index: 1000;
+      top: 4px;
+      z-index: 1050;
     }
 
     .brand-cluster {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.75rem;
     }
 
-    .sun-emblem {
-      width: 42px;
-      height: 42px;
-      border-radius: 11px;
-      background: linear-gradient(135deg, #006972 0%, #0d9488 100%);
-      border: 1px solid rgba(250, 204, 21, 0.55);
+    .m-crest {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
       display: grid;
       place-items: center;
-      box-shadow: 0 0 20px rgba(20, 184, 166, 0.25);
+      position: relative;
+      overflow: hidden;
       flex-shrink: 0;
     }
 
+    .m-crest::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 102, 177, 0.28), rgba(28, 38, 116, 0.25), rgba(227, 6, 19, 0.28));
+    }
+
     .brand-titles h1 {
-      font-family: var(--font-display);
-      font-size: 1.28rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--capiz-cream);
+      font-size: 1.08rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
+    }
+
+    .brand-titles p {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
     }
 
     .badge-pill {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 600;
+      font-size: 0.64rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 0.18rem 0.5rem;
-      border-radius: 999px;
-      background: rgba(20, 184, 166, 0.16);
-      color: #5eead4;
-      border: 1px solid rgba(20, 184, 166, 0.35);
+      letter-spacing: 0.05em;
+      padding: 0.14rem 0.46rem;
+      border-radius: 5px;
+      background: rgba(46, 154, 254, 0.12);
+      color: var(--m-Sky-glow);
+      border: 1px solid rgba(46, 154, 254, 0.3);
     }
 
-    .badge-cebpac {
-      background: rgba(250, 204, 21, 0.15);
-      color: var(--cebpac-gold);
-      border-color: rgba(250, 204, 21, 0.4);
-    }
-
-    .brand-titles p {
-      font-size: 0.78rem;
-      color: var(--text-secondary);
+    .badge-m-red {
+      background: rgba(227, 6, 19, 0.14);
+      color: var(--m-red-glow);
+      border-color: rgba(227, 6, 19, 0.35);
     }
 
     .kpi-ribbon {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.55rem;
+      gap: 0.45rem;
       align-items: center;
     }
 
     .kpi-chip {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border-hairline);
+      border-radius: 8px;
+      padding: 0.28rem 0.65rem;
       display: flex;
       flex-direction: column;
     }
 
     .kpi-chip span.label {
       font-family: var(--font-mono);
-      font-size: 0.62rem;
+      font-size: 0.58rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       color: var(--text-secondary);
     }
 
     .kpi-chip span.val {
       font-family: var(--font-mono);
-      font-size: 0.86rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      color: var(--capiz-cream);
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
     }
 
-    .kpi-chip.gold span.val {
-      color: var(--cebpac-gold);
+    .kpi-chip.target-green {
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+    .kpi-chip.target-green span.val {
+      color: var(--nordic-mint);
     }
 
-    /* Currency Toggle Switch */
-    .currency-toggle {
+    /* Currency & Theme Toggles */
+    .segmented-control {
       display: inline-flex;
       background: var(--bg-card);
-      border: 1px solid var(--border-gold);
-      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
       overflow: hidden;
     }
 
-    .curr-btn {
+    .curr-btn, .theme-toggle-btn {
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      padding: 0.45rem 0.65rem;
+      padding: 0.38rem 0.58rem;
       border: none;
       background: transparent;
       color: var(--text-secondary);
@@ -217,43 +268,59 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     }
 
     .curr-btn.active {
-      background: var(--cebpac-gold);
-      color: #051117;
+      background: var(--m-light-blue);
+      color: #FFFFFF;
+    }
+
+    .theme-toggle-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--m-Sky-glow);
     }
 
     .sheet-sync-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 0.9rem;
-      border-radius: 10px;
-      font-size: 0.78rem;
-      font-weight: 600;
+      gap: 0.35rem;
+      padding: 0.4rem 0.72rem;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
       text-decoration: none;
-      background: linear-gradient(135deg, #006972 0%, #0284c7 100%);
-      color: #ffffff;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      transition: all 0.2s ease;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+      transition: all 0.15s ease;
       white-space: nowrap;
     }
 
     .sheet-sync-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35);
+      border-color: var(--m-Sky-glow);
+      color: var(--m-Sky-glow);
     }
 
-    /* Destination Hub Selector Bar */
+    /* Sub-Header: 7 Destination Hubs Strip */
     .hub-nav-strip {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.65rem 1.5rem;
-      background: rgba(9, 27, 36, 0.9);
-      border-bottom: 1px solid var(--border-subtle);
+      gap: 0.4rem;
+      padding: 0.5rem 1.25rem;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-hairline);
       overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
+      position: sticky;
+      top: 63px;
+      z-index: 1020;
     }
 
     .hub-nav-strip::-webkit-scrollbar {
@@ -261,69 +328,71 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     }
 
     .hub-tab-btn {
-      scroll-snap-align: start;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.52rem 0.9rem;
-      border-radius: 10px;
+      gap: 0.42rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 7px;
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-hairline);
       color: var(--text-secondary);
       font-family: var(--font-sans);
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s ease;
+      transition: all 0.16s ease;
       flex-shrink: 0;
     }
 
     .hub-tab-btn:hover {
       background: var(--bg-card-hover);
-      color: var(--capiz-cream);
-      border-color: rgba(20, 184, 166, 0.45);
+      color: var(--text-primary);
     }
 
     .hub-tab-btn.active {
-      background: linear-gradient(135deg, rgba(0, 105, 114, 0.92), rgba(14, 116, 144, 0.92));
-      color: #ffffff;
-      border-color: var(--cebpac-gold);
-      box-shadow: 0 0 16px rgba(20, 184, 166, 0.32);
+      background: var(--m-light-blue);
+      color: #FFFFFF;
+      border-color: var(--m-Sky-glow);
+      box-shadow: 0 2px 12px rgba(0, 102, 177, 0.35);
     }
 
     .hub-tab-btn .num {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      padding: 0.1rem 0.38rem;
-      border-radius: 6px;
-      background: rgba(5, 17, 23, 0.65);
-      color: var(--cebpac-gold);
+      font-size: 0.64rem;
+      font-weight: 700;
+      padding: 0.08rem 0.32rem;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.28);
+      color: #E2E8F0;
     }
 
-    /* Main Split Cockpit Layout */
+    /* Balanced Split-Screen iDrive Cockpit Grid (Eliminates Empty Left Column) */
     .cockpit-grid {
       display: grid;
-      grid-template-columns: 1.05fr 1fr;
-      gap: 1.25rem;
-      padding: 1.25rem 1.5rem;
+      grid-template-columns: 44% 56%;
+      gap: 1.1rem;
+      padding: 1rem 1.25rem;
       max-width: 1920px;
       margin: 0 auto;
+      align-items: start;
     }
 
-    /* Left Column: Interactive Map + SVG Flight Schematic */
+    /* Left Column: Sticky Full-Viewport Map + Live 7-Hub Budget Telemetry */
     .map-column {
+      position: sticky;
+      top: 112px;
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 0.75rem;
     }
 
     .map-frame-card {
       background: var(--bg-panel);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
+      border: 1px solid var(--border-hairline);
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      box-shadow: var(--shadow-panel);
       display: flex;
       flex-direction: column;
     }
@@ -333,78 +402,77 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 0.65rem;
-      padding: 0.8rem 1.1rem;
+      gap: 0.5rem;
+      padding: 0.6rem 0.85rem;
       background: var(--bg-card);
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-hairline);
     }
 
     .map-toolbar-title {
       display: flex;
       align-items: center;
-      gap: 0.55rem;
-      font-size: 0.84rem;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
       font-weight: 700;
+      color: var(--text-primary);
     }
 
     .live-dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 10px #10b981;
-      animation: pulseDot 2s infinite;
+      background: var(--m-red-glow);
+      box-shadow: 0 0 8px var(--m-red-glow);
       flex-shrink: 0;
-    }
-
-    @keyframes pulseDot {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.35); opacity: 0.55; }
     }
 
     .map-control-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
+      gap: 0.32rem;
     }
 
     .map-btn {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.67rem;
       font-weight: 600;
-      padding: 0.42rem 0.72rem;
-      border-radius: 8px;
-      border: 1px solid var(--border-subtle);
+      padding: 0.32rem 0.58rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-hairline);
       background: var(--bg-panel);
-      color: var(--capiz-cream);
+      color: var(--text-primary);
       cursor: pointer;
-      transition: all 0.18s ease;
+      transition: all 0.15s ease;
     }
 
     .map-btn:hover, .map-btn.active {
-      background: var(--teal-brand);
-      border-color: var(--cyan-lagoon);
+      background: var(--m-light-blue);
+      color: #FFFFFF;
+      border-color: var(--m-Sky-glow);
     }
 
-    .map-btn.gold {
-      background: rgba(250, 204, 21, 0.15);
-      border-color: rgba(250, 204, 21, 0.5);
-      color: var(--cebpac-gold);
+    .map-btn.m-sport-btn {
+      background: rgba(227, 6, 19, 0.14);
+      border-color: rgba(227, 6, 19, 0.4);
+      color: var(--m-red-glow);
     }
-
-    .map-btn.gold:hover {
-      background: rgba(250, 204, 21, 0.28);
+    .map-btn.m-sport-btn:hover, .map-btn.m-sport-btn.active {
+      background: var(--m-red);
+      color: #FFFFFF;
     }
 
     #ph-interactive-map {
       width: 100%;
-      height: 510px;
-      background: #041016;
+      height: calc(100vh - 340px);
+      min-height: 390px;
+      max-height: 560px;
+      background: #070B10;
       z-index: 1;
     }
 
     #ph-interactive-map.map-filter-dark :global(.leaflet-tile-pane) {
-      filter: invert(100%) hue-rotate(185deg) brightness(92%) contrast(94%) saturate(135%);
+      filter: invert(100%) hue-rotate(190deg) brightness(90%) contrast(96%) saturate(120%);
     }
 
     .map-legend-footer {
@@ -412,316 +480,61 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 0.65rem;
-      padding: 0.65rem 1.1rem;
-      background: rgba(5, 17, 23, 0.92);
-      border-top: 1px solid var(--border-subtle);
-      font-size: 0.74rem;
+      gap: 0.5rem;
+      padding: 0.5rem 0.85rem;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-hairline);
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
       color: var(--text-secondary);
     }
 
     .legend-items {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.85rem;
+      gap: 0.65rem;
       align-items: center;
     }
 
     .legend-item {
       display: flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.3rem;
     }
 
     .legend-swatch {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
       display: inline-block;
     }
 
-    /* Cebu Pacific Flight Vector & Island Transit Card */
-    .flight-schematic-card {
+    /* Compact Left-Column Telemetry Dock (7-Hub Selected Stays & Budget Meter) */
+    .left-telemetry-card {
       background: var(--bg-panel);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 1.15rem;
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
-    }
-
-    .section-header-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.65rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .section-header-row h2 {
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--capiz-cream);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* SVG Animated Flight Arc Diagram */
-    .svg-flight-banner {
-      width: 100%;
-      background: linear-gradient(180deg, rgba(4, 15, 22, 0.95) 0%, rgba(9, 31, 43, 0.9) 100%);
-      border: 1px solid rgba(250, 204, 21, 0.25);
+      border: 1px solid var(--border-hairline);
       border-radius: 12px;
-      padding: 0.65rem;
-      margin-bottom: 0.95rem;
-      overflow-x: auto;
-    }
-
-    .svg-flight-banner svg {
-      min-width: 640px;
-    }
-
-    .flight-arc-line {
-      stroke-dasharray: 7 5;
-      animation: dashFlow 18s linear infinite;
-    }
-
-    @keyframes dashFlow {
-      to {
-        stroke-dashoffset: -240;
-      }
-    }
-
-    .flight-legs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
-      gap: 0.75rem;
-    }
-
-    .flight-leg-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 0.85rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 0.5rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .flight-leg-card:hover {
-      border-color: var(--cebpac-gold);
-      transform: translateY(-2px);
-      background: var(--bg-card-hover);
-    }
-
-    .flight-leg-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .route-code {
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--cebpac-gold);
-    }
-
-    .fare-tag {
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      font-weight: 700;
-      padding: 0.15rem 0.5rem;
-      border-radius: 6px;
-      background: rgba(20, 184, 166, 0.16);
-      color: #5eead4;
-    }
-
-    .carrier-line {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--capiz-cream);
-    }
-
-    .flight-notes {
-      font-size: 0.73rem;
-      color: var(--text-secondary);
-    }
-
-    .baggage-tip {
-      font-size: 0.7rem;
-      color: #bae6fd;
-      background: rgba(56, 189, 248, 0.08);
-      padding: 0.3rem 0.5rem;
-      border-radius: 6px;
-      border-left: 2px solid var(--cyan-lagoon);
-    }
-
-    .flight-leg-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 0.2rem;
-      padding-top: 0.45rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .flight-duration {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--text-secondary);
-    }
-
-    .cebpac-book-link {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: #051117;
-      background: var(--cebpac-gold);
-      padding: 0.28rem 0.62rem;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-
-    .cebpac-book-link:hover {
-      background: #fde047;
-      box-shadow: 0 0 12px rgba(250, 204, 21, 0.5);
-    }
-
-    /* Right Column: Active Destination Hub Spotlight & Minimum 6 Curated 4-5★ Hotel Cards */
-    .hotels-column {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    /* Accommodation Budget Optimizer & Filter Card */
-    .budget-optimizer-card {
-      background: linear-gradient(145deg, rgba(9, 27, 36, 0.98) 0%, rgba(13, 36, 48, 0.95) 100%);
-      border: 1px solid var(--border-gold);
-      border-radius: 16px;
-      padding: 1.15rem 1.25rem;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.42);
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-
-    .budget-opt-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.65rem;
-    }
-
-    .budget-opt-title {
-      font-family: var(--font-display);
-      font-size: 1.14rem;
-      font-weight: 700;
-      color: var(--capiz-cream);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .budget-status-pill {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.3rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(16, 185, 129, 0.18);
-      border: 1px solid rgba(16, 185, 129, 0.5);
-      color: #6ee7b7;
-    }
-
-    .budget-status-pill.over-target {
-      background: rgba(251, 113, 133, 0.16);
-      border-color: rgba(251, 113, 133, 0.45);
-      color: #fda4af;
-    }
-
-    .preset-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 0.55rem;
-    }
-
-    .preset-btn {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 11px;
-      padding: 0.62rem 0.78rem;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      color: var(--capiz-cream);
-    }
-
-    .preset-btn:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--teal-glow);
-      transform: translateY(-1px);
-    }
-
-    .preset-btn.active {
-      background: linear-gradient(135deg, rgba(0, 105, 114, 0.55), rgba(250, 204, 21, 0.14));
-      border-color: var(--cebpac-gold);
-      box-shadow: 0 0 16px rgba(250, 204, 21, 0.22);
-    }
-
-    .preset-btn .p-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 700;
-    }
-
-    .preset-btn .p-price {
-      color: var(--cebpac-gold);
-    }
-
-    .preset-btn .p-desc {
-      font-size: 0.72rem;
-      color: var(--text-secondary);
-      line-height: 1.3;
-    }
-
-    .budget-meter-wrap {
-      background: rgba(5, 17, 23, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      padding: 0.6rem 0.8rem;
+      padding: 0.75rem 0.9rem;
+      box-shadow: var(--shadow-panel);
     }
 
     .budget-meter-labels {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-family: var(--font-mono);
-      font-size: 0.69rem;
+      font-size: 0.68rem;
       color: var(--text-secondary);
       margin-bottom: 0.35rem;
     }
 
     .budget-bar-track {
-      height: 10px;
-      background: #041016;
-      border-radius: 999px;
+      height: 8px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-hairline);
     }
 
     .budget-target-zone {
@@ -729,18 +542,216 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       top: 0;
       bottom: 0;
       left: 45%;
-      width: 12%;
-      background: rgba(16, 185, 129, 0.28);
-      border-left: 1px dashed #10b981;
-      border-right: 1px dashed #10b981;
+      width: 11%;
+      background: rgba(16, 185, 129, 0.25);
+      border-left: 1px dashed var(--nordic-mint);
+      border-right: 1px dashed var(--nordic-mint);
       z-index: 1;
     }
 
     .budget-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, #14b8a6 0%, #facc15 100%);
-      border-radius: 999px;
-      transition: width 0.35s ease;
+      background: linear-gradient(90deg, #0066B1 0%, #10B981 65%, #E30613 100%);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    .hub-breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.32rem;
+      margin-top: 0.5rem;
+    }
+
+    .hub-mini-summary {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      padding: 0.32rem 0.4rem;
+      font-size: 0.62rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      overflow: hidden;
+    }
+
+    .hub-mini-summary:hover {
+      border-color: var(--m-Sky-glow);
+      transform: translateY(-1px);
+    }
+
+    /* Right Column: M-Drive Mode Switcher & Workspace Deck */
+    .right-deck-column {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      min-width: 0;
+    }
+
+    /* Segmented BMW iDrive Mode Bar */
+    .m-drive-mode-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      padding: 0.45rem;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      box-shadow: var(--shadow-panel);
+    }
+
+    .m-mode-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      flex: 1;
+    }
+
+    .m-mode-btn {
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      font-weight: 700;
+      padding: 0.48rem 0.78rem;
+      border-radius: 7px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.16s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.38rem;
+      white-space: nowrap;
+    }
+
+    .m-mode-btn:hover {
+      color: var(--text-primary);
+      background: var(--bg-card);
+    }
+
+    .m-mode-btn.active {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border-color: var(--m-Sky-glow);
+      box-shadow: inset 0 -2px 0 var(--m-light-blue);
+    }
+
+    .m-mode-btn.m-red-tab.active {
+      border-color: var(--m-red-glow);
+      box-shadow: inset 0 -2px 0 var(--m-red);
+      color: var(--m-red-glow);
+    }
+
+    /* Deck Panels visibility controlled by active Drive Mode */
+    .deck-mode-section {
+      display: none;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .deck-mode-section.mode-active {
+      display: flex;
+    }
+
+    /* Budget Optimizer Panel (Nordic Clean Bento) */
+    .budget-optimizer-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      border-top: 3px solid var(--m-light-blue);
+      border-radius: 12px;
+      padding: 0.95rem 1.05rem;
+      box-shadow: var(--shadow-panel);
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .budget-opt-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .budget-opt-title {
+      font-size: 0.96rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .budget-status-pill {
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      font-weight: 700;
+      padding: 0.24rem 0.6rem;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      color: var(--nordic-mint);
+    }
+
+    .budget-status-pill.over-target {
+      background: rgba(227, 6, 19, 0.14);
+      border-color: rgba(227, 6, 19, 0.45);
+      color: var(--m-red-glow);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.45rem;
+    }
+
+    .preset-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      border-radius: 8px;
+      padding: 0.55rem 0.68rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.18rem;
+      color: var(--text-primary);
+    }
+
+    .preset-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--m-Sky-glow);
+    }
+
+    .preset-btn.active {
+      border-color: var(--m-Sky-glow);
+      background: rgba(0, 102, 177, 0.14);
+      box-shadow: inset 3px 0 0 var(--m-light-blue);
+    }
+
+    .preset-btn .p-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .preset-btn .p-price {
+      color: var(--m-Sky-glow);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .preset-btn .p-desc {
+      font-size: 0.67rem;
+      color: var(--text-secondary);
+      line-height: 1.28;
     }
 
     .stay-filter-bar {
@@ -748,82 +759,46 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 0.5rem;
+      gap: 0.45rem;
       padding-top: 0.45rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--border-hairline);
     }
 
     .stay-filter-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.38rem;
+      gap: 0.32rem;
     }
 
     .stay-filter-btn {
       font-family: var(--font-mono);
-      font-size: 0.69rem;
+      font-size: 0.66rem;
       font-weight: 600;
-      padding: 0.32rem 0.62rem;
-      border-radius: 8px;
-      border: 1px solid var(--border-subtle);
+      padding: 0.28rem 0.55rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-hairline);
       background: var(--bg-card);
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.14s ease;
     }
 
     .stay-filter-btn.active, .stay-filter-btn:hover {
-      background: var(--teal-brand);
-      color: #ffffff;
-      border-color: var(--cyan-lagoon);
+      background: var(--m-light-blue);
+      color: #FFFFFF;
+      border-color: var(--m-Sky-glow);
     }
 
-    .hub-breakdown-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-      gap: 0.45rem;
-      margin-top: 0.25rem;
-    }
-
-    .hub-mini-summary {
-      background: rgba(5, 17, 23, 0.65);
-      border: 1px solid rgba(56, 189, 248, 0.16);
-      border-radius: 8px;
-      padding: 0.4rem 0.58rem;
-      font-size: 0.7rem;
-      cursor: pointer;
-      transition: border-color 0.15s ease;
-    }
-
-    .hub-mini-summary:hover {
-      border-color: var(--cebpac-gold);
-    }
-
-    .hotel-card.filtered-out {
-      display: none !important;
-    }
-
-    .tier-tag-serviced {
-      background: rgba(56, 189, 248, 0.18);
-      color: #7dd3fc;
-      border-color: rgba(56, 189, 248, 0.45);
-    }
-
-    .tier-tag-airbnb {
-      background: rgba(251, 113, 133, 0.18);
-      color: #fda4af;
-      border-color: rgba(251, 113, 133, 0.45);
-    }
-
+    /* Hub Spotlight Panel & Compact 2-Column Nordic Hotel Grid */
     .hub-spotlight-panel {
       display: none;
       flex-direction: column;
-      gap: 0.95rem;
+      gap: 0.75rem;
       background: var(--bg-panel);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 1.25rem;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--border-hairline);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: var(--shadow-panel);
     }
 
     .hub-spotlight-panel.active {
@@ -835,95 +810,48 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 0.85rem;
-      padding-bottom: 0.9rem;
-      border-bottom: 1px solid var(--border-subtle);
+      gap: 0.65rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--border-hairline);
     }
 
     .hub-title-block .region-kicker {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.65rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--teal-glow);
+      letter-spacing: 0.08em;
+      color: var(--m-Sky-glow);
     }
 
     .hub-title-block h2 {
-      font-family: var(--font-display);
-      font-size: 1.55rem;
-      font-weight: 700;
-      color: var(--capiz-cream);
-      margin-top: 0.1rem;
+      font-size: 1.28rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
     }
 
     .hub-title-block p.tagline {
-      font-size: 0.84rem;
+      font-size: 0.76rem;
       color: var(--text-secondary);
-      margin-top: 0.15rem;
     }
 
     .hub-meta-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.45rem;
+      gap: 0.35rem;
       align-items: center;
     }
 
-    .hub-dates-pill {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      font-weight: 600;
-      padding: 0.35rem 0.7rem;
-      border-radius: 9px;
-      background: rgba(0, 105, 114, 0.35);
-      border: 1px solid var(--cyan-lagoon);
-      color: var(--capiz-cream);
-    }
-
-    .hub-weather-pill {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      padding: 0.35rem 0.7rem;
-      border-radius: 9px;
-      background: rgba(250, 204, 21, 0.1);
-      border: 1px solid rgba(250, 204, 21, 0.3);
-      color: #fde047;
-    }
-
-    /* Dual Highlight Strip (Motorsport + Romance/Culture + Cebu Pacific Gateway) */
-    .dual-highlights-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 0.7rem;
-    }
-
-    .highlight-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 0.72rem 0.85rem;
-    }
-
-    .highlight-box.cebpac-box {
-      border-color: var(--border-gold);
-      background: linear-gradient(135deg, rgba(250, 204, 21, 0.09), rgba(9, 27, 36, 0.92));
-    }
-
-    .highlight-box .h-label {
+    .hub-dates-pill, .hub-weather-pill {
       font-family: var(--font-mono);
       font-size: 0.67rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.22rem;
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .highlight-box p {
-      font-size: 0.78rem;
-      color: var(--capiz-cream);
+      font-weight: 600;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
     }
 
     /* Landmarks Chip Row */
@@ -931,337 +859,480 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.45rem;
-      font-size: 0.75rem;
+      gap: 0.35rem;
     }
 
     .landmark-chip {
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      color: #bae6fd;
-      padding: 0.3rem 0.65rem;
-      border-radius: 999px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-primary);
+      padding: 0.26rem 0.58rem;
+      border-radius: 6px;
       cursor: pointer;
-      transition: all 0.15s ease;
-      font-size: 0.73rem;
+      transition: all 0.14s ease;
+      font-size: 0.7rem;
       text-align: left;
     }
 
     .landmark-chip:hover {
-      background: rgba(56, 189, 248, 0.28);
-      color: #ffffff;
+      border-color: var(--m-Sky-glow);
+      background: var(--bg-card-hover);
     }
 
-    /* 6+ Hotel Options Grid */
+    /* Compact Dual Highlights Row */
+    .dual-highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .highlight-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      border-radius: 8px;
+      padding: 0.55rem 0.7rem;
+    }
+
+    .highlight-box.m-sport-box {
+      border-left: 3px solid var(--m-red);
+    }
+
+    .highlight-box.nordic-romance-box {
+      border-left: 3px solid var(--m-indigo-pill);
+    }
+
+    .highlight-box.cebpac-box {
+      border-left: 3px solid var(--m-light-blue);
+    }
+
+    .highlight-box .h-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.18rem;
+    }
+
+    .highlight-box p {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      line-height: 1.35;
+    }
+
+    /* High-Density Nordic Hotel Bento Grid */
     .hotels-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 0.8rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.55rem;
     }
 
     .hotel-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 13px;
-      padding: 0.9rem;
+      border: 1px solid var(--border-hairline);
+      border-radius: 9px;
+      padding: 0.68rem 0.78rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 0.55rem;
-      transition: all 0.2s ease;
-      position: relative;
+      gap: 0.42rem;
+      transition: all 0.16s ease;
     }
 
     .hotel-card:hover {
-      border-color: var(--teal-glow);
+      border-color: var(--m-Sky-glow);
       background: var(--bg-card-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
     }
 
     .hotel-card.selected-stay {
-      border-color: var(--cebpac-gold);
-      box-shadow: 0 0 18px rgba(250, 204, 21, 0.22);
+      border-color: var(--m-Sky-glow);
+      box-shadow: inset 3px 0 0 var(--m-light-blue);
+      background: rgba(0, 102, 177, 0.09);
+    }
+
+    .hotel-card.filtered-out {
+      display: none !important;
     }
 
     .hotel-card-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 0.45rem;
+      align-items: center;
+      gap: 0.35rem;
     }
 
     .option-badge {
       font-family: var(--font-mono);
-      font-size: 0.66rem;
+      font-size: 0.61rem;
       font-weight: 700;
-      padding: 0.15rem 0.48rem;
-      border-radius: 6px;
-      background: rgba(0, 105, 114, 0.55);
-      color: #5eead4;
-      border: 1px solid rgba(20, 184, 166, 0.4);
+      padding: 0.12rem 0.4rem;
+      border-radius: 4px;
+      background: rgba(46, 154, 254, 0.12);
+      color: var(--m-Sky-glow);
+      border: 1px solid rgba(46, 154, 254, 0.28);
+    }
+
+    .tier-tag-serviced {
+      background: rgba(99, 102, 241, 0.14);
+      color: #818CF8;
+      border-color: rgba(99, 102, 241, 0.35);
+    }
+
+    .tier-tag-airbnb {
+      background: rgba(16, 185, 129, 0.14);
+      color: var(--nordic-mint);
+      border-color: rgba(16, 185, 129, 0.35);
     }
 
     .rate-pill {
       font-family: var(--font-mono);
-      font-size: 0.84rem;
+      font-size: 0.76rem;
       font-weight: 700;
-      color: var(--cebpac-gold);
-      background: rgba(250, 204, 21, 0.12);
-      border: 1px solid rgba(250, 204, 21, 0.35);
-      padding: 0.16rem 0.52rem;
-      border-radius: 7px;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      padding: 0.12rem 0.45rem;
+      border-radius: 5px;
       white-space: nowrap;
     }
 
     .hotel-name {
-      font-family: var(--font-display);
-      font-size: 1.02rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      color: var(--capiz-cream);
-      line-height: 1.25;
+      letter-spacing: -0.015em;
+      color: var(--text-primary);
+      line-height: 1.22;
     }
 
     .stars-line {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: #38bdf8;
-      margin-top: 0.1rem;
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .proximity-box {
-      background: rgba(5, 17, 23, 0.65);
-      border-left: 3px solid var(--teal-glow);
-      padding: 0.42rem 0.6rem;
-      border-radius: 0 8px 8px 0;
-      font-size: 0.74rem;
+      background: var(--bg-elevated);
+      border-left: 2px solid var(--m-light-blue);
+      padding: 0.3rem 0.5rem;
+      border-radius: 0 5px 5px 0;
+      font-size: 0.69rem;
+      color: var(--text-secondary);
     }
 
     .proximity-box strong {
-      color: #5eead4;
-      display: block;
-      font-size: 0.69rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      margin-right: 0.25rem;
     }
 
     .hotel-highlight {
-      font-size: 0.75rem;
+      font-size: 0.69rem;
       color: var(--text-secondary);
+      line-height: 1.32;
     }
 
     .hotel-card-footer {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 0.4rem;
-      padding-top: 0.48rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      gap: 0.35rem;
+      padding-top: 0.35rem;
+      border-top: 1px solid var(--border-hairline);
     }
 
     .locate-pin-btn, .shortlist-btn {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 600;
-      padding: 0.32rem 0.58rem;
-      border-radius: 7px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(56, 189, 248, 0.1);
-      color: #bae6fd;
+      padding: 0.25rem 0.48rem;
+      border-radius: 5px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-panel);
+      color: var(--text-primary);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.14s ease;
     }
 
     .locate-pin-btn:hover, .shortlist-btn:hover {
-      background: var(--teal-brand);
-      color: #ffffff;
+      background: var(--m-light-blue);
+      color: #FFFFFF;
+      border-color: var(--m-Sky-glow);
     }
 
     .shortlist-btn.active {
-      background: rgba(250, 204, 21, 0.22);
-      border-color: var(--cebpac-gold);
-      color: var(--cebpac-gold);
+      background: var(--m-light-blue);
+      border-color: var(--m-Sky-glow);
+      color: #FFFFFF;
     }
 
     .hotel-book-btn {
       font-family: var(--font-mono);
-      font-size: 0.71rem;
+      font-size: 0.66rem;
       font-weight: 700;
-      padding: 0.34rem 0.68rem;
-      border-radius: 7px;
-      background: linear-gradient(135deg, #006972, #0d9488);
-      color: #ffffff;
+      padding: 0.26rem 0.55rem;
+      border-radius: 5px;
+      background: var(--text-primary);
+      color: var(--bg-canvas);
       text-decoration: none;
-      border: 1px solid rgba(94, 234, 212, 0.4);
-      transition: all 0.15s ease;
+      transition: opacity 0.15s ease;
     }
 
     .hotel-book-btn:hover {
-      background: linear-gradient(135deg, #0d9488, #14b8a6);
-      box-shadow: 0 0 12px rgba(20, 184, 166, 0.45);
+      opacity: 0.86;
     }
 
-    /* Curated Culinary & Coffee Strip per Hub */
+    /* Compact Dining Strip */
     .dining-strip {
-      margin-top: 0.35rem;
-      padding-top: 0.85rem;
-      border-top: 1px solid var(--border-subtle);
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--border-hairline);
     }
 
     .dining-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 0.65rem;
-      margin-top: 0.55rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.45rem;
+      margin-top: 0.4rem;
     }
 
     .dining-card {
-      background: rgba(5, 17, 23, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      padding: 0.65rem 0.8rem;
-      font-size: 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      border-radius: 8px;
+      padding: 0.5rem 0.65rem;
+      font-size: 0.69rem;
     }
 
     .dining-cat {
       font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--cebpac-gold);
+      font-size: 0.6rem;
+      color: var(--m-Sky-glow);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      font-weight: 700;
     }
 
-    /* Secondary Full-Width Sections (32-Day Timeline + Packing & Prep Guide) */
-    .fullwidth-section {
-      padding: 0 1.5rem 1.5rem;
-      max-width: 1920px;
-      margin: 0 auto;
-    }
-
+    /* Mode 2: ///M Auto Shows & Cebu -> Bohol Roadtrip Cards */
     .surface-card {
       background: var(--bg-panel);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 1.25rem;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--border-hairline);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: var(--shadow-panel);
     }
 
+    .m-event-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      border-left: 3px solid var(--m-light-blue);
+      border-radius: 8px;
+      padding: 0.65rem 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .m-event-card:hover {
+      border-color: var(--m-Sky-glow);
+      background: var(--bg-card-hover);
+      transform: translateX(2px);
+    }
+
+    .m-event-card.m-red-accent {
+      border-left-color: var(--m-red);
+    }
+
+    /* Mode 3: 32-Day Schedule Table */
     .filter-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
+      gap: 0.32rem;
     }
 
     .filter-pill {
       font-family: var(--font-mono);
-      font-size: 0.71rem;
-      padding: 0.35rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
+      font-size: 0.66rem;
+      font-weight: 600;
+      padding: 0.28rem 0.58rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-hairline);
       background: var(--bg-card);
       color: var(--text-secondary);
       cursor: pointer;
     }
 
     .filter-pill.active, .filter-pill:hover {
-      background: var(--teal-brand);
-      color: #ffffff;
-      border-color: var(--cyan-lagoon);
+      background: var(--m-light-blue);
+      color: #FFFFFF;
+      border-color: var(--m-Sky-glow);
     }
 
     .itinerary-table-wrap {
       overflow-x: auto;
-      margin-top: 0.9rem;
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
+      margin-top: 0.65rem;
+      border-radius: 9px;
+      border: 1px solid var(--border-hairline);
     }
 
     table.itinerary-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.8rem;
+      font-size: 0.74rem;
     }
 
     table.itinerary-table th {
-      background: #005b63;
-      color: #ffffff;
+      background: var(--bg-card);
+      color: var(--text-secondary);
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.64rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      padding: 0.7rem 0.85rem;
+      padding: 0.55rem 0.7rem;
       text-align: left;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-strong);
     }
 
     table.itinerary-table td {
-      padding: 0.7rem 0.85rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 0.55rem 0.7rem;
+      border-bottom: 1px solid var(--border-hairline);
       vertical-align: top;
     }
 
     table.itinerary-table tr.day-row {
       cursor: pointer;
-      transition: background 0.15s ease;
-    }
-
-    table.itinerary-table tr.day-row:nth-child(even) {
-      background: rgba(13, 36, 48, 0.55);
+      transition: background 0.14s ease;
     }
 
     table.itinerary-table tr.day-row:hover {
-      background: rgba(20, 184, 166, 0.18);
+      background: var(--bg-card-hover);
     }
 
     .day-badge {
       font-family: var(--font-mono);
       font-weight: 700;
-      color: var(--cebpac-gold);
+      color: var(--m-Sky-glow);
       white-space: nowrap;
     }
 
-    /* Packing & Pre-Departure Interactive Checklist Grid */
+    /* Mode 4: Flight & Ferry Cards */
+    .svg-flight-banner {
+      width: 100%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-hairline);
+      border-radius: 9px;
+      padding: 0.5rem;
+      margin-bottom: 0.75rem;
+      overflow-x: auto;
+    }
+
+    .svg-flight-banner svg {
+      min-width: 600px;
+    }
+
+    .flight-arc-line {
+      stroke-dasharray: 6 5;
+      animation: dashFlow 18s linear infinite;
+    }
+
+    @keyframes dashFlow {
+      to { stroke-dashoffset: -240; }
+    }
+
+    .flight-legs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.55rem;
+    }
+
+    .flight-leg-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      border-radius: 9px;
+      padding: 0.7rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .flight-leg-card:hover {
+      border-color: var(--m-Sky-glow);
+      background: var(--bg-card-hover);
+    }
+
+    .route-code {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--m-Sky-glow);
+    }
+
+    .fare-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.12rem 0.42rem;
+      border-radius: 5px;
+      background: rgba(16, 185, 129, 0.14);
+      color: var(--nordic-mint);
+    }
+
+    .cebpac-book-link {
+      font-family: var(--font-mono);
+      font-size: 0.67rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      background: var(--m-light-blue);
+      padding: 0.25rem 0.55rem;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    /* Mode 5: Packing Checklist */
     .packing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 0.9rem;
-      margin-top: 0.9rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.65rem;
+      margin-top: 0.65rem;
     }
 
     .packing-box {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 0.95rem;
+      border: 1px solid var(--border-hairline);
+      border-radius: 9px;
+      padding: 0.75rem;
     }
 
     .packing-box h3 {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      margin-bottom: 0.65rem;
-      color: var(--capiz-cream);
+      font-size: 0.86rem;
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+      color: var(--text-primary);
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.4rem;
     }
 
     .pack-item-label {
       display: flex;
       align-items: flex-start;
-      gap: 0.55rem;
-      font-size: 0.78rem;
-      color: var(--capiz-cream);
-      padding: 0.35rem 0;
+      gap: 0.45rem;
+      font-size: 0.72rem;
+      color: var(--text-primary);
+      padding: 0.28rem 0;
       cursor: pointer;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid var(--border-hairline);
     }
 
     .pack-item-label input[type="checkbox"] {
-      margin-top: 0.2rem;
-      accent-color: var(--teal-glow);
-      width: 15px;
-      height: 15px;
+      margin-top: 0.16rem;
+      accent-color: var(--m-light-blue);
+      width: 14px;
+      height: 14px;
       flex-shrink: 0;
     }
 
@@ -1270,17 +1341,17 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       color: var(--text-muted);
     }
 
-    /* Sticky Mobile Bottom Navigation Bar */
+    /* Mobile Sticky Bottom Dock */
     .mobile-bottom-dock {
       display: none;
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(5, 17, 23, 0.96);
-      backdrop-filter: blur(16px);
-      border-top: 1px solid var(--border-subtle);
-      padding: 0.45rem 0.5rem calc(0.45rem + env(safe-area-inset-bottom));
+      background: var(--bg-glass);
+      backdrop-filter: blur(18px);
+      border-top: 1px solid var(--border-strong);
+      padding: 0.35rem 0.4rem calc(0.35rem + env(safe-area-inset-bottom));
       z-index: 1500;
       justify-content: space-around;
       align-items: center;
@@ -1290,166 +1361,139 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.15rem;
+      gap: 0.1rem;
       background: none;
       border: none;
       color: var(--text-secondary);
       font-family: var(--font-mono);
-      font-size: 0.65rem;
-      font-weight: 600;
-      text-decoration: none;
-      padding: 0.3rem 0.6rem;
-      border-radius: 8px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
       cursor: pointer;
     }
 
-    .dock-btn.active, .dock-btn:hover {
-      color: var(--cebpac-gold);
-      background: rgba(250, 204, 21, 0.1);
+    .dock-btn.active {
+      color: var(--m-Sky-glow);
+      background: rgba(0, 102, 177, 0.14);
     }
 
-    .dock-btn span.icon {
-      font-size: 1.05rem;
-    }
-
-    /* Responsive Breakpoints & Mobile Touch Optimizations */
-    @media (max-width: 1200px) {
+    /* Responsive Breakpoints */
+    @media (max-width: 1180px) {
       .cockpit-grid {
         grid-template-columns: 1fr;
+      }
+      .map-column {
+        position: static;
+      }
+      #ph-interactive-map {
+        height: 380px;
+      }
+      .preset-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
     @media (max-width: 768px) {
       .top-command-bar {
-        padding: 0.75rem 1rem;
-      }
-      .brand-titles h1 {
-        font-size: 1.08rem;
-      }
-      .kpi-ribbon {
-        width: 100%;
-        justify-content: space-between;
-      }
-      .kpi-chip {
-        padding: 0.3rem 0.55rem;
+        padding: 0.55rem 0.85rem;
       }
       .hub-nav-strip {
-        padding: 0.55rem 1rem;
-        position: sticky;
-        top: 66px;
-        z-index: 990;
+        padding: 0.45rem 0.85rem;
+        top: 56px;
       }
       .cockpit-grid {
-        padding: 0.85rem 1rem;
-        gap: 1rem;
+        padding: 0.65rem 0.85rem;
       }
-      #ph-interactive-map {
-        height: 360px;
+      .hotels-grid,
+      .dual-highlights-grid,
+      .dining-grid,
+      .flight-legs-grid,
+      .packing-grid,
+      .preset-grid {
+        grid-template-columns: 1fr;
       }
-      .fullwidth-section {
-        padding: 0 1rem 1.25rem;
+      .hub-breakdown-grid {
+        grid-template-columns: repeat(4, 1fr);
       }
       .mobile-bottom-dock {
         display: flex;
-      }
-      /* Convert 32-day table into mobile cards on narrow screens */
-      table.itinerary-table thead {
-        display: none;
-      }
-      table.itinerary-table,
-      table.itinerary-table tbody,
-      table.itinerary-table tr,
-      table.itinerary-table td {
-        display: block;
-        width: 100%;
-      }
-      table.itinerary-table tr.day-row {
-        padding: 0.65rem;
-        border-bottom: 1px solid var(--border-subtle);
-      }
-      table.itinerary-table td {
-        padding: 0.25rem 0.4rem;
-        border: none;
       }
     }
 
     /* Custom Leaflet Popup Styling */
     :global(.leaflet-popup-content-wrapper) {
-      background: #091b24 !important;
-      color: #f8fafc !important;
-      border: 1px solid rgba(20, 184, 166, 0.5);
-      border-radius: 12px !important;
+      background: #111620 !important;
+      color: #F8FAFC !important;
+      border: 1px solid rgba(46, 154, 254, 0.45);
+      border-radius: 10px !important;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65) !important;
     }
     :global(.leaflet-popup-tip) {
-      background: #091b24 !important;
+      background: #111620 !important;
     }
     :global(.custom-pin-marker) {
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 50%;
+      border-radius: 6px;
       font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
-      font-size: 11px;
-      color: #051117;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
-      border: 2px solid #ffffff;
+      font-weight: 800;
+      font-size: 10px;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+      border: 1.5px solid #FFFFFF;
     }
   </style>
 </head>
 <body>
-  <div class="banig-top-strip"></div>
+  <!-- Authentic BMW ///M Tri-Color Accent Bar -->
+  <div class="m-tricolor-strip"></div>
 
-  <!-- Top Telemetry & KPI Header -->
+  <!-- Sticky Top Telemetry Header -->
   <header class="top-command-bar" id="top-cockpit">
     <div class="brand-cluster">
-      <div class="sun-emblem" title="Philippine Archipelago Travel OS">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2">
-          <circle cx="12" cy="12" r="4" fill="#facc15" />
-          <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M19.07 4.93l-2.12 2.12M7.05 16.95l-2.12 2.12" />
-        </svg>
+      <div class="m-crest" title="KAPULUAN ///M Nordic &amp; M-Sport Travel OS">
+        <span style="font-family:var(--font-mono);font-weight:800;font-style:italic;font-size:0.82rem;z-index:1;">
+          <span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>M
+        </span>
       </div>
       <div class="brand-titles">
         <h1>
-          KAPULUAN TRAVEL OS
+          KAPULUAN
+          <span class="m-badge-inline"><span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>M OS</span>
           <span class="badge-pill">MC &amp; Christian</span>
-          <span class="badge-pill badge-cebpac">Cebu Pacific 5J · DG · T6</span>
+          <span class="badge-pill badge-m-red">Clark Track · Liberty Walk · Cebu→Bohol 4x4</span>
         </h1>
-        <p>Philippines 32-Day Personal Guide · {totalHotels} Vetted 4–5★ Landmark Hotels (6+ / Hub) · Nov 8 – Dec 9</p>
+        <p>32D Philippines Cockpit · {totalHotels} Stays (Ayala Triangle, Las Cabañas &amp; Lio) · Nov 8 – Dec 9, 2026</p>
       </div>
     </div>
 
     <div class="kpi-ribbon">
-      <div class="kpi-chip">
-        <span class="label">Duration</span>
-        <span class="val">32 Days · 7 Hubs</span>
+      <div class="kpi-chip target-green">
+        <span class="label">29N Lodging Shortlist</span>
+        <span class="val" id="shortlist-total-badge">28,260 DKK (29N)</span>
       </div>
-      <div class="kpi-chip">
-        <span class="label">4–5★ Hotels</span>
-        <span class="val">{totalHotels} Options (6+ / Hub)</span>
-      </div>
-      <div class="kpi-chip gold">
-        <span class="label">Shortlisted Budget</span>
-        <span class="val" id="shortlist-total-badge">7 Hubs Ready</span>
-      </div>
-      <div class="currency-toggle" role="group" aria-label="Currency Converter">
+      <div class="segmented-control" role="group" aria-label="Currency Converter">
         <button type="button" class="curr-btn active" data-curr="DKK">DKK</button>
         <button type="button" class="curr-btn" data-curr="PHP">PHP (₱)</button>
         <button type="button" class="curr-btn" data-curr="EUR">EUR (€)</button>
       </div>
+      <button type="button" class="theme-toggle-btn" id="btn-theme-toggle" title="Switch between BMW M Carbon Dark and Nordic Alpine Daylight">
+        <span id="theme-toggle-label">☀️ Nordic Light</span>
+      </button>
       <a
         class="sheet-sync-btn"
         href="https://docs.google.com/spreadsheets/d/1OrCABb_TqMRWFFenlpoUbLRfmU9W5rxHlB7B2sXCkdY/edit?usp=drivesdk"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span>📊 Google Sheet</span>
+        <span>📊 Sheet</span>
       </a>
     </div>
   </header>
 
-  <!-- Destination Hub Navigation Strip -->
+  <!-- 7 Destination Hub Selector Strip -->
   <nav class="hub-nav-strip" aria-label="Destination Hubs">
     <button class="hub-tab-btn" id="btn-overview-all" type="button">
       <span class="num">ALL</span>
@@ -1462,27 +1506,28 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         type="button"
       >
         <span class="num">{hub.number}</span>
-        <span>{hub.name}</span>
-        <span style="font-size:0.68rem; opacity:0.75;">({hub.hotels.length}★)</span>
+        <span>{hub.name.split(':')[0]}</span>
+        <span style="font-size:0.65rem;opacity:0.75;">({hub.hotels.length})</span>
       </button>
     ))}
   </nav>
 
-  <!-- Main Interactive Split Cockpit -->
+  <!-- Main Balanced Split-Screen iDrive Cockpit -->
   <main class="cockpit-grid">
-    <!-- LEFT COLUMN: Interactive Leaflet Map + Cebu Pacific Vector Flight Matrix -->
-    <section class="map-column" id="section-map">
+    <!-- LEFT COLUMN: Sticky Interactive Map + Live 7-Hub Budget Telemetry -->
+    <aside class="map-column" id="section-map">
       <div class="map-frame-card">
         <div class="map-toolbar">
           <div class="map-toolbar-title">
             <span class="live-dot"></span>
-            <span id="map-status-label">Interactive Archipelago Map · Tap Any Hub, Hotel, Landmark or Flight Arc</span>
+            <span id="map-status-label">///M Telemetry Map · Tap Any Hub, Stay, Car Show or Roadtrip</span>
           </div>
           <div class="map-control-group">
-            <button class="map-btn" id="btn-fit-archipelago" type="button">🗺️ Fit All Islands</button>
-            <button class="map-btn" id="btn-cycle-basemap" type="button">🌑 Style: Dark Matter</button>
-            <button class="map-btn active" id="btn-toggle-flights" type="button">✈️ Flight Arcs</button>
-            <button class="map-btn gold" id="btn-play-tour" type="button">▶ Play 7-Hub Flyover</button>
+            <button class="map-btn" id="btn-fit-archipelago" type="button">🗺️ All Islands</button>
+            <button class="map-btn" id="btn-roadtrip-zoom" type="button">🛣️ Cebu→Bohol Loop</button>
+            <button class="map-btn" id="btn-cycle-basemap" type="button">🌑 Dark Map</button>
+            <button class="map-btn active" id="btn-toggle-flights" type="button">✈️ Vectors</button>
+            <button class="map-btn m-sport-btn" id="btn-play-tour" type="button">▶ 7-Hub Flyover</button>
           </div>
         </div>
 
@@ -1490,489 +1535,605 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
         <div class="map-legend-footer">
           <div class="legend-items">
-            <span class="legend-item"><i class="legend-swatch" style="background:#facc15;"></i> 5★ Flagship</span>
-            <span class="legend-item"><i class="legend-swatch" style="background:#38bdf8;"></i> Somerset / Serviced</span>
-            <span class="legend-item"><i class="legend-swatch" style="background:#c084fc;"></i> Luxury Airbnb</span>
-            <span class="legend-item"><i class="legend-swatch" style="background:#14b8a6;"></i> 4★+ Boutique</span>
-            <span class="legend-item"><i class="legend-swatch" style="background:#fb7185;"></i> Landmark</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#0066B1;"></i> 5★ Flagship</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#6366F1;"></i> Somerset / Serviced</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#10B981;"></i> Luxury Airbnb / Boutique</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:#E30613;"></i> ///M Car Show / Circuit</span>
           </div>
-          <span style="font-family:var(--font-mono);">1 DKK ≈ 8.4 PHP · Tap any pin for booking links</span>
+          <span>1 DKK ≈ 8.4 PHP</span>
         </div>
       </div>
 
-      <!-- Cebu Pacific & Island Transit Schematic + Cards -->
-      <div class="flight-schematic-card" id="section-flights">
-        <div class="section-header-row">
-          <h2>
-            <span>✈️ Cebu Pacific (5J / DG / T6) &amp; Island Transit Network</span>
-          </h2>
-          <a
-            href="https://www.cebupacificair.com/en-PH/pages/plan/book-flights"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="cebpac-book-link"
-          >
-            Book on CebuPacificAir.com ↗
-          </a>
+      <!-- Sticky Left Telemetry Bar: Live 29-Night Budget Gauge & 7-Hub Breakdown -->
+      <div class="left-telemetry-card">
+        <div class="budget-meter-labels">
+          <span>29N Lodging Total: <strong style="color:var(--m-Sky-glow);" id="meter-current-total">28,260 DKK</strong></span>
+          <span style="color:var(--nordic-mint);">🎯 Target: 25,000–30,000 DKK</span>
+          <span>5★ Max: 51,065 DKK</span>
         </div>
-
-        <!-- Custom Philippine Flight Vector SVG Diagram -->
-        <div class="svg-flight-banner">
-          <svg viewBox="0 0 860 135" width="100%" height="135" xmlns="http://www.w3.org/2000/svg">
-            <line x1="20" y1="95" x2="840" y2="95" stroke="rgba(56,189,248,0.2)" stroke-width="1" />
-            <path d="M 55 95 Q 115 35 175 95" fill="none" stroke="#38bdf8" stroke-width="2" class="flight-arc-line" />
-            <path d="M 175 95 Q 245 20 315 95" fill="none" stroke="#facc15" stroke-width="2.5" class="flight-arc-line" />
-            <path d="M 315 95 Q 385 35 455 95" fill="none" stroke="#14b8a6" stroke-width="2" class="flight-arc-line" />
-            <path d="M 455 95 Q 525 18 595 95" fill="none" stroke="#facc15" stroke-width="2.5" class="flight-arc-line" />
-            <path d="M 595 95 Q 665 40 735 95" fill="none" stroke="#38bdf8" stroke-width="2" class="flight-arc-line" />
-            <path d="M 735 95 Q 775 20 815 95" fill="none" stroke="#facc15" stroke-width="2.5" class="flight-arc-line" />
-
-            <g transform="translate(55,95)">
-              <circle r="7" fill="#006972" stroke="#facc15" stroke-width="2" />
-              <text y="-14" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="10" font-weight="700">MNL T3</text>
-              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Makati &amp; Bay</text>
-            </g>
-            <g transform="translate(175,95)">
-              <circle r="7" fill="#006972" stroke="#38bdf8" stroke-width="2" />
-              <text y="-14" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="10" font-weight="700">CRK</text>
-              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Clark Speedway</text>
-              <text x="-60" y="-36" text-anchor="middle" fill="#bae6fd" font-family="JetBrains Mono" font-size="8">NLEX 1.5h</text>
-            </g>
-            <g transform="translate(315,95)">
-              <circle r="7" fill="#006972" stroke="#facc15" stroke-width="2" />
-              <text y="-14" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="10" font-weight="700">USU</text>
-              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Coron Lagoon</text>
-              <text x="-70" y="-42" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="8">✈ Cebgo DG 6031</text>
-            </g>
-            <g transform="translate(455,95)">
-              <circle r="7" fill="#006972" stroke="#14b8a6" stroke-width="2" />
-              <text y="-14" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="10" font-weight="700">ENI</text>
-              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">El Nido Bacuit</text>
-              <text x="-70" y="-38" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="8">⛵ Tao Paraw 4D</text>
-            </g>
-            <g transform="translate(595,95)">
-              <circle r="7" fill="#006972" stroke="#facc15" stroke-width="2" />
-              <text y="-14" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="10" font-weight="700">CEB</text>
-              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Cebu &amp; Mactan</text>
-              <text x="-70" y="-42" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="8">✈ CEB Group T6</text>
-            </g>
-            <g transform="translate(735,95)">
-              <circle r="7" fill="#006972" stroke="#38bdf8" stroke-width="2" />
-              <text y="-14" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="10" font-weight="700">TAG / SIQ</text>
-              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Bohol &amp; Siquijor</text>
-              <text x="-70" y="-36" text-anchor="middle" fill="#bae6fd" font-family="JetBrains Mono" font-size="8">⛴ OceanJet / 5J</text>
-            </g>
-            <g transform="translate(815,95)">
-              <circle r="7" fill="#facc15" stroke="#ffffff" stroke-width="2" />
-              <text y="-14" text-anchor="middle" fill="#facc15" font-family="JetBrains Mono" font-size="10" font-weight="700">MNL ✈ CPH</text>
-              <text y="22" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">5J 562 Finale</text>
-            </g>
-          </svg>
+        <div class="budget-bar-track">
+          <div class="budget-target-zone" title="Target Budget Zone: 25,000 to 30,000 DKK"></div>
+          <div class="budget-bar-fill" id="budget-bar-fill" style="width: 52%;"></div>
         </div>
+        <div class="hub-breakdown-grid" id="hub-breakdown-grid"></div>
+      </div>
+    </aside>
 
-        <!-- Interactive Flight Leg Cards -->
-        <div class="flight-legs-grid">
-          {FLIGHT_ROUTES.map((fl) => (
-            <div
-              class="flight-leg-card"
-              data-from-lat={fl.fromCoords[0]}
-              data-from-lng={fl.fromCoords[1]}
-              data-to-lat={fl.toCoords[0]}
-              data-to-lng={fl.toCoords[1]}
-              data-route-code={fl.code}
-            >
-              <div>
-                <div class="flight-leg-top">
-                  <span class="route-code">{fl.code}</span>
-                  <span class="fare-tag price-convertible" data-dkk={fl.fareDkk} data-suffix="">~{fl.fareDkk.toLocaleString()} DKK</span>
-                </div>
-                <div class="carrier-line">{fl.carrier} · <span style="color:#38bdf8;font-family:var(--font-mono);">{fl.flightNo}</span></div>
-                <p class="flight-notes" style="margin-top:0.25rem;">{fl.notes}</p>
-                <div class="baggage-tip" style="margin-top:0.4rem;">🧳 {fl.baggageTip}</div>
-              </div>
-              <div class="flight-leg-actions">
-                <span class="flight-duration">⏱ {fl.duration}</span>
-                <a
-                  href={fl.bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="cebpac-book-link"
-                  onclick="event.stopPropagation();"
-                >
-                  Book Flight ↗
-                </a>
-              </div>
-            </div>
-          ))}
+    <!-- RIGHT COLUMN: Segmented M-Drive Mode Deck (No More 8,000px Scroll) -->
+    <section class="right-deck-column" id="right-deck">
+      <!-- BMW M Drive Mode Selector Bar -->
+      <div class="m-drive-mode-bar" role="tablist" aria-label="Cockpit Display Mode">
+        <div class="m-mode-tabs">
+          <button type="button" class="m-mode-btn active" data-drive-mode="stays">
+            <span>🏨 01 · Stays &amp; Budget ({totalHotels})</span>
+          </button>
+          <button type="button" class="m-mode-btn m-red-tab" data-drive-mode="msport">
+            <span>🏎️ 02 · ///M Auto Shows &amp; Cebu→Bohol Roadtrip</span>
+          </button>
+          <button type="button" class="m-mode-btn" data-drive-mode="schedule">
+            <span>🗓️ 03 · 32-Day Log</span>
+          </button>
+          <button type="button" class="m-mode-btn" data-drive-mode="flights">
+            <span>✈️ 04 · Flights &amp; RORO</span>
+          </button>
+          <button type="button" class="m-mode-btn" data-drive-mode="packing">
+            <span>🎒 05 · Packing ({totalPackingItems})</span>
+          </button>
+          <button type="button" class="m-mode-btn" data-drive-mode="all">
+            <span>⚡ All</span>
+          </button>
         </div>
       </div>
-    </section>
 
-    <!-- RIGHT COLUMN: Destination Spotlight & Minimum 6 Curated 4-5★ Hotels Closest to Landmarks -->
-    <section class="hotels-column" id="section-hotels">
-      <!-- Interactive Accommodation Budget Optimizer & Ayala Triangle Serviced/Airbnb Filter -->
-      <div class="budget-optimizer-card" id="budget-optimizer">
-        <div class="budget-opt-header">
-          <div>
+      <!-- =====================================================================
+           DRIVE MODE 01: STAYS & 25k–30k DKK ACCOMMODATION BUDGET OPTIMIZER
+           ===================================================================== -->
+      <div class="deck-mode-section mode-active" id="mode-panel-stays" data-mode-panel="stays">
+        <div class="budget-optimizer-card" id="budget-optimizer">
+          <div class="budget-opt-header">
             <div class="budget-opt-title">
-              <span>💰 Accommodation Budget Optimizer (29 Nights · Flights Unchanged)</span>
+              <span class="m-badge-inline"><span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>M</span>
+              <span>Accommodation Budget Optimizer (29 Nights · Flights Unchanged)</span>
             </div>
-            <p style="font-size:0.75rem;color:var(--text-secondary);margin-top:0.15rem;">
-              Compare the <strong>51,065 DKK (€6,843)</strong> 5★ Flagship benchmark against our <strong>25,000–30,000 DKK</strong> Target Mix using Somerset/Citadines near Ayala Triangle &amp; boutique island resorts.
-            </p>
-          </div>
-          <span class="budget-status-pill" id="budget-status-indicator">
-            🎯 Within 25k–30k DKK Target
-          </span>
-        </div>
-
-        <!-- 4 One-Click Trip Accommodation Presets -->
-        <div class="preset-grid" role="group" aria-label="Accommodation Budget Presets">
-          <button type="button" class="preset-btn active" data-preset="target-somerset">
-            <div class="p-top">
-              <span>🎯 Target 25k–30k (Somerset + Las Cabañas)</span>
-              <span class="p-price price-convertible" data-dkk="28260" data-suffix="">~28,260 DKK</span>
-            </div>
-            <div class="p-desc">Somerset Central Salcedo (480m to Ayala Triangle), Paolyn Houseboat, Las Cabañas Beach Resort (or Maremegmeg Beach Club) &amp; Fili NUSTAR.</div>
-          </button>
-
-          <button type="button" class="preset-btn" data-preset="target-citadines">
-            <div class="p-top">
-              <span>🎯 Target 25k–30k (Citadines + Piece Lio)</span>
-              <span class="p-price price-convertible" data-dkk="25090" data-suffix="">~25,090 DKK</span>
-            </div>
-            <div class="p-desc">Citadines Salcedo (380m to Ayala Triangle), Funny Lion Coron, Piece Lio (MICHELIN Guide · Lio Beach), Fili NUSTAR &amp; Coco Grove.</div>
-          </button>
-
-          <button type="button" class="preset-btn" data-preset="value-airbnb">
-            <div class="p-top">
-              <span>🏡 Smart Airbnb, Lio &amp; Las Cabañas Value</span>
-              <span class="p-price price-convertible" data-dkk="18770" data-suffix="">~18,770 DKK</span>
-            </div>
-            <div class="p-desc">Paseo Parkview Airbnb (140m to Ayala Triangle), Shore Bayfront Airbnb, Balai Adlao / Huni Lio (or Karuna Las Cabañas) &amp; Marco Polo.</div>
-          </button>
-
-          <button type="button" class="preset-btn" data-preset="flagship-51k">
-            <div class="p-top">
-              <span>💎 5★ Flagship Benchmark (29N)</span>
-              <span class="p-price price-convertible" data-dkk="51065" data-suffix="">~51,065 DKK</span>
-            </div>
-            <div class="p-desc">Peninsula Manila, Manila Hotel, Clark Marriott, Club Paradise Coron, Pangulasian Island El Nido, Fili NUSTAR &amp; Amorita.</div>
-          </button>
-        </div>
-
-        <!-- Visual Budget Meter Bar (0 to 55,000 DKK with 25k–30k Target Zone highlighted) -->
-        <div class="budget-meter-wrap">
-          <div class="budget-meter-labels">
-            <span>Selected 29N Total: <strong style="color:var(--cebpac-gold);" id="meter-current-total">28,440 DKK</strong></span>
-            <span style="color:#6ee7b7;">🎯 Target Zone: 25,000 – 30,000 DKK (€3,350–€4,020)</span>
-            <span>Flagship Max: 51,065 DKK (€6,843)</span>
-          </div>
-          <div class="budget-bar-track">
-            <div class="budget-target-zone" title="Target Budget Zone: 25,000 to 30,000 DKK"></div>
-            <div class="budget-bar-fill" id="budget-bar-fill" style="width: 55%;"></div>
-          </div>
-          <div class="hub-breakdown-grid" id="hub-breakdown-grid"></div>
-        </div>
-
-        <!-- Filter Hotel Cards & Map Pins by Budget Tier / Property Type -->
-        <div class="stay-filter-bar">
-          <span style="font-family:var(--font-mono);font-size:0.71rem;color:var(--text-secondary);">
-            🔍 Filter Options on Cards &amp; Map:
-          </span>
-          <div class="stay-filter-pills">
-            <button type="button" class="stay-filter-btn active" data-stay-filter="all">All {totalHotels} Stays</button>
-            <button type="button" class="stay-filter-btn" data-stay-filter="under-1100">🎯 Fits 25k–30k Budget (≤ 1,100 DKK/n)</button>
-            <button type="button" class="stay-filter-btn" data-stay-filter="serviced-airbnb">🏢 Somerset / Citadines &amp; Airbnb</button>
-            <button type="button" class="stay-filter-btn" data-stay-filter="value-under-750">💚 Under 750 DKK/n</button>
-            <button type="button" class="stay-filter-btn" data-stay-filter="flagship">💎 5★ Flagships</button>
-          </div>
-        </div>
-      </div>
-
-      {DESTINATION_HUBS.map((hub, idx) => (
-        <div
-          class={`hub-spotlight-panel ${idx === 0 ? 'active' : ''}`}
-          id={`hub-panel-${hub.id}`}
-          data-hub-panel={hub.id}
-        >
-          <div class="hub-banner-head">
-            <div class="hub-title-block">
-              <div class="region-kicker">HUB {hub.number} · {hub.region}</div>
-              <h2>{hub.name}</h2>
-              <p class="tagline">{hub.tagline}</p>
-            </div>
-            <div class="hub-meta-badges">
-              <div class="hub-dates-pill">📅 {hub.dates}</div>
-              <div class="hub-weather-pill">☀️ {hub.weatherAvg}</div>
-            </div>
-          </div>
-
-          <!-- Key Landmarks (Click to Zoom Map) -->
-          <div class="landmarks-bar">
-            <span style="font-family:var(--font-mono);color:var(--text-secondary);font-weight:600;">📍 Key Landmarks:</span>
-            {hub.primaryLandmarks.map((lm) => (
-              <button
-                type="button"
-                class="landmark-chip"
-                data-lat={lm.lat}
-                data-lng={lm.lng}
-                data-title={lm.name}
-                title={`Hours: ${lm.openHours}`}
-              >
-                🎯 {lm.name} · <span style="opacity:0.8;">{lm.openHours}</span>
-              </button>
-            ))}
-          </div>
-
-          <!-- Dual Highlights + Cebu Pacific Hub Box -->
-          <div class="dual-highlights-grid">
-            <div class="highlight-box">
-              <div class="h-label" style="color:#38bdf8;">🏎️ Motorsport &amp; Driving Highlight</div>
-              <p>{hub.motorsportHighlight}</p>
-            </div>
-            <div class="highlight-box">
-              <div class="h-label" style="color:#fb7185;">🌺 Romance &amp; Cultural Highlight</div>
-              <p>{hub.romanceHighlight}</p>
-              <p style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.3rem;">☔ <strong>Weather Backup:</strong> {hub.weatherBackup}</p>
-            </div>
-            <div class="highlight-box cebpac-box">
-              <div class="h-label" style="color:#facc15;">✈️ Cebu Pacific Gateway &amp; Direct Booking</div>
-              <p style="margin-bottom:0.35rem;"><strong>{hub.cebuPacGateway}</strong><br/><span style="font-family:var(--font-mono);font-size:0.72rem;color:#fde047;">{hub.cebuPacFlightNos}</span></p>
-              <a href={hub.cebuPacBookingUrl} target="_blank" rel="noopener noreferrer" class="cebpac-book-link" style="display:inline-block;">
-                Book Cebu Pacific ({hub.number}) ↗
-              </a>
-            </div>
-          </div>
-
-          <!-- 6+ Curated 4-5 Star Hotels Closest to Landmarks -->
-          <div class="section-header-row" style="margin-top:0.2rem; margin-bottom:0.1rem;">
-            <h3 style="font-family:var(--font-display);font-size:1.08rem;color:var(--capiz-cream);">
-              🏨 Top {hub.hotels.length} Curated Hotels, Serviced Suites &amp; Airbnbs Closest to {hub.name} Landmarks
-            </h3>
-            <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--teal-glow);">
-              {hub.nights} Nights in Hub · Tap ⭐ Shortlist to customize budget
+            <span class="budget-status-pill" id="budget-status-indicator">
+              🎯 Inside 25k–30k DKK Target
             </span>
           </div>
 
-          <div class="hotels-grid">
-            {hub.hotels.map((hotel) => {
-              const tierClass = hotel.tier === 'Luxury Airbnb'
-                ? 'tier-tag-airbnb'
-                : (hotel.tier === '4-Star Serviced' ? 'tier-tag-serviced' : '');
-              const hubSubtotalDkk = hotel.rateDkk * hub.nights;
-              return (
-                <article
-                  class="hotel-card"
-                  data-hub-id={hub.id}
-                  data-nights={hub.nights}
-                  data-rate-dkk={hotel.rateDkk}
-                  data-tier={hotel.tier}
-                  data-budget-band={hotel.budgetBand}
-                  data-lat={hotel.lat}
-                  data-lng={hotel.lng}
-                  data-hotel-name={hotel.name}
-                >
-                  <div>
-                    <div class="hotel-card-header">
-                      <span class={`option-badge ${tierClass}`}>OPTION {hotel.rank} · {hotel.tier}</span>
-                      <span class="rate-pill price-convertible" data-dkk={hotel.rateDkk} data-suffix=" / night">{hotel.rateDkk.toLocaleString()} DKK / night</span>
-                    </div>
-                    <h4 class="hotel-name" style="margin-top:0.42rem;">{hotel.name}</h4>
-                    <div class="stars-line" style="display:flex;justify-content:space-between;align-items:center;gap:0.4rem;">
-                      <span>{hotel.stars}</span>
-                      <span class="price-convertible" data-dkk={hubSubtotalDkk} data-suffix={` (${hub.nights}N)`} style="color:#94a3b8;font-size:0.68rem;">
-                        {hubSubtotalDkk.toLocaleString()} DKK ({hub.nights}N)
-                      </span>
-                    </div>
+          <div class="preset-grid" role="group" aria-label="Accommodation Budget Presets">
+            <button type="button" class="preset-btn active" data-preset="target-somerset">
+              <div class="p-top">
+                <span>🎯 Somerset + Las Cabañas</span>
+                <span class="p-price price-convertible" data-dkk="28260" data-suffix="">~28,260 DKK</span>
+              </div>
+              <div class="p-desc">Somerset Salcedo (480m to Ayala Triangle), Paolyn Houseboat, Las Cabañas Beach Resort &amp; Fili NUSTAR.</div>
+            </button>
 
-                    <div class="proximity-box" style="margin-top:0.5rem;">
-                      <strong>📍 Closest Landmark ({hotel.distance})</strong>
-                      <span>{hotel.landmark}</span>
-                    </div>
+            <button type="button" class="preset-btn" data-preset="target-citadines">
+              <div class="p-top">
+                <span>🎯 Citadines + Piece Lio</span>
+                <span class="p-price price-convertible" data-dkk="25090" data-suffix="">~25,090 DKK</span>
+              </div>
+              <div class="p-desc">Citadines Salcedo (380m to Ayala Triangle), Funny Lion Coron, Piece Lio (MICHELIN · Lio Beach) &amp; Coco Grove.</div>
+            </button>
 
-                    <p class="hotel-highlight" style="margin-top:0.45rem;">{hotel.highlight}</p>
-                  </div>
+            <button type="button" class="preset-btn" data-preset="value-airbnb">
+              <div class="p-top">
+                <span>🏡 Airbnb, Lio &amp; Las Cabañas</span>
+                <span class="p-price price-convertible" data-dkk="18770" data-suffix="">~18,770 DKK</span>
+              </div>
+              <div class="p-desc">Paseo Parkview Airbnb (140m to Ayala Triangle), Shore Bayfront, Balai Adlao / Karuna Las Cabañas &amp; Marco Polo.</div>
+            </button>
 
-                  <div class="hotel-card-footer">
-                    <div style="display:flex;gap:0.35rem;">
-                      <button
-                        type="button"
-                        class="locate-pin-btn"
-                        data-lat={hotel.lat}
-                        data-lng={hotel.lng}
-                      >
-                        📍 Map Pin
-                      </button>
-                      <button
-                        type="button"
-                        class="shortlist-btn"
-                        data-hub-id={hub.id}
-                        data-hotel-name={hotel.name}
-                        data-rate-dkk={hotel.rateDkk}
-                        data-nights={hub.nights}
-                      >
-                        ⭐ Shortlist
-                      </button>
-                    </div>
-                    <a
-                      href={hotel.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="hotel-book-btn"
-                    >
-                      Book Stay ↗
-                    </a>
-                  </div>
-                </article>
-              );
-            })}
+            <button type="button" class="preset-btn" data-preset="flagship-51k">
+              <div class="p-top">
+                <span>💎 5★ Flagship Benchmark</span>
+                <span class="p-price price-convertible" data-dkk="51065" data-suffix="">~51,065 DKK</span>
+              </div>
+              <div class="p-desc">Peninsula Manila, Manila Hotel, Clark Marriott, Club Paradise, Pangulasian El Nido, Fili NUSTAR &amp; Amorita.</div>
+            </button>
           </div>
 
-          <!-- Curated Specialty Coffee, Casual Lunch & Destination Dinner per Hub -->
-          <div class="dining-strip">
-            <h4 style="font-family:var(--font-display);font-size:0.98rem;color:var(--capiz-cream);">
-              ☕🍽️ Curated Specialty Coffee &amp; Culinary Anchors in {hub.name}
-            </h4>
-            <div class="dining-grid">
-              {hub.dining.map((spot) => (
-                <div class="dining-card">
-                  <div class="dining-cat">{spot.category} · {spot.neighborhood}</div>
-                  <div style="font-weight:700;color:#fff;margin:0.15rem 0;">{spot.name}</div>
-                  <div style="color:var(--text-secondary);">{spot.specialty}</div>
-                  <div style="font-size:0.69rem;color:#5eead4;margin-top:0.25rem;">💡 {spot.bookingTip}</div>
-                </div>
-              ))}
+          <div class="stay-filter-bar">
+            <span style="font-family:var(--font-mono);font-size:0.66rem;color:var(--text-secondary);">
+              FILTER STAYS &amp; MAP PINS:
+            </span>
+            <div class="stay-filter-pills">
+              <button type="button" class="stay-filter-btn active" data-stay-filter="all">All ({totalHotels})</button>
+              <button type="button" class="stay-filter-btn" data-stay-filter="under-1100">🎯 Fits 25k–30k (≤1,100 DKK/n)</button>
+              <button type="button" class="stay-filter-btn" data-stay-filter="serviced-airbnb">🏢 Somerset / Citadines &amp; Airbnb</button>
+              <button type="button" class="stay-filter-btn" data-stay-filter="value-under-750">💚 ≤750 DKK/n</button>
+              <button type="button" class="stay-filter-btn" data-stay-filter="flagship">💎 5★ Flagships</button>
             </div>
           </div>
         </div>
-      ))}
-    </section>
-  </main>
 
-  <!-- 32-Day Interactive Master Schedule -->
-  <section class="fullwidth-section" id="section-schedule">
-    <div class="surface-card">
-      <div class="section-header-row">
-        <div>
-          <h2>🗓️ Interactive 32-Day Philippines Tour Master Schedule (Nov 8 – Dec 9)</h2>
-          <p style="font-size:0.79rem;color:var(--text-secondary);">Tap any day row to fly the map directly to that day's coordinates and inspect its 4–5★ hotel options &amp; weather backup.</p>
-        </div>
-        <div class="filter-pills">
-          <button class="filter-pill active" data-day-filter="all" type="button">All 32 Days</button>
-          {DESTINATION_HUBS.map((hub) => (
-            <button class="filter-pill" data-day-filter={hub.id} type="button">
-              {hub.number} · {hub.name.split(':')[0]}
-            </button>
-          ))}
-        </div>
-      </div>
+        <!-- Active Destination Hub Spotlight & Compact 2-Column Hotel Bento Grid -->
+        {DESTINATION_HUBS.map((hub, idx) => (
+          <div
+            class={`hub-spotlight-panel ${idx === 0 ? 'active' : ''}`}
+            id={`hub-panel-${hub.id}`}
+            data-hub-panel={hub.id}
+          >
+            <div class="hub-banner-head">
+              <div class="hub-title-block">
+                <div class="region-kicker">HUB {hub.number} · {hub.region}</div>
+                <h2>{hub.name}</h2>
+                <p class="tagline">{hub.tagline}</p>
+              </div>
+              <div class="hub-meta-badges">
+                <div class="hub-dates-pill">📅 {hub.dates}</div>
+                <div class="hub-weather-pill">☀️ {hub.weatherAvg}</div>
+              </div>
+            </div>
 
-      <div class="itinerary-table-wrap">
-        <table class="itinerary-table">
-          <thead>
-            <tr>
-              <th>Day &amp; Date</th>
-              <th>Destination / Location</th>
-              <th>General Activity &amp; Civilized Pacing</th>
-              <th>🏎️ Car &amp; Engineering Highlight</th>
-              <th>🌺 Romance, Culture &amp; Weather Backup</th>
-              <th>Map Pin</th>
-            </tr>
-          </thead>
-          <tbody id="itinerary-tbody">
-            {DAILY_ITINERARY.map((item) => (
-              <tr
-                class="day-row"
-                data-hub-id={item.hubId}
-                data-lat={item.coords[0]}
-                data-lng={item.coords[1]}
-                data-day-title={`Day ${item.day} (${item.date}) — ${item.location}`}
-                data-day-desc={item.generalActivity}
-              >
-                <td class="day-badge">Day {item.day} · {item.date}</td>
-                <td style="font-weight:600;color:#5eead4;">{item.location}</td>
-                <td>{item.generalActivity}</td>
-                <td style="color:#bae6fd;">{item.carHighlight}</td>
-                <td>
-                  <div style="color:#fecdd3;">{item.romanceHighlight}</div>
-                  <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">☔ Backup: {item.weatherBackup}</div>
-                </td>
-                <td>
-                  <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--cebpac-gold);">
-                    📍 Fly to Pin →
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+            <div class="landmarks-bar">
+              <span style="font-family:var(--font-mono);font-size:0.66rem;color:var(--text-secondary);font-weight:700;">📍 LANDMARKS:</span>
+              {hub.primaryLandmarks.map((lm) => (
+                <button
+                  type="button"
+                  class="landmark-chip"
+                  data-lat={lm.lat}
+                  data-lng={lm.lng}
+                  data-title={lm.name}
+                  title={`Hours: ${lm.openHours}`}
+                >
+                  🎯 {lm.name}
+                </button>
+              ))}
+            </div>
 
-  <!-- Interactive Pre-Departure & Tropical Packing Checklist (Persistent in LocalStorage) -->
-  <section class="fullwidth-section" id="section-packing">
-    <div class="surface-card">
-      <div class="section-header-row">
-        <div>
-          <h2>🎒 Philippines Tropical &amp; Track Packing Readiness (MC &amp; Christian)</h2>
-          <p style="font-size:0.79rem;color:var(--text-secondary);">
-            Synced with <code>travel/packing-list.md</code> · Checkboxes save automatically on your phone or laptop (<span id="pack-progress-text">0 / {totalPackingItems} packed</span>).
-          </p>
-        </div>
-        <button type="button" class="map-btn" id="btn-reset-packing">↺ Reset Checklist</button>
-      </div>
+            <div class="dual-highlights-grid">
+              <div class="highlight-box m-sport-box">
+                <div class="h-label" style="color:var(--m-red-glow);">🏎️ ///M Motorsport &amp; Drive</div>
+                <p>{hub.motorsportHighlight}</p>
+              </div>
+              <div class="highlight-box nordic-romance-box">
+                <div class="h-label" style="color:#818CF8;">🌺 Romance &amp; Weather Backup</div>
+                <p>{hub.romanceHighlight} · <span style="opacity:0.85;">☔ {hub.weatherBackup}</span></p>
+              </div>
+              <div class="highlight-box cebpac-box">
+                <div class="h-label" style="color:var(--m-Sky-glow);">✈️ {hub.cebuPacGateway}</div>
+                <p style="margin-bottom:0.25rem;font-family:var(--font-mono);font-size:0.66rem;">{hub.cebuPacFlightNos}</p>
+                <a href={hub.cebuPacBookingUrl} target="_blank" rel="noopener noreferrer" class="cebpac-book-link" style="display:inline-block;">
+                  Cebu Pacific ({hub.number}) ↗
+                </a>
+              </div>
+            </div>
 
-      <div class="packing-grid">
-        {PACKING_CATEGORIES.map((cat) => (
-          <div class="packing-box">
-            <h3><span>{cat.icon}</span> <span>{cat.title}</span></h3>
-            <div>
-              {cat.items.map((item, iIdx) => {
-                const checkId = `pack-${cat.id}-${iIdx}`;
+            <div class="hotels-grid">
+              {hub.hotels.map((hotel) => {
+                const tierClass = hotel.tier === 'Luxury Airbnb'
+                  ? 'tier-tag-airbnb'
+                  : (hotel.tier === '4-Star Serviced' ? 'tier-tag-serviced' : '');
+                const hubSubtotalDkk = hotel.rateDkk * hub.nights;
                 return (
-                  <label class="pack-item-label" for={checkId}>
-                    <input type="checkbox" id={checkId} class="pack-checkbox" data-pack-id={checkId} />
-                    <span>{item}</span>
-                  </label>
+                  <article
+                    class="hotel-card"
+                    data-hub-id={hub.id}
+                    data-nights={hub.nights}
+                    data-rate-dkk={hotel.rateDkk}
+                    data-tier={hotel.tier}
+                    data-budget-band={hotel.budgetBand}
+                    data-lat={hotel.lat}
+                    data-lng={hotel.lng}
+                    data-hotel-name={hotel.name}
+                  >
+                    <div>
+                      <div class="hotel-card-header">
+                        <span class={`option-badge ${tierClass}`}>#{hotel.rank} · {hotel.tier}</span>
+                        <span class="rate-pill price-convertible" data-dkk={hotel.rateDkk} data-suffix="/n">{hotel.rateDkk.toLocaleString()} DKK/n</span>
+                      </div>
+                      <h4 class="hotel-name" style="margin-top:0.32rem;">{hotel.name}</h4>
+                      <div class="stars-line" style="margin-top:0.15rem;">
+                        <span>{hotel.stars}</span>
+                        <span class="price-convertible" data-dkk={hubSubtotalDkk} data-suffix={` (${hub.nights}N)`}>
+                          {hubSubtotalDkk.toLocaleString()} DKK ({hub.nights}N)
+                        </span>
+                      </div>
+
+                      <div class="proximity-box" style="margin-top:0.38rem;">
+                        <strong>📍 {hotel.distance}:</strong>
+                        <span>{hotel.landmark}</span>
+                      </div>
+
+                      <p class="hotel-highlight" style="margin-top:0.32rem;">{hotel.highlight}</p>
+                    </div>
+
+                    <div class="hotel-card-footer">
+                      <div style="display:flex;gap:0.3rem;">
+                        <button
+                          type="button"
+                          class="locate-pin-btn"
+                          data-lat={hotel.lat}
+                          data-lng={hotel.lng}
+                        >
+                          📍 Pin
+                        </button>
+                        <button
+                          type="button"
+                          class="shortlist-btn"
+                          data-hub-id={hub.id}
+                          data-hotel-name={hotel.name}
+                          data-rate-dkk={hotel.rateDkk}
+                          data-nights={hub.nights}
+                        >
+                          ⭐ Select
+                        </button>
+                      </div>
+                      <a
+                        href={hotel.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hotel-book-btn"
+                      >
+                        Book ↗
+                      </a>
+                    </div>
+                  </article>
                 );
               })}
+            </div>
+
+            <div class="dining-strip">
+              <div style="font-family:var(--font-mono);font-size:0.68rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;">
+                ☕🍽️ Specialty Coffee &amp; Culinary Anchors — {hub.name}
+              </div>
+              <div class="dining-grid">
+                {hub.dining.map((spot) => (
+                  <div class="dining-card">
+                    <div class="dining-cat">{spot.category} · {spot.neighborhood}</div>
+                    <div style="font-weight:700;color:var(--text-primary);margin:0.12rem 0;">{spot.name}</div>
+                    <div style="color:var(--text-secondary);">{spot.specialty}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ))}
       </div>
-    </div>
-  </section>
+
+      <!-- =====================================================================
+           DRIVE MODE 02: ///M AUTO SHOWS (FROM DOWNLOADS/) & CEBU→BOHOL ROADTRIP
+           ===================================================================== -->
+      <div class="deck-mode-section" id="mode-panel-msport" data-mode-panel="msport">
+        <div class="surface-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+            <div>
+              <h2 style="font-size:1.12rem;font-weight:800;display:flex;align-items:center;gap:0.45rem;">
+                <span class="m-badge-inline"><span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>M</span>
+                <span>Manila Auto Shows &amp; Car Meets (Matched from Downloads/)</span>
+              </h2>
+              <p style="font-size:0.73rem;color:var(--text-secondary);">
+                Every event &amp; automotive café from your saved screenshots aligned to your exact Manila dates. Tap any card to fly the map.
+              </p>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0.55rem;">
+            <div class="m-event-card m-red-accent landmark-chip" data-lat="14.5256" data-lng="120.9902">
+              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-red-glow);font-weight:700;">🔥 DAY 6 · FRI NOV 13, 2026 (EXACT MANILA BAY CHECK-IN DAY!)</div>
+              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">🇯🇵🇵🇭 Liberty Walk Manila Car Meet (Wataru &amp; Hyuma Kato)</div>
+              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
+                <strong>Venue:</strong> Parqal, Aseana City, Parañaque (3 mins from Shore / Conrad / Lanson!). Live appearance by Liberty Walk founders Wataru &amp; Hyuma Kato, R34/GT-R/Lamborghini LBWK builds, Show &amp; Shine &amp; fan signing.
+              </div>
+            </div>
+
+            <div class="m-event-card m-red-accent landmark-chip" data-lat="14.5321" data-lng="120.9815">
+              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-red-glow);font-weight:700;">🔥 DAY 7–8 · SAT–SUN NOV 14–15, 2026 (200M WALK FROM HOTEL!)</div>
+              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">🏆 Manila Auto Salon 2026 &amp; Philippine Diecast Expo (SMX)</div>
+              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
+                <strong>Venue:</strong> SMX Convention Center, Mall of Asia Complex. Hosts the 30th Custom Car Show, 31st Sport Truck Show (lifted 4x4 Hilux/Land Cruiser builds), and Philippine Diecast Expo right beside your Manila Bay stay.
+              </div>
+            </div>
+
+            <div class="m-event-card m-red-accent landmark-chip" data-lat="14.5505" data-lng="121.0505">
+              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-red-glow);font-weight:700;">🔥 DAY 28–29 · SAT–SUN DEC 5–6, 2026 (MANILA FINALE WEEKEND)</div>
+              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">🎬 Bumper 2 Bumper (B2B) Carshow XXII w/ Sung Kang ("Han")</div>
+              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
+                <strong>Special Guest:</strong> Sung Kang ("Han" from <em>Fast &amp; Furious: Tokyo Drift</em>) live in Manila on your final weekend before flying home, paired with BGC High Street supercar meets.
+              </div>
+            </div>
+
+            <div class="m-event-card landmark-chip" data-lat="14.5994" data-lng="121.0568">
+              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-Sky-glow);font-weight:700;">DAY 3 · TUE NOV 10 (11:30 AM LUNCH)</div>
+              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">🍽️🏎️ Antonio’s Manila at PGA Cars Studio (202 EDSA)</div>
+              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
+                Fine dining (burrata salad &amp; steaks) integrated inside the official <strong>Porsche, Lamborghini, Bentley &amp; Audi</strong> flagship showroom studio (15 min from Ayala Triangle).
+              </div>
+            </div>
+
+            <div class="m-event-card landmark-chip" data-lat="14.4172" data-lng="121.0384">
+              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-Sky-glow);font-weight:700;">DAY 4 · WED NOV 11 (09:30 AM SKYWAY RUN)</div>
+              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">☕🏎️ Karrera Bistro &amp; Showroom (Filinvest Alabang)</div>
+              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
+                360 Corporate Woods Ave, Alabang (18 min down Skyway). Rotating classic Porsche, Ferrari &amp; JDM sports cars displayed right beside the coffee &amp; brick-oven pizza seating area.
+              </div>
+            </div>
+
+            <div class="m-event-card landmark-chip" data-lat="14.6515" data-lng="121.0493">
+              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-Sky-glow);font-weight:700;">DAY 5 · THU NOV 12 (OR DAY 8 EN ROUTE TO CLARK)</div>
+              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">🏛️🚘 Presidential Car Museum (Quezon Memorial Circle)</div>
+              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
+                Tue–Sun 8 AM–4 PM (Free). Compact 20-min exhibit starring Imelda Marcos’s Rolls-Royce Phantom V &amp; Mercedes 600 Pullman right off the NLEX route to Clark Speedway.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Part 2: Cebu -> Bohol (& Siquijor) Self-Drive Roadtrip Matrix -->
+        <div class="surface-card">
+          <div style="margin-bottom:0.75rem;">
+            <h2 style="font-size:1.12rem;font-weight:800;display:flex;align-items:center;gap:0.45rem;">
+              <span class="m-badge-inline"><span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>M</span>
+              <span>Cebu → Bohol (&amp; Siquijor) 4x4 Roadtrip Options (Nov 27 – Dec 3)</span>
+            </h2>
+            <p style="font-size:0.73rem;color:var(--text-secondary);">
+              Tap any roadtrip option below to zoom the map to the <strong>Cebu Transcentral Highway → Bohol Bilar Mahogany Forest → Chocolate Hills → Siquijor 72km Ring Road</strong> driving corridor.
+            </p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:0.6rem;">
+            <div class="m-event-card m-red-accent roadtrip-focus-card" data-roadtrip="option-a">
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.4rem;">
+                <span style="font-family:var(--font-mono);font-size:0.69rem;color:var(--nordic-mint);font-weight:700;">★ OPTION A (RECOMMENDED) · DUAL-ISLAND 4x4 PICKUP RENTAL (ZERO FERRY QUEUE)</span>
+                <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--m-Sky-glow);">~420 DKK/day · Tap to View Route on Map →</span>
+              </div>
+              <div style="font-weight:800;font-size:0.9rem;margin-top:0.2rem;">🛻 Self-Drive 4x4 Pickup in Cebu (Nov 27–28) + 2h OceanJet Business + Self-Drive 4x4 in Bohol (Nov 29–30)</div>
+              <div style="font-size:0.73rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.42;">
+                <strong>• Leg 1 (Cebu Mountain Touge · Nov 27–28):</strong> Pick up a Toyota Hilux Conquest / Ford Ranger Raptor / Fortuner at Mactan Airport (`CEB`). Carve up the <strong>33km Cebu Transcentral Highway (Busay → Tops Lookout → Sirao → Balamban hairpins)</strong> + drive the <strong>8.9km CCLEX Sea Bridge</strong>. Drop car at Cebu Pier 1.<br/>
+                <strong>• Leg 2 (Fast Strait Crossing · Nov 29 Morning):</strong> 2h OceanJet Business Class to Tagbilaran (avoids 3-hour cargo RORO port clearance).<br/>
+                <strong>• Leg 3 (Bohol Interior &amp; Forest Drive · Nov 29–30):</strong> Step off the ferry into a waiting Bohol 4x4 pickup at Tagbilaran Port and drive <strong>Panglao Coastal Road → Corella Tarsiers → Loboc River → 2km Bilar Mahogany Forest Canopy Tunnel → Carmen Chocolate Hills ATV Base</strong>!
+              </div>
+            </div>
+
+            <div class="m-event-card roadtrip-focus-card" data-roadtrip="option-b">
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.4rem;">
+                <span style="font-family:var(--font-mono);font-size:0.69rem;color:var(--m-Sky-glow);font-weight:700;">OPTION B · TRUE CROSS-SEA RORO EXPEDITION (ROLL ONE 4x4 ONTO THE FERRY)</span>
+                <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--text-secondary);">FastCat / Lite Ferries RORO · Tap to View Route →</span>
+              </div>
+              <div style="font-weight:800;font-size:0.9rem;margin-top:0.2rem;">⛴️🛻 Cebu Pier → Tubigon / Tagbilaran Port via FastCat Catamaran Car Ferry</div>
+              <div style="font-size:0.73rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.42;">
+                Rent a RORO-authorized 4x4 in Cebu and drive it straight onto the <strong>FastCat RORO (`Cebu → Tubigon`, 1.5–2h crossing)</strong>. Rolling off at Tubigon puts you on the scenic northwest Bohol mountain road straight into <strong>Carmen (Chocolate Hills)</strong>, then south through the <strong>Bilar Mahogany Forest</strong> and <strong>Loboc</strong> down to <strong>Panglao Island</strong>.
+              </div>
+            </div>
+
+            <div class="m-event-card roadtrip-focus-card" data-roadtrip="option-c">
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.4rem;">
+                <span style="font-family:var(--font-mono);font-size:0.69rem;color:#818CF8;font-weight:700;">OPTION C · GRAND VISAYAS RING LOOP (CEBU + BOHOL + SIQUIJOR 72KM RING ROAD)</span>
+                <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--text-secondary);">3-Island Self-Drive · Tap to View Route →</span>
+              </div>
+              <div style="font-weight:800;font-size:0.9rem;margin-top:0.2rem;">🌴🏎️ Transcentral Hwy + Bohol Chocolate Hills + Siquijor 72km Coastal Ring Road</div>
+              <div style="font-size:0.73rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.42;">
+                After your Cebu Transcentral &amp; Bohol Chocolate Hills drives, take the morning ferry on <strong>Dec 1 to Siquijor</strong> and pick up an island roadster/car at Siquijor Port to lap the <strong>uninterrupted, zero-traffic 72km Circumferential Coastal Road</strong> + climb the <strong>Mount Bandilaan</strong> central mountain ridge!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           DRIVE MODE 03: 32-DAY INTERACTIVE MASTER LOG
+           ===================================================================== -->
+      <div class="deck-mode-section" id="mode-panel-schedule" data-mode-panel="schedule">
+        <div class="surface-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+            <div>
+              <h2 style="font-size:1.08rem;font-weight:800;">🗓️ 32-Day Philippines Master Telemetry Log (Nov 8 – Dec 9)</h2>
+              <p style="font-size:0.72rem;color:var(--text-secondary);">Tap any day row to fly the map pin and activate its hub.</p>
+            </div>
+            <div class="filter-pills">
+              <button class="filter-pill active" data-day-filter="all" type="button">All 32D</button>
+              {DESTINATION_HUBS.map((hub) => (
+                <button class="filter-pill" data-day-filter={hub.id} type="button">
+                  H{hub.number}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div class="itinerary-table-wrap">
+            <table class="itinerary-table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Location</th>
+                  <th>Activity &amp; Pacing</th>
+                  <th>🏎️ ///M Motorsport &amp; Roadtrip</th>
+                  <th>🌺 Romance &amp; Backup</th>
+                </tr>
+              </thead>
+              <tbody id="itinerary-tbody">
+                {DAILY_ITINERARY.map((item) => (
+                  <tr
+                    class="day-row"
+                    data-hub-id={item.hubId}
+                    data-lat={item.coords[0]}
+                    data-lng={item.coords[1]}
+                    data-day-title={`Day ${item.day} (${item.date}) — ${item.location}`}
+                    data-day-desc={item.generalActivity}
+                  >
+                    <td class="day-badge">D{item.day} · {item.date}</td>
+                    <td style="font-weight:700;color:var(--text-primary);">{item.location}</td>
+                    <td>{item.generalActivity}</td>
+                    <td style="color:var(--m-Sky-glow);">{item.carHighlight}</td>
+                    <td>
+                      <div>{item.romanceHighlight}</div>
+                      <div style="font-size:0.66rem;color:var(--text-muted);margin-top:0.15rem;">☔ {item.weatherBackup}</div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           DRIVE MODE 04: CEBU PACIFIC (5J / DG / T6) & ISLAND RORO TRANSIT
+           ===================================================================== -->
+      <div class="deck-mode-section" id="mode-panel-flights" data-mode-panel="flights">
+        <div class="surface-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+            <h2 style="font-size:1.08rem;font-weight:800;">✈️ Cebu Pacific (5J / DG / T6) &amp; Island Transit Network</h2>
+            <a
+              href="https://www.cebupacificair.com/en-PH/pages/plan/book-flights"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cebpac-book-link"
+            >
+              CebuPacificAir.com ↗
+            </a>
+          </div>
+
+          <div class="svg-flight-banner">
+            <svg viewBox="0 0 860 120" width="100%" height="120" xmlns="http://www.w3.org/2000/svg">
+              <line x1="20" y1="85" x2="840" y2="85" stroke="rgba(46,154,254,0.22)" stroke-width="1" />
+              <path d="M 55 85 Q 115 28 175 85" fill="none" stroke="#2E9AFE" stroke-width="2" class="flight-arc-line" />
+              <path d="M 175 85 Q 245 18 315 85" fill="none" stroke="#0066B1" stroke-width="2.5" class="flight-arc-line" />
+              <path d="M 315 85 Q 385 28 455 85" fill="none" stroke="#10B981" stroke-width="2" class="flight-arc-line" />
+              <path d="M 455 85 Q 525 18 595 85" fill="none" stroke="#0066B1" stroke-width="2.5" class="flight-arc-line" />
+              <path d="M 595 85 Q 665 32 735 85" fill="none" stroke="#E30613" stroke-width="2.2" class="flight-arc-line" />
+              <path d="M 735 85 Q 775 18 815 85" fill="none" stroke="#0066B1" stroke-width="2.5" class="flight-arc-line" />
+
+              <g transform="translate(55,85)">
+                <circle r="6" fill="#0066B1" stroke="#fff" stroke-width="1.5" />
+                <text y="-12" text-anchor="middle" fill="#2E9AFE" font-family="JetBrains Mono" font-size="10" font-weight="700">MNL T3</text>
+                <text y="19" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Makati &amp; Bay</text>
+              </g>
+              <g transform="translate(175,85)">
+                <circle r="6" fill="#E30613" stroke="#fff" stroke-width="1.5" />
+                <text y="-12" text-anchor="middle" fill="#FF2836" font-family="JetBrains Mono" font-size="10" font-weight="700">CRK</text>
+                <text y="19" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Clark Track</text>
+              </g>
+              <g transform="translate(315,85)">
+                <circle r="6" fill="#0066B1" stroke="#fff" stroke-width="1.5" />
+                <text y="-12" text-anchor="middle" fill="#2E9AFE" font-family="JetBrains Mono" font-size="10" font-weight="700">USU</text>
+                <text y="19" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Coron Lagoon</text>
+              </g>
+              <g transform="translate(455,85)">
+                <circle r="6" fill="#10B981" stroke="#fff" stroke-width="1.5" />
+                <text y="-12" text-anchor="middle" fill="#10B981" font-family="JetBrains Mono" font-size="10" font-weight="700">ENI</text>
+                <text y="19" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Las Cabañas/Lio</text>
+              </g>
+              <g transform="translate(595,85)">
+                <circle r="6" fill="#E30613" stroke="#fff" stroke-width="1.5" />
+                <text y="-12" text-anchor="middle" fill="#FF2836" font-family="JetBrains Mono" font-size="10" font-weight="700">CEB</text>
+                <text y="19" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Transcentral 4x4</text>
+              </g>
+              <g transform="translate(735,85)">
+                <circle r="6" fill="#E30613" stroke="#fff" stroke-width="1.5" />
+                <text y="-12" text-anchor="middle" fill="#FF2836" font-family="JetBrains Mono" font-size="10" font-weight="700">TAG / SIQ</text>
+                <text y="19" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">Bohol &amp; 72km Ring</text>
+              </g>
+              <g transform="translate(815,85)">
+                <circle r="6" fill="#0066B1" stroke="#fff" stroke-width="1.5" />
+                <text y="-12" text-anchor="middle" fill="#2E9AFE" font-family="JetBrains Mono" font-size="10" font-weight="700">MNL ✈ CPH</text>
+                <text y="19" text-anchor="middle" fill="#94a3b8" font-family="Plus Jakarta Sans" font-size="9">B2B Finale</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="flight-legs-grid">
+            {FLIGHT_ROUTES.map((fl) => (
+              <div
+                class="flight-leg-card"
+                data-from-lat={fl.fromCoords[0]}
+                data-from-lng={fl.fromCoords[1]}
+                data-to-lat={fl.toCoords[0]}
+                data-to-lng={fl.toCoords[1]}
+                data-route-code={fl.code}
+              >
+                <div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span class="route-code">{fl.code}</span>
+                    <span class="fare-tag price-convertible" data-dkk={fl.fareDkk} data-suffix="">~{fl.fareDkk.toLocaleString()} DKK</span>
+                  </div>
+                  <div style="font-size:0.74rem;font-weight:700;margin-top:0.15rem;">{fl.carrier} · <span style="color:var(--m-Sky-glow);font-family:var(--font-mono);">{fl.flightNo}</span></div>
+                  <p style="font-size:0.69rem;color:var(--text-secondary);margin-top:0.2rem;">{fl.notes}</p>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding-top:0.35rem;border-top:1px solid var(--border-hairline);">
+                  <span style="font-family:var(--font-mono);font-size:0.66rem;color:var(--text-secondary);">⏱ {fl.duration}</span>
+                  <a
+                    href={fl.bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="cebpac-book-link"
+                    onclick="event.stopPropagation();"
+                  >
+                    Book ↗
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           DRIVE MODE 05: PACKING & READINESS CHECKLIST
+           ===================================================================== -->
+      <div class="deck-mode-section" id="mode-panel-packing" data-mode-panel="packing">
+        <div class="surface-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+            <div>
+              <h2 style="font-size:1.08rem;font-weight:800;">🎒 Tropical &amp; Track Packing Readiness (<span id="pack-progress-text">0 / {totalPackingItems} packed</span>)</h2>
+              <p style="font-size:0.72rem;color:var(--text-secondary);">Synced with <code>travel/packing-list.md</code> · Saved locally on your device.</p>
+            </div>
+            <button type="button" class="map-btn" id="btn-reset-packing">↺ Reset</button>
+          </div>
+
+          <div class="packing-grid">
+            {PACKING_CATEGORIES.map((cat) => (
+              <div class="packing-box">
+                <h3><span>{cat.icon}</span> <span>{cat.title}</span></h3>
+                <div>
+                  {cat.items.map((item, iIdx) => {
+                    const checkId = `pack-${cat.id}-${iIdx}`;
+                    return (
+                      <label class="pack-item-label" for={checkId}>
+                        <input type="checkbox" id={checkId} class="pack-checkbox" data-pack-id={checkId} />
+                        <span>{item}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- Mobile Sticky Bottom App Navigation Bar -->
   <nav class="mobile-bottom-dock" aria-label="Mobile Quick Navigation">
-    <a href="#section-map" class="dock-btn active">
-      <span class="icon">🗺️</span>
-      <span>Map</span>
-    </a>
-    <a href="#section-hotels" class="dock-btn">
-      <span class="icon">🏨</span>
-      <span>4–5★ Hotels</span>
-    </a>
-    <a href="#section-flights" class="dock-btn">
-      <span class="icon">✈️</span>
-      <span>Cebu Pac</span>
-    </a>
-    <a href="#section-schedule" class="dock-btn">
-      <span class="icon">🗓️</span>
+    <button type="button" class="dock-btn active" data-mobile-mode="stays">
+      <span>🏨</span>
+      <span>Stays</span>
+    </button>
+    <button type="button" class="dock-btn" data-mobile-mode="msport">
+      <span>🏎️</span>
+      <span>///M &amp; Drive</span>
+    </button>
+    <button type="button" class="dock-btn" data-mobile-mode="schedule">
+      <span>🗓️</span>
       <span>32 Days</span>
-    </a>
-    <a href="#section-packing" class="dock-btn">
-      <span class="icon">🎒</span>
-      <span>Pack List</span>
-    </a>
+    </button>
+    <button type="button" class="dock-btn" data-mobile-mode="flights">
+      <span>✈️</span>
+      <span>Flights</span>
+    </button>
+    <button type="button" class="dock-btn" data-mobile-mode="packing">
+      <span>🎒</span>
+      <span>Packing</span>
+    </button>
   </nav>
 
-  <!-- Client-side Interactive Map, Currency Converter, Shortlist & Packing Controller -->
+  <!-- Client-side Interactive Controller -->
   <script is:inline define:vars={{ hubsData: DESTINATION_HUBS, flightsData: FLIGHT_ROUTES, totalPackCount: totalPackingItems, cartoKey: cartoApiKey }}>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Initialize Leaflet Map with Watermark-Free Multi-Basemap Engine + CARTO ?key= Support
+      // 1. Initialize Leaflet Map with Watermark-Free Multi-Basemap Engine
       const mapEl = document.getElementById('ph-interactive-map');
       const map = L.map('ph-interactive-map', {
         center: [12.35, 121.65],
@@ -1984,38 +2145,31 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       const basemapStyles = [
         {
           id: 'osm-dark',
-          label: '🌑 Style: Dark Archipelago',
+          label: '🌑 Dark Map',
           darkFilter: true,
           url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          attribution: '&copy; OpenStreetMap contributors | Kapuluan Travel OS'
+          attribution: '&copy; OpenStreetMap | Kapuluan ///M OS'
         },
         {
-          id: 'osm-tropical',
-          label: '🌴 Style: Tropical Street',
+          id: 'osm-light',
+          label: '☀️ Nordic Map',
           darkFilter: false,
           url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          attribution: '&copy; OpenStreetMap contributors | Kapuluan Travel OS'
+          attribution: '&copy; OpenStreetMap | Kapuluan ///M OS'
         },
         {
           id: 'esri-satellite',
-          label: '🛰️ Style: Island Satellite',
+          label: '🛰️ Satellite',
           darkFilter: false,
           url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-          attribution: '&copy; Esri, Maxar, Earthstar Geographics | Kapuluan Travel OS'
+          attribution: '&copy; Esri | Kapuluan ///M OS'
         },
         {
           id: 'carto-voyager',
-          label: '🗺️ Style: CARTO Voyager',
+          label: '🗺️ CARTO',
           darkFilter: false,
           url: `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png${keyQuery}`,
-          attribution: '&copy; OpenStreetMap &copy; CARTO | Kapuluan Travel OS'
-        },
-        {
-          id: 'carto-dark',
-          label: '🌌 Style: CARTO Dark',
-          darkFilter: false,
-          url: `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png${keyQuery}`,
-          attribution: '&copy; OpenStreetMap &copy; CARTO | Kapuluan Travel OS'
+          attribution: '&copy; OpenStreetMap &copy; CARTO'
         }
       ];
       let currentStyleIdx = 0;
@@ -2032,18 +2186,72 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
       let activeTileLayer = applyBasemapStyle(0).addTo(map);
       const styleBtn = document.getElementById('btn-cycle-basemap');
-      if (styleBtn) styleBtn.textContent = basemapStyles[0].label;
 
-      styleBtn?.addEventListener('click', (e) => {
-        currentStyleIdx = (currentStyleIdx + 1) % basemapStyles.length;
+      function setMapStyleByIndex(idx) {
+        currentStyleIdx = idx % basemapStyles.length;
         map.removeLayer(activeTileLayer);
         activeTileLayer = applyBasemapStyle(currentStyleIdx).addTo(map);
-        e.currentTarget.textContent = basemapStyles[currentStyleIdx].label;
+        if (styleBtn) styleBtn.textContent = basemapStyles[currentStyleIdx].label;
+      }
+
+      styleBtn?.addEventListener('click', () => {
+        setMapStyleByIndex(currentStyleIdx + 1);
+      });
+
+      // Theme Toggle: BMW M Carbon Dark <-> Nordic Alpine Daylight
+      const themeBtn = document.getElementById('btn-theme-toggle');
+      const themeLabel = document.getElementById('theme-toggle-label');
+      let isNordicLight = localStorage.getItem('kapuluan_theme') === 'nordic-light';
+
+      function syncThemeUI() {
+        document.body.classList.toggle('theme-nordic-light', isNordicLight);
+        if (themeLabel) {
+          themeLabel.textContent = isNordicLight ? '🌑 ///M Carbon' : '☀️ Nordic Light';
+        }
+        setMapStyleByIndex(isNordicLight ? 1 : 0);
+      }
+      if (isNordicLight) syncThemeUI();
+
+      themeBtn?.addEventListener('click', () => {
+        isNordicLight = !isNordicLight;
+        localStorage.setItem('kapuluan_theme', isNordicLight ? 'nordic-light' : 'm-carbon');
+        syncThemeUI();
+      });
+
+      // BMW M Drive Mode Switcher (Stays / ///M Auto & Roadtrip / 32-Day Log / Flights / Packing / All)
+      function activateDriveMode(modeKey) {
+        document.querySelectorAll('.m-mode-btn').forEach((btn) => {
+          btn.classList.toggle('active', btn.getAttribute('data-drive-mode') === modeKey);
+        });
+        document.querySelectorAll('.dock-btn').forEach((btn) => {
+          btn.classList.toggle('active', btn.getAttribute('data-mobile-mode') === modeKey);
+        });
+        document.querySelectorAll('.deck-mode-section').forEach((sec) => {
+          const panelKey = sec.getAttribute('data-mode-panel');
+          sec.classList.toggle('mode-active', modeKey === 'all' || panelKey === modeKey);
+        });
+        setTimeout(() => map.invalidateSize(), 150);
+      }
+
+      document.querySelectorAll('.m-mode-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const modeKey = btn.getAttribute('data-drive-mode') || 'stays';
+          activateDriveMode(modeKey);
+        });
+      });
+
+      document.querySelectorAll('.dock-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const modeKey = btn.getAttribute('data-mobile-mode') || 'stays';
+          activateDriveMode(modeKey);
+          document.getElementById('right-deck')?.scrollIntoView({ behavior: 'smooth' });
+        });
       });
 
       const hotelMarkersLayer = L.layerGroup().addTo(map);
       const landmarkMarkersLayer = L.layerGroup().addTo(map);
       const flightArcsLayer = L.layerGroup().addTo(map);
+      const roadtripLayer = L.layerGroup().addTo(map);
 
       const hotelMarkersByCoord = {};
 
@@ -2061,49 +2269,81 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         return pts;
       }
 
-      // Render Flight Route Polylines
+      // Render Flight Route Polylines in M-Sport Colors
       flightsData.forEach((fl) => {
         const curvePts = getCurvedPoints(fl.fromCoords, fl.toCoords, 0.18);
         const color = fl.mode === 'cebu-pacific' || fl.mode === 'airswift-cebpac'
-          ? '#facc15'
-          : (fl.mode === 'paraw-sail' ? '#14b8a6' : '#38bdf8');
+          ? '#2E9AFE'
+          : (fl.mode === 'paraw-sail' ? '#10B981' : '#E30613');
 
         const poly = L.polyline(curvePts, {
           color,
-          weight: 2.8,
+          weight: 2.5,
           opacity: 0.85,
-          dashArray: '8, 6'
+          dashArray: '7, 5'
         }).addTo(flightArcsLayer);
 
         poly.bindPopup(`
-          <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:220px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#facc15;">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:210px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#2E9AFE;">
               ${fl.code} · ~${fl.fareDkk} DKK
             </div>
             <div style="font-weight:700;margin:3px 0;">${fl.carrier} (${fl.flightNo})</div>
-            <div style="font-size:12px;color:#cbd5e1;margin-bottom:8px;">${fl.notes}</div>
-            <a href="${fl.bookingUrl}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 10px;background:#facc15;color:#051117;font-weight:700;font-size:11px;border-radius:6px;text-decoration:none;">
-              Book on Cebu Pacific / Portal ↗
+            <div style="font-size:11px;color:#cbd5e1;margin-bottom:6px;">${fl.notes}</div>
+            <a href="${fl.bookingUrl}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 9px;background:#0066B1;color:#fff;font-weight:700;font-size:11px;border-radius:5px;text-decoration:none;">
+              Book Flight / Ferry ↗
             </a>
           </div>
         `);
       });
 
-      // Render All Landmarks & 43 Hotel Options Across All 7 Hubs
+      // Render Cebu -> Bohol -> Siquijor 4x4 Roadtrip Driving Polylines
+      const cebuTranscentralCoords = [
+        [10.3075, 123.9794], // CEB Airport
+        [10.3418, 123.8962], // Nivel Hills / Marco Polo
+        [10.3712, 123.8708], // Tops Lookout / Busay
+        [10.4425, 123.7750], // Balamban Twisties
+        [10.2785, 123.8965], // CCLEX Sea Bridge
+        [10.2929, 123.9090]  // Cebu Pier 1
+      ];
+      const boholRoadtripCoords = [
+        [9.9518, 123.9622],  // Tubigon RORO Port
+        [9.8297, 124.1397],  // Carmen Chocolate Hills
+        [9.6872, 124.0815],  // Bilar Man-Made Mahogany Forest
+        [9.6365, 124.0310],  // Loboc River
+        [9.6496, 123.8554],  // Tagbilaran Port
+        [9.5488, 123.7772]   // Panglao Island
+      ];
+      const siquijorRingCoords = [
+        [9.2145, 123.5135],  // Siquijor Port
+        [9.1468, 123.5112],  // San Juan Sunset Coast
+        [9.1412, 123.6265],  // Lazi & Cambugahay Falls
+        [9.2120, 123.6810],  // Salagdoong Cliff Coast
+        [9.2145, 123.5135]   // Complete 72km Loop
+      ];
+
+      L.polyline(cebuTranscentralCoords, { color: '#FF2836', weight: 3.5, opacity: 0.9 }).addTo(roadtripLayer)
+        .bindPopup('<strong>🛣️ Cebu Roadtrip Loop:</strong> CEB → Transcentral Highway (Busay–Balamban Twisties) → CCLEX Bridge → Pier 1');
+      L.polyline(boholRoadtripCoords, { color: '#FF2836', weight: 3.5, opacity: 0.9 }).addTo(roadtripLayer)
+        .bindPopup('<strong>🛣️ Bohol 4x4 Roadtrip:</strong> Tubigon/Tagbilaran → Loboc → 2km Bilar Mahogany Forest → Chocolate Hills → Panglao');
+      L.polyline(siquijorRingCoords, { color: '#10B981', weight: 3, opacity: 0.88 }).addTo(roadtripLayer)
+        .bindPopup('<strong>🛣️ Siquijor 72km Coastal Ring Road:</strong> Zero-traffic full island coastal drive');
+
+      // Render Landmarks & All Hotel Pins
       hubsData.forEach((hub) => {
         hub.primaryLandmarks.forEach((lm) => {
           const lmIcon = L.divIcon({
             className: 'custom-pin-marker',
-            html: `<div style="width:24px;height:24px;border-radius:50%;background:#fb7185;color:#fff;display:grid;place-items:center;font-size:12px;border:2px solid #fff;box-shadow:0 0 10px #fb7185;">🎯</div>`,
-            iconSize: [24, 24],
-            iconAnchor: [12, 12]
+            html: `<div style="width:22px;height:22px;border-radius:50%;background:#E30613;color:#fff;display:grid;place-items:center;font-size:11px;border:1.5px solid #fff;box-shadow:0 0 8px #E30613;">🎯</div>`,
+            iconSize: [22, 22],
+            iconAnchor: [11, 11]
           });
           const m = L.marker([lm.lat, lm.lng], { icon: lmIcon }).addTo(landmarkMarkersLayer);
           m.bindPopup(`
             <div style="font-family:'Plus Jakarta Sans',sans-serif;">
-              <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:#fb7185;font-weight:700;">KEY LANDMARK · ${hub.name}</div>
-              <div style="font-size:14px;font-weight:700;margin:3px 0;">${lm.name}</div>
-              <div style="font-size:12px;color:#94a3b8;">${lm.category} · ${lm.openHours}</div>
+              <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#FF2836;font-weight:700;">///M LANDMARK · ${hub.name}</div>
+              <div style="font-size:13px;font-weight:700;margin:2px 0;">${lm.name}</div>
+              <div style="font-size:11px;color:#94a3b8;">${lm.category} · ${lm.openHours}</div>
             </div>
           `);
         });
@@ -2111,37 +2351,32 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         hub.hotels.forEach((hotel) => {
           const isFiveStar = hotel.stars.includes('5★');
           const bgColor = hotel.tier === 'Luxury Airbnb'
-            ? '#c084fc'
-            : (hotel.tier === '4-Star Serviced' ? '#38bdf8' : (isFiveStar ? '#facc15' : '#14b8a6'));
+            ? '#10B981'
+            : (hotel.tier === '4-Star Serviced' ? '#6366F1' : (isFiveStar ? '#0066B1' : '#0284C7'));
           const icon = L.divIcon({
             className: 'custom-pin-marker',
-            html: `<div style="width:26px;height:26px;border-radius:50%;background:${bgColor};color:#051117;display:grid;place-items:center;font-weight:800;font-size:10px;border:2px solid #fff;">H${hotel.rank}</div>`,
-            iconSize: [26, 26],
-            iconAnchor: [13, 13]
+            html: `<div style="width:24px;height:24px;border-radius:6px;background:${bgColor};color:#fff;display:grid;place-items:center;font-weight:800;font-size:10px;border:1.5px solid #fff;">H${hotel.rank}</div>`,
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
           });
 
           const marker = L.marker([hotel.lat, hotel.lng], { icon }).addTo(hotelMarkersLayer);
           marker.bindPopup(`
-            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:240px;">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5eead4;font-weight:700;">
-                ${hub.name} · OPTION ${hotel.rank} (${hotel.stars})
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:220px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#2E9AFE;font-weight:700;">
+                ${hub.name} · #${hotel.rank} (${hotel.tier})
               </div>
-              <div style="font-size:15px;font-weight:700;margin:4px 0;color:#fff;">${hotel.name}</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#facc15;font-weight:700;margin-bottom:6px;">
-                Est. ${hotel.rateDkk.toLocaleString()} DKK / night
+              <div style="font-size:14px;font-weight:700;margin:3px 0;color:#fff;">${hotel.name}</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#10B981;font-weight:700;margin-bottom:5px;">
+                ${hotel.rateDkk.toLocaleString()} DKK / night (${(hotel.rateDkk * hub.nights).toLocaleString()} DKK for ${hub.nights}N)
               </div>
-              <div style="font-size:12px;color:#cbd5e1;margin-bottom:4px;">
-                <strong>📍 Closest Landmark:</strong> ${hotel.landmark} (${hotel.distance})
+              <div style="font-size:11px;color:#cbd5e1;margin-bottom:4px;">
+                <strong>📍 ${hotel.distance}:</strong> ${hotel.landmark}
               </div>
               <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">${hotel.highlight}</div>
-              <div style="display:flex;gap:6px;">
-                <a href="${hotel.url}" target="_blank" rel="noopener" style="padding:5px 10px;background:#0d9488;color:#fff;font-weight:700;font-size:11px;border-radius:6px;text-decoration:none;">
-                  Book Hotel ↗
-                </a>
-                <a href="${hub.cebuPacBookingUrl}" target="_blank" rel="noopener" style="padding:5px 10px;background:#facc15;color:#051117;font-weight:700;font-size:11px;border-radius:6px;text-decoration:none;">
-                  Cebu Pacific Flights ↗
-                </a>
-              </div>
+              <a href="${hotel.url}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 10px;background:#0066B1;color:#fff;font-weight:700;font-size:11px;border-radius:5px;text-decoration:none;">
+                Book Stay ↗
+              </a>
             </div>
           `);
 
@@ -2165,31 +2400,49 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
         const statusLabel = document.getElementById('map-status-label');
         if (statusLabel) {
-          statusLabel.textContent = `Hub ${hub.number}: ${hub.name} — Showing ${hub.hotels.length} Curated 4–5★ Hotels Closest to Landmarks`;
+          statusLabel.textContent = `Hub ${hub.number}: ${hub.name} (${hub.hotels.length} Stays)`;
         }
 
         if (flyMap) {
-          map.flyTo(hub.center, hub.zoom, { duration: 1.25 });
+          map.flyTo(hub.center, hub.zoom, { duration: 1.15 });
         }
       }
 
       document.querySelectorAll('.hub-selector').forEach((btn) => {
         btn.addEventListener('click', () => {
           const hubId = btn.getAttribute('data-hub-id');
-          if (hubId) activateHub(hubId, true);
+          if (hubId) {
+            activateDriveMode('stays');
+            activateHub(hubId, true);
+          }
         });
       });
 
       const fitArchipelago = () => {
-        map.flyTo([12.25, 121.5], 6, { duration: 1.2 });
+        map.flyTo([12.25, 121.5], 6, { duration: 1.1 });
         const statusLabel = document.getElementById('map-status-label');
         if (statusLabel) {
-          statusLabel.textContent = 'Full Philippine Archipelago Overview · 7 Hubs, 43 Hotels & 8 Cebu Pacific / Island Legs';
+          statusLabel.textContent = 'Full Philippine Archipelago · 7 Hubs & ///M Roadtrip Telemetry';
         }
       };
 
       document.getElementById('btn-overview-all')?.addEventListener('click', fitArchipelago);
       document.getElementById('btn-fit-archipelago')?.addEventListener('click', fitArchipelago);
+
+      // Zoom directly to Cebu -> Bohol -> Siquijor Roadtrip Corridor
+      const zoomCebuBoholRoadtrip = () => {
+        activateDriveMode('msport');
+        map.flyToBounds([[9.08, 123.45], [10.48, 124.22]], { padding: [30, 30], duration: 1.2 });
+        const statusLabel = document.getElementById('map-status-label');
+        if (statusLabel) {
+          statusLabel.textContent = '🛣️ Cebu Transcentral Hwy → Bohol Mahogany Forest & Chocolate Hills → Siquijor 72km Ring';
+        }
+      };
+
+      document.getElementById('btn-roadtrip-zoom')?.addEventListener('click', zoomCebuBoholRoadtrip);
+      document.querySelectorAll('.roadtrip-focus-card').forEach((card) => {
+        card.addEventListener('click', zoomCebuBoholRoadtrip);
+      });
 
       let flightsVisible = true;
       document.getElementById('btn-toggle-flights')?.addEventListener('click', (e) => {
@@ -2207,13 +2460,10 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         btn.addEventListener('click', () => {
           const lat = parseFloat(btn.getAttribute('data-lat'));
           const lng = parseFloat(btn.getAttribute('data-lng'));
-          map.flyTo([lat, lng], 16, { duration: 1.1 });
+          map.flyTo([lat, lng], 16, { duration: 1.0 });
           const marker = hotelMarkersByCoord[`${lat},${lng}`];
           if (marker) {
-            setTimeout(() => marker.openPopup(), 650);
-          }
-          if (window.innerWidth < 900) {
-            document.getElementById('section-map')?.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => marker.openPopup(), 550);
           }
         });
       });
@@ -2222,7 +2472,9 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         chip.addEventListener('click', () => {
           const lat = parseFloat(chip.getAttribute('data-lat'));
           const lng = parseFloat(chip.getAttribute('data-lng'));
-          map.flyTo([lat, lng], 15, { duration: 1.1 });
+          if (!isNaN(lat) && !isNaN(lng)) {
+            map.flyTo([lat, lng], 15, { duration: 1.0 });
+          }
         });
       });
 
@@ -2232,7 +2484,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           const lng1 = parseFloat(card.getAttribute('data-from-lng'));
           const lat2 = parseFloat(card.getAttribute('data-to-lat'));
           const lng2 = parseFloat(card.getAttribute('data-to-lng'));
-          map.flyToBounds([[lat1, lng1], [lat2, lng2]], { padding: [55, 55], duration: 1.2 });
+          map.flyToBounds([[lat1, lng1], [lat2, lng2]], { padding: [45, 45], duration: 1.1 });
         });
       });
 
@@ -2244,16 +2496,16 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         if (tourTimer) {
           clearInterval(tourTimer);
           tourTimer = null;
-          playBtn.textContent = '▶ Play 7-Hub Flyover';
+          playBtn.textContent = '▶ 7-Hub Flyover';
           return;
         }
         tourIdx = 0;
-        playBtn.textContent = '⏹ Stop Flyover';
+        playBtn.textContent = '⏹ Stop';
         activateHub(hubsData[tourIdx].id, true);
         tourTimer = setInterval(() => {
           tourIdx = (tourIdx + 1) % hubsData.length;
           activateHub(hubsData[tourIdx].id, true);
-        }, 3800);
+        }, 3600);
       });
 
       // 4. Live Currency Switcher (DKK / PHP / EUR)
@@ -2283,7 +2535,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         });
       });
 
-      // 5. Interactive Hotel Shortlist, 25k-30k DKK Budget Presets & Stay Filter Engine
+      // 5. Interactive Hotel Shortlist & 25k-30k DKK Budget Presets
       const budgetPresets = {
         'target-somerset': {
           'makati-bgc': 7,     // Somerset Central Salcedo Makati (780 DKK/n × 8N = 6,240 DKK)
@@ -2365,18 +2617,18 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
             const div = document.createElement('div');
             div.className = 'hub-mini-summary';
             div.innerHTML = `
-              <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#5eead4;font-weight:700;">
-                <span>H${h.number} (${h.nights}N)</span>
-                <span style="color:#facc15;">${formatCurrency(subDkk, currentCurr)}</span>
+              <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:#2E9AFE;font-weight:700;">
+                <span>H${h.number}·${h.nights}N</span>
+                <span style="color:#10B981;">${formatCurrency(subDkk, currentCurr)}</span>
               </div>
-              <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#f8fafc;font-weight:600;margin-top:2px;" title="${item.name}">
+              <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;margin-top:1px;" title="${item.name}">
                 ${item.name}
               </div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:#94a3b8;">
-                ${formatCurrency(item.rateDkk, currentCurr)} / night
-              </div>
             `;
-            div.addEventListener('click', () => activateHub(h.id, true));
+            div.addEventListener('click', () => {
+              activateDriveMode('stays');
+              activateHub(h.id, true);
+            });
             breakdownGrid.appendChild(div);
           }
         });
@@ -2388,7 +2640,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
         const meterTotal = document.getElementById('meter-current-total');
         if (meterTotal) {
-          meterTotal.textContent = `${formatCurrency(totalDkk, currentCurr)} (29N)`;
+          meterTotal.textContent = `${formatCurrency(totalDkk, currentCurr)}`;
         }
 
         const fillEl = document.getElementById('budget-bar-fill');
@@ -2401,14 +2653,14 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         if (statusPill) {
           if (totalDkk >= 25000 && totalDkk <= 30000) {
             statusPill.className = 'budget-status-pill';
-            statusPill.textContent = `🎯 Inside 25k–30k DKK Target (${formatCurrency(totalDkk, currentCurr)})`;
+            statusPill.textContent = `🎯 Target Zone (${formatCurrency(totalDkk, currentCurr)})`;
           } else if (totalDkk < 25000) {
             statusPill.className = 'budget-status-pill';
-            statusPill.textContent = `💚 Under 25k DKK Value Zone (${formatCurrency(totalDkk, currentCurr)})`;
+            statusPill.textContent = `💚 Value Zone (${formatCurrency(totalDkk, currentCurr)})`;
           } else {
             statusPill.className = 'budget-status-pill over-target';
             const diff = totalDkk - 30000;
-            statusPill.textContent = `💎 +${formatCurrency(diff, currentCurr)} Above 30k Target`;
+            statusPill.textContent = `///M +${formatCurrency(diff, currentCurr)} Above 30k`;
           }
         }
 
@@ -2417,7 +2669,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           const hName = btn.getAttribute('data-hotel-name');
           const isSelected = shortlistedByHub[hubId] && shortlistedByHub[hubId].name === hName;
           btn.classList.toggle('active', Boolean(isSelected));
-          btn.textContent = isSelected ? '★ Selected' : '⭐ Shortlist';
+          btn.textContent = isSelected ? '★ Selected' : '⭐ Select';
           const card = btn.closest('.hotel-card');
           if (card) card.classList.toggle('selected-stay', Boolean(isSelected));
         });
@@ -2443,7 +2695,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         });
       });
 
-      // Filter Hotel Cards & Map Pins by Budget Tier / Somerset / Airbnb
+      // Filter Hotel Cards & Map Pins
       document.querySelectorAll('.stay-filter-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.stay-filter-btn').forEach((b) => b.classList.remove('active'));
@@ -2507,13 +2759,13 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           const title = row.getAttribute('data-day-title');
           const desc = row.getAttribute('data-day-desc');
           if (hubId) activateHub(hubId, false);
-          map.flyTo([lat, lng], 14, { duration: 1.15 });
+          map.flyTo([lat, lng], 14, { duration: 1.05 });
           L.popup()
             .setLatLng([lat, lng])
             .setContent(`
-              <div style="font-family:'Plus Jakarta Sans',sans-serif;max-width:240px;">
-                <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#facc15;font-weight:700;">${title}</div>
-                <div style="font-size:12px;margin-top:4px;color:#e2e8f0;">${desc}</div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;max-width:230px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#2E9AFE;font-weight:700;">${title}</div>
+                <div style="font-size:11px;margin-top:3px;color:#e2e8f0;">${desc}</div>
               </div>
             `)
             .openOn(map);
