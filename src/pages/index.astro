@@ -403,6 +403,10 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       z-index: 1;
     }
 
+    #ph-interactive-map.map-filter-dark :global(.leaflet-tile-pane) {
+      filter: invert(100%) hue-rotate(185deg) brightness(92%) contrast(94%) saturate(135%);
+    }
+
     .map-legend-footer {
       display: flex;
       flex-wrap: wrap;
@@ -1660,37 +1664,73 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
   <!-- Client-side Interactive Map, Currency Converter, Shortlist & Packing Controller -->
   <script is:inline define:vars={{ hubsData: DESTINATION_HUBS, flightsData: FLIGHT_ROUTES, totalPackCount: totalPackingItems, cartoKey: cartoApiKey }}>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Initialize Leaflet Map with CARTO Basemaps API Key support
+      // 1. Initialize Leaflet Map with Watermark-Free Multi-Basemap Engine + CARTO ?key= Support
+      const mapEl = document.getElementById('ph-interactive-map');
       const map = L.map('ph-interactive-map', {
         center: [12.35, 121.65],
         zoom: 6,
         zoomControl: true
       });
 
-      const keyQuery = cartoKey ? `?api_key=${encodeURIComponent(cartoKey)}` : '';
+      const keyQuery = cartoKey ? `?key=${encodeURIComponent(cartoKey.trim())}` : '';
       const basemapStyles = [
-        { id: 'dark_all', label: '🌑 Style: Dark Matter', url: `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png${keyQuery}` },
-        { id: 'rastertiles/voyager', label: '🌴 Style: Voyager Tropical', url: `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png${keyQuery}` },
-        { id: 'light_all', label: '☀️ Style: Positron Light', url: `https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png${keyQuery}` }
+        {
+          id: 'osm-dark',
+          label: '🌑 Style: Dark Archipelago',
+          darkFilter: true,
+          url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          attribution: '&copy; OpenStreetMap contributors | Kapuluan Travel OS'
+        },
+        {
+          id: 'osm-tropical',
+          label: '🌴 Style: Tropical Street',
+          darkFilter: false,
+          url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          attribution: '&copy; OpenStreetMap contributors | Kapuluan Travel OS'
+        },
+        {
+          id: 'esri-satellite',
+          label: '🛰️ Style: Island Satellite',
+          darkFilter: false,
+          url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+          attribution: '&copy; Esri, Maxar, Earthstar Geographics | Kapuluan Travel OS'
+        },
+        {
+          id: 'carto-voyager',
+          label: '🗺️ Style: CARTO Voyager',
+          darkFilter: false,
+          url: `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png${keyQuery}`,
+          attribution: '&copy; OpenStreetMap &copy; CARTO | Kapuluan Travel OS'
+        },
+        {
+          id: 'carto-dark',
+          label: '🌌 Style: CARTO Dark',
+          darkFilter: false,
+          url: `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png${keyQuery}`,
+          attribution: '&copy; OpenStreetMap &copy; CARTO | Kapuluan Travel OS'
+        }
       ];
       let currentStyleIdx = 0;
 
-      let activeTileLayer = L.tileLayer(basemapStyles[0].url, {
-        attribution: '&copy; OpenStreetMap &copy; CARTO | Kapuluan Travel OS',
-        subdomains: 'abcd',
-        maxZoom: 20
-      }).addTo(map);
-
-      document.getElementById('btn-cycle-basemap')?.addEventListener('click', (e) => {
-        currentStyleIdx = (currentStyleIdx + 1) % basemapStyles.length;
-        const nextStyle = basemapStyles[currentStyleIdx];
-        map.removeLayer(activeTileLayer);
-        activeTileLayer = L.tileLayer(nextStyle.url, {
-          attribution: '&copy; OpenStreetMap &copy; CARTO | Kapuluan Travel OS',
+      function applyBasemapStyle(idx) {
+        const style = basemapStyles[idx];
+        mapEl?.classList.toggle('map-filter-dark', Boolean(style.darkFilter));
+        return L.tileLayer(style.url, {
+          attribution: style.attribution,
           subdomains: 'abcd',
-          maxZoom: 20
-        }).addTo(map);
-        e.currentTarget.textContent = nextStyle.label;
+          maxZoom: 19
+        });
+      }
+
+      let activeTileLayer = applyBasemapStyle(0).addTo(map);
+      const styleBtn = document.getElementById('btn-cycle-basemap');
+      if (styleBtn) styleBtn.textContent = basemapStyles[0].label;
+
+      styleBtn?.addEventListener('click', (e) => {
+        currentStyleIdx = (currentStyleIdx + 1) % basemapStyles.length;
+        map.removeLayer(activeTileLayer);
+        activeTileLayer = applyBasemapStyle(currentStyleIdx).addTo(map);
+        e.currentTarget.textContent = basemapStyles[currentStyleIdx].label;
       });
 
       const hotelMarkersLayer = L.layerGroup().addTo(map);
