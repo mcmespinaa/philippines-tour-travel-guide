@@ -87,6 +87,8 @@ export interface GuideActivity {
   insiderTip: string;
   bookingRequired: boolean;
   bookingUrl?: string;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 export interface GuideEvent {
@@ -96,6 +98,7 @@ export interface GuideEvent {
   badge: string;
   description: string;
   proTip: string;
+  imageUrl?: string;
 }
 
 export interface GuideDining {
@@ -104,6 +107,7 @@ export interface GuideDining {
   area: string;
   mustOrder: string;
   vibe: string;
+  imageUrl?: string;
 }
 
 export interface DestinationGuide {
@@ -114,6 +118,7 @@ export interface DestinationGuide {
   region: string;
   dates: string;
   nights: number;
+  heroImage: string;
   vibeCheck: string;
   highlightsQuote: string;
   keyActivities: GuideActivity[];
@@ -367,6 +372,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     tagline: 'Ayala Triangle Gardens, Somerset/Citadines Serviced Suites, Luxury Airbnbs & Supercar Showrooms',
     dates: 'Nov 8–12 (5N) & Dec 4–6 (3N) · 8 Nights',
     nights: 8,
+    heroImage: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Bonifacio_Global_City%2C_South_Cembo%2C_Guadalupe_drone_%28Taguig_City%3B_12-31-2025%29.jpg/1280px-Bonifacio_Global_City%2C_South_Cembo%2C_Guadalupe_drone_%28Taguig_City%3B_12-31-2025%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
     center: [14.5567, 121.0245],
     zoom: 15,
     weatherAvg: '29°C Day / 24°C Night · Dry Shoulder Begin',
@@ -567,6 +573,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     tagline: 'Spanish Walled Heritage, San Agustin Kalesa Ride & Sunset Bay Esplanade',
     dates: 'Nov 13–14 (2 Nights)',
     nights: 2,
+    heroImage: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Earth_from_Space_Manila_Bay%2C_Manila%2C_The_Philippines_%2829657831394%29.jpg/1280px-Earth_from_Space_Manila_Bay%2C_Manila%2C_The_Philippines_%2829657831394%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
     center: [14.5794, 120.9772],
     zoom: 13,
     weatherAvg: '30°C Day / 25°C Golden Bay Breeze',
@@ -682,6 +689,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     tagline: 'Clark International Speedway Track Day, Kapampangan Gastronomy & CRK Hub',
     dates: 'Nov 15 (1 Night)',
     nights: 1,
+    heroImage: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Angelesjf9605_26.JPG/1280px-Angelesjf9605_26.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
     center: [15.1859, 120.5350],
     zoom: 13,
     weatherAvg: '29°C Dry Track Asphalt · Clear Zambales Views',
@@ -796,6 +804,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     tagline: 'Paolyn Eco-Luxury Houseboats, Kayangan Lake & Tao Paraw Sailing Launch',
     dates: 'Nov 16–20 (5 Nights)',
     nights: 5,
+    heroImage: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Coron_island_-_Straight_out_of_a_dream.jpg/1280px-Coron_island_-_Straight_out_of_a_dream.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
     center: [11.9750, 120.2100],
     zoom: 11,
     weatherAvg: '29°C Air / 28°C Lagoon Water · Calm Amihan Tradewinds',
@@ -910,6 +919,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     tagline: 'Big Lagoon Kayaking, Nacpan Coastal 4x4 & Pangulasian / Lio Beach Luxury',
     dates: 'Nov 21–26 (6 Nights)',
     nights: 6,
+    heroImage: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/El_Nido_Bay_December_2018.jpg/1280px-El_Nido_Bay_December_2018.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
     center: [11.1850, 119.3950],
     zoom: 12,
     weatherAvg: '30°C Sunny Karst Seas · Emerald Lagoon Visibility',
@@ -1095,6 +1105,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     tagline: 'Cebu Transcentral Highway Twisties, CCLEX Bridge & NUSTAR Waterfront',
     dates: 'Nov 27–28 (2N) & Dec 3 (1N) · 3 Nights',
     nights: 3,
+    heroImage: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/04/CCLEX_Bridge_drone_2_%28Cebu_City%3B_01-19-2026%29.jpg/1280px-CCLEX_Bridge_drone_2_%28Cebu_City%3B_01-19-2026%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
     center: [10.3157, 123.9150],
     zoom: 12,
     weatherAvg: '28°C Coast / 22°C Busay Highlands (Transcentral Hwy)',
@@ -1210,6 +1221,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     tagline: 'Chocolate Hills ATV, Loboc River Cruise & Siquijor 72km Coastal Ring Road',
     dates: 'Nov 29–Dec 2 (4 Nights)',
     nights: 4,
+    heroImage: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Chocolate_Hills_Bohol.JPG/1280px-Chocolate_Hills_Bohol.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
     center: [9.4200, 123.6800],
     zoom: 10,
     weatherAvg: '29°C Coastal Breeze · Emerald Waterfalls',
@@ -1377,7 +1389,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'Stroll under illuminated century-old rain trees and contemporary art sculptures in Makati’s green heart. Head into the historic 1937 Nielson Tower—the Philippines’ first commercial international airport terminal—for dinner in the restored two-story Flight Control Room.',
         insiderTip: 'Book the upstairs Flight Control Room table 3 weeks in advance; request a table with a direct view over the illuminated park canopy.',
         bookingRequired: true,
-        bookingUrl: 'https://blackbird.com.ph/'
+        bookingUrl: 'https://blackbird.com.ph/',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/McMicking_Memorial_%26_Courtyard%2C_Ayala_Center%2C_Makati_City.jpg/1280px-McMicking_Memorial_%26_Courtyard%2C_Ayala_Center%2C_Makati_City.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-ayala-museum',
@@ -1390,7 +1403,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'Four floors of world-class cultural exhibition. Features over 1,000 pre-colonial gold funerary masks, regalia, and ceremonial vessels crafted prior to the 16th century, alongside 60 handcrafted dioramas chronicling Philippine history.',
         insiderTip: 'Closed Mondays. Schedule for Tuesday Nov 10 at 10:00 AM right before your drive to Antonio’s at PGA Cars. Pre-booking timed tickets online skips the queue.',
         bookingRequired: true,
-        bookingUrl: 'https://www.ayalamuseum.org/'
+        bookingUrl: 'https://www.ayalamuseum.org/',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/en/thumb/5/59/Ayala_Museum_2022.jpg/1280px-Ayala_Museum_2022.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-antonios-pga',
@@ -1403,7 +1417,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'An extraordinary collaboration between Tagaytay’s premier fine dining institution and the official distributor of Porsche, Lamborghini, and Bentley. Floor-to-ceiling glass walls separate your table from showroom displays of Porsche GT3 RS, Lamborghini Revuelto, and classic collector 911s.',
         insiderTip: 'Open Tue–Sun from 11:00 AM. Order the handmade burrata salad and dry-aged steaks. Valet parking enters directly into the showroom gallery.',
         bookingRequired: true,
-        bookingUrl: 'https://antoniosrestaurant.ph/antonios-manila/'
+        bookingUrl: 'https://antoniosrestaurant.ph/antonios-manila/',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Porsche_992_GT3_RS_1X7A0434.jpg/1280px-Porsche_992_GT3_RS_1X7A0434.jpg'
       },
       {
         id: 'act-karrera-bistro',
@@ -1521,7 +1536,13 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'The country’s flagship custom car show (30th Anniversary) paired with the 31st Sport Truck Show and Philippine Diecast Megameet across 4 air-conditioned exhibition halls. Features extreme 4x4 overland builds, turbo track monsters, audio battles, and thousands of rare scale diecast collectibles.',
         insiderTip: 'Directly across the footbridge from Shore Residences, Conrad Manila, and Lanson Place. Tickets are available at the door or via SM Tickets.',
         bookingRequired: true,
-        bookingUrl: 'https://smtickets.com/'
+        bookingUrl: 'https://smtickets.com/',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Bay_Area_City_Pasay_06.jpg/1280px-Bay_Area_City_Pasay_06.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Liberty_Walk_Nissan_GT-R_%2816045952677%29.jpg/1280px-Liberty_Walk_Nissan_GT-R_%2816045952677%29.jpg',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Fort_Santiago%2C_Intramuros.JPG/1280px-Fort_Santiago%2C_Intramuros.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Bonifacio_High_Street_from_PSE_Tower%2C_BGC%2C_Taguig%2C_Aug_2025.jpg/1280px-Bonifacio_High_Street_from_PSE_Tower%2C_BGC%2C_Taguig%2C_Aug_2025.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/en/thumb/9/9e/Presidential_Car_Museum_QMC.jpg/1280px-Presidential_Car_Museum_QMC.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/en/thumb/2/23/Filinvest_City%2C_Festival_Mall_drone_%28Alabang%2C_Muntinlupa_City%3B_01-04-2026%29.jpg/1280px-Filinvest_City%2C_Festival_Mall_drone_%28Alabang%2C_Muntinlupa_City%3B_01-04-2026%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-bay-sunset',
@@ -1590,7 +1611,9 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'The country’s premier Grade 4 FIA-sanctioned permanent racing circuit. 4.187 km long with 18 technical turns and a 900-meter straight. Enjoy paddock garage access, trackside marshalling views, and high-speed circuit driving runs.',
         insiderTip: 'Christian should wear closed-toe driving shoes (mandatory for paddock and pitlane entry). Helmet rentals and day paddock passes are arranged at the circuit tower.',
         bookingRequired: true,
-        bookingUrl: 'http://clarkspeedway.com/'
+        bookingUrl: 'http://clarkspeedway.com/',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Clark_International_Speedway_Layout.png/1280px-Clark_International_Speedway_Layout.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Manila_Bay_Sunset_%282022%29.jpg/1280px-Manila_Bay_Sunset_%282022%29.jpg'
       },
       {
         id: 'act-25-seeds',
@@ -1603,7 +1626,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'Pampanga is celebrated as the Culinary Capital of the Philippines. Celebrity Chef Sau del Rosario restored his family’s 1920s ancestral mansion into a farm-to-table culinary pilgrimage celebrating heirloom Sisig, duck confit adobo, and handmade tamales.',
         insiderTip: 'Reserve a table in the vintage glass conservatory overlooking the organic kitchen garden. Order the authentic sizzling Sisig (invented in Pampanga).',
         bookingRequired: true,
-        bookingUrl: 'https://www.facebook.com/25seeds/'
+        bookingUrl: 'https://www.facebook.com/25seeds/',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Authentic_Kapampangan_Sisig.jpg/1280px-Authentic_Kapampangan_Sisig.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-clark-spa',
@@ -1663,7 +1687,9 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'The only authorized accommodation anchored directly within the ancestral waters of the indigenous Tagbanwa people of Coron Island. Wake up floating over crystal corals with glass bottom flooring, jumping directly from your private sun deck into 29°C water.',
         insiderTip: 'You have exclusive access to the surrounding lagoons after all tourist dayboats must legally depart Coron Island at 16:00. Kayak alone under starry limestone walls.',
         bookingRequired: true,
-        bookingUrl: 'https://paolynhouseboats.com/'
+        bookingUrl: 'https://paolynhouseboats.com/',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Coron_island_-_Straight_out_of_a_dream.jpg/1280px-Coron_island_-_Straight_out_of_a_dream.jpg',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Hydrotherapy_pool_at_a_luxury_spa.jpg/1280px-Hydrotherapy_pool_at_a_luxury_spa.jpg'
       },
       {
         id: 'act-kayangan-twin',
@@ -1712,7 +1738,11 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'The pinnacle island voyage of Southeast Asia. Board a handcrafted traditional 72-foot bamboo paraw sailboat with open decks and outriggers. Sail across uninhabited atolls, sleep in open-air bamboo beach huts, feast on organic farm catches, and disconnect from all cellular noise.',
         insiderTip: 'Pack your 20L waterproof drybag with essentials; large roller luggage stays safely below deck. Bring reef-safe sunscreen and a 20,000mAh power bank.',
         bookingRequired: true,
-        bookingUrl: 'https://taophilippines.com/'
+        bookingUrl: 'https://taophilippines.com/',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Boracay_paraw_sailboats_015.jpg/1280px-Boracay_paraw_sailboats_015.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Pier_of_Maquinit_Hot_Springs%2C_Coron%2C_Philipppines_-_panoramio.jpg/1280px-Pier_of_Maquinit_Hot_Springs%2C_Coron%2C_Philipppines_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Barracuda_Lake_%28Coron%2C_Palawan%3B_03-17-2024%29.jpg/1280px-Barracuda_Lake_%28Coron%2C_Palawan%3B_03-17-2024%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Cayangan_Lake%2C_Coron_Islands%2C_Philippines_-_panoramio.jpg/1280px-Cayangan_Lake%2C_Coron_Islands%2C_Philippines_-_panoramio.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       }
     ],
     automotiveAndEvents: [
@@ -1772,7 +1802,9 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'Skip crowded group tour bancas by chartering a private twin-engine speedboat. Glide across glassy turquoise water into Big Lagoon, kayak between sheer 300m vertical karst cliffs, and swim through a narrow crevice into Secret Beach.',
         insiderTip: 'Book a morning slot departing Lio or Town Beach at 08:00 AM. Having a private boat allows you to reverse the standard tour route to avoid all other boats.',
         bookingRequired: true,
-        bookingUrl: 'https://elnidoresorts.com/'
+        bookingUrl: 'https://elnidoresorts.com/',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Sundown_in_Maremegmeg.jpg/1280px-Sundown_in_Maremegmeg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail'
       },
       {
         id: 'act-nacpan-drive',
@@ -1784,7 +1816,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [11.3214, 119.4268],
         description: 'Drive north through jungle switchbacks and river bridges to Nacpan Beach—a 4-kilometer uninterrupted golden sand crescent lined with coconut palms. Climb the small headland where Nacpan meets Calitang Beach for the iconic twin-bay vista.',
         insiderTip: 'Stop at Angkla Beach Club for fresh coconut ceviche and artisanal cocktails in an award-winning bamboo architectural pavilion.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Nacpan_Beach_in_El_Nido.jpg/1280px-Nacpan_Beach_in_El_Nido.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail'
       },
       {
         id: 'act-lio-estate',
@@ -1796,7 +1829,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [11.2028, 119.4132],
         description: 'Ayala Land’s 325-hectare master-planned sustainable sanctuary. Walk along a 4km noise-free beach, explore contemporary Filipino craft galleries and weaving studios at Kalye Artisano, and sip specialty cold brew under pine trees.',
         insiderTip: 'Lio Beach has zero tricycle exhaust and features free electric shuttle transfers directly to Lio Airport (ENI) for your flight to Cebu.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Ada_Lio_1.jpg/1280px-Ada_Lio_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail'
       },
       {
         id: 'act-taraw-canopy',
@@ -1808,7 +1842,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [11.1812, 119.3905],
         description: 'A safe, engineered iron walkway and suspension bridge system ascending the sheer limestone cliffs above El Nido town, providing panoramic vistas of the entire Bacuit Bay archipelago.',
         insiderTip: 'Go at 08:00 AM for soft morning light and comfortable temperatures before the sun hits the stone face.',
-        bookingRequired: true
+        bookingRequired: true,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Island_lagoon_in_Bacuit_Bay%2C_El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-Island_lagoon_in_Bacuit_Bay%2C_El_Nido%2C_Palawan%2C_Philippines.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail'
       }
     ],
     automotiveAndEvents: [
@@ -1856,7 +1891,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [10.3712, 123.8708],
         description: 'The holy grail of driving roads in the Visayas. A 33-kilometer winding mountain ribbon climbing to over 2,500 feet through Busay and Balamban. Features sweeping high-elevation curves, cool 22°C mountain air, roadside coffee shacks, and panoramic views of Tanon Strait.',
         insiderTip: 'Start early around 07:30 AM to catch the morning mist and clear asphalt before weekend enthusiast traffic. Stop at Charlie’s Cup or Balamban Liempo for breakfast.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/Views_of_Cebu_Transcentral_Highway_from_TOPS_Cebu_%282024-10-06%29.jpg/1280px-Views_of_Cebu_Transcentral_Highway_from_TOPS_Cebu_%282024-10-06%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail'
       },
       {
         id: 'act-cclex-bridge',
@@ -1868,7 +1904,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [10.2785, 123.8965],
         description: 'The Cebu–Cordova Link Expressway is the longest and tallest sea-crossing bridge in the Philippines. Featuring two iconic 145-meter pylons adorned with 40-meter illuminated crosses, cruising this coastal expressway at sunset or twilight offers an exhilarating open-water drive.',
         insiderTip: 'Drive from Mactan toward Cebu City during golden hour as the skyline lights turn on. Toll is ₱90 (cash or RFID lane).',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/04/CCLEX_Bridge_drone_2_%28Cebu_City%3B_01-19-2026%29.jpg/1280px-CCLEX_Bridge_drone_2_%28Cebu_City%3B_01-19-2026%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-tops-lookout',
@@ -1880,7 +1917,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [10.3705, 123.8702],
         description: 'Perched 2,000 feet above the city at the summit of Busay. Provides a breathtaking 180-degree view spanning Cebu City, Mactan Island, and the sea channels. Follow with wine and French charcuterie at La Vie in the Sky.',
         insiderTip: 'Combine this with the Transcentral Highway drive on your way back down to the city.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Tops_Lookout_2022_04_001.jpg/1280px-Tops_Lookout_2022_04_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail'
       },
       {
         id: 'act-old-cebu',
@@ -1892,7 +1930,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [10.2942, 123.9015],
         description: 'Visit the oldest city in the Philippines: Basilica Minore del Santo Niño (founded 1565), the octagonal pavilion housing Magellan’s Cross (1521), and the Yap-Sandiego Ancestral House, built from coral stone and molave wood.',
         insiderTip: 'Park at the National Museum of the Philippines - Cebu (the beautifully restored 1910 Old Customhouse/Aduana) for safe and easy vehicle parking.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Basilica_del_Santo_Ni%C3%B1o_2024-07-05.jpg/1280px-Basilica_del_Santo_Ni%C3%B1o_2024-07-05.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-carcar-lechon',
@@ -1904,7 +1943,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [10.1085, 123.6420],
         description: 'Anthony Bourdain famously crowned Cebu’s whole roasted pig as the best pig in the world. In Carcar, whole pigs are roasted over open coconut charcoal stuffed with lemongrass, garlic, and scallions, then drizzled with natural pork drippings.',
         insiderTip: 'Order 1 kilo of fresh lechon belly cut right before your eyes; pair with hanging rice (puso) and spicy local coconut vinegar.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Roasted_pig_at_Carcar%2C_Cebu.jpg/1280px-Roasted_pig_at_Carcar%2C_Cebu.jpg'
       }
     ],
     automotiveAndEvents: [
@@ -1952,7 +1992,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [9.6872, 124.0815],
         description: 'A 2-kilometer stretch of highway enveloped by a dense, towering canopy of uniform red mahogany trees planted over 50 years ago. Sunlight filters through the green ceiling, the temperature instantly drops 4°C, and the acoustics create an unforgettable roadtrip tunnel.',
         insiderTip: 'Drive through slowly with windows down. There are designated pull-offs at both ends of the canopy for photos; be mindful of through-traffic when stepping out.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Man-made_forest_in_Bohol.jpg/1280px-Man-made_forest_in_Bohol.jpg'
       },
       {
         id: 'act-chocolate-hills-atv',
@@ -1964,7 +2005,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [9.8297, 124.1397],
         description: 'Over 1,770 conical limestone hills dotting the central plains of Bohol, turning cocoa-brown in dry conditions. After viewing them from the main observation deck, rent all-terrain quads (ATVs) to navigate off-road dirt trails, mud tracks, and rocky ravines directly around the base of the hills.',
         insiderTip: 'Book the 1-hour Guided ATV Trail; bring sunglasses and a bandanna for dust protection.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Chocolate_Hills_Bohol.JPG/1280px-Chocolate_Hills_Bohol.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-loboc-river',
@@ -1976,7 +2018,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [9.6385, 124.0325],
         description: 'Board a thatched-roof motorized catamaran barge for an idyllic cruise down the calm, jade-green waters of the Loboc River. Enjoy a buffet of roasted meats, fresh seafood, and tropical fruits accompanied by live acoustic folk guitarists.',
         insiderTip: 'Board between 11:30 AM and 12:00 PM right before the afternoon rush. The barge stops at a riverside platform where local cultural dancers perform traditional Tinikling.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Loboc_River_Cruise_Bohol.jpg/1280px-Loboc_River_Cruise_Bohol.jpg'
       },
       {
         id: 'act-tarsier-sanctuary',
@@ -1988,7 +2031,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [9.6925, 123.9555],
         description: 'A dedicated, ethical 7-hectare protected forest sanctuary home to the Philippine Tarsier—one of the world’s smallest primates, with enormous rotating eyes and soft grey fur.',
         insiderTip: 'Speak in hushed whispers and turn off all camera flashes; tarsiers are sensitive nocturnal creatures that sleep under large broad leaves during the day.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Philippine_tarsier_%28Carlito_syrichta_fraterculus%29_Bohol.jpg/1280px-Philippine_tarsier_%28Carlito_syrichta_fraterculus%29_Bohol.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-siquijor-ring-road',
@@ -2000,7 +2044,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [9.1412, 123.6265],
         description: 'Arguably the most enjoyable, stress-free island driving loop in the Philippines. A smooth two-lane asphalt highway running 72 kilometers completely around Siquijor Island with zero traffic lights, constant ocean views, coastal limestone bluffs, and fishing villages.',
         insiderTip: 'Drive clockwise starting from San Juan: you’ll hit the 400-year-old enchanted Balete Tree, Cambugahay Falls, and Lazi Church before catching the sunset back in San Juan.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/St._Francis_of_Assisi_Church_%28Siquijor%2C_Siquijor%29.jpg/1280px-St._Francis_of_Assisi_Church_%28Siquijor%2C_Siquijor%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-cambugahay-falls',
@@ -2012,7 +2057,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [9.1412, 123.6265],
         description: 'Descend 135 stone steps into a lush jungle valley to find three cascading tiers of pure, milky-turquoise freshwater fed by natural mountain springs. Features rope swings and deep swimming lagoons shaded by giant banyan trees.',
         insiderTip: 'Pay the small community pass for unlimited swings on the Tarzan vines; head up to the quieter second and third tiers for tranquil swimming away from the main pool.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Cambugahay_Falls_in_Siquijor.jpg/1280px-Cambugahay_Falls_in_Siquijor.jpg'
       }
     ],
     automotiveAndEvents: [

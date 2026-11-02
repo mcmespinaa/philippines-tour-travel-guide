@@ -242,28 +242,32 @@ const totalEvents = DESTINATION_GUIDES.reduce((acc, g) => acc + g.automotiveAndE
       background: var(--bg-panel);
       border: 1px solid var(--border-hairline);
       border-radius: 12px;
-      padding: 1.4rem;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
       position: relative;
-      overflow: hidden;
-    }
-    .guide-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #0066B1, #1C2674, #E30613);
-      opacity: 0.7;
     }
     .guide-card:hover {
       transform: translateY(-2px);
       border-color: var(--border-strong);
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    .card-banner-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .card-body {
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
 
     .card-top {
@@ -483,7 +487,10 @@ const totalEvents = DESTINATION_GUIDES.reduce((acc, g) => acc + g.automotiveAndE
   <section class="guides-grid" id="guides-container">
     {DESTINATION_GUIDES.map((guide) => (
       <article class="guide-card" data-region={guide.region}>
-        <div>
+        {guide.heroImage && (
+          <img src={guide.heroImage} alt={guide.name} class="card-banner-img" loading="lazy" />
+        )}
+        <div class="card-body">
           <div class="card-top">
             <span class="hub-number-badge">HUB {guide.hubNumber}</span>
             <span class="hub-dates">{guide.dates} ({guide.nights}N)</span>
@@ -520,16 +527,16 @@ const totalEvents = DESTINATION_GUIDES.reduce((acc, g) => acc + g.automotiveAndE
               </div>
             </div>
           )}
-        </div>
 
-        <div class="card-footer">
-          <a href={`./${guide.id}/`} class="btn-detail">
-            <span>Open Field Guide</span>
-            <span>→</span>
-          </a>
-          <a href={`../?hub=${guide.id}`} class="btn-map-link">
-            <span>🗺️ Map View</span>
-          </a>
+          <div class="card-footer">
+            <a href={`./${guide.id}/`} class="btn-detail">
+              <span>Open Field Guide</span>
+              <span>→</span>
+            </a>
+            <a href={`../?hub=${guide.id}`} class="btn-map-link">
+              <span>🗺️ Map View</span>
+            </a>
+          </div>
         </div>
       </article>
     ))}
@@ -572,3 +579,4 @@ const totalEvents = DESTINATION_GUIDES.reduce((acc, g) => acc + g.automotiveAndE
   </script>
 </body>
 </html>
+

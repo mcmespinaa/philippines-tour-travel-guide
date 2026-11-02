@@ -179,10 +179,24 @@ const { guide, prevGuide, nextGuide, hubInfo } = Astro.props;
       background: var(--bg-panel);
       border: 1px solid var(--border-hairline);
       border-radius: 14px;
-      padding: 2rem;
+      padding: 2.2rem;
       margin-bottom: 2rem;
       position: relative;
       overflow: hidden;
+    }
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.18;
+      filter: blur(2px);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
     }
     .hero-panel::before {
       content: '';
@@ -276,19 +290,84 @@ const { guide, prevGuide, nextGuide, hubInfo } = Astro.props;
     .activities-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.2rem;
+      gap: 1.4rem;
     }
 
     .activity-card {
       background: var(--bg-panel);
       border: 1px solid var(--border-hairline);
       border-radius: 12px;
-      padding: 1.4rem;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 280px 1fr;
       transition: all 0.2s ease;
     }
     .activity-card:hover {
       border-color: var(--border-strong);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    }
+
+    .act-thumb-wrap {
+      position: relative;
+      height: 100%;
+      min-height: 220px;
       background: var(--bg-card);
+      overflow: hidden;
+    }
+    .act-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .activity-card:hover .act-img {
+      transform: scale(1.04);
+    }
+    .act-thumb-placeholder {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(0, 102, 177, 0.2), rgba(227, 6, 19, 0.15));
+      font-size: 2.5rem;
+    }
+
+    .act-content-box {
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .act-action-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 0.9rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .google-search-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .google-search-btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+      border-color: var(--m-Sky-glow);
     }
 
     .act-header {
@@ -539,6 +618,12 @@ const { guide, prevGuide, nextGuide, hubInfo } = Astro.props;
       .hero-title {
         font-size: 1.7rem;
       }
+      .activity-card {
+        grid-template-columns: 1fr;
+      }
+      .act-thumb-wrap {
+        height: 180px;
+      }
       .guide-pagination {
         flex-direction: column;
         align-items: stretch;
@@ -574,37 +659,42 @@ const { guide, prevGuide, nextGuide, hubInfo } = Astro.props;
   <main class="guide-wrapper">
     <!-- Hero Banner -->
     <section class="hero-panel">
-      <div class="hub-kicker">
-        <span>HUB {guide.hubNumber}</span> · <span>{guide.region}</span>
-      </div>
-      <h1 class="hero-title">{guide.name}</h1>
-      <p class="hero-tagline">{guide.tagline}</p>
-
-      <div class="telemetry-row">
-        <div class="telemetry-pill">
-          <span>📅</span>
-          <span>{guide.dates}</span>
+      {guide.heroImage && (
+        <div class="hero-bg-overlay" style={`background-image: url('${guide.heroImage}')`}></div>
+      )}
+      <div class="hero-content">
+        <div class="hub-kicker">
+          <span>HUB {guide.hubNumber}</span> · <span>{guide.region}</span>
         </div>
-        <div class="telemetry-pill">
-          <span>🌙</span>
-          <span>{guide.nights} Nights</span>
-        </div>
-        {hubInfo && (
-          <div class="telemetry-pill">
-            <span>☀️</span>
-            <span>{hubInfo.weatherAvg}</span>
-          </div>
-        )}
-        {hubInfo && (
-          <div class="telemetry-pill">
-            <span>✈️</span>
-            <span>{hubInfo.cebuPacGateway}</span>
-          </div>
-        )}
-      </div>
+        <h1 class="hero-title">{guide.name}</h1>
+        <p class="hero-tagline">{guide.tagline}</p>
 
-      <div class="vibe-box">
-        <strong>Vibe Check:</strong> {guide.vibeCheck}
+        <div class="telemetry-row">
+          <div class="telemetry-pill">
+            <span>📅</span>
+            <span>{guide.dates}</span>
+          </div>
+          <div class="telemetry-pill">
+            <span>🌙</span>
+            <span>{guide.nights} Nights</span>
+          </div>
+          {hubInfo && (
+            <div class="telemetry-pill">
+              <span>☀️</span>
+              <span>{hubInfo.weatherAvg}</span>
+            </div>
+          )}
+          {hubInfo && (
+            <div class="telemetry-pill">
+              <span>✈️</span>
+              <span>{hubInfo.cebuPacGateway}</span>
+            </div>
+          )}
+        </div>
+
+        <div class="vibe-box">
+          <strong>Vibe Check:</strong> {guide.vibeCheck}
+        </div>
       </div>
     </section>
 
@@ -619,30 +709,52 @@ const { guide, prevGuide, nextGuide, hubInfo } = Astro.props;
       </div>
 
       <div class="activities-grid">
-        {guide.keyActivities.map((act) => (
-          <article class="activity-card">
-            <div class="act-header">
-              <h4 class="act-title">{act.title}</h4>
-              <div class="act-badges">
-                <span class="badge-category">{act.category}</span>
-                <span class="badge-timing">⏰ {act.timeOfDay} · {act.duration}</span>
+        {guide.keyActivities.map((act) => {
+          const googleSearchUrl = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(act.title + ' ' + act.location + ' Philippines')}`;
+          return (
+            <article class="activity-card">
+              <div class="act-thumb-wrap">
+                {act.imageUrl ? (
+                  <img src={act.imageUrl} alt={act.title} class="act-img" loading="lazy" />
+                ) : (
+                  <div class="act-thumb-placeholder">
+                    <span>📍</span>
+                  </div>
+                )}
               </div>
-            </div>
 
-            <div class="act-location">📍 {act.location}</div>
-            <p class="act-desc">{act.description}</p>
+              <div class="act-content-box">
+                <div>
+                  <div class="act-header">
+                    <h4 class="act-title">{act.title}</h4>
+                    <div class="act-badges">
+                      <span class="badge-category">{act.category}</span>
+                      <span class="badge-timing">⏰ {act.timeOfDay} · {act.duration}</span>
+                    </div>
+                  </div>
 
-            <div class="act-tip-box">
-              <strong>💡 Verified Insider Tip:</strong> {act.insiderTip}
-            </div>
+                  <div class="act-location">📍 {act.location}</div>
+                  <p class="act-desc">{act.description}</p>
 
-            {act.bookingRequired && act.bookingUrl && (
-              <a href={act.bookingUrl} target="_blank" rel="noopener noreferrer" class="act-book-btn">
-                <span>Book / Official Portal ↗</span>
-              </a>
-            )}
-          </article>
-        ))}
+                  <div class="act-tip-box">
+                    <strong>💡 Verified Insider Tip:</strong> {act.insiderTip}
+                  </div>
+                </div>
+
+                <div class="act-action-row">
+                  {act.bookingRequired && act.bookingUrl && (
+                    <a href={act.bookingUrl} target="_blank" rel="noopener noreferrer" class="act-book-btn">
+                      <span>Book / Official Portal ↗</span>
+                    </a>
+                  )}
+                  <a href={googleSearchUrl} target="_blank" rel="noopener noreferrer" class="google-search-btn" title="View live photo galleries on Google Images">
+                    <span>🔎 Live Photos (Google) ↗</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
 
@@ -772,3 +884,4 @@ const { guide, prevGuide, nextGuide, hubInfo } = Astro.props;
   </script>
 </body>
 </html>
+
