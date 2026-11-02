@@ -140,6 +140,138 @@ export interface PackingCategory {
   items: string[];
 }
 
+export interface EssentialApp {
+  id: string;
+  name: string;
+  category: 'wallet' | 'transit' | 'gov' | 'flights' | 'telecom' | 'nav';
+  icon: string;
+  badge: string;
+  purpose: string;
+  tip: string;
+  iosUrl?: string;
+  androidUrl?: string;
+  webUrl?: string;
+}
+
+export const ESSENTIAL_APPS: EssentialApp[] = [
+  {
+    id: 'gcash',
+    name: 'GCash',
+    category: 'wallet',
+    icon: '💳',
+    badge: 'Universal PH Wallet',
+    purpose: 'Everyday cashless QR payments (QR Ph), island boats, street food, night markets & cafe tips.',
+    tip: 'Tourists can sign up with passport verification. Link international Visa/Mastercard to Cash-In instantly.',
+    webUrl: 'https://www.gcash.com/',
+    iosUrl: 'https://apps.apple.com/app/gcash/id520358122',
+    androidUrl: 'https://play.google.com/store/apps/details?id=com.globe.gcash.android'
+  },
+  {
+    id: 'grab',
+    name: 'Grab',
+    category: 'transit',
+    icon: '🚗',
+    badge: 'Essential Ride-Hailing',
+    purpose: 'On-demand GrabCar, GrabCar 6-seater, and GrabFood across Metro Manila, Clark, and Cebu.',
+    tip: 'Skip airport taxi queues at NAIA T3 and Clark; set pickup pin at designated Grab Booth. Link foreign credit card for seamless cashless billing.',
+    webUrl: 'https://www.grab.com/ph/',
+    iosUrl: 'https://apps.apple.com/app/grab-taxi-ride-food-delivery/id647268330',
+    androidUrl: 'https://play.google.com/store/apps/details?id=com.grabtaxi.passenger'
+  },
+  {
+    id: 'etravel',
+    name: 'eTravel / eGov PH',
+    category: 'gov',
+    icon: '🛂',
+    badge: 'Mandatory Arrival QR',
+    purpose: 'Official Philippine Bureau of Immigration electronic customs & arrival declaration.',
+    tip: 'Completely FREE. Must be submitted within 72 hours prior to touching down at MNL (etravel.gov.ph). Save the generated green QR code to Apple Wallet / offline photos.',
+    webUrl: 'https://etravel.gov.ph/',
+    iosUrl: 'https://apps.apple.com/app/egov-ph/id6447663247',
+    androidUrl: 'https://play.google.com/store/apps/details?id=egov.app'
+  },
+  {
+    id: 'cebupacific',
+    name: 'Cebu Pacific Air',
+    category: 'flights',
+    icon: '✈️',
+    badge: 'Domestic Flight Hub',
+    purpose: 'Mobile boarding passes, terminal notifications, bag drop check-in & flight status for 5J & DG flights.',
+    tip: 'Add flights (CRK-USU, CEB-TAG, CEB-MNL) to mobile wallet for instant gate alerts and offline QR scans.',
+    webUrl: 'https://www.cebupacificair.com/',
+    iosUrl: 'https://apps.apple.com/app/cebu-pacific/id1044670014',
+    androidUrl: 'https://play.google.com/store/apps/details?id=com.cebupacificair'
+  },
+  {
+    id: 'airswift',
+    name: 'AirSWIFT',
+    category: 'flights',
+    icon: '🛩️',
+    badge: 'Lio Island Hop',
+    purpose: 'Direct boutique flight check-in and booking management for El Nido Lio (ENI) to Cebu (CEB).',
+    tip: 'Baggage strictly 10kg carry-on / 20kg checked. Check in online 24h prior.',
+    webUrl: 'https://air-swift.com/'
+  },
+  {
+    id: 'airalo',
+    name: 'Airalo / Smart eSIM',
+    category: 'telecom',
+    icon: '📶',
+    badge: 'Local Island 5G',
+    purpose: 'Instant high-speed mobile data without physical SIM swapping.',
+    tip: 'Install the Philippines eSIM profile before boarding in Copenhagen; activate upon landing at NAIA. Smart network has strongest coverage in Palawan & Bohol.',
+    webUrl: 'https://www.airalo.com/philippines-esim',
+    iosUrl: 'https://apps.apple.com/app/airalo-esim-phone-internet/id1475901533',
+    androidUrl: 'https://play.google.com/store/apps/details?id=com.mobillium.airalo'
+  },
+  {
+    id: 'hotelscom',
+    name: 'Hotels.com',
+    category: 'wallet',
+    icon: '🏨',
+    badge: 'One Key Points',
+    purpose: 'Manage all 29 nights of hotel bookings, view offline check-in vouchers, and track One Key rewards.',
+    tip: 'Download offline booking confirmations and message hotel concierge directly for airport transfers.',
+    webUrl: 'https://www.hotels.com/',
+    iosUrl: 'https://apps.apple.com/app/hotels-com-travel-deals/id284971969',
+    androidUrl: 'https://play.google.com/store/apps/details?id=com.hcom.android'
+  },
+  {
+    id: 'klook',
+    name: 'Klook',
+    category: 'transit',
+    icon: '🎫',
+    badge: 'Ferries & Tours',
+    purpose: 'Instant ticketing for OceanJet Fast Ferry (Cebu↔Bohol↔Siquijor) and private SUV airport charters.',
+    tip: 'Show mobile barcode voucher directly at OceanJet Cebu Pier 1 terminal without lining up at the physical ticket booth.',
+    webUrl: 'https://www.klook.com/',
+    iosUrl: 'https://apps.apple.com/app/klook-travel-leisure-more/id961850126',
+    androidUrl: 'https://play.google.com/store/apps/details?id=com.klook'
+  },
+  {
+    id: 'googlemaps',
+    name: 'Google Maps (Offline)',
+    category: 'nav',
+    icon: '🗺️',
+    badge: 'Offline Navigation',
+    purpose: 'Essential GPS navigation and saved location pins when roaming in low-signal island areas.',
+    tip: 'Download offline map zones for Busuanga/Coron, El Nido, Siquijor Island, and Central Visayas in advance.',
+    webUrl: 'https://maps.google.com/'
+  },
+  {
+    id: 'waze',
+    name: 'Waze',
+    category: 'nav',
+    icon: '📍',
+    badge: 'Live Manila & Expressway Traffic',
+    purpose: 'Live crowd-sourced routing around Metro Manila congestion, NLEX speed camera alerts, and Skyway Stage 3 tolls.',
+    tip: 'Essential for the Clark roadtrip and driving between Makati, BGC, and NAIA.',
+    webUrl: 'https://www.waze.com/',
+    iosUrl: 'https://apps.apple.com/app/waze-navigation-live-traffic/id323229106',
+    androidUrl: 'https://play.google.com/store/apps/details?id=com.waze'
+  }
+];
+
 export const PACKING_CATEGORIES: PackingCategory[] = [
   {
     id: 'docs-finance',
@@ -159,6 +291,7 @@ export const PACKING_CATEGORIES: PackingCategory[] = [
     title: 'Tech, Action Cam & Navigation',
     icon: '📷',
     items: [
+      'Essential mobile apps installed & verified: GCash (cashless QR), Grab (card linked), eTravel QR, Airalo eSIM & Hotels.com',
       'Smartphones with Airalo / Smart PH eSIM + Globe backup eSIM',
       'GoPro / DJI Action mount for Clark Speedway & Cebu Transcentral Highway',
       '20,000mAh airline-compliant power bank (critical for 4-day Tao Paraw sail)',
