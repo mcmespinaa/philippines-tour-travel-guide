@@ -169,7 +169,7 @@ export const PACKING_CATEGORIES: PackingCategory[] = [
   },
   {
     id: 'wardrobe-mc',
-    title: 'Tropical Capsule — MC',
+    title: 'Tropical Capsule — Maria',
     icon: '👗',
     items: [
       'Cushioned walking sneakers (broken in) + waterproof reef/water sandals',
