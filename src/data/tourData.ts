@@ -860,19 +860,20 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     weatherAvg: '30°C Sunny Karst Seas · Emerald Lagoon Visibility',
     primaryLandmarks: [
       { name: 'Big Lagoon & Secret Lagoon (Miniloc Island)', lat: 11.1528, lng: 119.3214, category: 'Marine Sanctuary', openHours: 'Timed Eco-Permits 08:00–16:00' },
-      { name: 'Nacpan & Calitang Twin Beach', lat: 11.3214, lng: 119.4268, category: '4x4 Coastal Trail', openHours: 'Daily 07:00–20:00 (Sunset 17:35)' },
-      { name: 'Las Cabañas Sunset Beach & Lio Estate', lat: 11.1475, lng: 119.3942, category: 'Sunset & Airport', openHours: 'Daily 08:00–22:00' }
+      { name: 'Las Cabañas / Maremegmeg Sunset Beach & Sandbar', lat: 11.1436, lng: 119.3935, category: 'Sunset Beach Club Hub', openHours: 'Daily 07:00–22:00 (Golden Hour 17:15–18:00)' },
+      { name: 'Lio Beach Tourism Estate & ENI Airport', lat: 11.2028, lng: 119.4132, category: '4km Eco-Beach & Airport', openHours: 'Daily 06:00–22:00 (3 min to AirSWIFT/CebuPac Terminal)' },
+      { name: 'Nacpan & Calitang Twin Beach', lat: 11.3214, lng: 119.4268, category: '4x4 Coastal Trail', openHours: 'Daily 07:00–20:00 (Sunset 17:35)' }
     ],
     motorsportHighlight: 'Enduro coastal switchbacks, high-clearance 4x4 river crossings to Nacpan & twin-outboard speed craft',
-    romanceHighlight: 'Emerald Big Lagoon kayaking, private beach candlelit dinner & Cadlao sunset brunch',
-    weatherBackup: 'Pangulasian / Seda Lio traditional Hilot massage villa + Kalye Artisano gallery walk in Lio Estate',
+    romanceHighlight: 'Emerald Big Lagoon kayaking, Las Cabañas sunset sandbar cocktails & Lio Beach torch-lit dinner',
+    weatherBackup: 'Seda Lio / Piece Lio traditional Hilot massage + Kalye Artisano gallery walk in Lio Estate',
     cebuPacGateway: 'El Nido Lio Airport (ENI) via AirSWIFT (now part of Cebu Pacific Group)',
     cebuPacFlightNos: 'T6 511 / T6 535 (ENI ✈ CEB) · T6 110 / T6 142 (MNL ✈ ENI) · 5J 637 (MNL ✈ PPS)',
     cebuPacBookingUrl: 'https://www.cebupacificair.com/en-PH/pages/plan/book-flights',
     dining: [
       { name: 'Gusto Gelato & Specialty Coffee / Hama Coffee', category: 'Morning Coffee', neighborhood: 'Calle Hama, El Nido Town Beach', specialty: 'Sea-front flat white & warm croissant looking straight at Cadlao Island cliffs', bookingTip: 'Walk along the sand around 09:30 AM' },
-      { name: 'Cadlao Resort Terrace / Angkla Beach Club Nacpan', category: 'Casual Lunch', neighborhood: 'Caalan Beach & Nacpan Twin Beach', specialty: 'Grilled Palawan prawns, kinilaw ceviche & chilled Sauvignon Blanc by the surf', bookingTip: 'Reserve a front daybed at Angkla on your Nacpan 4x4 day' },
-      { name: 'Piece Lio / Pangulasian Private Beach Dining', category: 'Destination Dinner', neighborhood: 'Lio Beach Estate & Pangulasian Cove', specialty: 'Torch-lit private 4-course tasting dinner directly on the powder-white sand', bookingTip: 'Arrange with resort concierge 48h prior' }
+      { name: 'Maremegmeg Beach Club (MBC) / Las Cabañas Sunset Bar', category: 'Sunset Cocktails', neighborhood: 'Las Cabañas Beach (South)', specialty: 'Front-row sunset daybeds facing Depeldet Island sandbar with mango daiquiris & fresh seafood', bookingTip: 'Arrive by 16:30 for front-row sunset loungers' },
+      { name: 'Piece Lio / Globy Traveling Chef (Lio Beach Promenade)', category: 'Destination Dinner', neighborhood: 'Lio Beach Estate (North)', specialty: 'Torch-lit al fresco dining on the 4km Lio eco-beach promenade under coconut palms', bookingTip: 'Zero tricycle traffic inside Lio Estate; stroll straight from your hotel' }
     ],
     hotels: [
       {
@@ -905,17 +906,17 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       },
       {
         rank: 3,
-        name: 'Seda Lio Beach Resort',
-        stars: '5★ Sustainable Beachfront',
+        name: 'Seda Lio Beach Resort (Lio Tourism Estate)',
+        stars: '5★ Sustainable Beachfront Resort',
         tier: '5-Star Flagship',
         budgetBand: 'smart',
         landmark: 'Lio Beach & El Nido Lio Airport (ENI)',
-        distance: '3 min electric shuttle from ENI Airport',
-        rateDkk: 1380,
+        distance: '0m on 4km Lio Beach · 3 min free shuttle to ENI Airport',
+        rateDkk: 1550,
         url: 'https://lio.sedahotels.com/',
         lat: 11.2035,
         lng: 119.4135,
-        highlight: '4km golden beachfront with artisanal cafes and immediate road access to Nacpan.'
+        highlight: 'Flagship resort of Ayala’s 325-hectare Lio Estate (~₱13,000/n): huge pool, spa villas & direct Lio Beach boat pier.'
       },
       {
         rank: 4,
@@ -933,22 +934,92 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       },
       {
         rank: 5,
-        name: 'Huni Lio / Piece Lio Boutique Hotel',
-        stars: '4★+ Design Beachfront (Lio Estate)',
+        name: 'Maremegmeg Beach Club — MBC (Las Cabañas Beach)',
+        stars: '4★+ Premier Beachfront Boutique',
         tier: '4-Star Premier',
-        budgetBand: 'value',
-        landmark: 'Lio Beach Pier & Kalye Artisano',
-        distance: '100m to Lio Beach boat pier & 3 min to ENI Airport',
-        rateDkk: 820,
-        url: 'https://hunilio.com/',
-        lat: 11.2018,
-        lng: 119.4122,
-        highlight: 'Quiet, design-forward sanctuary inside Lio Estate at half the price of private island resorts.'
+        budgetBand: 'smart',
+        landmark: 'Las Cabañas / Maremegmeg Sunset Beach',
+        distance: '0m — Directly on the sand at Las Cabañas Beach',
+        rateDkk: 1150,
+        url: 'https://www.mbcelnido.com/',
+        lat: 11.1458,
+        lng: 119.3948,
+        highlight: 'The most upscale modern boutique hotel right on Las Cabañas Beach (~₱9,600/n) with private infinity pool & beach club.'
       },
       {
         rank: 6,
-        name: 'H Hotel El Nido / Lagun Hotel',
-        stars: '4★ Town Beachfront Boutique',
+        name: 'Las Cabañas Beach Resort (Sunset Sandbar Tip)',
+        stars: '4★ Iconic Sunset Beachfront Cottages',
+        tier: '4-Star Premier',
+        budgetBand: 'smart',
+        landmark: 'Las Cabañas Sunset Point & Depeldet Sandbar',
+        distance: '0m — At the western sunset tip of Las Cabañas Beach',
+        rateDkk: 1050,
+        url: 'https://www.lascabanasbeachresort.com/',
+        lat: 11.1422,
+        lng: 119.3918,
+        highlight: 'The original namesake resort on the quietest tip of Las Cabañas (~₱8,800/n); step off your veranda into sunset waters.'
+      },
+      {
+        rank: 7,
+        name: 'Piece Lio (MICHELIN Guide · Lio Beach Estate)',
+        stars: '4★+ Japanese-Filipino Design Boutique',
+        tier: '4-Star Serviced',
+        budgetBand: 'smart',
+        landmark: 'Lio Beach Promenade & Kalye Artisano',
+        distance: '150m walk to Lio Beach · 3 min free shuttle to ENI Airport',
+        rateDkk: 950,
+        url: 'https://www.piecelio.com/',
+        lat: 11.2012,
+        lng: 119.4142,
+        highlight: 'MICHELIN Guide selected minimalist design hotel (~₱8,000/n) with loft suites, courtyard pool & tranquil forest-beach vibe.'
+      },
+      {
+        rank: 8,
+        name: 'Huni Lio (Lio Beach Estate)',
+        stars: '4★+ Contemporary Beachfront Hotel',
+        tier: '4-Star Premier',
+        budgetBand: 'value',
+        landmark: 'Lio Beach Pier & Promenade',
+        distance: '50m to Lio Beach sand & boat pier · 3 min to ENI Airport',
+        rateDkk: 890,
+        url: 'https://hunilio.com/',
+        lat: 11.2018,
+        lng: 119.4122,
+        highlight: 'Modern Filipino beachfront sanctuary (~₱7,500/n) with pool bar and free airport transfers inside Lio Estate.'
+      },
+      {
+        rank: 9,
+        name: 'Balai Adlao / Isla Amara (Lio Beach Promenade)',
+        stars: '4★ Boutique Eco-Resorts (Lio Estate)',
+        tier: '4-Star Premier',
+        budgetBand: 'value',
+        landmark: 'Lio Beach Dining Strip & Boat Pier',
+        distance: '40m to Lio Beach & restaurants · 3 min to ENI Airport',
+        rateDkk: 820,
+        url: 'https://www.liobeach.com/stay/',
+        lat: 11.2024,
+        lng: 119.4128,
+        highlight: 'Best value inside Lio Tourism Estate (~₱6,850/n incl. breakfast & airport shuttle) steps from the beach.'
+      },
+      {
+        rank: 10,
+        name: 'Karuna El Nido Villas / Sunset Cliff Airbnb (Las Cabañas)',
+        stars: '★4.95 Panoramic Cliff Pool Villa / Airbnb',
+        tier: 'Luxury Airbnb',
+        budgetBand: 'value',
+        landmark: 'Las Cabañas Beach & Corong-Corong Sunset Bay',
+        distance: '300m hillside above Las Cabañas Beach (free buggy shuttle)',
+        rateDkk: 880,
+        url: 'https://www.airbnb.com/s/Corong-Corong--El-Nido--Philippines/homes',
+        lat: 11.1512,
+        lng: 119.3962,
+        highlight: 'Famous hillside infinity pool & spacious 1BR glass-front apartments (~₱7,400/n) with jaw-dropping Bacuit Bay sunsets.'
+      },
+      {
+        rank: 11,
+        name: 'H Hotel El Nido (Vegan-Friendly Luxury Boutique)',
+        stars: '4★+ Town Beachfront Boutique',
         tier: '4-Star Premier',
         budgetBand: 'value',
         landmark: 'El Nido Beach & Tao Expedition Arrival Pier',
@@ -957,21 +1028,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
         url: 'https://www.hhotel-elnido.com/',
         lat: 11.1802,
         lng: 119.3872,
-        highlight: 'Rooftop bar and pool overlooking Bacuit Bay limestone cliffs; walkable to every town cafe.'
-      },
-      {
-        rank: 7,
-        name: 'Airbnb: Maremegmeg / Las Cabañas Sunset Cliff Villa',
-        stars: '★4.96 Sea-View Boutique Villa Airbnb',
-        tier: 'Luxury Airbnb',
-        budgetBand: 'value',
-        landmark: 'Las Cabañas Sunset Beach',
-        distance: '150m walk down to Las Cabañas beach clubs',
-        rateDkk: 640,
-        url: 'https://www.airbnb.com/s/El-Nido--Palawan--Philippines/homes',
-        lat: 11.1482,
-        lng: 119.3955,
-        highlight: 'Private panoramic terrace facing the western sunset channel over Bacuit Bay.'
+        highlight: 'Managed by H Hospitality (same group as Piece Lio); rooftop bar overlooking Cadlao cliffs right where Tao Paraw lands.'
       }
     ]
   },
