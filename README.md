@@ -16,7 +16,7 @@ attn_resolved:
 attn_note:
 ---
 
-# KAPULUAN OS · Philippines 32-Day Personal Travel Guide (Astro)
+# MC TRAVEL OS · Philippines 32-Day Personal Travel Guide (Astro)
 
 <!-- provenance -->
 *Generated 2026-11-02 by Antigravity (Gemini 4 Argon, Medium).*

@@ -1345,6 +1345,98 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       color: var(--text-muted);
     }
 
+    /* Home View Travel Checklist Widget */
+    .home-checklist-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      margin-top: 0.85rem;
+      margin-bottom: 0.85rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .home-checklist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      bottom: 0;
+      background: linear-gradient(180deg, var(--m-light-blue), #10B981);
+    }
+
+    .home-checklist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .home-checklist-title {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .home-checklist-progress {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #10B981;
+    }
+
+    .home-checklist-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+
+    .home-checklist-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--m-light-blue), #10B981);
+      transition: width 0.3s ease;
+    }
+
+    .home-checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.65rem;
+    }
+
+    @media (max-width: 768px) {
+      .home-checklist-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .home-checklist-col {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: 7px;
+      padding: 0.55rem 0.7rem;
+    }
+
+    .home-checklist-col-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--m-Sky-glow);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
     /* Mobile Sticky Bottom Dock */
     .mobile-bottom-dock {
       display: none;
@@ -1494,6 +1586,15 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       >
         <span>📖 Guides ({DESTINATION_GUIDES.length})</span>
       </a>
+      <button
+        type="button"
+        class="sheet-sync-btn"
+        id="btn-top-checklist"
+        style="border-color:rgba(16, 185, 129, 0.45);color:#10B981;cursor:pointer;"
+        title="Open 30-Item Travel & Track Checklist"
+      >
+        <span>🎒 Checklist (<span id="top-checklist-badge">0/{totalPackingItems}</span>)</span>
+      </button>
       <a
         class="sheet-sync-btn"
         href="https://docs.google.com/spreadsheets/d/1OrCABb_TqMRWFFenlpoUbLRfmU9W5rxHlB7B2sXCkdY/edit?usp=drivesdk"
@@ -1589,7 +1690,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
             <span>✈️ 04 · Flights &amp; RORO</span>
           </button>
           <button type="button" class="m-mode-btn" data-drive-mode="packing">
-            <span>🎒 05 · Packing ({totalPackingItems})</span>
+            <span>🎒 05 · Travel Checklist ({totalPackingItems})</span>
           </button>
           <button type="button" class="m-mode-btn" data-drive-mode="guides">
             <span>📖 06 · Field Guides ({DESTINATION_GUIDES.length})</span>
@@ -1660,6 +1761,48 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
               <button type="button" class="stay-filter-btn" data-stay-filter="value-under-750">💚 ≤750 DKK/n</button>
               <button type="button" class="stay-filter-btn" data-stay-filter="flagship">💎 5★ Flagships</button>
             </div>
+          </div>
+        </div>
+
+        <!-- Travel & Island Readiness Checklist Widget on Home View -->
+        <div class="home-checklist-card" id="home-checklist-widget">
+          <div class="home-checklist-header">
+            <div class="home-checklist-title">
+              <span class="m-badge-inline"><span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>MC</span>
+              <span>🎒 32-Day Travel Readiness &amp; Island Checklist</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <span class="home-checklist-progress" id="home-checklist-progress">0 / {totalPackingItems} Packed</span>
+              <button type="button" class="map-btn" id="btn-jump-full-checklist" style="font-size:0.68rem;padding:0.25rem 0.6rem;">
+                View All {totalPackingItems} Items ↗
+              </button>
+            </div>
+          </div>
+          <div class="home-checklist-bar-track">
+            <div class="home-checklist-bar-fill" id="home-checklist-bar-fill" style="width:0%;"></div>
+          </div>
+          <div class="home-checklist-grid">
+            {PACKING_CATEGORIES.slice(0, 4).map((cat) => {
+              const topItem = cat.items[0];
+              const secondItem = cat.items[1];
+              return (
+                <div class="home-checklist-col">
+                  <div class="home-checklist-col-title">
+                    <span>{cat.icon}</span> <span>{cat.title}</span>
+                  </div>
+                  <label class="pack-item-label" for={`home-pack-${cat.id}-0`}>
+                    <input type="checkbox" id={`home-pack-${cat.id}-0`} class="pack-checkbox home-pack-synced" data-pack-id={`pack-${cat.id}-0`} />
+                    <span>{topItem}</span>
+                  </label>
+                  {secondItem && (
+                    <label class="pack-item-label" for={`home-pack-${cat.id}-1`}>
+                      <input type="checkbox" id={`home-pack-${cat.id}-1`} class="pack-checkbox home-pack-synced" data-pack-id={`pack-${cat.id}-1`} />
+                      <span>{secondItem}</span>
+                    </label>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -2895,6 +3038,15 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         });
         const progEl = document.getElementById('pack-progress-text');
         if (progEl) progEl.textContent = `${count} / ${totalPackCount} packed`;
+
+        const topBadge = document.getElementById('top-checklist-badge');
+        if (topBadge) topBadge.textContent = `${count}/${totalPackCount}`;
+
+        const homeProg = document.getElementById('home-checklist-progress');
+        if (homeProg) homeProg.textContent = `${count} / ${totalPackCount} Packed`;
+
+        const homeBar = document.getElementById('home-checklist-bar-fill');
+        if (homeBar) homeBar.style.width = `${Math.round((count / totalPackCount) * 100)}%`;
       }
 
       document.querySelectorAll('.pack-checkbox').forEach((cb) => {
@@ -2905,6 +3057,18 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           updatePackingProgress();
         });
       });
+
+      // Quick launcher buttons for checklist
+      const jumpToFullChecklist = () => {
+        activateDriveMode('packing');
+        const packingEl = document.getElementById('mode-panel-packing');
+        if (packingEl) {
+          packingEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+
+      document.getElementById('btn-top-checklist')?.addEventListener('click', jumpToFullChecklist);
+      document.getElementById('btn-jump-full-checklist')?.addEventListener('click', jumpToFullChecklist);
 
       document.getElementById('btn-reset-packing')?.addEventListener('click', () => {
         Object.keys(savedPack).forEach((k) => delete savedPack[k]);
