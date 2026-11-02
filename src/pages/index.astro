@@ -247,6 +247,37 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       color: var(--nordic-mint);
     }
 
+    .kpi-chip.target-red {
+      border-color: rgba(227, 6, 19, 0.45);
+    }
+    .kpi-chip.target-red span.val {
+      color: var(--m-red-glow);
+    }
+
+    .badge-mini-toggle {
+      font-family: var(--font-mono);
+      font-size: 0.52rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 0.08rem 0.32rem;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .badge-mini-toggle:hover {
+      background: rgba(16, 185, 129, 0.28);
+    }
+
+    .badge-mini-toggle.mid-mode {
+      background: rgba(46, 154, 254, 0.15);
+      color: var(--m-Sky-glow);
+      border-color: rgba(46, 154, 254, 0.3);
+    }
+
     /* Currency & Theme Toggles */
     .segmented-control {
       display: inline-flex;
@@ -1688,8 +1719,11 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     </div>
 
     <div class="kpi-ribbon">
-      <div class="kpi-chip target-green">
-        <span class="label">29N Lodging Shortlist</span>
+      <div class="kpi-chip target-green" id="kpi-shortlist-chip" style="cursor:pointer;" title="Click chip to jump to Budget Optimizer · Click toggle to switch Dynamic / Mid">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:0.45rem;">
+          <span class="label" id="shortlist-label-text">29N Lodging · Dynamic</span>
+          <button type="button" class="badge-mini-toggle" id="btn-toggle-badge-mode" title="Toggle between Dynamic Live Selection and 25k–30k Mid Benchmark">⚡ Dynamic</button>
+        </div>
         <span class="val" id="shortlist-total-badge">28,260 DKK (29N)</span>
       </div>
       <div class="segmented-control" role="group" aria-label="Currency Converter">
@@ -3112,9 +3146,44 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           }
         });
 
+        // Render Shortlist Total Badge (Dynamic Live Stays vs Mid Benchmark)
+        const badgeMode = localStorage.getItem('kapuluan_badge_mode') || 'dynamic';
+        const MID_BENCHMARK_DKK = 28260; // Target Somerset mid-point
+
         const badge = document.getElementById('shortlist-total-badge');
+        const labelText = document.getElementById('shortlist-label-text');
+        const toggleBtn = document.getElementById('btn-toggle-badge-mode');
+        const chipEl = document.getElementById('kpi-shortlist-chip');
+
         if (badge) {
-          badge.textContent = `${formatCurrency(totalDkk, currentCurr)} (29N)`;
+          if (badgeMode === 'mid') {
+            if (labelText) labelText.textContent = '29N Lodging · Mid Target';
+            if (toggleBtn) {
+              toggleBtn.textContent = '🎯 Mid (28k)';
+              toggleBtn.className = 'badge-mini-toggle mid-mode';
+            }
+            badge.textContent = `${formatCurrency(MID_BENCHMARK_DKK, currentCurr)} (Mid)`;
+            if (chipEl) chipEl.className = 'kpi-chip target-green';
+          } else {
+            // Dynamic mode
+            let zoneTag = '🎯 Mid';
+            let chipClass = 'kpi-chip target-green';
+            if (totalDkk < 25000) {
+              zoneTag = '💚 Value';
+              chipClass = 'kpi-chip target-green';
+            } else if (totalDkk > 30000) {
+              zoneTag = '💎 Flagship';
+              chipClass = 'kpi-chip target-red';
+            }
+
+            if (labelText) labelText.textContent = `29N Lodging · Dynamic (${zoneTag})`;
+            if (toggleBtn) {
+              toggleBtn.textContent = '⚡ Dynamic';
+              toggleBtn.className = 'badge-mini-toggle';
+            }
+            badge.textContent = `${formatCurrency(totalDkk, currentCurr)} (29N)`;
+            if (chipEl) chipEl.className = chipClass;
+          }
         }
 
         const meterTotal = document.getElementById('meter-current-total');
@@ -3172,6 +3241,21 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           document.querySelectorAll('.preset-btn').forEach((b) => b.classList.remove('active'));
           updateShortlistSummary();
         });
+      });
+
+      // Toggle shortlist badge mode between Dynamic and Mid Target
+      document.getElementById('btn-toggle-badge-mode')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const currentMode = localStorage.getItem('kapuluan_badge_mode') || 'dynamic';
+        const newMode = currentMode === 'dynamic' ? 'mid' : 'dynamic';
+        localStorage.setItem('kapuluan_badge_mode', newMode);
+        updateShortlistSummary();
+      });
+
+      document.getElementById('kpi-shortlist-chip')?.addEventListener('click', () => {
+        activateDriveMode('stays');
+        const opt = document.getElementById('budget-optimizer');
+        if (opt) opt.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
 
       // Filter Hotel Cards & Map Pins
