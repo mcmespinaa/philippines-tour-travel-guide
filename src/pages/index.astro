@@ -1,5 +1,5 @@
 ---
-import { DESTINATION_HUBS, FLIGHT_ROUTES, DAILY_ITINERARY, PACKING_CATEGORIES } from '../data/tourData';
+import { DESTINATION_HUBS, FLIGHT_ROUTES, DAILY_ITINERARY, PACKING_CATEGORIES, DESTINATION_GUIDES } from '../data/tourData';
 
 const totalHotels = DESTINATION_HUBS.reduce((acc, h) => acc + h.hotels.length, 0);
 const totalPackingItems = PACKING_CATEGORIES.reduce((acc, c) => acc + c.items.length, 0);
@@ -1484,6 +1484,14 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       </button>
       <a
         class="sheet-sync-btn"
+        href="./guides/"
+        style="border-color:rgba(46, 154, 254, 0.45);color:var(--m-Sky-glow);"
+        title="Open 7 Destination & Activity Field Guides"
+      >
+        <span>📖 Guides ({DESTINATION_GUIDES.length})</span>
+      </a>
+      <a
+        class="sheet-sync-btn"
         href="https://docs.google.com/spreadsheets/d/1OrCABb_TqMRWFFenlpoUbLRfmU9W5rxHlB7B2sXCkdY/edit?usp=drivesdk"
         target="_blank"
         rel="noopener noreferrer"
@@ -1578,6 +1586,9 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           </button>
           <button type="button" class="m-mode-btn" data-drive-mode="packing">
             <span>🎒 05 · Packing ({totalPackingItems})</span>
+          </button>
+          <button type="button" class="m-mode-btn" data-drive-mode="guides">
+            <span>📖 06 · Field Guides ({DESTINATION_GUIDES.length})</span>
           </button>
           <button type="button" class="m-mode-btn" data-drive-mode="all">
             <span>⚡ All</span>
@@ -2103,6 +2114,85 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           </div>
         </div>
       </div>
+
+      <!-- =====================================================================
+           DRIVE MODE 06: DESTINATION & ACTIVITY FIELD GUIDES (7 HUBS)
+           ===================================================================== -->
+      <div class="deck-mode-section" id="mode-panel-guides" data-mode-panel="guides">
+        <div class="card-panel-base" style="margin-bottom:1.25rem;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;">
+            <div>
+              <div style="display:flex;align-items:center;gap:0.4rem;font-family:var(--font-mono);font-size:0.75rem;font-weight:800;color:var(--m-Sky-glow);margin-bottom:0.25rem;">
+                <span class="m-badge-inline"><span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>M</span>
+                <span>DESTINATION &amp; ACTIVITY FIELD GUIDES ({DESTINATION_GUIDES.length} HUBS)</span>
+              </div>
+              <h3 style="font-size:1.15rem;font-weight:800;">Curated Daily Anchors, Car Meets &amp; Field Intelligence</h3>
+              <p style="font-size:0.82rem;color:var(--text-secondary);max-width:720px;line-height:1.45;">
+                Two-anchor daily ceiling, verified museum opening times, live automotive meets, and culinary pilgrimage routes across all 7 hubs.
+              </p>
+            </div>
+            <a href="./guides/" class="sheet-sync-btn" style="background:linear-gradient(135deg, #0066B1, #1C2674);color:#fff;border-color:rgba(46,154,254,0.4);" title="Open Master Guides Directory">
+              <span>📖 Open Full Guide Hub ↗</span>
+            </a>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(360px, 1fr));gap:1rem;">
+            {DESTINATION_GUIDES.map((g) => (
+              <div style="background:var(--bg-elevated);border:1px solid var(--border-hairline);border-radius:10px;padding:1.1rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg, #0066B1, #1C2674, #E30613);"></div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                    <span style="font-family:var(--font-mono);font-size:0.7rem;font-weight:800;color:var(--m-Sky-glow);background:rgba(46,154,254,0.12);padding:0.15rem 0.45rem;border-radius:4px;border:1px solid rgba(46,154,254,0.25);">
+                      HUB {g.hubNumber}
+                    </span>
+                    <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--text-muted);">{g.dates}</span>
+                  </div>
+                  <h4 style="font-size:1.02rem;font-weight:800;margin-bottom:0.25rem;">{g.name}</h4>
+                  <p style="font-size:0.78rem;color:var(--text-secondary);line-height:1.4;margin-bottom:0.65rem;">{g.tagline}</p>
+                  
+                  <div style="font-size:0.75rem;font-style:italic;color:var(--text-primary);background:var(--bg-card);border-left:2px solid var(--m-Sky-glow);padding:0.45rem 0.65rem;border-radius:0 4px 4px 0;margin-bottom:0.75rem;">
+                    "{g.highlightsQuote}"
+                  </div>
+
+                  <div style="font-family:var(--font-mono);font-size:0.65rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:0.35rem;">
+                    🎯 KEY ANCHORS ({g.keyActivities.length}):
+                  </div>
+                  <ul style="list-style:none;display:flex;flex-direction:column;gap:0.35rem;margin-bottom:0.75rem;">
+                    {g.keyActivities.slice(0, 3).map((act) => (
+                      <li style="display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;">
+                        <span style="width:4px;height:4px;border-radius:50%;background:var(--m-Sky-glow);flex-shrink:0;"></span>
+                        <span style="font-weight:600;color:var(--text-primary);">{act.title}</span>
+                        <span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-muted);margin-left:auto;">{act.duration}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {g.automotiveAndEvents.length > 0 && (
+                    <div style="background:rgba(227,6,19,0.08);border:1px solid rgba(227,6,19,0.22);border-radius:6px;padding:0.5rem 0.65rem;margin-bottom:0.65rem;">
+                      <div style="font-family:var(--font-mono);font-size:0.68rem;font-weight:800;color:var(--m-red-glow);margin-bottom:0.15rem;">
+                        🏎️ {g.automotiveAndEvents[0].title}
+                      </div>
+                      <div style="font-size:0.72rem;color:var(--text-secondary);">
+                        {g.automotiveAndEvents[0].venue} · {g.automotiveAndEvents[0].dates}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;padding-top:0.65rem;border-top:1px solid var(--border-hairline);margin-top:auto;">
+                  <a href={`./guides/${g.id}/`} class="cebpac-book-link" style="display:inline-flex;align-items:center;gap:0.3rem;padding:0.35rem 0.75rem;font-size:0.72rem;">
+                    <span>Open Field Guide</span>
+                    <span>→</span>
+                  </a>
+                  <button type="button" class="landmark-chip" data-guide-hub={g.id} style="font-size:0.68rem;padding:0.3rem 0.55rem;">
+                    <span>🗺️ Focus Map</span>
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -2114,19 +2204,23 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     </button>
     <button type="button" class="dock-btn" data-mobile-mode="msport">
       <span>🏎️</span>
-      <span>///M &amp; Drive</span>
+      <span>///M</span>
     </button>
     <button type="button" class="dock-btn" data-mobile-mode="schedule">
       <span>🗓️</span>
-      <span>32 Days</span>
+      <span>32D</span>
     </button>
     <button type="button" class="dock-btn" data-mobile-mode="flights">
       <span>✈️</span>
       <span>Flights</span>
     </button>
+    <button type="button" class="dock-btn" data-mobile-mode="guides">
+      <span>📖</span>
+      <span>Guides</span>
+    </button>
     <button type="button" class="dock-btn" data-mobile-mode="packing">
       <span>🎒</span>
-      <span>Packing</span>
+      <span>Pack</span>
     </button>
   </nav>
 
@@ -2478,6 +2572,16 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         });
       });
 
+      document.querySelectorAll('[data-guide-hub]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const hubId = btn.getAttribute('data-guide-hub');
+          if (hubId) {
+            activateDriveMode('stays');
+            activateHub(hubId, true);
+          }
+        });
+      });
+
       document.querySelectorAll('.flight-leg-card').forEach((card) => {
         card.addEventListener('click', () => {
           const lat1 = parseFloat(card.getAttribute('data-from-lat'));
@@ -2803,6 +2907,14 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       });
 
       updatePackingProgress();
+
+      // Check URL query parameters (e.g. ?hub=el-nido)
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryHub = urlParams.get('hub');
+      if (queryHub && hubsData.some((h) => h.id === queryHub)) {
+        activateDriveMode('stays');
+        activateHub(queryHub, true);
+      }
     });
   </script>
 </body>

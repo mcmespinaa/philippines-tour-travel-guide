@@ -1,0 +1,774 @@
+---
+import { DESTINATION_GUIDES, DESTINATION_HUBS } from '../../data/tourData';
+
+export async function getStaticPaths() {
+  return DESTINATION_GUIDES.map((guide, idx) => {
+    const prevGuide = idx > 0 ? DESTINATION_GUIDES[idx - 1] : DESTINATION_GUIDES[DESTINATION_GUIDES.length - 1];
+    const nextGuide = idx < DESTINATION_GUIDES.length - 1 ? DESTINATION_GUIDES[idx + 1] : DESTINATION_GUIDES[0];
+    const hubInfo = DESTINATION_HUBS.find((h) => h.id === guide.id);
+    return {
+      params: { id: guide.id },
+      props: { guide, prevGuide, nextGuide, hubInfo }
+    };
+  });
+}
+
+const { guide, prevGuide, nextGuide, hubInfo } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0A0D12" />
+  <title>{guide.name} · Destination &amp; Activity Guide · KAPULUAN ///M OS</title>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <link rel="manifest" href="../../manifest.webmanifest" />
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-canvas: #0A0D12;
+      --bg-panel: #111620;
+      --bg-card: #161C28;
+      --bg-card-hover: #1C2433;
+      --bg-elevated: #0D1119;
+      --bg-glass: rgba(17, 22, 32, 0.92);
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --border-hairline: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+
+      --m-light-blue: #0066B1;
+      --m-Sky-glow: #2E9AFE;
+      --m-violet-navy: #1C2674;
+      --m-indigo-pill: #6366F1;
+      --m-red: #E30613;
+      --m-red-glow: #FF2836;
+      --nordic-mint: #10B981;
+      --amber-telemetry: #F59E0B;
+
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body.theme-nordic-light {
+      --bg-canvas: #F3F5F8;
+      --bg-panel: #FFFFFF;
+      --bg-card: #F8FAFC;
+      --bg-card-hover: #EEF2F6;
+      --bg-elevated: #EBF0F5;
+      --bg-glass: rgba(255, 255, 255, 0.95);
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #64748B;
+      --border-hairline: rgba(15, 23, 42, 0.09);
+      --border-strong: rgba(15, 23, 42, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      min-height: 100vh;
+      padding-bottom: 80px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .m-tricolor-strip {
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(
+        90deg,
+        #0066B1 0%,
+        #0066B1 33.3%,
+        #1C2674 33.3%,
+        #1C2674 66.6%,
+        #E30613 66.6%,
+        #E30613 100%
+      );
+      position: sticky;
+      top: 0;
+      z-index: 1100;
+    }
+
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-glass);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-hairline);
+      position: sticky;
+      top: 4px;
+      z-index: 1050;
+    }
+
+    .breadcrumb-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    .breadcrumb-nav a:hover {
+      color: var(--m-Sky-glow);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 0.4rem 0.8rem;
+      border-radius: 7px;
+      text-decoration: none;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-action:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--m-Sky-glow);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0066B1, #1C2674);
+      color: #FFFFFF;
+      border-color: rgba(46, 154, 254, 0.4);
+    }
+
+    .guide-wrapper {
+      max-width: 1180px;
+      margin: 1.75rem auto 3rem;
+      padding: 0 1.5rem;
+    }
+
+    .hero-panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      border-radius: 14px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #0066B1, #1C2674, #E30613);
+    }
+
+    .hub-kicker {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--m-Sky-glow);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-title {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.18;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-tagline {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      max-width: 860px;
+    }
+
+    .telemetry-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .telemetry-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-primary);
+    }
+
+    .vibe-box {
+      background: var(--bg-elevated);
+      border-left: 3px solid var(--m-red-glow);
+      padding: 0.9rem 1.2rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+    .vibe-box strong {
+      color: var(--text-primary);
+    }
+
+    .section-title-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 2.25rem 0 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .section-title-bar h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Activities Grid */
+    .activities-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .activity-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      border-radius: 12px;
+      padding: 1.4rem;
+      transition: all 0.2s ease;
+    }
+    .activity-card:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-card);
+    }
+
+    .act-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .act-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .act-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .badge-category {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 5px;
+      background: rgba(46, 154, 254, 0.12);
+      color: var(--m-Sky-glow);
+      border: 1px solid rgba(46, 154, 254, 0.25);
+    }
+
+    .badge-timing {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+    }
+
+    .act-location {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 0.65rem;
+    }
+
+    .act-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 0.85rem;
+    }
+
+    .act-tip-box {
+      background: var(--bg-elevated);
+      border-left: 2px solid var(--nordic-mint);
+      padding: 0.6rem 0.85rem;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+      line-height: 1.45;
+    }
+
+    .act-book-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--m-Sky-glow);
+      text-decoration: none;
+    }
+    .act-book-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Automotive Events Bento */
+    .events-bento {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .event-card {
+      background: var(--bg-panel);
+      border: 1px solid rgba(227, 6, 19, 0.3);
+      border-radius: 12px;
+      padding: 1.4rem;
+      position: relative;
+    }
+
+    .event-top-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--m-red-glow);
+      background: rgba(227, 6, 19, 0.1);
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+    }
+
+    .event-meta {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .event-desc-text {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 0.85rem;
+    }
+
+    .event-pro-tip {
+      font-size: 0.8rem;
+      background: var(--bg-card);
+      border-left: 2px solid var(--m-red-glow);
+      padding: 0.55rem 0.8rem;
+      border-radius: 0 6px 6px 0;
+      color: var(--text-primary);
+    }
+
+    /* Culinary Section */
+    .culinary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .dining-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      border-radius: 10px;
+      padding: 1.15rem;
+    }
+    .dining-type {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--amber-telemetry);
+      margin-bottom: 0.25rem;
+    }
+    .dining-name {
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .dining-area {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      margin-bottom: 0.55rem;
+    }
+    .dining-order {
+      font-size: 0.8rem;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+      line-height: 1.4;
+    }
+    .dining-vibe {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    /* Logistics Section */
+    .logistics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .logistics-box {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      border-radius: 10px;
+      padding: 1.15rem;
+    }
+    .logistics-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--m-Sky-glow);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.45rem;
+    }
+    .logistics-content {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Footer Pagination */
+    .guide-pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-hairline);
+    }
+    .page-link {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      background: var(--bg-panel);
+      padding: 0.75rem 1.1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-hairline);
+      transition: all 0.15s ease;
+    }
+    .page-link:hover {
+      border-color: var(--m-Sky-glow);
+      background: var(--bg-card);
+    }
+    .page-link .dir {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .page-link .target-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 1.7rem;
+      }
+      .guide-pagination {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="m-tricolor-strip"></div>
+
+  <header class="top-bar">
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <a href="../../">///M OS Cockpit</a>
+      <span>/</span>
+      <a href="../">Field Guides</a>
+      <span>/</span>
+      <span style="color:var(--text-primary);">Hub {guide.hubNumber}</span>
+    </nav>
+
+    <div class="nav-actions">
+      <a href={`../../?hub=${guide.id}`} class="btn-action btn-primary">
+        <span>🗺️ View on Map</span>
+      </a>
+      <a href="../" class="btn-action">
+        <span>📖 All Guides</span>
+      </a>
+      <button type="button" class="btn-action" id="theme-btn">
+        <span id="theme-text">☀️ Nordic Light</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="guide-wrapper">
+    <!-- Hero Banner -->
+    <section class="hero-panel">
+      <div class="hub-kicker">
+        <span>HUB {guide.hubNumber}</span> · <span>{guide.region}</span>
+      </div>
+      <h1 class="hero-title">{guide.name}</h1>
+      <p class="hero-tagline">{guide.tagline}</p>
+
+      <div class="telemetry-row">
+        <div class="telemetry-pill">
+          <span>📅</span>
+          <span>{guide.dates}</span>
+        </div>
+        <div class="telemetry-pill">
+          <span>🌙</span>
+          <span>{guide.nights} Nights</span>
+        </div>
+        {hubInfo && (
+          <div class="telemetry-pill">
+            <span>☀️</span>
+            <span>{hubInfo.weatherAvg}</span>
+          </div>
+        )}
+        {hubInfo && (
+          <div class="telemetry-pill">
+            <span>✈️</span>
+            <span>{hubInfo.cebuPacGateway}</span>
+          </div>
+        )}
+      </div>
+
+      <div class="vibe-box">
+        <strong>Vibe Check:</strong> {guide.vibeCheck}
+      </div>
+    </section>
+
+    <!-- 01: Curated Day Activities -->
+    <section>
+      <div class="section-title-bar">
+        <h3>
+          <span>🎯</span>
+          <span>Curated Day Activities &amp; Anchors ({guide.keyActivities.length})</span>
+        </h3>
+        <span style="font-family:var(--font-mono);font-size:0.74rem;color:var(--text-muted);">Two-Anchor Daily Ceiling</span>
+      </div>
+
+      <div class="activities-grid">
+        {guide.keyActivities.map((act) => (
+          <article class="activity-card">
+            <div class="act-header">
+              <h4 class="act-title">{act.title}</h4>
+              <div class="act-badges">
+                <span class="badge-category">{act.category}</span>
+                <span class="badge-timing">⏰ {act.timeOfDay} · {act.duration}</span>
+              </div>
+            </div>
+
+            <div class="act-location">📍 {act.location}</div>
+            <p class="act-desc">{act.description}</p>
+
+            <div class="act-tip-box">
+              <strong>💡 Verified Insider Tip:</strong> {act.insiderTip}
+            </div>
+
+            {act.bookingRequired && act.bookingUrl && (
+              <a href={act.bookingUrl} target="_blank" rel="noopener noreferrer" class="act-book-btn">
+                <span>Book / Official Portal ↗</span>
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- 02: Automotive & Live Events -->
+    {guide.automotiveAndEvents.length > 0 && (
+      <section>
+        <div class="section-title-bar">
+          <h3>
+            <span>🏎️</span>
+            <span>Automotive Culture, Car Meets &amp; Scenic Passes</span>
+          </h3>
+          <span style="font-family:var(--font-mono);font-size:0.74rem;color:var(--m-red-glow);">///M Performance Intel</span>
+        </div>
+
+        <div class="events-bento">
+          {guide.automotiveAndEvents.map((evt) => (
+            <article class="event-card">
+              <div class="event-top-tag">{evt.badge}</div>
+              <h4 class="event-title">{evt.title}</h4>
+              <div class="event-meta">
+                <span>📍 {evt.venue}</span> · <span>📅 {evt.dates}</span>
+              </div>
+              <p class="event-desc-text">{evt.description}</p>
+              <div class="event-pro-tip">
+                <strong>Pro-Tip:</strong> {evt.proTip}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 03: Culinary & Third-Wave Coffee Anchors -->
+    <section>
+      <div class="section-title-bar">
+        <h3>
+          <span>☕</span>
+          <span>Culinary &amp; Specialty Coffee Anchors</span>
+        </h3>
+        <span style="font-family:var(--font-mono);font-size:0.74rem;color:var(--amber-telemetry);">Tested &amp; Recommended</span>
+      </div>
+
+      <div class="culinary-grid">
+        {guide.culinaryGuide.map((din) => (
+          <article class="dining-card">
+            <div class="dining-type">{din.type}</div>
+            <h4 class="dining-name">{din.name}</h4>
+            <div class="dining-area">📍 {din.area}</div>
+            <div class="dining-order">
+              <strong>Must-Order:</strong> {din.mustOrder}
+            </div>
+            <div class="dining-vibe">
+              "{din.vibe}"
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- 04: Practical Logistics & Field Intelligence -->
+    <section>
+      <div class="section-title-bar">
+        <h3>
+          <span>🧭</span>
+          <span>Practical Field Logistics</span>
+        </h3>
+        <span style="font-family:var(--font-mono);font-size:0.74rem;color:var(--nordic-mint);">Local Protocols</span>
+      </div>
+
+      <div class="logistics-grid">
+        <div class="logistics-box">
+          <div class="logistics-title">🚗 Getting Around</div>
+          <div class="logistics-content">{guide.insiderLogistics.gettingAround}</div>
+        </div>
+        <div class="logistics-box">
+          <div class="logistics-title">📶 Connectivity (eSIM)</div>
+          <div class="logistics-content">{guide.insiderLogistics.connectivity}</div>
+        </div>
+        <div class="logistics-box">
+          <div class="logistics-title">💳 Cash vs Cards</div>
+          <div class="logistics-content">{guide.insiderLogistics.cashVsCards}</div>
+        </div>
+        <div class="logistics-box">
+          <div class="logistics-title">👔 Dress Code</div>
+          <div class="logistics-content">{guide.insiderLogistics.dressCode}</div>
+        </div>
+        <div class="logistics-box" style="grid-column: 1 / -1;">
+          <div class="logistics-title" style="color:var(--amber-telemetry);">☔ Weather &amp; Rainy Day Backup Plan</div>
+          <div class="logistics-content">{guide.insiderLogistics.weatherBackup}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pagination -->
+    <nav class="guide-pagination" aria-label="Guides Navigation">
+      <a href={`../${prevGuide.id}/`} class="page-link">
+        <span class="dir">← Previous Destination</span>
+        <span class="target-title">Hub {prevGuide.hubNumber}: {prevGuide.name.split(':')[0]}</span>
+      </a>
+
+      <a href={`../../?hub=${guide.id}`} class="btn-action btn-primary" style="padding:0.7rem 1.4rem;">
+        <span>🗺️ Open in Live Cockpit Map</span>
+      </a>
+
+      <a href={`../${nextGuide.id}/`} class="page-link" style="text-align:right;">
+        <span class="dir">Next Destination →</span>
+        <span class="target-title">Hub {nextGuide.hubNumber}: {nextGuide.name.split(':')[0]}</span>
+      </a>
+    </nav>
+  </main>
+
+  <script is:inline>
+    const themeBtn = document.getElementById('theme-btn');
+    const themeText = document.getElementById('theme-text');
+    const savedTheme = localStorage.getItem('kapuluan_theme') || 'dark';
+
+    if (savedTheme === 'light') {
+      document.body.classList.add('theme-nordic-light');
+      if (themeText) themeText.textContent = '🌑 ///M Dark';
+    }
+
+    themeBtn?.addEventListener('click', () => {
+      const isLight = document.body.classList.toggle('theme-nordic-light');
+      localStorage.setItem('kapuluan_theme', isLight ? 'light' : 'dark');
+      if (themeText) themeText.textContent = isLight ? '🌑 ///M Dark' : '☀️ Nordic Light';
+    });
+  </script>
+</body>
+</html>

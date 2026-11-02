@@ -75,6 +75,59 @@ export interface DaySchedule {
   coords: [number, number];
 }
 
+export interface GuideActivity {
+  id: string;
+  title: string;
+  category: 'Automotive & Drive' | 'Culture & Heritage' | 'Island Excursion' | 'Wellness & Romance' | 'Culinary Anchor';
+  timeOfDay: 'Morning' | 'Midday' | 'Afternoon' | 'Sunset & Evening' | 'Flexible';
+  duration: string;
+  location: string;
+  coords?: [number, number];
+  description: string;
+  insiderTip: string;
+  bookingRequired: boolean;
+  bookingUrl?: string;
+}
+
+export interface GuideEvent {
+  title: string;
+  dates: string;
+  venue: string;
+  badge: string;
+  description: string;
+  proTip: string;
+}
+
+export interface GuideDining {
+  name: string;
+  type: 'Specialty Coffee' | 'Casual Lunch' | 'Fine Dining' | 'Sunset Lounge';
+  area: string;
+  mustOrder: string;
+  vibe: string;
+}
+
+export interface DestinationGuide {
+  id: string;
+  hubNumber: string;
+  name: string;
+  tagline: string;
+  region: string;
+  dates: string;
+  nights: number;
+  vibeCheck: string;
+  highlightsQuote: string;
+  keyActivities: GuideActivity[];
+  automotiveAndEvents: GuideEvent[];
+  culinaryGuide: GuideDining[];
+  insiderLogistics: {
+    gettingAround: string;
+    connectivity: string;
+    cashVsCards: string;
+    dressCode: string;
+    weatherBackup: string;
+  };
+}
+
 export interface PackingCategory {
   id: string;
   title: string;
@@ -1300,3 +1353,691 @@ export const DAILY_ITINERARY: DaySchedule[] = [
   { day: 31, date: 'Dec 8', hubId: 'makati-bgc', location: 'Copenhagen CPH Touchdown', generalActivity: 'Morning arrival at Copenhagen Airport Kastrup (CPH) & smooth return home', carHighlight: 'Precision Danish electric rail & automated metro transit into Copenhagen', romanceHighlight: 'Stepping back into warm Scandinavian hygge & unpacking island treasures', weatherBackup: 'Covered CPH Terminal 3 direct rail platform', coords: [14.5086, 121.0194] },
   { day: 32, date: 'Dec 9', hubId: 'makati-bgc', location: 'Copenhagen Homecoming', generalActivity: 'Post-trip reflection, organizing photography & updating packing-list.md', carHighlight: 'Reviewing onboard footage from Clark Speedway, Liberty Walk Manila & Cebu–Bohol Roadtrip', romanceHighlight: 'Curating a keepsake photo book of 32 days of lagoons, paraw sails & sunsets', weatherBackup: 'Cozy home reflection & vault archive update', coords: [14.5086, 121.0194] }
 ];
+
+export const DESTINATION_GUIDES: DestinationGuide[] = [
+  {
+    id: 'makati-bgc',
+    hubNumber: '01',
+    name: 'Manila: Ayala Triangle, Makati & BGC',
+    tagline: 'High-Contrast Urban Precision · Ayala Triangle Gardens, Supercar Showrooms & Curated Dining',
+    region: 'Metro Manila · Luzon',
+    dates: 'Nov 8–12 (5N) & Dec 4–6 (3N) · 8 Nights Total',
+    nights: 8,
+    vibeCheck: 'Cosmopolitan, pedestrian-friendly, high-design luxury. Manicured park canopy meets towering glass architectural statements, third-wave coffee roasters, and Manila’s most passionate automotive collector culture.',
+    highlightsQuote: 'From candlelit dining inside a 1937 Art Deco air-traffic control tower to lunch beside race-ready Porsche GT3 RSs and the B2B Carshow with Sung Kang.',
+    keyActivities: [
+      {
+        id: 'act-ayala-triangle',
+        title: 'Ayala Triangle Gardens & Blackbird Control Room',
+        category: 'Culture & Heritage',
+        timeOfDay: 'Sunset & Evening',
+        duration: '2–3 hours',
+        location: 'Ayala Avenue & Paseo de Roxas, Makati',
+        coords: [14.5567, 121.0245],
+        description: 'Stroll under illuminated century-old rain trees and contemporary art sculptures in Makati’s green heart. Head into the historic 1937 Nielson Tower—the Philippines’ first commercial international airport terminal—for dinner in the restored two-story Flight Control Room.',
+        insiderTip: 'Book the upstairs Flight Control Room table 3 weeks in advance; request a table with a direct view over the illuminated park canopy.',
+        bookingRequired: true,
+        bookingUrl: 'https://blackbird.com.ph/'
+      },
+      {
+        id: 'act-ayala-museum',
+        title: 'Ayala Museum: Gold of Ancestors & Historical Dioramas',
+        category: 'Culture & Heritage',
+        timeOfDay: 'Morning',
+        duration: '2.5 hours',
+        location: 'Greenbelt Park, Makati',
+        coords: [14.5524, 121.0232],
+        description: 'Four floors of world-class cultural exhibition. Features over 1,000 pre-colonial gold funerary masks, regalia, and ceremonial vessels crafted prior to the 16th century, alongside 60 handcrafted dioramas chronicling Philippine history.',
+        insiderTip: 'Closed Mondays. Schedule for Tuesday Nov 10 at 10:00 AM right before your drive to Antonio’s at PGA Cars. Pre-booking timed tickets online skips the queue.',
+        bookingRequired: true,
+        bookingUrl: 'https://www.ayalamuseum.org/'
+      },
+      {
+        id: 'act-antonios-pga',
+        title: 'Antonio’s Manila at PGA Cars Studio',
+        category: 'Automotive & Drive',
+        timeOfDay: 'Midday',
+        duration: '2 hours',
+        location: '202 EDSA, Mandaluyong',
+        coords: [14.5994, 121.0568],
+        description: 'An extraordinary collaboration between Tagaytay’s premier fine dining institution and the official distributor of Porsche, Lamborghini, and Bentley. Floor-to-ceiling glass walls separate your table from showroom displays of Porsche GT3 RS, Lamborghini Revuelto, and classic collector 911s.',
+        insiderTip: 'Open Tue–Sun from 11:00 AM. Order the handmade burrata salad and dry-aged steaks. Valet parking enters directly into the showroom gallery.',
+        bookingRequired: true,
+        bookingUrl: 'https://antoniosrestaurant.ph/antonios-manila/'
+      },
+      {
+        id: 'act-karrera-bistro',
+        title: 'Karrera Bistro & Filinvest Alabang Skyway Morning Run',
+        category: 'Automotive & Drive',
+        timeOfDay: 'Morning',
+        duration: '3 hours',
+        location: '360 Corporate Woods Ave, Filinvest City, Alabang',
+        coords: [14.4172, 121.0384],
+        description: 'Cruising south down the elevated Skyway Stage 3 to Karrera Bistro, the epicenter of Philippine automotive culture. A motorsport cafe and rotating gallery where vintage air-cooled 911s, gated-shifter Ferraris, and rare JDM legends sit directly next to dining tables.',
+        insiderTip: 'Drive down around 09:00 AM on Wednesday Nov 11 to avoid inbound commute traffic. Pair their single-origin espresso with a wood-fired breakfast pizza.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-presidential-cars',
+        title: 'Presidential Car Museum (Quezon Memorial Circle)',
+        category: 'Culture & Heritage',
+        timeOfDay: 'Morning',
+        duration: '1.5 hours',
+        location: 'Quezon Memorial Circle, Elliptical Road, QC',
+        coords: [14.6515, 121.0493],
+        description: 'The National Historical Commission of the Philippines curated pavilion holding 12 historic state limousines. Highlights include Imelda Marcos’s bulletproof 1980 Rolls-Royce Phantom V, a 1980 Mercedes-Benz 600 Pullman Landaulet, and Manuel L. Quezon’s 1937 Chrysler Airflow.',
+        insiderTip: 'Open Tue–Sun 08:00–16:00. Free admission. Accessible directly via Skyway Stage 3 off the Quezon Ave ramp.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-bgc-supercars',
+        title: 'Bonifacio High Street & Burgos Circle Supercar Promenade',
+        category: 'Automotive & Drive',
+        timeOfDay: 'Sunset & Evening',
+        duration: '2 hours',
+        location: 'Bonifacio High Street, BGC, Taguig',
+        coords: [14.5505, 121.0505],
+        description: 'A pedestrian open-air mall flanked by tropical landscaping, flagship architecture, and the highest concentration of exotic supercars in Southeast Asia. Friday and Saturday evenings bring spontaneous gatherings of GT3s, McLarens, and widebody builds.',
+        insiderTip: 'Grab an outdoor patio table at Single Origin or Wildflour along 7th Ave for prime front-row views of the vehicle parades.',
+        bookingRequired: false
+      }
+    ],
+    automotiveAndEvents: [
+      {
+        title: 'Bumper 2 Bumper (B2B) Carshow XXII w/ Sung Kang',
+        dates: 'Dec 5–6, 2026 (Saturday & Sunday)',
+        venue: 'Metro Manila Exhibition Grounds',
+        badge: '🔥 FEATURED CELEBRITY EVENT',
+        description: 'The longest-running outdoor custom automotive lifestyle festival in Southeast Asia. The 2026 edition features special international VIP guest Sung Kang ("Han" from Fast & Furious: Tokyo Drift) along with top custom widebody builds, off-road overland rigs, and diecast vendors.',
+        proTip: 'Visit on Saturday afternoon (Day 28) for the car show and fan signing, followed by farewell dinner at The Peak Grand Hyatt.'
+      },
+      {
+        title: 'Sunday Morning Cars & Coffee BGC & Alabang',
+        dates: 'Every Sunday Morning (07:00–10:30 AM)',
+        venue: 'Bonifacio High Street / Filinvest Alabang',
+        badge: 'ENTHUSIAST MEET',
+        description: 'Enthusiasts bring out rare classic European sports cars, restomod Porsche 964s, BMW M cars, and restored Toyota Land Cruiser FJ40/J70s before the tropical midday heat sets in.',
+        proTip: 'Arrive at Yardstick Coffee (Makati) or Karrera (Alabang) before 08:30 AM for the best vehicle arrivals.'
+      }
+    ],
+    culinaryGuide: [
+      { name: 'Yardstick Coffee', type: 'Specialty Coffee', area: 'Legazpi Village, Makati', mustOrder: 'Single-origin Ethiopian pour-over & waffle', vibe: 'Scandinavian minimalist, bright wood, serious specialty roasting.' },
+      { name: 'Karrera Bistro', type: 'Casual Lunch', area: 'Filinvest Alabang', mustOrder: 'Truffle prosciutto pizza & flat white', vibe: 'Motorsport heaven, racing memorabilia, garage chic.' },
+      { name: 'Antonio’s Manila at PGA Cars', type: 'Fine Dining', area: '202 EDSA Mandaluyong', mustOrder: 'Burrata salad, 28-day dry-aged ribeye', vibe: 'Showroom luxury, floor-to-ceiling glass, supercar backdrop.' },
+      { name: 'Blackbird at the Nielson Tower', type: 'Fine Dining', area: 'Ayala Triangle Gardens', mustOrder: 'Twice-cooked pork belly & prawn Scotch egg', vibe: '1937 Art Deco aviation elegance with illuminated garden terrace.' },
+      { name: 'The Peak at Grand Hyatt', type: 'Sunset Lounge', area: '60th Floor, BGC', mustOrder: 'Wagyu sliders & smoked Old Fashioned', vibe: 'Sky-high panoramic skyline views, speakeasy whiskey bar.' }
+    ],
+    insiderLogistics: {
+      gettingAround: 'Ayala Triangle is 100% walkable from Somerset, Citadines, Valero Grand, or The Peninsula. For trips to BGC or Alabang, use GrabCar 6-Seater or private executive SUV.',
+      connectivity: '5G Smart & Globe coverage is ultra-fast (150–350 Mbps) across all hotels, cafes, and malls.',
+      cashVsCards: 'Cards and Apple Pay are accepted at 98% of establishments; keep 2,000 PHP cash for incidental valet or local market stalls.',
+      dressCode: 'Smart casual for evening dining (closed shoes and collared shirts for Christian at Blackbird, Antonio’s, and The Peak; no flip-flops).',
+      weatherBackup: 'Covered elevated skywalk system connecting Greenbelt 3–5 to Landmark and Glorietta, plus Mitsukoshi BGC indoor Japanese food hall.'
+    }
+  },
+  {
+    id: 'manila-bay',
+    hubNumber: '02',
+    name: 'Manila Bay Waterfront & Intramuros',
+    tagline: 'Colonial Stone Citadel Meets Liberty Walk & Manila Auto Salon',
+    region: 'Metro Manila Waterfront · Luzon',
+    dates: 'Nov 13–14 (2 Nights)',
+    nights: 2,
+    vibeCheck: 'Dramatic contrast between 400-year-old Spanish volcanic tuff stone fortifications, wide open bayfront sunset horizons, and electric custom automotive conventions.',
+    highlightsQuote: 'Check into your bayfront suite on Friday Nov 13 just in time to walk 3 minutes to the international Liberty Walk meet at Parqal, followed by the Manila Auto Salon next door.',
+    keyActivities: [
+      {
+        id: 'act-intramuros',
+        title: 'Intramuros Walled City & Fort Santiago Heritage Walk',
+        category: 'Culture & Heritage',
+        timeOfDay: 'Morning',
+        duration: '3 hours',
+        location: 'Intramuros, Manila',
+        coords: [14.5912, 120.9754],
+        description: 'Step into the 16th-century Spanish colonial capital. Walk the ramparts of Fort Santiago overlooking the Pasig River, explore the UNESCO World Heritage San Agustin Church (built 1571 with baroque trompe-l’œil ceilings), and board a horse-drawn kalesa carriage through cobblestone plazas.',
+        insiderTip: 'Start early at 08:30 AM before the sun peaks. Grab an iced ginger-infused Barako espresso at Papakape inside Fort Santiago’s stone arches.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-liberty-walk',
+        title: 'Liberty Walk Manila Car Meet w/ Wataru & Hyuma Kato',
+        category: 'Automotive & Drive',
+        timeOfDay: 'Afternoon',
+        duration: '4 hours',
+        location: 'Parqal, Aseana City, Parañaque',
+        coords: [14.5256, 120.9902],
+        description: 'An extraordinary live international gathering on Friday Nov 13, 2026. Legendary Japanese tuner Wataru Kato and Hyuma Kato bring their signature slammed, bolt-on widebody Lamborghini, Nissan GT-R, and Ferrari builds to Parqal’s climate-controlled glass-canopy boulevard.',
+        insiderTip: 'Located only 1.2 km (3 minutes) from Shore Residences, Conrad, and Lanson Place. Walk through the covered Aseana boulevard; bring an action cam or camera for fan signings and night lighting.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-auto-salon',
+        title: 'Manila Auto Salon 2026 & Philippine Diecast Expo',
+        category: 'Automotive & Drive',
+        timeOfDay: 'Midday',
+        duration: '4 hours',
+        location: 'SMX Convention Center, Mall of Asia Complex',
+        coords: [14.5321, 120.9815],
+        description: 'The country’s flagship custom car show (30th Anniversary) paired with the 31st Sport Truck Show and Philippine Diecast Megameet across 4 air-conditioned exhibition halls. Features extreme 4x4 overland builds, turbo track monsters, audio battles, and thousands of rare scale diecast collectibles.',
+        insiderTip: 'Directly across the footbridge from Shore Residences, Conrad Manila, and Lanson Place. Tickets are available at the door or via SM Tickets.',
+        bookingRequired: true,
+        bookingUrl: 'https://smtickets.com/'
+      },
+      {
+        id: 'act-bay-sunset',
+        title: 'Manila Bay Golden-Hour Sunset Promenade',
+        category: 'Scenic & Coastal',
+        timeOfDay: 'Sunset & Evening',
+        duration: '1.5 hours',
+        location: 'Roxas Boulevard & Seaside Esplanade',
+        coords: [14.5350, 120.9780],
+        description: 'Famed since the 19th century as one of the world’s most spectacular sunsets. Watch the sun dip into the South China Sea, casting molten gold and violet hues across the yacht marina and bay waters.',
+        insiderTip: 'Watch from the open-air deck at Conrad Manila’s C Lounge or the rooftop bar at Admiral Hotel MGallery with live jazz accompaniment.',
+        bookingRequired: false
+      }
+    ],
+    automotiveAndEvents: [
+      {
+        title: 'Liberty Walk Manila Official Meet',
+        dates: 'Friday, Nov 13, 2026 (14:00–22:00)',
+        venue: 'Parqal Glass-Canopy Boulevard, Aseana City',
+        badge: '🔥 EXACT SCHEDULE MATCH',
+        description: 'Official LBWK Manila meet with founders Wataru Kato & Hyuma Kato. Features LB-Silhouette Works GT-R, widebody Aventadors, and custom merch pop-ups.',
+        proTip: '3-minute walk/ride from your hotel. The evening lighting under Parqal’s high-tech canopy is unmatched for automotive photography.'
+      },
+      {
+        title: 'Manila Auto Salon & Philippine Diecast Expo',
+        dates: 'Sat–Sun, Nov 14–15, 2026 (10:00–20:00)',
+        venue: 'SMX Convention Center Manila (Halls 1–4)',
+        badge: '🔥 EXACT SCHEDULE MATCH',
+        description: 'The premier indoor show in the country covering over 10,000 sqm of modified sports cars, lifted off-road trucks, and diecast collector displays.',
+        proTip: '200-meter walk from Conrad/Lanson/Shore. Head in Saturday midday to escape the tropical heat.'
+      }
+    ],
+    culinaryGuide: [
+      { name: 'Papakape', type: 'Specialty Coffee', area: 'Intramuros Stone Courtyard', mustOrder: 'Iced Choco Ginger & Blue Pea Latte', vibe: 'Secret garden cafe inside Spanish colonial stone walls.' },
+      { name: 'The Champagne Room', type: 'Fine Dining', area: 'The Manila Hotel', mustOrder: 'French classic tasting menu with roast duck', vibe: '1912 heritage glamour, crystal palm trees, classical violin.' },
+      { name: 'C Lounge at Conrad', type: 'Sunset Lounge', area: 'Conrad Manila Bay', mustOrder: 'Artisanal calamansi gin & tonic & tapas', vibe: 'Floor-to-ceiling glass panoramic bay views with outdoor deck.' },
+      { name: 'Admiral Club Manila Bay', type: 'Fine Dining', area: 'Roxas Blvd', mustOrder: 'Fresh seafood thermidor & French pastries', vibe: 'Art Deco rooftop dining overlooking the yacht club basin.' }
+    ],
+    insiderLogistics: {
+      gettingAround: 'SMX Convention Center, MOA, and Conrad Manila are connected by elevated air-conditioned bridges. For Intramuros, take a 12-minute GrabCar ride north along Roxas Blvd.',
+      connectivity: 'Strong 5G throughout the bayfront and SMX exhibition halls.',
+      cashVsCards: 'Cards accepted at all venues; bring 500–1,000 PHP cash for kalesa rides and Intramuros entry fees (₱75 per person).',
+      dressCode: 'Resort casual for daytime automotive shows; modest smart casual for San Agustin Church (shoulders covered).',
+      weatherBackup: 'SMX Convention Center and Mall of Asia provide over 500,000 sqm of continuous indoor air-conditioned space.'
+    }
+  },
+  {
+    id: 'clark',
+    hubNumber: '03',
+    name: 'Clark International Speedway & Pampanga',
+    tagline: 'Track Day Paddock Adrenaline & Heirloom Culinary Capital',
+    region: 'Central Luzon · Pampanga',
+    dates: 'Nov 15 (1 Night)',
+    nights: 1,
+    vibeCheck: 'Open-throttle motorsport energy meets tranquil tree-lined American aviation avenues and the richest culinary traditions in the archipelago.',
+    highlightsQuote: 'Drive the smooth NLEX Skyway corridor to Clark International Speedway for circuit laps and paddock access, followed by a multi-course Kapampangan feast at 25 Seeds.',
+    keyActivities: [
+      {
+        id: 'act-clark-speedway',
+        title: 'Clark International Speedway Track & Paddock Experience',
+        category: 'Automotive & Drive',
+        timeOfDay: 'Midday',
+        duration: '3 hours',
+        location: 'Clark Freeport Zone, Mabalacat, Pampanga',
+        coords: [15.2064, 120.5178],
+        description: 'The country’s premier Grade 4 FIA-sanctioned permanent racing circuit. 4.187 km long with 18 technical turns and a 900-meter straight. Enjoy paddock garage access, trackside marshalling views, and high-speed circuit driving runs.',
+        insiderTip: 'Christian should wear closed-toe driving shoes (mandatory for paddock and pitlane entry). Helmet rentals and day paddock passes are arranged at the circuit tower.',
+        bookingRequired: true,
+        bookingUrl: 'http://clarkspeedway.com/'
+      },
+      {
+        id: 'act-25-seeds',
+        title: 'Heirloom Kapampangan Feast at 25 Seeds by Chef Sau',
+        category: 'Culinary Anchor',
+        timeOfDay: 'Afternoon',
+        duration: '2 hours',
+        location: '25 Seeds, Dycaico Ancestral House, Angeles City',
+        coords: [15.1384, 120.5902],
+        description: 'Pampanga is celebrated as the Culinary Capital of the Philippines. Celebrity Chef Sau del Rosario restored his family’s 1920s ancestral mansion into a farm-to-table culinary pilgrimage celebrating heirloom Sisig, duck confit adobo, and handmade tamales.',
+        insiderTip: 'Reserve a table in the vintage glass conservatory overlooking the organic kitchen garden. Order the authentic sizzling Sisig (invented in Pampanga).',
+        bookingRequired: true,
+        bookingUrl: 'https://www.facebook.com/25seeds/'
+      },
+      {
+        id: 'act-clark-spa',
+        title: 'Thermal Hydrotherapy at Pürovel Spa (Swissôtel)',
+        category: 'Wellness & Romance',
+        timeOfDay: 'Sunset & Evening',
+        duration: '2 hours',
+        location: 'Swissôtel Clark, Manuel A. Roxas Highway',
+        coords: [15.1850, 120.5350],
+        description: 'Recharge muscles after track laps with Swiss alpine-inspired wellness. Features thermal vitality pools, herbal saunas, experiential steam rooms, and deep-tissue muscle recovery massages.',
+        insiderTip: 'Book the couples hydrotherapy suite directly upon checking into Swissôtel or Marriott.',
+        bookingRequired: true
+      }
+    ],
+    automotiveAndEvents: [
+      {
+        title: 'Clark International Speedway Circuit Day',
+        dates: 'Sunday, Nov 15, 2026 (10:00–16:00)',
+        venue: 'Clark International Speedway Circuit',
+        badge: '🏁 CIRCUIT TRACK PASS',
+        description: 'Weekend track sessions featuring tuned sports cars, time attack machines, and club racing.',
+        proTip: 'Morning arrival right after the NLEX drive allows optimal track conditions before afternoon thermal buildup.'
+      }
+    ],
+    culinaryGuide: [
+      { name: '25 Seeds by Chef Sau', type: 'Fine Dining', area: 'Angeles City', mustOrder: 'Heirloom Crispy Pork Sisig & Duck Adobo Confit', vibe: '1920s heritage mansion, antique timber, romantic courtyard.' },
+      { name: 'Swissôtel Spice', type: 'Casual Lunch', area: 'Clark Freeport', mustOrder: 'Wood-fired naan & Southeast Asian street skewers', vibe: 'Contemporary live open-kitchen theatrical dining.' },
+      { name: 'Mila’s Tokwa’t Baboy', type: 'Casual Lunch', area: 'Angeles City', mustOrder: 'Original crunchy sisig & boiled pork ears', vibe: 'No-frills legendary street institution revered by top international chefs.' }
+    ],
+    insiderLogistics: {
+      gettingAround: 'Private executive SUV transfer via elevated Skyway Stage 3 to NLEX (1h 35m from Manila Bay). Inside Clark, wide boulevards offer effortless, traffic-free navigation.',
+      connectivity: 'Excellent 5G in Clark Freeport Zone and hotels.',
+      cashVsCards: 'Cards accepted everywhere in Clark resorts; cash needed if visiting heritage food stalls in Angeles City.',
+      dressCode: 'Closed-toe driving shoes for the racetrack paddock; smart resort casual for 25 Seeds.',
+      weatherBackup: 'Swissôtel and Marriott thermal spas, plus the indoor Clark Museum & 4D Theater.'
+    }
+  },
+  {
+    id: 'coron',
+    hubNumber: '04',
+    name: 'Coron Lagoon & Calamianes Archipelago',
+    tagline: 'Primordial Karst Coves, Eco-Houseboats & 4-Day Paraw Sailing',
+    region: 'Northern Palawan',
+    dates: 'Nov 16–20 (5 Nights Total: 2N Lagoon Houseboat + 3N Tao Paraw Sail)',
+    nights: 5,
+    vibeCheck: 'Pure, untouched prehistoric wonder. Towering black karst monoliths rising sheer from neon emerald lagoons, zero dayboat noise at night, and authentic open-water bamboo paraw sailing.',
+    highlightsQuote: 'Wake up floating directly inside a sheltered turquoise lagoon at Paolyn Eco-Houseboat, swim into Kayangan Lake before dawn, then sail the uninhabited Linapacan atolls with Tao Philippines.',
+    keyActivities: [
+      {
+        id: 'act-paolyn-lagoon',
+        title: 'Private Lagoon Immersion at Paolyn Eco-Houseboat',
+        category: 'Wellness & Romance',
+        timeOfDay: 'Flexible',
+        duration: 'Full Day',
+        location: 'Coron Island Sheltered Lagoon',
+        coords: [11.9612, 120.2115],
+        description: 'The only authorized accommodation anchored directly within the ancestral waters of the indigenous Tagbanwa people of Coron Island. Wake up floating over crystal corals with glass bottom flooring, jumping directly from your private sun deck into 29°C water.',
+        insiderTip: 'You have exclusive access to the surrounding lagoons after all tourist dayboats must legally depart Coron Island at 16:00. Kayak alone under starry limestone walls.',
+        bookingRequired: true,
+        bookingUrl: 'https://paolynhouseboats.com/'
+      },
+      {
+        id: 'act-kayangan-twin',
+        title: 'Private Sunrise Banca to Kayangan Lake & Twin Lagoon',
+        category: 'Island Excursion',
+        timeOfDay: 'Morning',
+        duration: '3.5 hours',
+        location: 'Coron Island',
+        coords: [11.9542, 120.2248],
+        description: 'Slip through hidden karst openings at 07:00 AM on a private wooden banca. Climb the 300 stone steps to the iconic Kayangan Lake viewpoint, then swim into the 98% pure brackish waters. Follow with Twin Lagoon, swimming under a limestone archway into an emerald inland sanctuary.',
+        insiderTip: 'Because you sleep on the island at Paolyn, you reach Kayangan Lake 1.5 hours before boats arriving from Coron town.',
+        bookingRequired: true
+      },
+      {
+        id: 'act-barracuda-lake',
+        title: 'Barracuda Lake Thermocline Dive & Karst Caverns',
+        category: 'Island Excursion',
+        timeOfDay: 'Midday',
+        duration: '2 hours',
+        location: 'Coron Island',
+        coords: [11.9575, 120.2205],
+        description: 'A geological phenomenon. Swim between towering underwater limestone cliffs where water temperatures shift dramatically from 28°C at the surface to an astonishing 38°C geothermal layer deeper down, creating visible halocline optical shimmers.',
+        insiderTip: 'Rent quality snorkel gear with clear lenses. Bring a waterproof dive torch or action cam to capture the dramatic underwater karst formations.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-maquinit-springs',
+        title: 'Maquinit Saltwater Hot Springs Twilight Soak',
+        category: 'Wellness & Romance',
+        timeOfDay: 'Sunset & Evening',
+        duration: '2 hours',
+        location: 'Coron East Coast Mangroves',
+        coords: [11.9962, 120.2458],
+        description: 'One of the world’s very few natural saltwater geothermal hot springs. Cascading stone pools nestled in a dense coastal mangrove forest with water heated by an underground volcano to 39°C–41°C.',
+        insiderTip: 'Arrive at 17:30 as the sun dips behind the mangroves. Bring a dry towel and light sandals for the wooden boardwalk.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-tao-expedition',
+        title: 'Tao Philippines 4-Day Traditional Paraw Sail',
+        category: 'Island Excursion',
+        timeOfDay: 'Flexible',
+        duration: '4 Days / 3 Nights',
+        location: 'Coron → Culion → Linapacan → El Nido',
+        coords: [11.6100, 119.8600],
+        description: 'The pinnacle island voyage of Southeast Asia. Board a handcrafted traditional 72-foot bamboo paraw sailboat with open decks and outriggers. Sail across uninhabited atolls, sleep in open-air bamboo beach huts, feast on organic farm catches, and disconnect from all cellular noise.',
+        insiderTip: 'Pack your 20L waterproof drybag with essentials; large roller luggage stays safely below deck. Bring reef-safe sunscreen and a 20,000mAh power bank.',
+        bookingRequired: true,
+        bookingUrl: 'https://taophilippines.com/'
+      }
+    ],
+    automotiveAndEvents: [
+      {
+        title: 'Island Outrigger Banca Engineering & Marine Mechanics',
+        dates: 'Throughout Coron & Tao Expedition',
+        venue: 'Palawan Maritime Shipyards & Tao Basecamp',
+        badge: 'MARITIME CRAFT',
+        description: 'Study the unique hydro-mechanics of Philippine double-outrigger bancas and paraw sailboats, hand-shaped from local hardwoods with marine diesel inboards designed to withstand open-ocean Pacific and South China Sea swells.',
+        proTip: 'Speak with the Tao paraw master shipwright at the Linapacan basecamp about their solar microgrid and sail rigging.'
+      }
+    ],
+    culinaryGuide: [
+      { name: 'Paolyn Floating Dining Deck', type: 'Fine Dining', area: 'Coron Island Lagoon', mustOrder: 'Fresh yellowfin tuna carpaccio & seafood pasta', vibe: 'Floating directly over live corals inside private lagoon.' },
+      { name: 'The Funny Lion Rooftop', type: 'Sunset Lounge', area: 'Coron Town', mustOrder: 'Calamansi margarita & coconut grilled skewers', vibe: 'Safari boutique rooftop overlooking Coron Bay.' },
+      { name: 'Tao Farm Basecamp Kitchen', type: 'Casual Lunch', area: 'Linapacan Islands', mustOrder: 'Wood-fired caught-that-morning mahi-mahi & organic vegetables', vibe: 'Zero-waste culinary masterclass on open driftwood fires.' }
+    ],
+    insiderLogistics: {
+      gettingAround: 'Private wooden bancas and speedboats for all water transfers. On mainland Busuanga, private air-conditioned vans connect USU Airport to Coron pier (35 mins).',
+      connectivity: 'Good 4G in Coron Town; zero cellular signal once deep in Linapacan and outer islands (pure digital detox).',
+      cashVsCards: 'Cash is strictly required for island tips, environmental passes, and small beach stalls. Carry 10,000 PHP cash from Manila.',
+      dressCode: 'UV50+ rashguards, boardshorts, water sandals (Teva/Keen), and light linen covers for beach dining.',
+      weatherBackup: 'Coron Island’s steep 400m karst spires block open ocean swells, creating naturally calm water inside Twin Lagoon and Kayangan.'
+    }
+  },
+  {
+    id: 'el-nido',
+    hubNumber: '05',
+    name: 'El Nido: Las Cabañas & Lio Tourism Estate',
+    tagline: 'Bacuit Bay Karst Towers, Golden Sunset Sandbars & Lio Eco-Sanctuary',
+    region: 'Northern Palawan',
+    dates: 'Nov 21–26 (6 Nights)',
+    nights: 6,
+    vibeCheck: 'Effortlessly chic tropical luxury. Golden sandbars facing world-famous western sunsets, private twin-engine speedboats through dramatic karst archipelagos, and peaceful eco-sanctuaries free of motorized traffic.',
+    highlightsQuote: 'From the golden sunset sandbars of Las Cabañas to the 4km golden crescent of Nacpan Beach and private speedboat exploration of Big Lagoon.',
+    keyActivities: [
+      {
+        id: 'act-las-cabanas-sunset',
+        title: 'Las Cabañas / Maremegmeg Golden-Hour Sunset Sandbar',
+        category: 'Scenic & Coastal',
+        timeOfDay: 'Sunset & Evening',
+        duration: '3 hours',
+        location: 'Maremegmeg Beach, Corong-Corong, El Nido',
+        coords: [11.1458, 119.3948],
+        description: 'The definitive sunset pilgrimage in Palawan. A wide golden-sand beach facing due west toward Depeldet Island. Lounge on plush daybeds at Maremegmeg Beach Club (MBC) with live acoustic musicians, chilled craft cocktails, and crimson evening skies.',
+        insiderTip: 'Arrive by 16:30 to secure front-row beachfront loungers. At low tide, you can walk across the shallow sandbar directly to Depeldet Island.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-private-speedboat',
+        title: 'Private Speedboat Bacuit Bay Odyssey: Big Lagoon & Secret Beach',
+        category: 'Island Excursion',
+        timeOfDay: 'Morning',
+        duration: '5 hours',
+        location: 'Bacuit Bay, El Nido',
+        coords: [11.1528, 119.3214],
+        description: 'Skip crowded group tour bancas by chartering a private twin-engine speedboat. Glide across glassy turquoise water into Big Lagoon, kayak between sheer 300m vertical karst cliffs, and swim through a narrow crevice into Secret Beach.',
+        insiderTip: 'Book a morning slot departing Lio or Town Beach at 08:00 AM. Having a private boat allows you to reverse the standard tour route to avoid all other boats.',
+        bookingRequired: true,
+        bookingUrl: 'https://elnidoresorts.com/'
+      },
+      {
+        id: 'act-nacpan-drive',
+        title: 'Nacpan & Calitang 4-Kilometer Golden Twin Beach 4x4 Run',
+        category: 'Automotive & Drive',
+        timeOfDay: 'Midday',
+        duration: '4 hours',
+        location: 'Sitio Calitang, Northern El Nido',
+        coords: [11.3214, 119.4268],
+        description: 'Drive north through jungle switchbacks and river bridges to Nacpan Beach—a 4-kilometer uninterrupted golden sand crescent lined with coconut palms. Climb the small headland where Nacpan meets Calitang Beach for the iconic twin-bay vista.',
+        insiderTip: 'Stop at Angkla Beach Club for fresh coconut ceviche and artisanal cocktails in an award-winning bamboo architectural pavilion.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-lio-estate',
+        title: 'Lio Tourism Estate Eco-Promenade & Kalye Artisano',
+        category: 'Culture & Heritage',
+        timeOfDay: 'Afternoon',
+        duration: '2.5 hours',
+        location: 'Lio Beach, El Nido',
+        coords: [11.2028, 119.4132],
+        description: 'Ayala Land’s 325-hectare master-planned sustainable sanctuary. Walk along a 4km noise-free beach, explore contemporary Filipino craft galleries and weaving studios at Kalye Artisano, and sip specialty cold brew under pine trees.',
+        insiderTip: 'Lio Beach has zero tricycle exhaust and features free electric shuttle transfers directly to Lio Airport (ENI) for your flight to Cebu.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-taraw-canopy',
+        title: 'Taraw Cliff Limestone Canopy Walk & Suspension Bridge',
+        category: 'Scenic & Coastal',
+        timeOfDay: 'Morning',
+        duration: '1.5 hours',
+        location: 'El Nido Town',
+        coords: [11.1812, 119.3905],
+        description: 'A safe, engineered iron walkway and suspension bridge system ascending the sheer limestone cliffs above El Nido town, providing panoramic vistas of the entire Bacuit Bay archipelago.',
+        insiderTip: 'Go at 08:00 AM for soft morning light and comfortable temperatures before the sun hits the stone face.',
+        bookingRequired: true
+      }
+    ],
+    automotiveAndEvents: [
+      {
+        title: 'Northern Palawan 4x4 Coastal Jungle Trail Driving',
+        dates: 'Daily (Nov 21–26)',
+        venue: 'Lio → Nacpan → Duli Beach Route',
+        badge: 'TRAIL EXPEDITION',
+        description: 'Test your driving skills on unpaved sandy tracks, riverbed crossings, and winding red-clay hills heading up to Duli Beach surf break.',
+        proTip: 'Rent a Suzuki Jimny or high-clearance 4x4 pickup in El Nido town for maximum trail confidence.'
+      }
+    ],
+    culinaryGuide: [
+      { name: 'Piece Lio (MICHELIN Guide)', type: 'Fine Dining', area: 'Lio Beach Promenade', mustOrder: 'Japanese-Filipino seasonal omakase & local tuna tataki', vibe: 'Timber architecture, ambient sea breeze, MICHELIN recognized.' },
+      { name: 'Maremegmeg Beach Club (MBC)', type: 'Sunset Lounge', area: 'Las Cabañas Beach', mustOrder: 'Calamansi shrimp tacos & signature rum cocktails', vibe: 'Golden-hour sunset beats, plush daybeds, toes in the sand.' },
+      { name: 'Cadlao Resort & Restaurant', type: 'Casual Lunch', area: 'Caalan Beach', mustOrder: 'Grilled king prawns with mango salsa & cold rosé', vibe: 'Tranquil oceanfront dining directly facing Cadlao Island.' },
+      { name: 'Kalye Artisano Bar & Cafe', type: 'Specialty Coffee', area: 'Lio Tourism Estate', mustOrder: 'Single-origin Palawan cold brew & sourdough pastries', vibe: 'Artisanal courtyard surrounded by craft studios.' }
+    ],
+    insiderLogistics: {
+      gettingAround: 'Electric trikes (E-trikes) are available throughout town, Corong-Corong, and Las Cabañas (100–200 PHP). Lio Estate provides free solar shuttle carts.',
+      connectivity: 'Excellent 5G in Lio Estate and central El Nido; reliable 4G at Las Cabañas.',
+      cashVsCards: 'Cards accepted at all Lio restaurants, Seda, MBC, and Cadlao; carry 3,000 PHP cash for trikes and beach fruit stands.',
+      dressCode: 'Resort chic linen wear, UV swim gear, and comfortable slip-on sandals.',
+      weatherBackup: 'Kalye Artisano craft workshops, covered spa pavilions at Seda Lio, and sea-view indoor verandas at Cadlao Resort.'
+    }
+  },
+  {
+    id: 'cebu-mactan',
+    hubNumber: '06',
+    name: 'Cebu & Mactan Highlands',
+    tagline: 'Transcentral Highway Twisties, CCLEX Sea Bridge & Lechon Heritage',
+    region: 'Central Visayas',
+    dates: 'Nov 27–28 (2N) & Dec 3 (1N) · 3 Nights Total',
+    nights: 3,
+    vibeCheck: 'Dynamic, high-energy metropolitan hub surrounded by thrilling mountain driving passes, deep marine sanctuaries, and landmark engineering achievements.',
+    highlightsQuote: 'Carve through the mist-shrouded switchbacks of the 33km Cebu Transcentral Highway, cross the 8.9km CCLEX cable-stayed sea bridge, and savor crispy Carcar lechon.',
+    keyActivities: [
+      {
+        id: 'act-transcentral-hwy',
+        title: 'Cebu Transcentral Highway (TCH) Mountain Driving Pass',
+        category: 'Automotive & Drive',
+        timeOfDay: 'Morning',
+        duration: '4 hours',
+        location: 'Busay → Balamban, Cebu Highlands',
+        coords: [10.3712, 123.8708],
+        description: 'The holy grail of driving roads in the Visayas. A 33-kilometer winding mountain ribbon climbing to over 2,500 feet through Busay and Balamban. Features sweeping high-elevation curves, cool 22°C mountain air, roadside coffee shacks, and panoramic views of Tanon Strait.',
+        insiderTip: 'Start early around 07:30 AM to catch the morning mist and clear asphalt before weekend enthusiast traffic. Stop at Charlie’s Cup or Balamban Liempo for breakfast.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-cclex-bridge',
+        title: 'CCLEX 8.9-Kilometer Cable-Stayed Sea Bridge Run',
+        category: 'Automotive & Drive',
+        timeOfDay: 'Sunset & Evening',
+        duration: '1.5 hours',
+        location: 'Cebu South Road Properties ↔ Cordova, Mactan',
+        coords: [10.2785, 123.8965],
+        description: 'The Cebu–Cordova Link Expressway is the longest and tallest sea-crossing bridge in the Philippines. Featuring two iconic 145-meter pylons adorned with 40-meter illuminated crosses, cruising this coastal expressway at sunset or twilight offers an exhilarating open-water drive.',
+        insiderTip: 'Drive from Mactan toward Cebu City during golden hour as the skyline lights turn on. Toll is ₱90 (cash or RFID lane).',
+        bookingRequired: false
+      },
+      {
+        id: 'act-tops-lookout',
+        title: 'Tops Lookout & La Vie in the Sky Sunset Panorama',
+        category: 'Scenic & Coastal',
+        timeOfDay: 'Sunset & Evening',
+        duration: '2.5 hours',
+        location: 'Cebu Tops Road, Busay',
+        coords: [10.3705, 123.8702],
+        description: 'Perched 2,000 feet above the city at the summit of Busay. Provides a breathtaking 180-degree view spanning Cebu City, Mactan Island, and the sea channels. Follow with wine and French charcuterie at La Vie in the Sky.',
+        insiderTip: 'Combine this with the Transcentral Highway drive on your way back down to the city.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-old-cebu',
+        title: 'Historic Old Cebu & 17th-Century Ancestral Heritage',
+        category: 'Culture & Heritage',
+        timeOfDay: 'Morning',
+        duration: '2.5 hours',
+        location: 'Downtown Cebu City',
+        coords: [10.2942, 123.9015],
+        description: 'Visit the oldest city in the Philippines: Basilica Minore del Santo Niño (founded 1565), the octagonal pavilion housing Magellan’s Cross (1521), and the Yap-Sandiego Ancestral House, built from coral stone and molave wood.',
+        insiderTip: 'Park at the National Museum of the Philippines - Cebu (the beautifully restored 1910 Old Customhouse/Aduana) for safe and easy vehicle parking.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-carcar-lechon',
+        title: 'Carcar City Lechon Food Trail',
+        category: 'Culinary Anchor',
+        timeOfDay: 'Midday',
+        duration: '3 hours',
+        location: 'Carcar Public Market, Southern Cebu',
+        coords: [10.1085, 123.6420],
+        description: 'Anthony Bourdain famously crowned Cebu’s whole roasted pig as the best pig in the world. In Carcar, whole pigs are roasted over open coconut charcoal stuffed with lemongrass, garlic, and scallions, then drizzled with natural pork drippings.',
+        insiderTip: 'Order 1 kilo of fresh lechon belly cut right before your eyes; pair with hanging rice (puso) and spicy local coconut vinegar.',
+        bookingRequired: false
+      }
+    ],
+    automotiveAndEvents: [
+      {
+        title: 'Cebu Transcentral Weekend Sports Car Gathering',
+        dates: 'Saturday & Sunday Mornings (07:00–10:00 AM)',
+        venue: 'Cebu Transcentral Highway (Busay)',
+        badge: 'MOUNTAIN ENTHUSIAST MEET',
+        description: 'Local Cebu car clubs gather along Busay coffee viewpoints featuring BMW M models, Porsche GT cars, and lifted rally pickups.',
+        proTip: 'Stop at Highland Brew or Charlie’s Cup along the highway for prime photo spots.'
+      }
+    ],
+    culinaryGuide: [
+      { name: 'Anzani New Mediterranean', type: 'Fine Dining', area: 'Nivel Hills, Lahug', mustOrder: 'Handmade black truffle tagliolini & lamb chops', vibe: 'Hillside romance, fine wine cellar, panoramic forest views.' },
+      { name: 'Il Primo at NUSTAR', type: 'Fine Dining', area: 'NUSTAR Resort Waterfront', mustOrder: 'Bistecca alla Fiorentina & signature Negroni', vibe: 'High-end Italian steakhouse directly overlooking CCLEX Bridge.' },
+      { name: 'House of Lechon', type: 'Casual Lunch', area: 'Cebu City', mustOrder: 'Spicy Cebu lechon & baked scallops', vibe: 'Modern air-conditioned dining celebrating Cebu culinary roots.' },
+      { name: 'Charlie’s Cup', type: 'Specialty Coffee', area: 'Balamban, Transcentral Hwy', mustOrder: 'Highland brewed Barako coffee & bibingka', vibe: 'Cliffside open-air cafe with sweeping mountain valley views.' }
+    ],
+    insiderLogistics: {
+      gettingAround: 'Pick up a self-drive 4x4 pickup (Toyota Hilux GR-S or Ford Ranger Raptor) directly at Mactan-Cebu International Airport (CEB) for the Transcentral Highway and ferry crossover.',
+      connectivity: 'Solid 5G across urban Cebu and Mactan; reliable 4G throughout the Transcentral Highway.',
+      cashVsCards: 'Cards accepted at NUSTAR, Marco Polo, and city restaurants; bring cash for CCLEX toll (₱90) and Carcar lechon stalls.',
+      dressCode: 'Light jacket or sweater for the mountain drive (drops to 20°C in Busay/Balamban); smart casual for NUSTAR and Anzani.',
+      weatherBackup: 'National Museum of the Philippines - Cebu, NUSTAR luxury retail mall, and Marco Polo spa suites.'
+    }
+  },
+  {
+    id: 'bohol-siquijor',
+    hubNumber: '07',
+    name: 'Bohol & Siquijor Islands',
+    tagline: 'Mahogany Forest Canopy, Chocolate Hills ATV & 72km Coastal Ring Road',
+    region: 'Central Visayas',
+    dates: 'Nov 29–Dec 2 (4 Nights)',
+    nights: 4,
+    vibeCheck: 'Enchanted island serenity. Driving beneath a surreal green cathedral of dense mahogany canopies, cruising jade-green jungle rivers, and gliding around a zero-traffic 72km oceanside ring road.',
+    highlightsQuote: 'Drive through the iconic 2km Bilar Mahogany Forest tunnel to the Chocolate Hills, cruise the jade-green Loboc River with live guitar serenades, then carve around the 72km coastal loop of Siquijor.',
+    keyActivities: [
+      {
+        id: 'act-mahogany-tunnel',
+        title: 'Bilar Man-Made Mahogany Forest Highway Pass',
+        category: 'Automotive & Drive',
+        timeOfDay: 'Morning',
+        duration: '1.5 hours',
+        location: 'Loay Interior Road, Bilar, Bohol',
+        coords: [9.6872, 124.0815],
+        description: 'A 2-kilometer stretch of highway enveloped by a dense, towering canopy of uniform red mahogany trees planted over 50 years ago. Sunlight filters through the green ceiling, the temperature instantly drops 4°C, and the acoustics create an unforgettable roadtrip tunnel.',
+        insiderTip: 'Drive through slowly with windows down. There are designated pull-offs at both ends of the canopy for photos; be mindful of through-traffic when stepping out.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-chocolate-hills-atv',
+        title: 'Chocolate Hills Viewpoint & Off-Road ATV Expedition',
+        category: 'Island Excursion',
+        timeOfDay: 'Midday',
+        duration: '3 hours',
+        location: 'Carmen, Bohol',
+        coords: [9.8297, 124.1397],
+        description: 'Over 1,770 conical limestone hills dotting the central plains of Bohol, turning cocoa-brown in dry conditions. After viewing them from the main observation deck, rent all-terrain quads (ATVs) to navigate off-road dirt trails, mud tracks, and rocky ravines directly around the base of the hills.',
+        insiderTip: 'Book the 1-hour Guided ATV Trail; bring sunglasses and a bandanna for dust protection.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-loboc-river',
+        title: 'Loboc River Floating Restaurant Lunch Cruise',
+        category: 'Culinary Anchor',
+        timeOfDay: 'Midday',
+        duration: '2 hours',
+        location: 'Loboc Riverwatch, Poblacion, Loboc',
+        coords: [9.6385, 124.0325],
+        description: 'Board a thatched-roof motorized catamaran barge for an idyllic cruise down the calm, jade-green waters of the Loboc River. Enjoy a buffet of roasted meats, fresh seafood, and tropical fruits accompanied by live acoustic folk guitarists.',
+        insiderTip: 'Board between 11:30 AM and 12:00 PM right before the afternoon rush. The barge stops at a riverside platform where local cultural dancers perform traditional Tinikling.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-tarsier-sanctuary',
+        title: 'Corella Philippine Tarsier Sanctuary Encounter',
+        category: 'Culture & Heritage',
+        timeOfDay: 'Morning',
+        duration: '1 hour',
+        location: 'Km 14, Tarsier Sanctuary Road, Corella, Bohol',
+        coords: [9.6925, 123.9555],
+        description: 'A dedicated, ethical 7-hectare protected forest sanctuary home to the Philippine Tarsier—one of the world’s smallest primates, with enormous rotating eyes and soft grey fur.',
+        insiderTip: 'Speak in hushed whispers and turn off all camera flashes; tarsiers are sensitive nocturnal creatures that sleep under large broad leaves during the day.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-siquijor-ring-road',
+        title: 'Siquijor 72-Kilometer Circumferential Coastal Ring Road Run',
+        category: 'Automotive & Drive',
+        timeOfDay: 'Flexible',
+        duration: 'Full Day',
+        location: 'Siquijor Island Coastal Highway',
+        coords: [9.1412, 123.6265],
+        description: 'Arguably the most enjoyable, stress-free island driving loop in the Philippines. A smooth two-lane asphalt highway running 72 kilometers completely around Siquijor Island with zero traffic lights, constant ocean views, coastal limestone bluffs, and fishing villages.',
+        insiderTip: 'Drive clockwise starting from San Juan: you’ll hit the 400-year-old enchanted Balete Tree, Cambugahay Falls, and Lazi Church before catching the sunset back in San Juan.',
+        bookingRequired: false
+      },
+      {
+        id: 'act-cambugahay-falls',
+        title: 'Cambugahay Three-Tiered Turquoise Waterfalls',
+        category: 'Scenic & Coastal',
+        timeOfDay: 'Afternoon',
+        duration: '2.5 hours',
+        location: 'Lazi, Siquijor',
+        coords: [9.1412, 123.6265],
+        description: 'Descend 135 stone steps into a lush jungle valley to find three cascading tiers of pure, milky-turquoise freshwater fed by natural mountain springs. Features rope swings and deep swimming lagoons shaded by giant banyan trees.',
+        insiderTip: 'Pay the small community pass for unlimited swings on the Tarzan vines; head up to the quieter second and third tiers for tranquil swimming away from the main pool.',
+        bookingRequired: false
+      }
+    ],
+    automotiveAndEvents: [
+      {
+        title: 'Visayas 4x4 Roadtrip Loop: Cebu → Bohol → Siquijor',
+        dates: 'Nov 29–Dec 2 (Days 22–25)',
+        venue: 'Bohol Interior Highway & Siquijor Coastal Ring Road',
+        badge: '🛣️ EPIC OVERLAND LOOP',
+        description: 'A multi-island expedition combining fast-ferry or RORO vehicle transit with high-clearance 4x4 pickup driving through mountain forests and oceanside ring roads.',
+        proTip: 'See the ///M Auto Shows & Cebu→Bohol Roadtrip tab in the main cockpit for ferry schedules and route maps.'
+      }
+    ],
+    culinaryGuide: [
+      { name: 'Saffron at Amorita Resort', type: 'Fine Dining', area: 'Panglao Island Cliffside', mustOrder: 'Boholano beef pochero & grilled tiger prawns', vibe: 'Cliff-edge infinity pool dining overlooking Alona Beach.' },
+      { name: 'Dolce Amore Italian Trattoria', type: 'Casual Lunch', area: 'San Juan, Siquijor', mustOrder: 'Authentic Napoli wood-fired pizza & homemade gelato', vibe: 'Rustic Italian charm run by native Italians on the sunset coast.' },
+      { name: 'Bohol Bee Farm Restaurant', type: 'Casual Lunch', area: 'Dauis, Panglao', mustOrder: 'Organic flower salad & honey ice cream with cassava cone', vibe: 'Perched on rustic timber terraces overlooking the ocean.' },
+      { name: 'Bucafe Highland Cafe', type: 'Specialty Coffee', area: 'Mount Bandilaan, Siquijor', mustOrder: 'Single-origin iced latte & banana bread', vibe: 'Highland glasshouse cafe perched above the misty central hills.' }
+    ],
+    insiderLogistics: {
+      gettingAround: 'In Bohol, a 4x4 pickup easily handles the interior highway and dirt ATV trails. In Siquijor, an island roadster, convertible, or scooter is ideal for the 72km coastal ring road.',
+      connectivity: 'Good 4G/LTE along the coastlines of Panglao and Siquijor; sparse signal in the deep interior of Mount Bandilaan.',
+      cashVsCards: 'Carry 5,000–8,000 PHP cash for Siquijor, as island ATMs occasionally run out of cash during busy weekends.',
+      dressCode: 'Swimwear with linen button-downs and shorts; light footwear for waterfall steps.',
+      weatherBackup: 'Baclayon 1596 Coral Stone Church Museum in Bohol, Lazi Convent in Siquijor, and Coco Grove shell spa.'
+    }
+  }
+];
+
