@@ -3,6 +3,7 @@ import { DESTINATION_HUBS, FLIGHT_ROUTES, DAILY_ITINERARY, PACKING_CATEGORIES } 
 
 const totalHotels = DESTINATION_HUBS.reduce((acc, h) => acc + h.hotels.length, 0);
 const totalPackingItems = PACKING_CATEGORIES.reduce((acc, c) => acc + c.items.length, 0);
+const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 ---
 
 <!DOCTYPE html>
@@ -1261,6 +1262,7 @@ const totalPackingItems = PACKING_CATEGORIES.reduce((acc, c) => acc + c.items.le
           </div>
           <div class="map-control-group">
             <button class="map-btn" id="btn-fit-archipelago" type="button">🗺️ Fit All Islands</button>
+            <button class="map-btn" id="btn-cycle-basemap" type="button">🌑 Style: Dark Matter</button>
             <button class="map-btn active" id="btn-toggle-flights" type="button">✈️ Flight Arcs</button>
             <button class="map-btn gold" id="btn-play-tour" type="button">▶ Play 7-Hub Flyover</button>
           </div>
@@ -1656,20 +1658,40 @@ const totalPackingItems = PACKING_CATEGORIES.reduce((acc, c) => acc + c.items.le
   </nav>
 
   <!-- Client-side Interactive Map, Currency Converter, Shortlist & Packing Controller -->
-  <script is:inline define:vars={{ hubsData: DESTINATION_HUBS, flightsData: FLIGHT_ROUTES, totalPackCount: totalPackingItems }}>
+  <script is:inline define:vars={{ hubsData: DESTINATION_HUBS, flightsData: FLIGHT_ROUTES, totalPackCount: totalPackingItems, cartoKey: cartoApiKey }}>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Initialize Leaflet Map
+      // 1. Initialize Leaflet Map with CARTO Basemaps API Key support
       const map = L.map('ph-interactive-map', {
         center: [12.35, 121.65],
         zoom: 6,
         zoomControl: true
       });
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      const keyQuery = cartoKey ? `?api_key=${encodeURIComponent(cartoKey)}` : '';
+      const basemapStyles = [
+        { id: 'dark_all', label: '🌑 Style: Dark Matter', url: `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png${keyQuery}` },
+        { id: 'rastertiles/voyager', label: '🌴 Style: Voyager Tropical', url: `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png${keyQuery}` },
+        { id: 'light_all', label: '☀️ Style: Positron Light', url: `https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png${keyQuery}` }
+      ];
+      let currentStyleIdx = 0;
+
+      let activeTileLayer = L.tileLayer(basemapStyles[0].url, {
         attribution: '&copy; OpenStreetMap &copy; CARTO | Kapuluan Travel OS',
         subdomains: 'abcd',
-        maxZoom: 19
+        maxZoom: 20
       }).addTo(map);
+
+      document.getElementById('btn-cycle-basemap')?.addEventListener('click', (e) => {
+        currentStyleIdx = (currentStyleIdx + 1) % basemapStyles.length;
+        const nextStyle = basemapStyles[currentStyleIdx];
+        map.removeLayer(activeTileLayer);
+        activeTileLayer = L.tileLayer(nextStyle.url, {
+          attribution: '&copy; OpenStreetMap &copy; CARTO | Kapuluan Travel OS',
+          subdomains: 'abcd',
+          maxZoom: 20
+        }).addTo(map);
+        e.currentTarget.textContent = nextStyle.label;
+      });
 
       const hotelMarkersLayer = L.layerGroup().addTo(map);
       const landmarkMarkersLayer = L.layerGroup().addTo(map);
