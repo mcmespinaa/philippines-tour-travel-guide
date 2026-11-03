@@ -24,7 +24,7 @@ attn_note:
 *Approved by: UNREVIEWED*
 *Source: ad-hoc — Astro Travel OS documentation*
 
-Interactive, mobile-first personal travel software built with **Astro** and **Leaflet** for **MC & Christian's 32-Day Philippines Couples Tour (Nov 8 – Dec 9)**:
+Interactive, mobile-first personal travel software built with **Astro** and **Leaflet** for **Maria & Christian's 32-Day Philippines Couples Tour (Nov 8 – Dec 9)**:
 
 - **Live GitHub Pages App:** [https://mcmespinaa.github.io/philippines-tour-travel-guide/](https://mcmespinaa.github.io/philippines-tour-travel-guide/)
 - **GitHub Repository:** [https://github.com/mcmespinaa/philippines-tour-travel-guide](https://github.com/mcmespinaa/philippines-tour-travel-guide)

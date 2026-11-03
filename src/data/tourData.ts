@@ -15,10 +15,25 @@ export interface HotelOption {
 
 export interface DiningOption {
   name: string;
-  category: 'Morning Coffee' | 'Casual Lunch' | 'Destination Dinner' | 'Sunset Cocktails';
+  category: 'Morning Coffee' | 'Casual Lunch' | 'Destination Dinner' | 'Sunset Cocktails' | 'Craft Cocktail Bar' | 'Specialty Cafe' | 'Fine Dining' | 'Rooftop Lounge';
   neighborhood: string;
   specialty: string;
   bookingTip: string;
+}
+
+export interface RcVenue {
+  id: string;
+  name: string;
+  city: 'Metro Manila' | 'Cebu';
+  hubId: 'makati-bgc' | 'manila-bay' | 'cebu-mactan';
+  area: string;
+  trackType: string;
+  surface: string;
+  highlight: string;
+  lat: number;
+  lng: number;
+  openHours: string;
+  tip: string;
 }
 
 export interface FlightRoute {
@@ -103,7 +118,7 @@ export interface GuideEvent {
 
 export interface GuideDining {
   name: string;
-  type: 'Specialty Coffee' | 'Casual Lunch' | 'Fine Dining' | 'Sunset Lounge';
+  type: 'Specialty Coffee' | 'Casual Lunch' | 'Fine Dining' | 'Sunset Lounge' | 'Craft Cocktail Bar' | 'Rooftop Lounge';
   area: string;
   mustOrder: string;
   vibe: string;
@@ -269,6 +284,93 @@ export const ESSENTIAL_APPS: EssentialApp[] = [
     webUrl: 'https://www.waze.com/',
     iosUrl: 'https://apps.apple.com/app/waze-navigation-live-traffic/id323229106',
     androidUrl: 'https://play.google.com/store/apps/details?id=com.waze'
+  }
+];
+
+export const RC_CAR_VENUES: RcVenue[] = [
+  {
+    id: 'rc-circulo-verde',
+    name: 'Circulo Verde RC Raceway (CV RC Track)',
+    city: 'Metro Manila',
+    hubId: 'makati-bgc',
+    area: 'Calle Industria, Bagumbayan, QC / Pasig',
+    trackType: '1/8 & 1/10 Off-Road Dirt Track + On-Road Circuit',
+    surface: 'High-grip outdoor packed clay with banked sweepers, triple jumps & elevated driver rostrum',
+    highlight: 'The gold standard of Philippine radio-control racing. Has hosted international FEMCA championships and national buggy showdowns.',
+    lat: 14.5975,
+    lng: 121.0825,
+    openHours: 'Tue–Sun 09:00–18:00 (Night runs on weekends)',
+    tip: 'Spectacular to watch 1/8 nitro buggies air out over triple jumps. Pit area features AC charging stations and pro tuning benches.'
+  },
+  {
+    id: 'rc-brickyard-makati',
+    name: 'The Brickyard by Lil’s Hobby Center (Glorietta 2, Makati)',
+    city: 'Metro Manila',
+    hubId: 'makati-bgc',
+    area: '3F Glorietta 2, Ayala Center, Makati (5 min walk from Ayala Triangle)',
+    trackType: 'Tamiya Mini 4WD, Scale RC & Tuning Hub',
+    surface: 'Multi-lane technical elevated high-speed circuit + scale drift exhibition course',
+    highlight: 'The vibrant heart of the Philippine RC & scale car community, situated right inside Makati CBD next to Somerset & Peninsula hotels.',
+    lat: 14.5518,
+    lng: 121.0258,
+    openHours: 'Daily 10:00–21:00',
+    tip: 'Drop in to watch intense weekend cup heats or buy rare Japanese Tamiya hop-up parts, tools, and scale car models.'
+  },
+  {
+    id: 'rc-jp-raceway',
+    name: 'JP Raceway (EP On-Road & Mini-Z Track)',
+    city: 'Metro Manila',
+    hubId: 'makati-bgc',
+    area: 'Pasig / Katipunan corridor',
+    trackType: '1/10 Electric On-Road & Kyosho Mini-Z Circuit',
+    surface: 'High-traction indoor black CRC carpet & smooth asphalt with digital transponder timing',
+    highlight: 'Precision electric touring car racing with hairpin chicanes and high-speed sweepers mimicking real-life GT3 racing.',
+    lat: 14.5825,
+    lng: 121.0690,
+    openHours: 'Wed–Sun 11:00–20:00',
+    tip: 'Home to Manila’s serious 1/10 touring car racers. Friendly community always testing custom suspension setups and tire compounds.'
+  },
+  {
+    id: 'rc-speedzone-drift',
+    name: 'Speedzone RC Drift Arena & Scale Garage',
+    city: 'Metro Manila',
+    hubId: 'manila-bay',
+    area: 'Aseana Bay Area / Parqal vicinity, Pasay',
+    trackType: '1/10 RWD RC Drift Arena',
+    surface: 'Polished mirror-smooth concrete / p-tile with scale apex clipping points, LED underglow & Tokyo diorama backdrops',
+    highlight: 'Dedicated 1/10 rear-wheel-drive scale drift battles. Realistic Silvia S15, BMW M3 E30/E46, and RX-7 replicas sliding in close tandem.',
+    lat: 14.5290,
+    lng: 120.9910,
+    openHours: 'Thu–Sun 13:00–22:00',
+    tip: 'Directly across from the Liberty Walk / Manila Auto Salon venue in Parqal/SMX! Amazing scale realism and community drift battles.'
+  },
+  {
+    id: 'rc-queen-city-cebu',
+    name: 'Queen City RC Raceway (Cebu RC Track)',
+    city: 'Cebu',
+    hubId: 'cebu-mactan',
+    area: 'Mandaue City / Consolacion, Cebu',
+    trackType: '1/8 Nitro & 1/10 EP Off-Road Jump Circuit',
+    surface: 'Outdoor packed red clay track with step-downs, tabletop jumps & high-speed rhythm sections',
+    highlight: 'The premier RC racing battleground of the Visayas. Active weekend heats for high-powered 1/8 nitro and electric buggies & truggies.',
+    lat: 10.3475,
+    lng: 123.9450,
+    openHours: 'Wed–Sun 09:00–18:00 (Championship race days on weekends)',
+    tip: '15 mins drive from Mandaue / NUSTAR. Local drivers run full weekend heats with live race commentary and paddock pits.'
+  },
+  {
+    id: 'rc-brickyard-cebu',
+    name: 'The Brickyard & Tamiya Cebu (Ayala Center Cebu)',
+    city: 'Cebu',
+    hubId: 'cebu-mactan',
+    area: 'Ayala Center Cebu / Parkmall Hobby Zone',
+    trackType: 'Tamiya Scale RC & Mini 4WD Technical Track',
+    surface: 'Multi-lane modular bridge circuit & scale drift zone',
+    highlight: 'Central community hub for Cebu scale racing enthusiasts, parts shopping, and impromptu timed time-attack runs.',
+    lat: 10.3175,
+    lng: 123.9050,
+    openHours: 'Daily 10:00–21:00',
+    tip: 'Right in central Cebu City. Stop in for parts, Japanese kit displays, and high-speed scale runs between cafe stops.'
   }
 ];
 
@@ -513,19 +615,26 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       { name: 'Ayala Triangle Gardens & Blackbird Nielson Tower', lat: 14.5567, lng: 121.0245, category: 'Core Park & Dining', openHours: 'Daily 06:00–22:00 (Blackbird 11:00–23:00)' },
       { name: 'Antonio’s Manila at PGA Cars Studio (Porsche/Lambo Showroom)', lat: 14.5994, lng: 121.0568, category: 'Supercar Showroom Dining', openHours: 'Tue–Sun 11:00–22:00 (202 EDSA Mandaluyong)' },
       { name: 'Karrera Bistro & Showroom (Classic Sports Car Cafe)', lat: 14.4172, lng: 121.0384, category: 'Car Enthusiast Cafe', openHours: 'Daily 09:00–21:00 (360 Corporate Woods, Filinvest Alabang)' },
+      { name: 'The Brickyard by Lil’s Hobby Center (Glorietta 2, Makati)', lat: 14.5518, lng: 121.0258, category: 'RC & Mini 4WD Raceway', openHours: 'Daily 10:00–21:00 (3F Glorietta 2, 5m walk from Ayala Triangle)' },
+      { name: 'Circulo Verde RC Raceway (World-Class Buggy Track)', lat: 14.5975, lng: 121.0825, category: '1/8 & 1/10 Off-Road RC Circuit', openHours: 'Tue–Sun 09:00–18:00 (Calle Industria, Bagumbayan QC)' },
       { name: 'Presidential Car Museum (Quezon Memorial Circle)', lat: 14.6515, lng: 121.0493, category: 'Historic Auto Museum', openHours: 'Tue–Sun 08:00–16:00 (Free Admission · Closed Mondays)' },
       { name: 'B2B Carshow XXII w/ Sung Kang (Dec 5–6 Finale)', lat: 14.5505, lng: 121.0505, category: 'Car Show & Meet', openHours: 'Dec 5–6, 2026 (Special Guest: Sung Kang "Han" + BGC Meets)' }
     ],
-    motorsportHighlight: 'Antonio’s at PGA Cars Porsche/Lambo Studio, Karrera Bistro Alabang classic sports cars, Presidential Car Museum & Dec 5–6 B2B Carshow w/ Sung Kang',
-    romanceHighlight: 'Candlelit dinner inside historic Nielson Tower control room at Blackbird & Ayala Triangle stroll',
+    motorsportHighlight: 'Antonio’s at PGA Cars Porsche/Lambo Studio, Karrera Bistro Alabang classic sports cars, Circulo Verde RC Raceway & Dec 5–6 B2B Carshow w/ Sung Kang',
+    romanceHighlight: 'Candlelit dinner inside historic Nielson Tower control room at Blackbird, cocktails at The Curator & Ayala Triangle stroll',
     weatherBackup: 'Ayala Museum Gold of Ancestors gallery + Greenbelt 5 covered luxury skywalk & spa afternoon',
     cebuPacGateway: 'Manila NAIA Terminal 3 (MNL) — 15 min via NAIAX Skyway',
     cebuPacFlightNos: '5J 551 / 5J 562 / DG 6041 (All Domestic Hubs)',
     cebuPacBookingUrl: 'https://www.cebupacificair.com/en-PH/pages/plan/book-flights',
     dining: [
-      { name: 'Karrera Bistro (Alabang) / Yardstick Coffee (Makati)', category: 'Morning Coffee', neighborhood: '360 Corporate Woods Alabang & Legazpi Village', specialty: 'Rotating classic Porsche/Ferrari displays right beside your coffee & brick-oven pizza table', bookingTip: 'Drive 18 mins down Skyway from Makati on Wed/Thu morning (09:00 AM)' },
-      { name: 'Antonio’s Manila at PGA Cars Studio', category: 'Casual Lunch', neighborhood: '202 EDSA (Inside Porsche/Lamborghini/Bentley Showroom)', specialty: 'Fresh burrata salad & aged steaks overlooking PGA Cars supercar gallery', bookingTip: 'Opens 11:00 AM Tue–Sun; easy parking along the side of the building' },
-      { name: 'Blackbird at the Nielson Tower', category: 'Destination Dinner', neighborhood: 'Right inside Ayala Triangle Gardens', specialty: 'Art Deco 1937 Manila airport control tower grill & aviation heritage', bookingTip: 'Book the upstairs Flight Control Room table 3 weeks ahead' }
+      { name: 'Yardstick Coffee', category: 'Morning Coffee', neighborhood: 'Universal LMS Bldg, Legazpi Village, Makati', specialty: 'Manila pioneer of single-origin third-wave pour-overs, flat whites & waffle pairings', bookingTip: 'Stroll over at 09:00 AM after morning Ayala Triangle jog' },
+      { name: 'Karrera Bistro & Motorsport Gallery', category: 'Specialty Cafe', neighborhood: '360 Corporate Woods, Filinvest Alabang', specialty: 'Rotating air-cooled Porsche 911s & gated Ferraris beside third-wave espresso & wood-fired pizza', bookingTip: 'Scenic 18m Skyway drive from Makati; prime weekend enthusiast cars in parking lot' },
+      { name: 'Antonio’s Manila at PGA Cars Studio', category: 'Casual Lunch', neighborhood: '202 EDSA (Supercar Showroom)', specialty: 'Artisanal burrata salad, truffle risotto & steaks overlooking Porsche GT3 RS & Lamborghini Revuelto', bookingTip: 'Reserve 12:30 PM table Tue–Sun; direct indoor showroom access' },
+      { name: 'Blackbird at the Nielson Tower', category: 'Destination Dinner', neighborhood: 'Right inside Ayala Triangle Gardens', specialty: 'Art Deco 1937 Manila airport control tower grill & aviation heritage', bookingTip: 'Book the upstairs Flight Control Room table 3 weeks ahead' },
+      { name: 'Toyo Eatery & Panaderya Toyo', category: 'Bistro & Tasting', neighborhood: 'The Alley at Karrivin, Chino Roces Ave, Makati', specialty: 'Asia’s 50 Best contemporary Filipino culinary storytelling & multi-course tasting menu', bookingTip: 'Book 30 days prior on the first of the month; strictly reservations only' },
+      { name: 'The Curator Coffee & Cocktails', category: 'Craft Cocktail Bar', neighborhood: '134 Legazpi St, Legazpi Village, Makati', specialty: 'World’s 50 Best Discovery: specialty third-wave coffee by day, bespoke speakeasy cocktails behind hidden door by night', bookingTip: 'Walk through the daytime coffee bar to enter the evening craft cocktail lounge after 18:00' },
+      { name: 'The Back Room', category: 'Craft Cocktail Bar', neighborhood: 'Shangri-La The Fort, BGC', specialty: '1920s Prohibition speakeasy hidden behind an unassuming shoe-shine station, featuring house-distilled Bee’s Knees gin', bookingTip: 'Look for the vintage shoe shine chair near the hotel entrance; dress code smart casual' },
+      { name: 'The Peak (Grand Hyatt Manila)', category: 'Rooftop Lounge', neighborhood: '60th Floor, Grand Hyatt BGC', specialty: 'Manila’s highest open-air rooftop whisky bar and grill with 360-degree metropolitan skyline views', bookingTip: 'Arrive 17:30 for golden hour sunset over BGC towers & Makati skyline' }
     ],
     hotels: [
       {
@@ -713,10 +822,11 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     primaryLandmarks: [
       { name: 'Liberty Walk Manila Car Meet (Wataru & Hyuma Kato) — Parqal Aseana', lat: 14.5256, lng: 120.9902, category: 'Nov 13–14 Car Meet', openHours: 'Fri Nov 13 – Sat Nov 14, 2026 (Parqal Aseana City · 3 min from Hotel)' },
       { name: 'Manila Auto Salon & Philippine Diecast Expo — SMX Convention Center', lat: 14.5321, lng: 120.9815, category: 'Nov 14–15 Auto Show', openHours: 'Sat Nov 14 – Sun Nov 15, 2026 10:00–21:00 (200m walk from Shore/Conrad/Lanson)' },
+      { name: 'Speedzone RC Drift Arena & Scale Garage (Aseana)', lat: 14.5290, lng: 120.9910, category: '1/10 RWD RC Drift Arena', openHours: 'Thu–Sun 13:00–22:00 (Aseana Bay Area, steps from Parqal)' },
       { name: 'San Agustin Church & Fort Santiago (Intramuros)', lat: 14.5889, lng: 120.9752, category: 'UNESCO Heritage', openHours: 'Daily 08:00–18:00' },
       { name: 'Manila Bay Sunset Esplanade & Ayala Malls Manila Bay', lat: 14.5232, lng: 120.9885, category: 'Bayfront & Stance Meet', openHours: 'Open 24h (Golden Hour 17:15–18:00)' }
     ],
-    motorsportHighlight: 'EXACT DATE MATCH: Liberty Walk Manila Car Meet w/ Wataru & Hyuma Kato at Parqal Aseana (Nov 13) + Manila Auto Salon & Diecast Expo at SMX (Nov 14–15) steps from your hotel!',
+    motorsportHighlight: 'EXACT DATE MATCH: Liberty Walk Manila Car Meet w/ Wataru & Hyuma Kato at Parqal Aseana (Nov 13) + Manila Auto Salon & Diecast Expo at SMX (Nov 14–15) + Speedzone RC Drift Arena!',
     romanceHighlight: 'Horse-drawn kalesa carriage around San Agustin Church & golden sunset cocktails on Manila Bay',
     weatherBackup: 'National Museum of Fine Arts (Juan Luna Spoliarium) & Champagne Room at The Manila Hotel',
     cebuPacGateway: 'Manila NAIA Terminal 3 (MNL) — 12 min via NAIA Expressway Bay Ramp',
@@ -724,8 +834,10 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     cebuPacBookingUrl: 'https://www.cebupacificair.com/en-PH/pages/plan/book-flights',
     dining: [
       { name: 'Papakape Fort Santiago', category: 'Morning Coffee', neighborhood: 'Inside Fort Santiago gardens, Intramuros', specialty: 'Artisanal ginger-infused cold brew in a glasshouse surrounded by heritage walls', bookingTip: 'Stop in around 10:00 AM during morning walk' },
-      { name: 'Batala Bar / Barbara’s Heritage Restaurant', category: 'Casual Lunch', neighborhood: 'Plaza San Luis Complex, across San Agustin Church', specialty: 'Heirloom Spanish-Filipino lunch & Philippine craft ice cream', bookingTip: 'Directly facing San Agustin courtyard' },
-      { name: 'Champagne Room / Admiral Club Manila Bay', category: 'Destination Dinner', neighborhood: 'Manila Bay Waterfront', specialty: 'Crystal-palace heritage dining or rooftop sunset bay gastronomy', bookingTip: 'Request a west-facing bay window table for 17:30 sunset' }
+      { name: 'Batala Bar / Barbara’s Heritage Restaurant', category: 'Casual Lunch', neighborhood: 'Plaza San Luis Complex, across San Agustin Church', specialty: 'Heirloom Spanish-Filipino lunch, local craft beers & Philippine artisanal spirits', bookingTip: 'Directly facing San Agustin courtyard with colonial garden breeze' },
+      { name: 'Champagne Room (The Manila Hotel)', category: 'Destination Dinner', neighborhood: 'Manila Bay Waterfront Heritage District', specialty: '1912 wrought-iron crystal palace European fine dining with white glove tableside service & live violin serenades', bookingTip: 'Strict formal/smart elegant dress code; jacket recommended' },
+      { name: 'C-Lounge at Conrad Manila', category: 'Sunset Cocktails', neighborhood: 'Mall of Asia Complex, Seaside Blvd', specialty: 'Floor-to-ceiling glass panoramic sunset lounge directly over Manila Bay esplanade with live jazz', bookingTip: 'Book outdoor terrace lounge sofa for 17:15 Manila Bay golden hour' },
+      { name: 'Admiral Club Manila Bay (MGallery)', category: 'Rooftop Lounge', neighborhood: 'Roxas Blvd Waterfront', specialty: 'Art Deco rooftop dining, catwalk glass pool & mixology overlooking Manila Yacht Club harbor basin', bookingTip: 'Reserve sunset table overlooking the yacht marina' }
     ],
     hotels: [
       {
@@ -1244,20 +1356,27 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     weatherAvg: '28°C Coast / 22°C Busay Highlands (Transcentral Hwy)',
     primaryLandmarks: [
       { name: 'Cebu Transcentral Highway (Balamban Twisties) & Tops Lookout', lat: 10.3712, lng: 123.8708, category: 'Mountain Driving Pass', openHours: 'Open 24h (33km Mountain Touge Pass: Busay → Balamban)' },
+      { name: 'Queen City RC Raceway (Cebu Off-Road & EP Circuit)', lat: 10.3475, lng: 123.9450, category: '1/8 Nitro & 1/10 EP RC Circuit', openHours: 'Wed–Sun 09:00–18:00 (Mandaue / Consolacion, Cebu)' },
+      { name: 'The Brickyard & Tamiya Cebu (Ayala Center Cebu)', lat: 10.3175, lng: 123.9050, category: 'Tamiya RC & Mini 4WD Raceway', openHours: 'Daily 10:00–21:00 (Ayala Center Cebu)' },
       { name: 'CCLEX Bridge (Cebu-Cordova Link Expressway)', lat: 10.2785, lng: 123.8965, category: 'Engineering Icon', openHours: 'Open 24h (8.9km Cable-Stayed Sea Crossing)' },
       { name: 'Cebu Pier 1 / Pier 3 RORO Car Ferry & OceanJet Terminal (To Bohol)', lat: 10.2929, lng: 123.9090, category: 'Cebu → Bohol Roadtrip Launch', openHours: 'FastCat / Lite Ferries RORO (Car to Tubigon/Tagbilaran) & OceanJet' },
       { name: 'Basilica del Santo Niño & Magellan’s Cross', lat: 10.2942, lng: 123.9021, category: '1521 Heritage', openHours: 'Daily 06:00–19:00' }
     ],
-    motorsportHighlight: 'Self-Drive 4x4 Pickup / SUV Roadtrip: Cebu Transcentral Highway (Busay–Balamban hairpins) + CCLEX Sea Bridge + RORO Car Ferry (or Dual-Island Rental) across to Bohol!',
-    romanceHighlight: 'Sirao Flower Garden in the misty highlands, Tops Lookout sunset dinner & Mactan seaside spa',
+    motorsportHighlight: 'Self-Drive 4x4 Pickup / SUV Roadtrip: Cebu Transcentral Highway (Busay–Balamban hairpins) + CCLEX Sea Bridge + Queen City RC Raceway & The Brickyard Cebu!',
+    romanceHighlight: 'Sirao Flower Garden in misty highlands, Tops Lookout sunset dinner, Cowrie Cove reef dining & Mactan seaside spa',
     weatherBackup: 'National Museum Cebu (Old Aduana) + CHI The Spa Village hydrotherapy at Shangri-La Mactan',
     cebuPacGateway: 'Mactan-Cebu International Airport (CEB) — Cebu Pacific Visayas Mega-Hub',
     cebuPacFlightNos: '5J 554 / 5J 562 / 5J 568 (CEB ✈ MNL) · T6 511 (ENI ✈ CEB) · DG 6515 (CEB ✈ DGT)',
     cebuPacBookingUrl: 'https://www.cebupacificair.com/en-PH/pages/plan/book-flights',
     dining: [
-      { name: 'Tightrope Coffee / Abaca Baking Company', category: 'Morning Coffee', neighborhood: 'Kasambagan / Nivel Hills (En route to Transcentral Hwy)', specialty: 'Third-wave single-origin espresso & butter croissants before the mountain pass drive', bookingTip: 'Pick up at 09:30 AM on the way up to Busay' },
-      { name: 'House of Lechon / Tales & Feelings', category: 'Casual Lunch', neighborhood: 'Acacia St, Cebu City', specialty: 'Crispy Carcar heritage lechon with green mango salad & calamansi', bookingTip: '10 min from Yap-Sandiego Ancestral House' },
-      { name: 'Il Primo (NUSTAR) / Cowrie Cove (Shangri-La Mactan)', category: 'Destination Dinner', neighborhood: 'CCLEX Waterfront or Mactan Cliffside', specialty: 'Authentic Italian steakhouse overlooking CCLEX Bridge or open-air reef-edge seafood grill', bookingTip: 'Book cliff-edge pergola table at Cowrie Cove' }
+      { name: 'Tightrope Coffee', category: 'Morning Coffee', neighborhood: 'M.L. Quezon Ave, Kasambagan, Cebu City', specialty: 'Minimalist architectural third-wave espresso bar; single-origin pour-overs & homemade brioche', bookingTip: 'Pick up espresso at 09:30 AM before heading up to Busay and Transcentral Highway' },
+      { name: 'Good Cup Coffee Company', category: 'Specialty Cafe', neighborhood: 'F. Ramos St, Cebu City', specialty: 'World-renowned Philippine national barista champion roaster; rare beans from Mt. Apo & Bukidnon', bookingTip: 'Buy whole bean bags of Philippine specialty origins to bring home' },
+      { name: 'House of Lechon', category: 'Casual Lunch', neighborhood: 'Acacia St, Cebu City', specialty: 'Crispy Carcar heritage lechon infused with native lemongrass & baked cheesy scallops', bookingTip: 'Arrive by 12:00 PM for fresh-from-the-pit crispy lechon' },
+      { name: 'Tales & Feelings', category: 'Bistro & Tasting', neighborhood: 'F. Ramos St, Cebu City', specialty: 'Contemporary European-Filipino bistro with creative small plates, truffle pasta & craft wine pairings', bookingTip: 'Cozy romantic bistro; reserve evening table 1 week ahead' },
+      { name: 'Il Primo Italian Steakhouse (NUSTAR)', category: 'Destination Dinner', neighborhood: 'Kawit Island, CCLEX Waterfront', specialty: 'Custom dry-aged prime steaks and wood-fired Italian classics directly overlooking CCLEX Sea Bridge', bookingTip: 'Request window table facing the illuminated CCLEX cable-stayed bridge towers' },
+      { name: 'Cowrie Cove & Waves Bar (Shangri-La Mactan)', category: 'Sunset Cocktails', neighborhood: 'Punta Engaño, Mactan Island', specialty: 'Open-air oceanfront dining and chilled sunset cocktails perched directly over the marine sanctuary coral reef', bookingTip: 'Book seaside pergola table for 17:30 golden hour' },
+      { name: 'Tops Lookout Panoramic Deck & Bar', category: 'Rooftop Lounge', neighborhood: 'Busay Highlands (Transcentral Highway)', specialty: 'Open-air craft beer and sunset cocktails at 600m elevation with panoramic views of the entire Cebu strait', bookingTip: 'Sunset stops right after carving the Transcentral Highway twisties' },
+      { name: 'Axis Entertainment Bar & Lounge', category: 'Craft Cocktail Bar', neighborhood: 'Fili Hotel at NUSTAR Resort', specialty: 'Curated mixologist cocktails, premium spirits & live music inside Cebu’s newest luxury waterfront resort', bookingTip: 'Sophisticated late-night digestif overlooking the Cebu channel' }
     ],
     hotels: [
       {
@@ -1600,6 +1719,14 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         proTip: 'Visit on Saturday afternoon (Day 28) for the car show and fan signing, followed by farewell dinner at The Peak Grand Hyatt.'
       },
       {
+        title: 'Circulo Verde RC Raceway & The Brickyard Glorietta',
+        dates: 'Open Weekly (Tue–Sun / Daily)',
+        venue: 'CV RC Track (Calle Industria, Pasig) & 3F Glorietta 2 (Makati)',
+        badge: '🏎️ RC & SCALE MOTORSPORT',
+        description: 'Manila’s premier scale racing destinations. Circulo Verde hosts high-grip 1/8 nitro/EP buggy jump racing with a high driver rostrum, while The Brickyard at Glorietta 2 (5 mins walk from Ayala Triangle) features Tamiya Mini 4WD tracks and scale tuning parts.',
+        proTip: 'Drop into The Brickyard on weekday afternoons to watch local tuners test chassis balance, or head to CV on weekends for nitro buggy jump heats.'
+      },
+      {
         title: 'Sunday Morning Cars & Coffee BGC & Alabang',
         dates: 'Every Sunday Morning (07:00–10:30 AM)',
         venue: 'Bonifacio High Street / Filinvest Alabang',
@@ -1613,7 +1740,10 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
       { name: 'Karrera Bistro', type: 'Casual Lunch', area: 'Filinvest Alabang', mustOrder: 'Truffle prosciutto pizza & flat white', vibe: 'Motorsport heaven, racing memorabilia, garage chic.' },
       { name: 'Antonio’s Manila at PGA Cars', type: 'Fine Dining', area: '202 EDSA Mandaluyong', mustOrder: 'Burrata salad, 28-day dry-aged ribeye', vibe: 'Showroom luxury, floor-to-ceiling glass, supercar backdrop.' },
       { name: 'Blackbird at the Nielson Tower', type: 'Fine Dining', area: 'Ayala Triangle Gardens', mustOrder: 'Twice-cooked pork belly & prawn Scotch egg', vibe: '1937 Art Deco aviation elegance with illuminated garden terrace.' },
-      { name: 'The Peak at Grand Hyatt', type: 'Sunset Lounge', area: '60th Floor, BGC', mustOrder: 'Wagyu sliders & smoked Old Fashioned', vibe: 'Sky-high panoramic skyline views, speakeasy whiskey bar.' }
+      { name: 'Toyo Eatery', type: 'Fine Dining', area: 'Karrivin Plaza, Chino Roces Ave, Makati', mustOrder: 'Multi-course Filipino terroir tasting menu & sourdough pandesal', vibe: 'Asia’s 50 Best landmark; sustainable Filipino innovation in an industrial design studio.' },
+      { name: 'The Curator Coffee & Cocktails', type: 'Craft Cocktail Bar', area: 'Legazpi Village, Makati', mustOrder: 'Bespoke bourbon cocktail tailored to your flavor profile', vibe: 'World’s 50 Best Discovery; third-wave daytime espresso transitioning into world-class evening speakeasy.' },
+      { name: 'The Back Room (Shangri-La The Fort)', type: 'Craft Cocktail Bar', area: 'Shangri-La at the Fort, BGC', mustOrder: 'Bee’s Knees made with house-distilled Beehive Dry Gin', vibe: 'Prohibition 1920s speakeasy hidden behind a retro shoe-shine stand with 150+ bespoke gins.' },
+      { name: 'The Peak at Grand Hyatt', type: 'Rooftop Lounge', area: '60th Floor, BGC', mustOrder: 'Wagyu sliders & smoked Old Fashioned', vibe: 'Sky-high panoramic skyline views, speakeasy whiskey bar.' }
     ],
     insiderLogistics: {
       gettingAround: 'Ayala Triangle is 100% walkable from Somerset, Citadines, Valero Grand, or The Peninsula. For trips to BGC or Alabang, use GrabCar 6-Seater or private executive SUV.',
@@ -1706,13 +1836,22 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         badge: '🔥 EXACT SCHEDULE MATCH',
         description: 'The premier indoor show in the country covering over 10,000 sqm of modified sports cars, lifted off-road trucks, and diecast collector displays.',
         proTip: '200-meter walk from Conrad/Lanson/Shore. Head in Saturday midday to escape the tropical heat.'
+      },
+      {
+        title: 'Speedzone RC Drift Arena & Scale Garage',
+        dates: 'Thu–Sun 13:00–22:00',
+        venue: 'Aseana Bay Area / Parqal vicinity, Pasay',
+        badge: '🏎️ 1/10 RWD DRIFT ARENA',
+        description: 'Dedicated rear-wheel-drive 1/10 RC drift arena with polished mirror-smooth p-tile, scale Tokyo diorama buildings, and illuminated chicanes. Scale Nissan S15s and BMW M3 drift builds tandem slide just minutes away from Parqal.',
+        proTip: 'Located directly across from the Liberty Walk venue at Parqal. Walk over to catch tandem drift battles after the car meet.'
       }
     ],
     culinaryGuide: [
       { name: 'Papakape', type: 'Specialty Coffee', area: 'Intramuros Stone Courtyard', mustOrder: 'Iced Choco Ginger & Blue Pea Latte', vibe: 'Secret garden cafe inside Spanish colonial stone walls.' },
+      { name: 'Batala Bar & Bamboo Cafe', type: 'Craft Cocktail Bar', area: 'Plaza San Luis, Intramuros', mustOrder: 'Local craft beer flights & calamansi gin infusion', vibe: 'Historic cobblestone courtyard setting with cold craft brews.' },
       { name: 'The Champagne Room', type: 'Fine Dining', area: 'The Manila Hotel', mustOrder: 'French classic tasting menu with roast duck', vibe: '1912 heritage glamour, crystal palm trees, classical violin.' },
       { name: 'C Lounge at Conrad', type: 'Sunset Lounge', area: 'Conrad Manila Bay', mustOrder: 'Artisanal calamansi gin & tonic & tapas', vibe: 'Floor-to-ceiling glass panoramic bay views with outdoor deck.' },
-      { name: 'Admiral Club Manila Bay', type: 'Fine Dining', area: 'Roxas Blvd', mustOrder: 'Fresh seafood thermidor & French pastries', vibe: 'Art Deco rooftop dining overlooking the yacht club basin.' }
+      { name: 'Admiral Club Manila Bay', type: 'Rooftop Lounge', area: 'Roxas Blvd', mustOrder: 'Fresh seafood thermidor & French pastries', vibe: 'Art Deco rooftop dining overlooking the yacht club basin.' }
     ],
     insiderLogistics: {
       gettingAround: 'SMX Convention Center, MOA, and Conrad Manila are connected by elevated air-conditioned bridges. For Intramuros, take a 12-minute GrabCar ride north along Roxas Blvd.',
@@ -2088,13 +2227,25 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         badge: 'MOUNTAIN ENTHUSIAST MEET',
         description: 'Local Cebu car clubs gather along Busay coffee viewpoints featuring BMW M models, Porsche GT cars, and lifted rally pickups.',
         proTip: 'Stop at Highland Brew or Charlie’s Cup along the highway for prime photo spots.'
+      },
+      {
+        title: 'Queen City RC Raceway & The Brickyard Cebu',
+        dates: 'Wed–Sun / Daily',
+        venue: 'Mandaue / Consolacion & Ayala Center Cebu',
+        badge: '🏎️ CEBU RC BATTLEGROUND',
+        description: 'Queen City RC Raceway is the premier 1/8 nitro & 1/10 electric off-road clay jump circuit in the Visayas, with active weekend heat races. In the city center, The Brickyard at Ayala Center Cebu hosts technical Mini 4WD and scale RC drift courses.',
+        proTip: 'Head to Queen City RC on Sunday for thrilling 1/8 buggy jump heats with live paddock commentary.'
       }
     ],
     culinaryGuide: [
-      { name: 'Anzani New Mediterranean', type: 'Fine Dining', area: 'Nivel Hills, Lahug', mustOrder: 'Handmade black truffle tagliolini & lamb chops', vibe: 'Hillside romance, fine wine cellar, panoramic forest views.' },
+      { name: 'Tightrope Coffee', type: 'Specialty Coffee', area: 'M.L. Quezon Ave, Kasambagan', mustOrder: 'Single-origin pour-overs & homemade brioche', vibe: 'Minimalist architectural third-wave espresso bar.' },
+      { name: 'Good Cup Coffee Company', type: 'Specialty Coffee', area: 'F. Ramos St, Cebu City', mustOrder: 'Philippine championship Mt. Apo espresso & flat white', vibe: 'World-renowned barista champion roastery; specialty bean mecca.' },
+      { name: 'Tales & Feelings', type: 'Fine Dining', area: 'F. Ramos St, Cebu City', mustOrder: 'Contemporary truffle pasta & craft wine pairing', vibe: 'Cozy romantic bistro with European-Filipino tasting plates.' },
+      { name: 'House of Lechon', type: 'Casual Lunch', area: 'Acacia St, Cebu City', mustOrder: 'Crispy Carcar heritage lechon & baked scallops', vibe: 'Modern air-conditioned dining celebrating Cebu culinary roots.' },
       { name: 'Il Primo at NUSTAR', type: 'Fine Dining', area: 'NUSTAR Resort Waterfront', mustOrder: 'Bistecca alla Fiorentina & signature Negroni', vibe: 'High-end Italian steakhouse directly overlooking CCLEX Bridge.' },
-      { name: 'House of Lechon', type: 'Casual Lunch', area: 'Cebu City', mustOrder: 'Spicy Cebu lechon & baked scallops', vibe: 'Modern air-conditioned dining celebrating Cebu culinary roots.' },
-      { name: 'Charlie’s Cup', type: 'Specialty Coffee', area: 'Balamban, Transcentral Hwy', mustOrder: 'Highland brewed Barako coffee & bibingka', vibe: 'Cliffside open-air cafe with sweeping mountain valley views.' }
+      { name: 'Cowrie Cove & Waves Bar (Shangri-La Mactan)', type: 'Sunset Lounge', area: 'Punta Engaño, Mactan Island', mustOrder: 'Grilled rock lobster & calamansi martinis over the reef', vibe: 'Open-air cliffside romantic pergola dining directly above marine sanctuary.' },
+      { name: 'Tops Lookout Panoramic Deck & Bar', type: 'Sunset Lounge', area: 'Busay Highlands (Transcentral Hwy)', mustOrder: 'Sunset craft beers & tapas at 600m altitude', vibe: 'Sweeping 180-degree view spanning the entire Cebu strait and islands.' },
+      { name: 'Axis Entertainment Bar & Lounge', type: 'Craft Cocktail Bar', area: 'Fili Hotel at NUSTAR Resort', mustOrder: 'Signature bourbon infusions & bespoke cocktails', vibe: 'Luxury waterfront mixology lounge with live acoustics.' }
     ],
     insiderLogistics: {
       gettingAround: 'Pick up a self-drive 4x4 pickup (Toyota Hilux GR-S or Ford Ranger Raptor) directly at Mactan-Cebu International Airport (CEB) for the Transcentral Highway and ferry crossover.',

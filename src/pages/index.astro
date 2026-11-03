@@ -1,5 +1,5 @@
 ---
-import { DESTINATION_HUBS, FLIGHT_ROUTES, DAILY_ITINERARY, PACKING_CATEGORIES, ESSENTIAL_APPS, DESTINATION_GUIDES } from '../data/tourData';
+import { DESTINATION_HUBS, FLIGHT_ROUTES, DAILY_ITINERARY, PACKING_CATEGORIES, ESSENTIAL_APPS, DESTINATION_GUIDES, RC_CAR_VENUES } from '../data/tourData';
 
 const totalHotels = DESTINATION_HUBS.reduce((acc, h) => acc + h.hotels.length, 0);
 const totalPackingItems = PACKING_CATEGORIES.reduce((acc, c) => acc + c.items.length, 0);
@@ -1129,7 +1129,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
     .dining-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
       gap: 0.45rem;
       margin-top: 0.4rem;
     }
@@ -2148,14 +2148,22 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
             <div class="dining-strip">
               <div style="font-family:var(--font-mono);font-size:0.68rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;">
-                ☕🍽️ Specialty Coffee &amp; Culinary Anchors — {hub.name}
+                ☕🍽️ Specialty Coffee, Destination Dining &amp; Sunset Bars — {hub.name}
               </div>
               <div class="dining-grid">
                 {hub.dining.map((spot) => (
                   <div class="dining-card">
-                    <div class="dining-cat">{spot.category} · {spot.neighborhood}</div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:0.3rem;">
+                      <div class="dining-cat">{spot.category}</div>
+                      <div style="font-family:var(--font-mono);font-size:0.58rem;color:var(--text-muted);">{spot.neighborhood}</div>
+                    </div>
                     <div style="font-weight:700;color:var(--text-primary);margin:0.12rem 0;">{spot.name}</div>
-                    <div style="color:var(--text-secondary);">{spot.specialty}</div>
+                    <div style="color:var(--text-secondary);line-height:1.35;">{spot.specialty}</div>
+                    {spot.bookingTip && (
+                      <div style="font-size:0.63rem;color:var(--nordic-mint);margin-top:0.25rem;font-family:var(--font-mono);">
+                        💡 {spot.bookingTip}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -2279,6 +2287,50 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
                 After your Cebu Transcentral &amp; Bohol Chocolate Hills drives, take the morning ferry on <strong>Dec 1 to Siquijor</strong> and pick up an island roadster/car at Siquijor Port to lap the <strong>uninterrupted, zero-traffic 72km Circumferential Coastal Road</strong> + climb the <strong>Mount Bandilaan</strong> central mountain ridge!
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Part 3: Scale Motorsport: Premier RC Car Tracks & Drift Arenas -->
+        <div class="surface-card">
+          <div style="margin-bottom:0.75rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+              <h2 style="font-size:1.12rem;font-weight:800;display:flex;align-items:center;gap:0.45rem;">
+                <span class="m-badge-inline"><span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>M</span>
+                <span>🏎️🕹️ Scale Motorsport: Premier RC Car Tracks &amp; Drift Arenas (Manila &amp; Cebu)</span>
+              </h2>
+              <span class="badge-pill">6 Curated Tracks · 1/8 Nitro Buggies, RWD Drift &amp; Tamiya</span>
+            </div>
+            <p style="font-size:0.73rem;color:var(--text-secondary);margin-top:0.2rem;">
+              National radio-control racing facilities, dedicated 1/10 rear-wheel-drive drift arenas, and Tamiya technical tracks. Tap any card below to fly the map directly to that venue.
+            </p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:0.55rem;">
+            {RC_CAR_VENUES.map((rc) => (
+              <div class="m-event-card landmark-chip" data-lat={rc.lat} data-lng={rc.lng} style="cursor:pointer;" title="Tap to fly map to this RC venue">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:0.4rem;">
+                  <span style="font-family:var(--font-mono);font-size:0.64rem;color:var(--m-Sky-glow);font-weight:700;">
+                    📍 {rc.city.toUpperCase()} · {rc.area}
+                  </span>
+                  <span style="font-family:var(--font-mono);font-size:0.6rem;background:rgba(46,154,254,0.14);color:var(--m-Sky-glow);padding:0.1rem 0.35rem;border-radius:4px;border:1px solid rgba(46,154,254,0.3);">
+                    {rc.trackType.split('&')[0].trim()}
+                  </span>
+                </div>
+                <div style="font-weight:800;font-size:0.88rem;margin-top:0.22rem;color:var(--text-primary);">
+                  {rc.name}
+                </div>
+                <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;line-height:1.4;">
+                  <strong>Surface:</strong> {rc.surface}
+                </div>
+                <div style="font-size:0.71rem;color:var(--text-primary);margin-top:0.2rem;line-height:1.4;">
+                  {rc.highlight}
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.35rem;font-size:0.66rem;font-family:var(--font-mono);color:var(--text-muted);border-top:1px dashed var(--border-hairline);padding-top:0.3rem;">
+                  <span>🕒 {rc.openHours}</span>
+                  <span style="color:var(--nordic-mint);">💡 {rc.tip}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -2633,7 +2685,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
   </nav>
 
   <!-- Client-side Interactive Controller -->
-  <script is:inline define:vars={{ hubsData: DESTINATION_HUBS, flightsData: FLIGHT_ROUTES, totalPackCount: totalPackingItems, cartoKey: cartoApiKey }}>
+  <script is:inline define:vars={{ hubsData: DESTINATION_HUBS, flightsData: FLIGHT_ROUTES, totalPackCount: totalPackingItems, cartoKey: cartoApiKey, rcVenuesData: RC_CAR_VENUES }}>
     document.addEventListener('DOMContentLoaded', () => {
       // 1. Initialize Leaflet Map with Watermark-Free Multi-Basemap Engine
       const mapEl = document.getElementById('ph-interactive-map');
@@ -2849,6 +2901,29 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
             </div>
           `);
         });
+
+      // Render Premier RC Car Tracks & Drift Arenas
+      if (Array.isArray(rcVenuesData)) {
+        rcVenuesData.forEach((rc) => {
+          const rcIcon = L.divIcon({
+            className: 'custom-pin-marker',
+            html: `<div style="width:24px;height:24px;border-radius:50%;background:#0066B1;color:#fff;display:grid;place-items:center;font-size:12px;border:1.5px solid #2E9AFE;box-shadow:0 0 9px rgba(46,154,254,0.85);" title="${rc.name}">🏎️</div>`,
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+          });
+          const m = L.marker([rc.lat, rc.lng], { icon: rcIcon }).addTo(landmarkMarkersLayer);
+          m.bindPopup(`
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:210px;">
+              <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#2E9AFE;font-weight:700;">🏎️ RC TRACK · ${rc.city.toUpperCase()}</div>
+              <div style="font-size:12px;font-weight:800;margin:2px 0;">${rc.name}</div>
+              <div style="font-size:11px;color:#94a3b8;margin-bottom:3px;">${rc.trackType}</div>
+              <div style="font-size:11px;color:#cbd5e1;line-height:1.35;margin-bottom:4px;">${rc.highlight}</div>
+              <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#94a3b8;">🕒 ${rc.openHours}</div>
+              <div style="font-size:10px;color:#10B981;margin-top:2px;">💡 ${rc.tip}</div>
+            </div>
+          `);
+        });
+      }
 
         hub.hotels.forEach((hotel) => {
           const isFiveStar = hotel.stars.includes('5★');
