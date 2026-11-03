@@ -36,6 +36,24 @@ export interface RcVenue {
   tip: string;
 }
 
+export interface MuseumVenue {
+  id: string;
+  name: string;
+  city: 'Metro Manila' | 'Cebu';
+  hubId: 'makati-bgc' | 'manila-bay' | 'cebu-mactan';
+  area: string;
+  category: 'Naval & Maritime' | 'National Heritage' | 'Fine Arts' | 'Archaeology & Gold' | 'Science & Tech' | 'Presidential Motorsport' | 'Colonial Living';
+  badge: string;
+  highlight: string;
+  keyExhibit: string;
+  openHours: string;
+  admission: string;
+  lat: number;
+  lng: number;
+  tip: string;
+  websiteUrl?: string;
+}
+
 export interface FlightRoute {
   id: string;
   leg: number;
@@ -374,6 +392,213 @@ export const RC_CAR_VENUES: RcVenue[] = [
   }
 ];
 
+export const TOP_MUSEUMS: MuseumVenue[] = [
+  {
+    id: 'mus-galleon',
+    name: 'The Galleon Museum (Manila-Acapulco Maritime Trade)',
+    city: 'Metro Manila',
+    hubId: 'manila-bay',
+    area: 'Seaside Blvd, SM Mall of Asia Complex, Pasay',
+    category: 'Naval & Maritime',
+    badge: '⚓ FULL-SCALE SPANISH GALLEON',
+    highlight: 'Dedicated to the 250-year Manila-Acapulco Galleon Trade (1565–1815) that linked Asia, the Americas, and Europe. Houses an authentic full-scale 60-meter reconstruction of an 18th-century Spanish galleon.',
+    keyExhibit: 'Full wooden galleon hull, rigging, authentic navigational astrolabes, silk & silver trade bullion, and immersive sea voyage simulation.',
+    openHours: 'Tue–Sun 10:00–18:00 (Closed Mondays)',
+    admission: '₱500 / ~60 DKK',
+    lat: 14.5312,
+    lng: 120.9795,
+    tip: 'Directly behind Conrad Manila and steps from SMX / Manila Auto Salon. Escape the midday heat into an air-conditioned naval architectural marvel.',
+    websiteUrl: 'https://www.mallofasia.com/'
+  },
+  {
+    id: 'mus-natural-history',
+    name: 'National Museum of Natural History (Tree of Life)',
+    city: 'Metro Manila',
+    hubId: 'manila-bay',
+    area: 'Agrifina Circle, Rizal Park, Ermita, Manila',
+    category: 'National Heritage',
+    badge: '🌿 6-STORY TREE OF LIFE CANOPY',
+    highlight: 'A breathtaking architectural achievement featuring the iconic 6-story "Tree of Life" glass-and-steel double-helix canopy with a central scenic elevator pod rising above a neoclassical courtyard.',
+    keyExhibit: 'Preserved holotype skeleton of "Lolong" (world’s largest captured crocodile at 6.17m), 709,000-year-old butchered rhinoceros fossil with hominin cut marks, and living marine dioramas.',
+    openHours: 'Tue–Sun 09:00–18:00 (Closed Mondays)',
+    admission: 'FREE ADMISSION',
+    lat: 14.5828,
+    lng: 120.9836,
+    tip: 'Free admission (no booking needed, just register at lobby). Stand beneath the glass elevator dome for jaw-dropping architectural photography.',
+    websiteUrl: 'https://www.nationalmuseum.gov.ph/'
+  },
+  {
+    id: 'mus-fine-arts',
+    name: 'National Museum of Fine Arts (Spoliarium & Old Congress)',
+    city: 'Metro Manila',
+    hubId: 'manila-bay',
+    area: 'Padre Burgos Ave, Rizal Park, Ermita, Manila',
+    category: 'Fine Arts',
+    badge: '🎨 JUAN LUNA’S SPOLIARIUM (1884)',
+    highlight: 'Housed in the 1926 neoclassical Old Legislative Building where the 1935 Commonwealth Constitution was drafted. The grand sanctuary of Philippine classical and romantic fine art.',
+    keyExhibit: 'Juan Luna’s monumental 4m x 7m masterpiece "Spoliarium" (Gold Medal, 1884 Madrid Exposición), Félix Resurrección Hidalgo’s historical canvases, and the awe-inspiring Old Senate Hall.',
+    openHours: 'Tue–Sun 09:00–18:00 (Closed Mondays)',
+    admission: 'FREE ADMISSION',
+    lat: 14.5869,
+    lng: 120.9812,
+    tip: 'Located across the lawn from Natural History. The Spoliarium hall has benches where you can sit and absorb the dramatic brushwork.',
+    websiteUrl: 'https://www.nationalmuseum.gov.ph/'
+  },
+  {
+    id: 'mus-anthropology',
+    name: 'National Museum of Anthropology (San Diego Shipwreck)',
+    city: 'Metro Manila',
+    hubId: 'manila-bay',
+    area: 'Agrifina Circle, Rizal Park, Ermita, Manila',
+    category: 'Archaeology & Gold',
+    badge: '🏺 1600 SAN DIEGO GALLEON TREASURE',
+    highlight: 'Showcases the deep human and maritime prehistory of the Philippine archipelago, from ancient seafaring balangay boats to indigenous gold and oceanic shipwrecks.',
+    keyExhibit: 'Treasures of the sunken Spanish warship "San Diego" (1600) laden with Ming porcelain, bronze cannons, astrolabes, and ancient Baybayin scripts on the Laguna Copperplate.',
+    openHours: 'Tue–Sun 09:00–18:00 (Closed Mondays)',
+    admission: 'FREE ADMISSION',
+    lat: 14.5825,
+    lng: 120.9808,
+    tip: 'Completes the Agrifina Circle trifecta with Natural History and Fine Arts. All three can easily be explored in a relaxed 3-hour morning circuit.',
+    websiteUrl: 'https://www.nationalmuseum.gov.ph/'
+  },
+  {
+    id: 'mus-ayala',
+    name: 'Ayala Museum & Filipinas Heritage Library',
+    city: 'Metro Manila',
+    hubId: 'makati-bgc',
+    area: 'Greenbelt Park, Ayala Center, Makati',
+    category: 'Archaeology & Gold',
+    badge: '👑 GOLD OF ANCESTORS & 60 DIORAMAS',
+    highlight: 'World-class private cultural institution in the heart of Makati CBD. Four floors of curated indigenous gold, textiles, fine arts, and state-of-the-art interactive digital galleries.',
+    keyExhibit: '"Gold of Ancestors" featuring over 1,000 pre-colonial gold regalia, funerary masks, and pectorals, alongside 60 handcrafted dioramas chronicling Philippine history.',
+    openHours: 'Wed–Sun 10:00–18:00 (Closed Mon–Tue)',
+    admission: '₱650 / ~80 DKK',
+    lat: 14.5524,
+    lng: 121.0232,
+    tip: '5-minute walk through Greenbelt gardens from Somerset and The Peninsula. Pre-book online timed tickets to bypass queue; visit museum cafe afterward.',
+    websiteUrl: 'https://www.ayalamuseum.org/'
+  },
+  {
+    id: 'mus-presidential-cars',
+    name: 'Presidential Car Museum (Museo ng Pampangulong Sasakyan)',
+    city: 'Metro Manila',
+    hubId: 'makati-bgc',
+    area: 'Quezon Memorial Circle, Elliptical Road, QC',
+    category: 'Presidential Motorsport',
+    badge: '🚘 12 HISTORIC STATE LIMOUSINES',
+    highlight: 'The official National Historical Commission pavilion holding 12 historic presidential state cars, chronicling executive Philippine history through automotive design and armor plating.',
+    keyExhibit: 'Imelda Marcos’s bulletproof 1980 Rolls-Royce Phantom V, 1980 Mercedes-Benz 600 Pullman Landaulet, Manuel L. Quezon’s 1937 Chrysler Airflow, and MacArthur’s 1942 Cadillac.',
+    openHours: 'Tue–Sun 08:00–16:00 (Closed Mondays)',
+    admission: 'FREE ADMISSION',
+    lat: 14.6515,
+    lng: 121.0493,
+    tip: 'Directly along the Skyway Stage 3 / NLEX northbound route en route to Clark International Speedway. Quick 30-min stop for motoring history buffs.',
+    websiteUrl: 'https://nhcp.gov.ph/'
+  },
+  {
+    id: 'mus-san-agustin',
+    name: 'San Agustin Church & Monastery Museum',
+    city: 'Metro Manila',
+    hubId: 'manila-bay',
+    area: 'General Luna St, Intramuros, Manila',
+    category: 'Colonial Living',
+    badge: '🏛️ UNESCO WORLD HERITAGE (1571)',
+    highlight: 'The oldest stone church in the Philippines, surviving multiple earthquakes and the 1945 Battle of Manila. Two floors of cloister galleries surround a tranquil tropical fountain courtyard.',
+    keyExhibit: 'Trompe-l’œil baroque stone-carved ceiling frescoes, 17th-century pipe organ, hand-carved molave choir stalls with ivory inlays, and the tomb of Miguel López de Legazpi.',
+    openHours: 'Daily 08:00–18:00',
+    admission: '₱200 / ~25 DKK',
+    lat: 14.5888,
+    lng: 120.9752,
+    tip: 'Modest dress required (covered shoulders & knees). Board a horse-drawn kalesa carriage right outside for a tour of Intramuros cobblestone streets.',
+    websiteUrl: 'https://sanagustinchurchintramuros.org/'
+  },
+  {
+    id: 'mus-mind-museum',
+    name: 'The Mind Museum (Science & Discovery)',
+    city: 'Metro Manila',
+    hubId: 'makati-bgc',
+    area: 'J.Y. Campos Park, 3rd Ave, Bonifacio Global City, Taguig',
+    category: 'Science & Tech',
+    badge: '🔬 250+ INTERACTIVE SCIENCE GALLERIES',
+    highlight: 'World-class interactive science center designed by Lor Calma & Partners. Spans 5 interconnected galleries (Atom, Life, Earth, Universe, and Technology) with hands-on physics & space exploration.',
+    keyExhibit: '"Stan" the 40-foot Tyrannosaurus Rex skeleton cast, static electricity Van de Graaff generators, indoor solar system planetarium, and interactive light chicanes.',
+    openHours: 'Wed–Sun 09:00–18:00 (3-hour slots; Closed Mon–Tue)',
+    admission: '₱620 / ~75 DKK',
+    lat: 14.5516,
+    lng: 121.0458,
+    tip: 'Located right next to Bonifacio High Street. Ideal for an inspiring, air-conditioned 2-hour scientific exploration before evening supercar spotting.',
+    websiteUrl: 'https://www.themindmuseum.org/'
+  },
+  {
+    id: 'mus-met-manila',
+    name: 'Metropolitan Museum of Manila (The M)',
+    city: 'Metro Manila',
+    hubId: 'makati-bgc',
+    area: 'MK Tan Centre, 30th St, Bonifacio Global City, Taguig',
+    category: 'Fine Arts',
+    badge: '🖼️ PREMIER CONTEMPORARY ART SPACE',
+    highlight: 'The pioneer of modern and contemporary visual art in the Philippines, newly established in an expansive multi-level architectural pavilion in BGC designed by Carlos Arnaiz Architects.',
+    keyExhibit: 'Cutting-edge contemporary Philippine and international installations, experimental video art, sculpture gardens, and curated Filipino design retrospectives.',
+    openHours: 'Tue–Sat 11:00–17:00 (Pre-registration required)',
+    admission: 'Free to ₱300 depending on special exhibitions',
+    lat: 14.5502,
+    lng: 121.0520,
+    tip: 'Book visit slot online 1 day prior. Walking distance from Shangri-La The Fort and Grand Hyatt BGC.',
+    websiteUrl: 'https://metmuseummanila.org/'
+  },
+  {
+    id: 'mus-cebu-national',
+    name: 'National Museum of the Philippines - Cebu (Old Customs House)',
+    city: 'Cebu',
+    hubId: 'cebu-mactan',
+    area: 'A. Pigafetta St, Cebu Port Waterfront (beside Pier 1)',
+    category: 'National Heritage',
+    badge: '⚓ 1910 OLD ADUANA & MAGELLAN 1521',
+    highlight: 'The Visayas regional flagship museum housed in the gorgeously restored 1910 neoclassical Malacañang sa Sugbo / Old Aduana building overlooking Cebu Port and Mactan Channel.',
+    keyExhibit: '"The Philippine-Spanish Contact in Cebu" with 1521 Magellan voyage artifacts, maritime trading ceramics, pre-colonial gold death masks from Plaza Independencia, and Visayan biodiversity.',
+    openHours: 'Tue–Sun 09:00–17:00 (Closed Mondays)',
+    admission: 'FREE ADMISSION',
+    lat: 10.2933,
+    lng: 123.9061,
+    tip: 'Free admission! Located directly beside Fort San Pedro and Cebu Pier 1 (OceanJet ferry to Bohol). Perfect cultural stop before or after your Bohol crossover.',
+    websiteUrl: 'https://www.nationalmuseum.gov.ph/'
+  },
+  {
+    id: 'mus-sugbo',
+    name: 'Museo Sugbo (1870 Coral Stone Provincial Jail)',
+    city: 'Cebu',
+    hubId: 'cebu-mactan',
+    area: 'M.J. Cuenco Ave, Tejero, Cebu City',
+    category: 'National Heritage',
+    badge: '🏰 1870 CORAL STONE CARCEL DE CEBU',
+    highlight: 'The historic provincial museum of Cebu housed inside the thick coral-stone walls of the 1870 Spanish colonial Carcel de Cebu. Comprises 4 large heritage building wings around an open courtyard.',
+    keyExhibit: 'Pre-colonial trade artifacts from China and Siam, Katipunan revolutionary documents, American period public health exhibits, and rare WWII Japanese military memorabilia.',
+    openHours: 'Mon–Sat 09:00–17:30 (Closed Sundays)',
+    admission: '₱75 / ~10 DKK',
+    lat: 10.3045,
+    lng: 123.9048,
+    tip: 'Walk through the massive historic coral-stone arches into the courtyard. Excellent context on Cebu’s role as the oldest Spanish settlement in the Philippines.',
+    websiteUrl: 'https://www.cebucity.gov.ph/'
+  },
+  {
+    id: 'mus-casa-gorordo',
+    name: 'Casa Gorordo Museum (1850s Bahay na Bato)',
+    city: 'Cebu',
+    hubId: 'cebu-mactan',
+    area: '35 Eduardo Aboitiz St, Parian Heritage District, Cebu City',
+    category: 'Colonial Living',
+    badge: '🏡 19TH-CENTURY BAHAY NA BATO',
+    highlight: 'The celebrated 1850s ancestral residence of Juan Gorordo, the first native Filipino Bishop of Cebu. A pristine national historical landmark showcasing 19th-century aristocratic Visayan life.',
+    keyExhibit: 'Exquisite Philippine hardwood furniture, traditional sliding capiz shell windows, master oil portraits, authentic charcoal kusina (kitchen), and peaceful landscaped courtyard.',
+    openHours: 'Tue–Sun 09:00–17:00 (Closed Mondays)',
+    admission: '₱120 / ~15 DKK',
+    lat: 10.3005,
+    lng: 123.9038,
+    tip: 'Located 2 minutes walk from the Yap-Sandiego Ancestral House and Heritage of Cebu Monument. Enjoy traditional hot chocolate (sikwate) and native pastries at the museum courtyard cafe.',
+    websiteUrl: 'https://casagorordomuseum.org/'
+  }
+];
+
 export const PACKING_CATEGORIES: PackingCategory[] = [
   {
     id: 'docs-finance',
@@ -613,6 +838,8 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     weatherAvg: '29°C Day / 24°C Night · Dry Shoulder Begin',
     primaryLandmarks: [
       { name: 'Ayala Triangle Gardens & Blackbird Nielson Tower', lat: 14.5567, lng: 121.0245, category: 'Core Park & Dining', openHours: 'Daily 06:00–22:00 (Blackbird 11:00–23:00)' },
+      { name: 'Ayala Museum & Filipinas Heritage Library', lat: 14.5524, lng: 121.0232, category: 'Archaeology & Gold Museum', openHours: 'Wed–Sun 10:00–18:00 (Greenbelt Park, 5m walk from Somerset)' },
+      { name: 'The Mind Museum (Science & Discovery)', lat: 14.5516, lng: 121.0458, category: 'Interactive Science Center', openHours: 'Wed–Sun 09:00–18:00 (J.Y. Campos Park, BGC)' },
       { name: 'Antonio’s Manila at PGA Cars Studio (Porsche/Lambo Showroom)', lat: 14.5994, lng: 121.0568, category: 'Supercar Showroom Dining', openHours: 'Tue–Sun 11:00–22:00 (202 EDSA Mandaluyong)' },
       { name: 'Karrera Bistro & Showroom (Classic Sports Car Cafe)', lat: 14.4172, lng: 121.0384, category: 'Car Enthusiast Cafe', openHours: 'Daily 09:00–21:00 (360 Corporate Woods, Filinvest Alabang)' },
       { name: 'The Brickyard by Lil’s Hobby Center (Glorietta 2, Makati)', lat: 14.5518, lng: 121.0258, category: 'RC & Mini 4WD Raceway', openHours: 'Daily 10:00–21:00 (3F Glorietta 2, 5m walk from Ayala Triangle)' },
@@ -820,6 +1047,8 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     zoom: 13,
     weatherAvg: '30°C Day / 25°C Golden Bay Breeze',
     primaryLandmarks: [
+      { name: 'The Galleon Museum (Manila-Acapulco Maritime Trade)', lat: 14.5312, lng: 120.9795, category: 'Naval & Maritime Museum', openHours: 'Tue–Sun 10:00–18:00 (Seaside Blvd, MOA Complex beside Conrad)' },
+      { name: 'National Museum Complex (Natural History & Fine Arts)', lat: 14.5828, lng: 120.9836, category: 'National Heritage Sanctuary', openHours: 'Tue–Sun 09:00–18:00 (Rizal Park · Free Admission)' },
       { name: 'Liberty Walk Manila Car Meet (Wataru & Hyuma Kato) — Parqal Aseana', lat: 14.5256, lng: 120.9902, category: 'Nov 13–14 Car Meet', openHours: 'Fri Nov 13 – Sat Nov 14, 2026 (Parqal Aseana City · 3 min from Hotel)' },
       { name: 'Manila Auto Salon & Philippine Diecast Expo — SMX Convention Center', lat: 14.5321, lng: 120.9815, category: 'Nov 14–15 Auto Show', openHours: 'Sat Nov 14 – Sun Nov 15, 2026 10:00–21:00 (200m walk from Shore/Conrad/Lanson)' },
       { name: 'Speedzone RC Drift Arena & Scale Garage (Aseana)', lat: 14.5290, lng: 120.9910, category: '1/10 RWD RC Drift Arena', openHours: 'Thu–Sun 13:00–22:00 (Aseana Bay Area, steps from Parqal)' },
@@ -1356,6 +1585,8 @@ export const DESTINATION_HUBS: DestinationHub[] = [
     weatherAvg: '28°C Coast / 22°C Busay Highlands (Transcentral Hwy)',
     primaryLandmarks: [
       { name: 'Cebu Transcentral Highway (Balamban Twisties) & Tops Lookout', lat: 10.3712, lng: 123.8708, category: 'Mountain Driving Pass', openHours: 'Open 24h (33km Mountain Touge Pass: Busay → Balamban)' },
+      { name: 'National Museum of the Philippines - Cebu (Old Customs House)', lat: 10.2933, lng: 123.9061, category: '1910 Maritime & Heritage Museum', openHours: 'Tue–Sun 09:00–17:00 (Old Customs House beside Pier 1 · Free Admission)' },
+      { name: 'Casa Gorordo & Yap-Sandiego Ancestral Museums', lat: 10.3005, lng: 123.9038, category: '19th-Century Heritage Mansions', openHours: 'Tue–Sun 09:00–17:00 (Parian District)' },
       { name: 'Queen City RC Raceway (Cebu Off-Road & EP Circuit)', lat: 10.3475, lng: 123.9450, category: '1/8 Nitro & 1/10 EP RC Circuit', openHours: 'Wed–Sun 09:00–18:00 (Mandaue / Consolacion, Cebu)' },
       { name: 'The Brickyard & Tamiya Cebu (Ayala Center Cebu)', lat: 10.3175, lng: 123.9050, category: 'Tamiya RC & Mini 4WD Raceway', openHours: 'Daily 10:00–21:00 (Ayala Center Cebu)' },
       { name: 'CCLEX Bridge (Cebu-Cordova Link Expressway)', lat: 10.2785, lng: 123.8965, category: 'Engineering Icon', openHours: 'Open 24h (8.9km Cable-Stayed Sea Crossing)' },
@@ -1818,6 +2049,32 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'Famed since the 19th century as one of the world’s most spectacular sunsets. Watch the sun dip into the South China Sea, casting molten gold and violet hues across the yacht marina and bay waters.',
         insiderTip: 'Watch from the open-air deck at Conrad Manila’s C Lounge or the rooftop bar at Admiral Hotel MGallery with live jazz accompaniment.',
         bookingRequired: false
+      },
+      {
+        id: 'act-galleon-museum',
+        title: 'The Galleon Museum (Manila-Acapulco Maritime Trade)',
+        category: 'Culture & Heritage',
+        timeOfDay: 'Midday',
+        duration: '2 hours',
+        location: 'SM Mall of Asia Complex, Seaside Blvd, Pasay',
+        coords: [14.5312, 120.9795],
+        description: 'Dedicated to the 250-year Manila-Acapulco Galleon Trade (1565–1815) that linked Asia, the Americas, and Europe. Houses an authentic full-scale 60-meter reconstruction of an 18th-century Spanish galleon ship, interactive navigational chambers, and recovered ocean trade treasures.',
+        insiderTip: 'Steps from Conrad Manila and SMX Convention Center. Ideal indoor air-conditioned exploration during midday heat before the car shows.',
+        bookingRequired: true,
+        bookingUrl: 'https://www.mallofasia.com/'
+      },
+      {
+        id: 'act-national-museum-complex',
+        title: 'National Museum of the Philippines (Natural History Tree of Life & Fine Arts Spoliarium)',
+        category: 'Culture & Heritage',
+        timeOfDay: 'Morning',
+        duration: '3 hours',
+        location: 'Agrifina Circle & Padre Burgos Ave, Rizal Park, Manila',
+        coords: [14.5828, 120.9836],
+        description: 'The premier national cultural sanctuary of the Philippines. Experience Juan Luna’s colossal 1884 masterpiece "Spoliarium" in the neoclassical Old Legislative Building, and marvel at the 6-story DNA-inspired "Tree of Life" glass canopy and scenic elevator in the Natural History Museum.',
+        insiderTip: 'Free admission! Closed Mondays. Start at Natural History at 09:30 AM, then cross the Agrifina Circle courtyard to Fine Arts for the Spoliarium.',
+        bookingRequired: false,
+        bookingUrl: 'https://www.nationalmuseum.gov.ph/'
       }
     ],
     automotiveAndEvents: [
@@ -2204,6 +2461,19 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         insiderTip: 'Park at the National Museum of the Philippines - Cebu (the beautifully restored 1910 Old Customhouse/Aduana) for safe and easy vehicle parking.',
         bookingRequired: false,
         imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Basilica_del_Santo_Ni%C3%B1o_2024-07-05.jpg/1280px-Basilica_del_Santo_Ni%C3%B1o_2024-07-05.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
+      },
+      {
+        id: 'act-cebu-national-museum',
+        title: 'National Museum of the Philippines - Cebu (Old Customs House / Aduana)',
+        category: 'Culture & Heritage',
+        timeOfDay: 'Morning',
+        duration: '2 hours',
+        location: 'A. Pigafetta St, Cebu Port Waterfront (beside Pier 1)',
+        coords: [10.2933, 123.9061],
+        description: 'Housed in the neoclassical 1910 Malacañang sa Sugbo / Old Aduana building. Central Visayas flagship museum with five curated galleries exploring maritime archaeology, 1521 Spanish contact, pre-colonial gold death masks, and ethnographic Visayan treasures.',
+        insiderTip: 'Free admission! Located right beside Fort San Pedro and Cebu Pier 1 (OceanJet ferry to Bohol). Exceptional air-conditioned sanctuary with curated galleries.',
+        bookingRequired: false,
+        bookingUrl: 'https://www.nationalmuseum.gov.ph/'
       },
       {
         id: 'act-carcar-lechon',

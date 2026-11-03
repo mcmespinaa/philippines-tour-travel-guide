@@ -1,5 +1,5 @@
 ---
-import { DESTINATION_HUBS, FLIGHT_ROUTES, DAILY_ITINERARY, PACKING_CATEGORIES, ESSENTIAL_APPS, DESTINATION_GUIDES, RC_CAR_VENUES } from '../data/tourData';
+import { DESTINATION_HUBS, FLIGHT_ROUTES, DAILY_ITINERARY, PACKING_CATEGORIES, ESSENTIAL_APPS, DESTINATION_GUIDES, RC_CAR_VENUES, TOP_MUSEUMS } from '../data/tourData';
 
 const totalHotels = DESTINATION_HUBS.reduce((acc, h) => acc + h.hotels.length, 0);
 const totalPackingItems = PACKING_CATEGORIES.reduce((acc, c) => acc + c.items.length, 0);
@@ -2170,6 +2170,62 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
             </div>
           </div>
         ))}
+
+        <!-- =====================================================================
+             CURATED CITY HERITAGE: PREMIER MUSEUMS (MANILA & CEBU)
+             ===================================================================== -->
+        <div class="surface-card" style="margin-top:1.25rem;" id="city-museums-section">
+          <div style="margin-bottom:0.85rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+              <h2 style="font-size:1.14rem;font-weight:800;display:flex;align-items:center;gap:0.45rem;">
+                <span class="m-badge-inline"><span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>M</span>
+                <span>🏛️ Curated City Heritage: Premier Museums &amp; Cultural Sanctuaries (Manila &amp; Cebu)</span>
+              </h2>
+              <span class="badge-pill" style="border-color:rgba(99,102,241,0.35);color:#A5B4FC;background:rgba(99,102,241,0.12);">
+                {TOP_MUSEUMS.length} Flagship Institutions · Galleons, National Art, Gold &amp; Tree of Life
+              </span>
+            </div>
+            <p style="font-size:0.74rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.45;">
+              From the 60-meter full-scale Spanish galleon reconstruction and Juan Luna’s colossal <em>Spoliarium</em> to the 6-story DNA Tree of Life canopy and pre-colonial gold funerary masks. Tap any card below to fly the map directly to that museum.
+            </p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:0.6rem;">
+            {TOP_MUSEUMS.map((mus) => (
+              <div class="m-event-card landmark-chip" data-lat={mus.lat} data-lng={mus.lng} style="cursor:pointer;border-left:3px solid #6366F1;" title="Tap to fly map directly to this museum">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:0.4rem;">
+                  <span style="font-family:var(--font-mono);font-size:0.64rem;color:#818CF8;font-weight:700;">
+                    📍 {mus.city.toUpperCase()} · {mus.area.split(',')[0]}
+                  </span>
+                  <span style="font-family:var(--font-mono);font-size:0.6rem;background:rgba(99,102,241,0.15);color:#C7D2FE;padding:0.1rem 0.35rem;border-radius:4px;border:1px solid rgba(99,102,241,0.3);">
+                    {mus.category}
+                  </span>
+                </div>
+                <div style="font-weight:800;font-size:0.88rem;margin-top:0.25rem;color:var(--text-primary);">
+                  {mus.name}
+                </div>
+                <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--amber-telemetry);margin-top:0.15rem;font-weight:700;">
+                  {mus.badge}
+                </div>
+                <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.4;">
+                  {mus.highlight}
+                </div>
+                <div style="font-size:0.71rem;color:var(--text-primary);margin-top:0.25rem;line-height:1.4;background:var(--bg-card);padding:0.35rem 0.45rem;border-radius:5px;border:1px solid var(--border-hairline);">
+                  ✨ <strong>Must-See:</strong> {mus.keyExhibit}
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.3rem;margin-top:0.4rem;font-size:0.66rem;font-family:var(--font-mono);border-top:1px dashed var(--border-hairline);padding-top:0.35rem;">
+                  <span style="color:var(--text-muted);">🕒 {mus.openHours}</span>
+                  <span style="color:var(--nordic-mint);font-weight:700;background:rgba(16,185,129,0.1);padding:0.1rem 0.3rem;border-radius:3px;">
+                    🎟️ {mus.admission}
+                  </span>
+                </div>
+                <div style="font-size:0.65rem;color:var(--nordic-mint);margin-top:0.25rem;font-family:var(--font-mono);line-height:1.35;">
+                  💡 {mus.tip}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <!-- =====================================================================
@@ -2685,7 +2741,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
   </nav>
 
   <!-- Client-side Interactive Controller -->
-  <script is:inline define:vars={{ hubsData: DESTINATION_HUBS, flightsData: FLIGHT_ROUTES, totalPackCount: totalPackingItems, cartoKey: cartoApiKey, rcVenuesData: RC_CAR_VENUES }}>
+  <script is:inline define:vars={{ hubsData: DESTINATION_HUBS, flightsData: FLIGHT_ROUTES, totalPackCount: totalPackingItems, cartoKey: cartoApiKey, rcVenuesData: RC_CAR_VENUES, museumsData: TOP_MUSEUMS }}>
     document.addEventListener('DOMContentLoaded', () => {
       // 1. Initialize Leaflet Map with Watermark-Free Multi-Basemap Engine
       const mapEl = document.getElementById('ph-interactive-map');
@@ -2920,6 +2976,33 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
               <div style="font-size:11px;color:#cbd5e1;line-height:1.35;margin-bottom:4px;">${rc.highlight}</div>
               <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#94a3b8;">🕒 ${rc.openHours}</div>
               <div style="font-size:10px;color:#10B981;margin-top:2px;">💡 ${rc.tip}</div>
+            </div>
+          `);
+        });
+      }
+
+      // Render Curated City Museums & Cultural Heritage on Map
+      if (Array.isArray(museumsData)) {
+        museumsData.forEach((mus) => {
+          const musIcon = L.divIcon({
+            className: 'custom-pin-marker',
+            html: `<div style="width:24px;height:24px;border-radius:50%;background:#4F46E5;color:#fff;display:grid;place-items:center;font-size:12px;border:1.5px solid #A5B4FC;box-shadow:0 0 9px rgba(99,102,241,0.85);" title="${mus.name}">🏛️</div>`,
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+          });
+          const m = L.marker([mus.lat, mus.lng], { icon: musIcon }).addTo(landmarkMarkersLayer);
+          m.bindPopup(`
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:220px;">
+              <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#818CF8;font-weight:700;">🏛️ MUSEUM · ${mus.city.toUpperCase()}</div>
+              <div style="font-size:12px;font-weight:800;margin:2px 0;">${mus.name}</div>
+              <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#F59E0B;margin-bottom:3px;">${mus.badge}</div>
+              <div style="font-size:11px;color:#cbd5e1;line-height:1.35;margin-bottom:4px;">${mus.highlight}</div>
+              <div style="font-size:10px;color:#94a3b8;margin-bottom:3px;">✨ <strong>Key Exhibit:</strong> ${mus.keyExhibit}</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;font-size:10px;font-family:'JetBrains Mono',monospace;">
+                <span style="color:#94a3b8;">🕒 ${mus.openHours}</span>
+                <span style="color:#10B981;font-weight:700;">${mus.admission}</span>
+              </div>
+              <div style="font-size:10px;color:#10B981;margin-top:3px;">💡 ${mus.tip}</div>
             </div>
           `);
         });
