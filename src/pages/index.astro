@@ -35,7 +35,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       --bg-card: #161C28;
       --bg-card-hover: #1C2433;
       --bg-elevated: #0D1119;
-      --bg-glass: rgba(17, 22, 32, 0.88);
+      --bg-glass: rgba(17, 22, 32, 0.9);
       --text-primary: #F8FAFC;
       --text-secondary: #94A3B8;
       --text-muted: #64748B;
@@ -52,25 +52,31 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       --nordic-mint: #10B981;
       --amber-telemetry: #F59E0B;
 
-      --shadow-panel: 0 16px 36px rgba(0, 0, 0, 0.45);
+      /* Airy Google & Airbnb Design Tokens */
+      --radius-card: 18px;
+      --radius-panel: 22px;
+      --radius-pill: 9999px;
+      --shadow-panel: 0 18px 40px rgba(0, 0, 0, 0.35);
+      --shadow-airbnb: 0 12px 32px rgba(0, 0, 0, 0.28);
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
     /* 1-Click Nordic Alpine Daylight Theme */
     body.theme-nordic-light {
-      --bg-canvas: #F3F5F8;
+      --bg-canvas: #F4F6F9;
       --bg-panel: #FFFFFF;
-      --bg-card: #F8FAFC;
-      --bg-card-hover: #EEF2F6;
-      --bg-elevated: #EBF0F5;
-      --bg-glass: rgba(255, 255, 255, 0.92);
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #F8FAFC;
+      --bg-elevated: #EEF2F6;
+      --bg-glass: rgba(255, 255, 255, 0.94);
       --text-primary: #0F172A;
       --text-secondary: #475569;
       --text-muted: #64748B;
-      --border-hairline: rgba(15, 23, 42, 0.09);
-      --border-strong: rgba(15, 23, 42, 0.18);
-      --shadow-panel: 0 10px 28px rgba(15, 23, 42, 0.06);
+      --border-hairline: rgba(15, 23, 42, 0.08);
+      --border-strong: rgba(15, 23, 42, 0.15);
+      --shadow-panel: 0 14px 34px rgba(15, 23, 42, 0.06);
+      --shadow-airbnb: 0 8px 24px rgba(15, 23, 42, 0.05);
     }
 
     * {
@@ -135,27 +141,29 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.65rem 1.25rem;
+      gap: 1.15rem;
+      padding: 0.95rem 1.85rem;
       background: var(--bg-glass);
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border-hairline);
       position: sticky;
       top: 4px;
       z-index: 1050;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     }
 
     .brand-cluster {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.95rem;
     }
 
     .m-crest {
       width: 48px;
       height: 38px;
       padding: 0 4px;
-      border-radius: 9px;
+      border-radius: 12px;
       background: var(--bg-card);
       border: 1px solid var(--border-strong);
       display: grid;
@@ -163,6 +171,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       position: relative;
       overflow: hidden;
       flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
 
     .m-crest::before {
@@ -173,30 +182,31 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     }
 
     .brand-titles h1 {
-      font-size: 1.08rem;
+      font-size: 1.18rem;
       font-weight: 800;
       letter-spacing: -0.03em;
       color: var(--text-primary);
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.55rem;
     }
 
     .brand-titles p {
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       color: var(--text-secondary);
       font-family: var(--font-mono);
+      margin-top: 0.1rem;
     }
 
     .badge-pill {
       font-family: var(--font-mono);
-      font-size: 0.64rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      padding: 0.14rem 0.46rem;
-      border-radius: 5px;
+      padding: 0.22rem 0.65rem;
+      border-radius: var(--radius-pill);
       background: rgba(46, 154, 254, 0.12);
       color: var(--m-Sky-glow);
       border: 1px solid rgba(46, 154, 254, 0.3);
@@ -211,30 +221,38 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .kpi-ribbon {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.45rem;
+      gap: 0.65rem;
       align-items: center;
     }
 
     .kpi-chip {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
-      border-radius: 8px;
-      padding: 0.28rem 0.65rem;
+      border-radius: 12px;
+      padding: 0.42rem 0.85rem;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      transition: all 0.18s ease;
+    }
+
+    .kpi-chip:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
     }
 
     .kpi-chip span.label {
       font-family: var(--font-mono);
-      font-size: 0.58rem;
+      font-size: 0.6rem;
       text-transform: uppercase;
       letter-spacing: 0.07em;
       color: var(--text-secondary);
+      margin-bottom: 0.05rem;
     }
 
     .kpi-chip span.val {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.84rem;
       font-weight: 700;
       font-variant-numeric: tabular-nums;
       color: var(--text-primary);
@@ -256,11 +274,11 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
     .badge-mini-toggle {
       font-family: var(--font-mono);
-      font-size: 0.52rem;
+      font-size: 0.55rem;
       font-weight: 800;
       text-transform: uppercase;
-      padding: 0.08rem 0.32rem;
-      border-radius: 4px;
+      padding: 0.12rem 0.45rem;
+      border-radius: var(--radius-pill);
       background: rgba(16, 185, 129, 0.15);
       color: #10B981;
       border: 1px solid rgba(16, 185, 129, 0.3);
@@ -283,15 +301,16 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       display: inline-flex;
       background: var(--bg-card);
       border: 1px solid var(--border-strong);
-      border-radius: 8px;
+      border-radius: var(--radius-pill);
       overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .curr-btn, .theme-toggle-btn {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 0.38rem 0.58rem;
+      padding: 0.45rem 0.72rem;
       border: none;
       background: transparent;
       color: var(--text-secondary);
@@ -307,11 +326,12 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .theme-toggle-btn {
       background: var(--bg-card);
       border: 1px solid var(--border-strong);
-      border-radius: 8px;
+      border-radius: var(--radius-pill);
       color: var(--text-primary);
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .theme-toggle-btn:hover {
@@ -321,11 +341,11 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .sheet-sync-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      padding: 0.4rem 0.72rem;
-      border-radius: 8px;
+      gap: 0.4rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-pill);
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
       text-decoration: none;
       background: var(--bg-card);
@@ -333,6 +353,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       border: 1px solid var(--border-strong);
       transition: all 0.15s ease;
       white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .sheet-sync-btn:hover {
@@ -344,14 +365,14 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .hub-nav-strip {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 1.25rem;
+      gap: 0.65rem;
+      padding: 0.85rem 1.85rem;
       background: var(--bg-panel);
       border-bottom: 1px solid var(--border-hairline);
       overflow-x: auto;
       scrollbar-width: none;
       position: sticky;
-      top: 63px;
+      top: 68px;
       z-index: 1020;
     }
 
@@ -362,39 +383,41 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .hub-tab-btn {
       display: flex;
       align-items: center;
-      gap: 0.42rem;
-      padding: 0.4rem 0.75rem;
-      border-radius: 7px;
+      gap: 0.5rem;
+      padding: 0.52rem 1.15rem;
+      border-radius: var(--radius-pill);
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
       color: var(--text-secondary);
       font-family: var(--font-sans);
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.16s ease;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .hub-tab-btn:hover {
       background: var(--bg-card-hover);
       color: var(--text-primary);
+      transform: translateY(-1px);
     }
 
     .hub-tab-btn.active {
       background: var(--m-light-blue);
       color: #FFFFFF;
       border-color: var(--m-Sky-glow);
-      box-shadow: 0 2px 12px rgba(0, 102, 177, 0.35);
+      box-shadow: 0 4px 16px rgba(0, 102, 177, 0.4);
     }
 
     .hub-tab-btn .num {
       font-family: var(--font-mono);
-      font-size: 0.64rem;
+      font-size: 0.66rem;
       font-weight: 700;
-      padding: 0.08rem 0.32rem;
-      border-radius: 4px;
+      padding: 0.12rem 0.45rem;
+      border-radius: var(--radius-pill);
       background: rgba(0, 0, 0, 0.28);
       color: #E2E8F0;
     }
@@ -402,9 +425,9 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     /* Balanced Split-Screen iDrive Cockpit Grid (Eliminates Empty Left Column) */
     .cockpit-grid {
       display: grid;
-      grid-template-columns: 44% 56%;
-      gap: 1.1rem;
-      padding: 1rem 1.25rem;
+      grid-template-columns: 42% 58%;
+      gap: 1.75rem;
+      padding: 1.5rem 1.85rem 4rem;
       max-width: 1920px;
       margin: 0 auto;
       align-items: start;
@@ -413,16 +436,16 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     /* Left Column: Sticky Full-Viewport Map + Live 7-Hub Budget Telemetry */
     .map-column {
       position: sticky;
-      top: 112px;
+      top: 130px;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 1.25rem;
     }
 
     .map-frame-card {
       background: var(--bg-panel);
       border: 1px solid var(--border-hairline);
-      border-radius: 12px;
+      border-radius: var(--radius-panel);
       overflow: hidden;
       box-shadow: var(--shadow-panel);
       display: flex;
@@ -434,8 +457,8 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 0.85rem;
+      gap: 0.65rem;
+      padding: 0.85rem 1.15rem;
       background: var(--bg-card);
       border-bottom: 1px solid var(--border-hairline);
     }
@@ -443,9 +466,9 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .map-toolbar-title {
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.5rem;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 700;
       color: var(--text-primary);
     }
@@ -462,20 +485,21 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .map-control-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.32rem;
+      gap: 0.4rem;
     }
 
     .map-btn {
       font-family: var(--font-mono);
-      font-size: 0.67rem;
+      font-size: 0.7rem;
       font-weight: 600;
-      padding: 0.32rem 0.58rem;
-      border-radius: 6px;
+      padding: 0.4rem 0.82rem;
+      border-radius: var(--radius-pill);
       border: 1px solid var(--border-hairline);
       background: var(--bg-panel);
       color: var(--text-primary);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.16s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
     .map-btn:hover, .map-btn.active {
@@ -545,8 +569,8 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .left-telemetry-card {
       background: var(--bg-panel);
       border: 1px solid var(--border-hairline);
-      border-radius: 12px;
-      padding: 0.75rem 0.9rem;
+      border-radius: var(--radius-card);
+      padding: 1.15rem 1.25rem;
       box-shadow: var(--shadow-panel);
     }
 
@@ -555,15 +579,15 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       justify-content: space-between;
       align-items: center;
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       color: var(--text-secondary);
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.55rem;
     }
 
     .budget-bar-track {
-      height: 8px;
+      height: 10px;
       background: var(--bg-elevated);
-      border-radius: 4px;
+      border-radius: var(--radius-pill);
       position: relative;
       overflow: hidden;
       border: 1px solid var(--border-hairline);
@@ -584,41 +608,42 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .budget-bar-fill {
       height: 100%;
       background: linear-gradient(90deg, #0066B1 0%, #10B981 65%, #E30613 100%);
-      border-radius: 4px;
+      border-radius: var(--radius-pill);
       transition: width 0.3s ease;
     }
 
     .hub-breakdown-grid {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 0.28rem;
-      margin-top: 0.5rem;
+      gap: 0.45rem;
+      margin-top: 0.85rem;
       width: 100%;
-      overflow: hidden;
     }
 
     .hub-mini-summary {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
-      border-radius: 6px;
-      padding: 0.32rem 0.3rem;
-      font-size: 0.62rem;
+      border-radius: 10px;
+      padding: 0.45rem 0.4rem;
+      font-size: 0.66rem;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.16s ease;
       min-width: 0;
       overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
     .hub-mini-summary:hover {
       border-color: var(--m-Sky-glow);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(46, 154, 254, 0.2);
     }
 
     /* Right Column: M-Drive Mode Switcher & Workspace Deck */
     .right-deck-column {
       display: flex;
       flex-direction: column;
-      gap: 0.9rem;
+      gap: 1.85rem;
       min-width: 0;
     }
 
@@ -628,35 +653,35 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 0.4rem;
-      padding: 0.45rem;
+      gap: 0.65rem;
+      padding: 0.65rem 0.85rem;
       background: var(--bg-panel);
       border: 1px solid var(--border-strong);
-      border-radius: 10px;
+      border-radius: 18px;
       box-shadow: var(--shadow-panel);
     }
 
     .m-mode-tabs {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.3rem;
+      gap: 0.45rem;
       flex: 1;
     }
 
     .m-mode-btn {
       font-family: var(--font-mono);
-      font-size: 0.71rem;
+      font-size: 0.76rem;
       font-weight: 700;
-      padding: 0.48rem 0.78rem;
-      border-radius: 7px;
+      padding: 0.52rem 1.05rem;
+      border-radius: var(--radius-pill);
       border: 1px solid transparent;
       background: transparent;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.16s ease;
+      transition: all 0.18s ease;
       display: inline-flex;
       align-items: center;
-      gap: 0.38rem;
+      gap: 0.45rem;
       white-space: nowrap;
     }
 
@@ -669,12 +694,12 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       background: var(--bg-card);
       color: var(--text-primary);
       border-color: var(--m-Sky-glow);
-      box-shadow: inset 0 -2px 0 var(--m-light-blue);
+      box-shadow: 0 2px 10px rgba(0, 102, 177, 0.25);
     }
 
     .m-mode-btn.m-red-tab.active {
       border-color: var(--m-red-glow);
-      box-shadow: inset 0 -2px 0 var(--m-red);
+      box-shadow: 0 2px 10px rgba(227, 6, 19, 0.25);
       color: var(--m-red-glow);
     }
 
@@ -682,7 +707,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .deck-mode-section {
       display: none;
       flex-direction: column;
-      gap: 0.9rem;
+      gap: 1.85rem;
     }
 
     .deck-mode-section.mode-active {
@@ -694,12 +719,12 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       background: var(--bg-panel);
       border: 1px solid var(--border-hairline);
       border-top: 3px solid var(--m-light-blue);
-      border-radius: 12px;
-      padding: 0.95rem 1.05rem;
+      border-radius: var(--radius-panel);
+      padding: 1.5rem 1.75rem;
       box-shadow: var(--shadow-panel);
       display: flex;
       flex-direction: column;
-      gap: 0.7rem;
+      gap: 1.25rem;
     }
 
     .budget-opt-header {
@@ -707,25 +732,25 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
     .budget-opt-title {
-      font-size: 0.96rem;
+      font-size: 1.05rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       color: var(--text-primary);
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.55rem;
     }
 
     .budget-status-pill {
       font-family: var(--font-mono);
-      font-size: 0.69rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 0.24rem 0.6rem;
-      border-radius: 6px;
+      padding: 0.32rem 0.85rem;
+      border-radius: var(--radius-pill);
       background: rgba(16, 185, 129, 0.14);
       border: 1px solid rgba(16, 185, 129, 0.45);
       color: var(--nordic-mint);
@@ -740,41 +765,44 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .preset-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0.45rem;
+      gap: 0.85rem;
     }
 
     .preset-btn {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
-      border-radius: 8px;
-      padding: 0.55rem 0.68rem;
+      border-radius: 14px;
+      padding: 0.85rem 1rem;
       text-align: left;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
-      gap: 0.18rem;
+      gap: 0.35rem;
       color: var(--text-primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .preset-btn:hover {
       background: var(--bg-card-hover);
       border-color: var(--m-Sky-glow);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
     }
 
     .preset-btn.active {
       border-color: var(--m-Sky-glow);
       background: rgba(0, 102, 177, 0.14);
-      box-shadow: inset 3px 0 0 var(--m-light-blue);
+      box-shadow: 0 4px 16px rgba(46, 154, 254, 0.2), inset 3px 0 0 var(--m-light-blue);
     }
 
     .preset-btn .p-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 700;
     }
 
@@ -784,9 +812,9 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     }
 
     .preset-btn .p-desc {
-      font-size: 0.67rem;
+      font-size: 0.72rem;
       color: var(--text-secondary);
-      line-height: 1.28;
+      line-height: 1.4;
     }
 
     .stay-filter-bar {
@@ -794,28 +822,29 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 0.45rem;
-      padding-top: 0.45rem;
+      gap: 0.75rem;
+      padding-top: 0.85rem;
       border-top: 1px solid var(--border-hairline);
     }
 
     .stay-filter-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.32rem;
+      gap: 0.45rem;
     }
 
     .stay-filter-btn {
       font-family: var(--font-mono);
-      font-size: 0.66rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      padding: 0.28rem 0.55rem;
-      border-radius: 6px;
+      padding: 0.38rem 0.85rem;
+      border-radius: var(--radius-pill);
       border: 1px solid var(--border-hairline);
       background: var(--bg-card);
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.14s ease;
+      transition: all 0.16s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
     .stay-filter-btn.active, .stay-filter-btn:hover {
@@ -824,15 +853,15 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       border-color: var(--m-Sky-glow);
     }
 
-    /* Hub Spotlight Panel & Compact 2-Column Nordic Hotel Grid */
+    /* Hub Spotlight Panel & Spacious Airbnb-Style Hotel Grid */
     .hub-spotlight-panel {
       display: none;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 1.65rem;
       background: var(--bg-panel);
       border: 1px solid var(--border-hairline);
-      border-radius: 12px;
-      padding: 1rem;
+      border-radius: var(--radius-panel);
+      padding: 1.75rem 1.85rem;
       box-shadow: var(--shadow-panel);
     }
 
@@ -845,48 +874,52 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 0.65rem;
-      padding-bottom: 0.65rem;
+      gap: 1rem;
+      padding-bottom: 1.15rem;
       border-bottom: 1px solid var(--border-hairline);
     }
 
     .hub-title-block .region-kicker {
       font-family: var(--font-mono);
-      font-size: 0.65rem;
+      font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--m-Sky-glow);
+      margin-bottom: 0.25rem;
     }
 
     .hub-title-block h2 {
-      font-size: 1.28rem;
+      font-size: 1.55rem;
       font-weight: 800;
       letter-spacing: -0.025em;
       color: var(--text-primary);
     }
 
     .hub-title-block p.tagline {
-      font-size: 0.76rem;
+      font-size: 0.84rem;
       color: var(--text-secondary);
+      margin-top: 0.25rem;
+      line-height: 1.45;
     }
 
     .hub-meta-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.35rem;
+      gap: 0.55rem;
       align-items: center;
     }
 
     .hub-dates-pill, .hub-weather-pill {
       font-family: var(--font-mono);
-      font-size: 0.67rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      padding: 0.25rem 0.55rem;
-      border-radius: 6px;
+      padding: 0.38rem 0.85rem;
+      border-radius: var(--radius-pill);
       background: var(--bg-card);
       border: 1px solid var(--border-strong);
       color: var(--text-primary);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
     /* Landmarks Chip Row */
@@ -894,94 +927,101 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.55rem;
     }
 
     .landmark-chip {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
       color: var(--text-primary);
-      padding: 0.26rem 0.58rem;
-      border-radius: 6px;
+      padding: 0.42rem 0.95rem;
+      border-radius: var(--radius-pill);
       cursor: pointer;
-      transition: all 0.14s ease;
-      font-size: 0.7rem;
+      transition: all 0.16s ease;
+      font-size: 0.78rem;
       text-align: left;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
     .landmark-chip:hover {
       border-color: var(--m-Sky-glow);
       background: var(--bg-card-hover);
+      transform: translateY(-1px);
     }
 
-    /* Compact Dual Highlights Row */
+    /* Spacious Dual Highlights Row */
     .dual-highlights-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
+      gap: 0.95rem;
     }
 
     .highlight-box {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
-      border-radius: 8px;
-      padding: 0.55rem 0.7rem;
+      border-radius: 14px;
+      padding: 0.95rem 1.15rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .highlight-box.m-sport-box {
-      border-left: 3px solid var(--m-red);
+      border-left: 3.5px solid var(--m-red);
     }
 
     .highlight-box.nordic-romance-box {
-      border-left: 3px solid var(--m-indigo-pill);
+      border-left: 3.5px solid var(--m-indigo-pill);
     }
 
     .highlight-box.cebpac-box {
-      border-left: 3px solid var(--m-light-blue);
+      border-left: 3.5px solid var(--m-light-blue);
     }
 
     .highlight-box .h-label {
       font-family: var(--font-mono);
-      font-size: 0.62rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      margin-bottom: 0.18rem;
+      margin-bottom: 0.28rem;
     }
 
     .highlight-box p {
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       color: var(--text-secondary);
-      line-height: 1.35;
+      line-height: 1.5;
     }
 
-    /* High-Density Nordic Hotel Bento Grid */
+    /* Airy Airbnb-Style Hotel Grid */
     .hotels-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.55rem;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.25rem;
     }
 
     .hotel-card {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
-      border-radius: 9px;
-      padding: 0.68rem 0.78rem;
+      border-radius: var(--radius-card);
+      padding: 1.45rem 1.6rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 0.42rem;
-      transition: all 0.16s ease;
+      gap: 0.95rem;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      position: relative;
     }
 
     .hotel-card:hover {
       border-color: var(--m-Sky-glow);
       background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
     }
 
     .hotel-card.selected-stay {
-      border: 1.5px solid var(--m-Sky-glow) !important;
-      box-shadow: 0 0 14px rgba(46, 154, 254, 0.22), inset 3px 0 0 var(--m-light-blue);
+      border: 2px solid var(--m-Sky-glow) !important;
+      box-shadow: 0 8px 32px rgba(46, 154, 254, 0.25), inset 4px 0 0 var(--m-light-blue);
       background: rgba(0, 102, 177, 0.12) !important;
     }
 
@@ -993,18 +1033,18 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.65rem;
     }
 
     .option-badge {
       font-family: var(--font-mono);
-      font-size: 0.61rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      padding: 0.12rem 0.4rem;
-      border-radius: 4px;
+      padding: 0.22rem 0.65rem;
+      border-radius: var(--radius-pill);
       background: rgba(46, 154, 254, 0.12);
       color: var(--m-Sky-glow);
-      border: 1px solid rgba(46, 154, 254, 0.28);
+      border: 1px solid rgba(46, 154, 254, 0.3);
     }
 
     .tier-tag-serviced {
@@ -1021,28 +1061,29 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
     .rate-pill {
       font-family: var(--font-mono);
-      font-size: 0.76rem;
-      font-weight: 700;
+      font-size: 0.88rem;
+      font-weight: 800;
       font-variant-numeric: tabular-nums;
       color: var(--text-primary);
       background: var(--bg-elevated);
       border: 1px solid var(--border-strong);
-      padding: 0.12rem 0.45rem;
-      border-radius: 5px;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-pill);
       white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     .hotel-name {
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: -0.015em;
+      font-size: 1.12rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
       color: var(--text-primary);
-      line-height: 1.22;
+      line-height: 1.35;
     }
 
     .stars-line {
       font-family: var(--font-mono);
-      font-size: 0.65rem;
+      font-size: 0.72rem;
       color: var(--text-secondary);
       display: flex;
       justify-content: space-between;
@@ -1051,46 +1092,53 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
     .proximity-box {
       background: var(--bg-elevated);
-      border-left: 2px solid var(--m-light-blue);
-      padding: 0.3rem 0.5rem;
-      border-radius: 0 5px 5px 0;
-      font-size: 0.69rem;
+      border-left: 3px solid var(--m-light-blue);
+      padding: 0.55rem 0.85rem;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.78rem;
       color: var(--text-secondary);
+      line-height: 1.45;
     }
 
     .proximity-box strong {
       color: var(--text-primary);
       font-family: var(--font-mono);
-      font-size: 0.63rem;
-      margin-right: 0.25rem;
+      font-size: 0.72rem;
+      margin-right: 0.35rem;
     }
 
     .hotel-highlight {
-      font-size: 0.69rem;
+      font-size: 0.82rem;
       color: var(--text-secondary);
-      line-height: 1.32;
+      line-height: 1.5;
     }
 
     .hotel-card-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 0.35rem;
-      padding-top: 0.35rem;
+      gap: 0.65rem;
+      padding-top: 0.85rem;
       border-top: 1px solid var(--border-hairline);
+      margin-top: 0.25rem;
     }
 
     .locate-pin-btn, .shortlist-btn {
       font-family: var(--font-mono);
-      font-size: 0.65rem;
-      font-weight: 600;
-      padding: 0.25rem 0.48rem;
-      border-radius: 5px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.45rem 0.95rem;
+      border-radius: var(--radius-pill);
       border: 1px solid var(--border-strong);
       background: var(--bg-panel);
       color: var(--text-primary);
       cursor: pointer;
-      transition: all 0.14s ease;
+      transition: all 0.16s ease;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
     }
 
     .locate-pin-btn:hover, .shortlist-btn:hover {
@@ -1103,76 +1151,93 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       background: var(--m-light-blue);
       border-color: var(--m-Sky-glow);
       color: #FFFFFF;
+      box-shadow: 0 2px 10px rgba(0, 102, 177, 0.35);
     }
 
     .hotel-book-btn {
       font-family: var(--font-mono);
-      font-size: 0.66rem;
+      font-size: 0.74rem;
       font-weight: 700;
-      padding: 0.26rem 0.55rem;
-      border-radius: 5px;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-pill);
       background: var(--text-primary);
       color: var(--bg-canvas);
       text-decoration: none;
       transition: opacity 0.15s ease;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .hotel-book-btn:hover {
-      opacity: 0.86;
+      opacity: 0.9;
     }
 
-    /* Compact Dining Strip */
+    /* Spacious Dining Strip */
     .dining-strip {
-      padding-top: 0.6rem;
+      padding-top: 1rem;
       border-top: 1px solid var(--border-hairline);
     }
 
     .dining-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 0.45rem;
-      margin-top: 0.4rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.95rem;
+      margin-top: 0.85rem;
     }
 
     .dining-card {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
-      border-radius: 8px;
-      padding: 0.5rem 0.65rem;
-      font-size: 0.69rem;
+      border-radius: 14px;
+      padding: 1rem 1.15rem;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: all 0.16s ease;
+    }
+
+    .dining-card:hover {
+      border-color: var(--m-Sky-glow);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
     }
 
     .dining-cat {
       font-family: var(--font-mono);
-      font-size: 0.6rem;
+      font-size: 0.68rem;
       color: var(--m-Sky-glow);
       text-transform: uppercase;
       font-weight: 700;
+      margin-bottom: 0.25rem;
     }
 
     /* Mode 2: ///M Auto Shows & Cebu -> Bohol Roadtrip Cards */
     .surface-card {
       background: var(--bg-panel);
       border: 1px solid var(--border-hairline);
-      border-radius: 12px;
-      padding: 1rem;
+      border-radius: var(--radius-panel);
+      padding: 1.65rem 1.85rem;
       box-shadow: var(--shadow-panel);
     }
 
     .m-event-card {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
-      border-left: 3px solid var(--m-light-blue);
-      border-radius: 8px;
-      padding: 0.65rem 0.8rem;
+      border-left: 3.5px solid var(--m-light-blue);
+      border-radius: 14px;
+      padding: 1.15rem 1.35rem;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.18s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .m-event-card:hover {
       border-color: var(--m-Sky-glow);
       background: var(--bg-card-hover);
-      transform: translateX(2px);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
     }
 
     .m-event-card.m-red-accent {
@@ -1183,19 +1248,21 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .filter-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.32rem;
+      gap: 0.45rem;
     }
 
     .filter-pill {
       font-family: var(--font-mono);
-      font-size: 0.66rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      padding: 0.28rem 0.58rem;
-      border-radius: 6px;
+      padding: 0.38rem 0.85rem;
+      border-radius: var(--radius-pill);
       border: 1px solid var(--border-hairline);
       background: var(--bg-card);
       color: var(--text-secondary);
       cursor: pointer;
+      transition: all 0.16s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
     .filter-pill.active, .filter-pill:hover {
@@ -1206,38 +1273,40 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
     .itinerary-table-wrap {
       overflow-x: auto;
-      margin-top: 0.65rem;
-      border-radius: 9px;
+      margin-top: 1.15rem;
+      border-radius: 16px;
       border: 1px solid var(--border-hairline);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     }
 
     table.itinerary-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.74rem;
+      font-size: 0.8rem;
     }
 
     table.itinerary-table th {
       background: var(--bg-card);
       color: var(--text-secondary);
       font-family: var(--font-mono);
-      font-size: 0.64rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      padding: 0.55rem 0.7rem;
+      padding: 0.85rem 1.15rem;
       text-align: left;
       border-bottom: 1px solid var(--border-strong);
     }
 
     table.itinerary-table td {
-      padding: 0.55rem 0.7rem;
+      padding: 0.95rem 1.15rem;
       border-bottom: 1px solid var(--border-hairline);
       vertical-align: top;
+      line-height: 1.55;
     }
 
     table.itinerary-table tr.day-row {
       cursor: pointer;
-      transition: background 0.14s ease;
+      transition: background 0.16s ease;
     }
 
     table.itinerary-table tr.day-row:hover {
@@ -1256,9 +1325,9 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       width: 100%;
       background: var(--bg-elevated);
       border: 1px solid var(--border-hairline);
-      border-radius: 9px;
-      padding: 0.5rem;
-      margin-bottom: 0.75rem;
+      border-radius: 14px;
+      padding: 0.85rem;
+      margin-bottom: 1.15rem;
       overflow-x: auto;
     }
 
@@ -1277,97 +1346,114 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
     .flight-legs-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.55rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.15rem;
     }
 
     .flight-leg-card {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
-      border-radius: 9px;
-      padding: 0.7rem;
+      border-radius: 16px;
+      padding: 1.25rem 1.45rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 0.4rem;
+      gap: 0.85rem;
       cursor: pointer;
-      transition: all 0.16s ease;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
     }
 
     .flight-leg-card:hover {
       border-color: var(--m-Sky-glow);
       background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     }
 
     .route-code {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: 0.88rem;
       font-weight: 700;
       color: var(--m-Sky-glow);
     }
 
     .fare-tag {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.74rem;
       font-weight: 700;
-      padding: 0.12rem 0.42rem;
-      border-radius: 5px;
+      padding: 0.22rem 0.65rem;
+      border-radius: var(--radius-pill);
       background: rgba(16, 185, 129, 0.14);
       color: var(--nordic-mint);
     }
 
     .cebpac-book-link {
       font-family: var(--font-mono);
-      font-size: 0.67rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: #FFFFFF;
       background: var(--m-light-blue);
-      padding: 0.25rem 0.55rem;
-      border-radius: 5px;
+      padding: 0.42rem 0.95rem;
+      border-radius: var(--radius-pill);
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: opacity 0.15s ease;
+    }
+    .cebpac-book-link:hover {
+      opacity: 0.9;
     }
 
     /* Mode 5: Packing Checklist */
     .packing-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.65rem;
-      margin-top: 0.65rem;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.15rem;
     }
 
     .packing-box {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
-      border-radius: 9px;
-      padding: 0.75rem;
+      border-radius: 16px;
+      padding: 1.35rem 1.55rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
     }
 
     .packing-box h3 {
-      font-size: 0.86rem;
-      font-weight: 700;
-      margin-bottom: 0.45rem;
+      font-size: 0.96rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
       color: var(--text-primary);
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.5rem;
     }
 
     .pack-item-label {
       display: flex;
       align-items: flex-start;
-      gap: 0.45rem;
-      font-size: 0.72rem;
+      gap: 0.55rem;
+      font-size: 0.8rem;
       color: var(--text-primary);
-      padding: 0.28rem 0;
+      padding: 0.45rem 0.35rem;
       cursor: pointer;
       border-bottom: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      transition: background 0.14s ease;
+    }
+
+    .pack-item-label:hover {
+      background: rgba(255, 255, 255, 0.03);
     }
 
     .pack-item-label input[type="checkbox"] {
-      margin-top: 0.16rem;
+      margin-top: 0.18rem;
       accent-color: var(--m-light-blue);
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       flex-shrink: 0;
     }
 
@@ -1380,12 +1466,13 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .home-checklist-card {
       background: var(--bg-card);
       border: 1px solid var(--border-hairline);
-      border-radius: 10px;
-      padding: 0.85rem 1rem;
-      margin-top: 0.85rem;
-      margin-bottom: 0.85rem;
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      margin-bottom: 1.25rem;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     }
 
     .home-checklist-card::before {
@@ -1403,45 +1490,46 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
+      gap: 0.65rem;
+      margin-bottom: 0.75rem;
     }
 
     .home-checklist-title {
       display: flex;
       align-items: center;
-      gap: 0.45rem;
-      font-size: 0.88rem;
+      gap: 0.55rem;
+      font-size: 0.98rem;
       font-weight: 800;
       color: var(--text-primary);
     }
 
     .home-checklist-progress {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: #10B981;
     }
 
     .home-checklist-bar-track {
       width: 100%;
-      height: 4px;
+      height: 6px;
       background: rgba(255, 255, 255, 0.08);
-      border-radius: 2px;
-      margin-bottom: 0.75rem;
+      border-radius: var(--radius-pill);
+      margin-bottom: 1rem;
       overflow: hidden;
     }
 
     .home-checklist-bar-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--m-light-blue), #10B981);
+      border-radius: var(--radius-pill);
       transition: width 0.3s ease;
     }
 
     .home-checklist-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.65rem;
+      gap: 1rem;
     }
 
     @media (max-width: 768px) {
@@ -1453,34 +1541,34 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     .home-checklist-col {
       background: var(--bg-surface);
       border: 1px solid var(--border-hairline);
-      border-radius: 7px;
-      padding: 0.55rem 0.7rem;
+      border-radius: 12px;
+      padding: 0.85rem 1.05rem;
     }
 
     .home-checklist-col-title {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.74rem;
       font-weight: 700;
       color: var(--m-Sky-glow);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.45rem;
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
     }
 
     /* Sub-tab controls for Home Readiness Widget */
     .home-subtab-bar {
       display: flex;
-      gap: 0.35rem;
-      margin-bottom: 0.6rem;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
     }
 
     .home-subtab-btn {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 0.28rem 0.65rem;
-      border-radius: 6px;
+      padding: 0.38rem 0.85rem;
+      border-radius: var(--radius-pill);
       border: 1px solid var(--border-hairline);
       background: var(--bg-surface);
       color: var(--text-secondary);
@@ -1498,96 +1586,101 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     /* Essential Apps Grid */
     .apps-bento-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 0.65rem;
-      margin-top: 0.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.15rem;
+      margin-top: 0.85rem;
     }
 
     .app-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-hairline);
-      border-radius: 8px;
-      padding: 0.65rem 0.8rem;
+      border-radius: 14px;
+      padding: 1.15rem 1.25rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all 0.15s ease;
+      gap: 0.65rem;
+      transition: all 0.18s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .app-card:hover {
       border-color: rgba(46, 154, 254, 0.45);
       background: var(--bg-card);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
     }
 
     .app-card-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.25rem;
     }
 
     .app-name-wrap {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.5rem;
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.94rem;
       color: var(--text-primary);
     }
 
     .app-badge-tag {
       font-family: var(--font-mono);
-      font-size: 0.58rem;
+      font-size: 0.64rem;
       font-weight: 700;
       color: var(--m-Sky-glow);
       background: rgba(46, 154, 254, 0.12);
-      padding: 0.12rem 0.4rem;
-      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      border-radius: var(--radius-pill);
       border: 1px solid rgba(46, 154, 254, 0.25);
     }
 
     .app-desc {
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       color: var(--text-secondary);
-      line-height: 1.35;
-      margin-bottom: 0.38rem;
+      line-height: 1.45;
+      margin-bottom: 0.25rem;
     }
 
     .app-tip-box {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
       background: rgba(0, 0, 0, 0.25);
-      border-left: 2px solid #10B981;
-      padding: 0.3rem 0.5rem;
-      border-radius: 0 4px 4px 0;
-      margin-bottom: 0.45rem;
-      line-height: 1.3;
+      border-left: 3px solid #10B981;
+      padding: 0.42rem 0.65rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 0.35rem;
+      line-height: 1.4;
     }
 
     .app-links {
       display: flex;
-      gap: 0.45rem;
+      gap: 0.55rem;
       align-items: center;
       flex-wrap: wrap;
       font-family: var(--font-mono);
-      font-size: 0.62rem;
-      margin-top: 0.25rem;
+      font-size: 0.68rem;
+      margin-top: 0.35rem;
     }
 
     .app-link-btn {
       color: var(--m-Sky-glow);
       text-decoration: none;
       font-weight: 700;
-      padding: 0.16rem 0.45rem;
-      border-radius: 4px;
+      padding: 0.24rem 0.65rem;
+      border-radius: var(--radius-pill);
       background: rgba(46, 154, 254, 0.1);
       border: 1px solid rgba(46, 154, 254, 0.2);
-      transition: background 0.15s ease;
+      transition: all 0.15s ease;
     }
 
     .app-link-btn:hover {
       background: rgba(46, 154, 254, 0.25);
-      text-decoration: underline;
+      text-decoration: none;
+      transform: translateY(-1px);
     }
 
     /* Mobile Sticky Bottom Dock */
@@ -1756,32 +1849,36 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       .packing-grid,
       .preset-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
       }
       .hotel-card {
-        padding: 0.75rem 0.85rem;
+        padding: 1.25rem 1.35rem;
+        border-radius: 16px;
       }
       .locate-pin-btn, .shortlist-btn {
-        padding: 0.4rem 0.65rem;
-        font-size: 0.72rem;
-        min-height: 38px;
+        padding: 0.45rem 0.85rem;
+        font-size: 0.74rem;
+        min-height: 40px;
+        border-radius: var(--radius-pill);
         display: inline-flex;
         align-items: center;
         justify-content: center;
       }
       .hotel-card-footer a {
-        padding: 0.4rem 0.65rem !important;
-        font-size: 0.72rem !important;
-        min-height: 38px;
+        padding: 0.45rem 0.85rem !important;
+        font-size: 0.74rem !important;
+        min-height: 40px;
+        border-radius: var(--radius-pill);
         display: inline-flex;
         align-items: center;
         justify-content: center;
       }
       .hub-breakdown-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 0.35rem;
+        gap: 0.45rem;
       }
       .hub-col {
-        padding: 0.35rem 0.45rem;
+        padding: 0.45rem 0.55rem;
       }
 
       /* Mobile Bottom Dock */
@@ -2325,36 +2422,36 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
             </p>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:0.6rem;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.15rem;">
             {TOP_MUSEUMS.map((mus) => (
-              <div class="m-event-card landmark-chip" data-lat={mus.lat} data-lng={mus.lng} style="cursor:pointer;border-left:3px solid #6366F1;" title="Tap to fly map directly to this museum">
+              <div class="m-event-card landmark-chip" data-lat={mus.lat} data-lng={mus.lng} style="cursor:pointer;border-left:3.5px solid #6366F1;padding:1.25rem 1.45rem;" title="Tap to fly map directly to this museum">
                 <div style="display:flex;justify-content:space-between;align-items:center;gap:0.4rem;">
-                  <span style="font-family:var(--font-mono);font-size:0.64rem;color:#818CF8;font-weight:700;">
+                  <span style="font-family:var(--font-mono);font-size:0.68rem;color:#818CF8;font-weight:700;">
                     📍 {mus.city.toUpperCase()} · {mus.area.split(',')[0]}
                   </span>
-                  <span style="font-family:var(--font-mono);font-size:0.6rem;background:rgba(99,102,241,0.15);color:#C7D2FE;padding:0.1rem 0.35rem;border-radius:4px;border:1px solid rgba(99,102,241,0.3);">
+                  <span style="font-family:var(--font-mono);font-size:0.64rem;background:rgba(99,102,241,0.15);color:#C7D2FE;padding:0.18rem 0.55rem;border-radius:9999px;border:1px solid rgba(99,102,241,0.3);">
                     {mus.category}
                   </span>
                 </div>
-                <div style="font-weight:800;font-size:0.88rem;margin-top:0.25rem;color:var(--text-primary);">
+                <div style="font-weight:800;font-size:0.98rem;margin-top:0.35rem;color:var(--text-primary);">
                   {mus.name}
                 </div>
-                <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--amber-telemetry);margin-top:0.15rem;font-weight:700;">
+                <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--amber-telemetry);margin-top:0.2rem;font-weight:700;">
                   {mus.badge}
                 </div>
-                <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.4;">
+                <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.35rem;line-height:1.5;">
                   {mus.highlight}
                 </div>
-                <div style="font-size:0.71rem;color:var(--text-primary);margin-top:0.25rem;line-height:1.4;background:var(--bg-card);padding:0.35rem 0.45rem;border-radius:5px;border:1px solid var(--border-hairline);">
+                <div style="font-size:0.78rem;color:var(--text-primary);margin-top:0.45rem;line-height:1.5;background:var(--bg-card);padding:0.55rem 0.75rem;border-radius:10px;border:1px solid var(--border-hairline);">
                   ✨ <strong>Must-See:</strong> {mus.keyExhibit}
                 </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.3rem;margin-top:0.4rem;font-size:0.66rem;font-family:var(--font-mono);border-top:1px dashed var(--border-hairline);padding-top:0.35rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.4rem;margin-top:0.65rem;font-size:0.72rem;font-family:var(--font-mono);border-top:1px dashed var(--border-hairline);padding-top:0.55rem;">
                   <span style="color:var(--text-muted);">🕒 {mus.openHours}</span>
-                  <span style="color:var(--nordic-mint);font-weight:700;background:rgba(16,185,129,0.1);padding:0.1rem 0.3rem;border-radius:3px;">
+                  <span style="color:var(--nordic-mint);font-weight:700;background:rgba(16,185,129,0.1);padding:0.18rem 0.55rem;border-radius:9999px;">
                     🎟️ {mus.admission}
                   </span>
                 </div>
-                <div style="font-size:0.65rem;color:var(--nordic-mint);margin-top:0.25rem;font-family:var(--font-mono);line-height:1.35;">
+                <div style="font-size:0.72rem;color:var(--nordic-mint);margin-top:0.45rem;font-family:var(--font-mono);line-height:1.45;">
                   💡 {mus.tip}
                 </div>
               </div>
@@ -2496,29 +2593,29 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
             </p>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:0.55rem;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.15rem;">
             {RC_CAR_VENUES.map((rc) => (
-              <div class="m-event-card landmark-chip" data-lat={rc.lat} data-lng={rc.lng} style="cursor:pointer;" title="Tap to fly map to this RC venue">
+              <div class="m-event-card landmark-chip" data-lat={rc.lat} data-lng={rc.lng} style="cursor:pointer;padding:1.25rem 1.45rem;" title="Tap to fly map to this RC venue">
                 <div style="display:flex;justify-content:space-between;align-items:center;gap:0.4rem;">
-                  <span style="font-family:var(--font-mono);font-size:0.64rem;color:var(--m-Sky-glow);font-weight:700;">
+                  <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--m-Sky-glow);font-weight:700;">
                     📍 {rc.city.toUpperCase()} · {rc.area}
                   </span>
-                  <span style="font-family:var(--font-mono);font-size:0.6rem;background:rgba(46,154,254,0.14);color:var(--m-Sky-glow);padding:0.1rem 0.35rem;border-radius:4px;border:1px solid rgba(46,154,254,0.3);">
+                  <span style="font-family:var(--font-mono);font-size:0.64rem;background:rgba(46,154,254,0.14);color:var(--m-Sky-glow);padding:0.18rem 0.55rem;border-radius:9999px;border:1px solid rgba(46,154,254,0.3);">
                     {rc.trackType.split('&')[0].trim()}
                   </span>
                 </div>
-                <div style="font-weight:800;font-size:0.88rem;margin-top:0.22rem;color:var(--text-primary);">
+                <div style="font-weight:800;font-size:0.98rem;margin-top:0.35rem;color:var(--text-primary);">
                   {rc.name}
                 </div>
-                <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;line-height:1.4;">
+                <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.3rem;line-height:1.5;">
                   <strong>Surface:</strong> {rc.surface}
                 </div>
-                <div style="font-size:0.71rem;color:var(--text-primary);margin-top:0.2rem;line-height:1.4;">
+                <div style="font-size:0.78rem;color:var(--text-primary);margin-top:0.3rem;line-height:1.5;">
                   {rc.highlight}
                 </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.35rem;font-size:0.66rem;font-family:var(--font-mono);color:var(--text-muted);border-top:1px dashed var(--border-hairline);padding-top:0.3rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.6rem;font-size:0.72rem;font-family:var(--font-mono);color:var(--text-muted);border-top:1px dashed var(--border-hairline);padding-top:0.5rem;">
                   <span>🕒 {rc.openHours}</span>
-                  <span style="color:var(--nordic-mint);">💡 {rc.tip}</span>
+                  <span style="color:var(--nordic-mint);font-weight:700;">💡 {rc.tip}</span>
                 </div>
               </div>
             ))}
@@ -2787,55 +2884,55 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
             </a>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(360px, 1fr));gap:1rem;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(360px, 1fr));gap:1.35rem;">
             {DESTINATION_GUIDES.map((g) => (
-              <div style="background:var(--bg-elevated);border:1px solid var(--border-hairline);border-radius:10px;padding:1.1rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;">
-                <div style="position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg, #0066B1, #1C2674, #E30613);"></div>
+              <div style="background:var(--bg-elevated);border:1px solid var(--border-hairline);border-radius:18px;padding:1.45rem 1.6rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.12);">
+                <div style="position:absolute;top:0;left:0;right:0;height:3.5px;background:linear-gradient(90deg, #0066B1, #1C2674, #E30613);"></div>
                 <div>
-                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-                    <span style="font-family:var(--font-mono);font-size:0.7rem;font-weight:800;color:var(--m-Sky-glow);background:rgba(46,154,254,0.12);padding:0.15rem 0.45rem;border-radius:4px;border:1px solid rgba(46,154,254,0.25);">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.65rem;">
+                    <span style="font-family:var(--font-mono);font-size:0.72rem;font-weight:800;color:var(--m-Sky-glow);background:rgba(46,154,254,0.12);padding:0.2rem 0.65rem;border-radius:9999px;border:1px solid rgba(46,154,254,0.25);">
                       HUB {g.hubNumber}
                     </span>
-                    <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--text-muted);">{g.dates}</span>
+                    <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-muted);">{g.dates}</span>
                   </div>
-                  <h4 style="font-size:1.02rem;font-weight:800;margin-bottom:0.25rem;">{g.name}</h4>
-                  <p style="font-size:0.78rem;color:var(--text-secondary);line-height:1.4;margin-bottom:0.65rem;">{g.tagline}</p>
+                  <h4 style="font-size:1.15rem;font-weight:800;margin-bottom:0.35rem;letter-spacing:-0.02em;">{g.name}</h4>
+                  <p style="font-size:0.82rem;color:var(--text-secondary);line-height:1.5;margin-bottom:0.85rem;">{g.tagline}</p>
                   
-                  <div style="font-size:0.75rem;font-style:italic;color:var(--text-primary);background:var(--bg-card);border-left:2px solid var(--m-Sky-glow);padding:0.45rem 0.65rem;border-radius:0 4px 4px 0;margin-bottom:0.75rem;">
+                  <div style="font-size:0.78rem;font-style:italic;color:var(--text-primary);background:var(--bg-card);border-left:3px solid var(--m-Sky-glow);padding:0.65rem 0.85rem;border-radius:0 8px 8px 0;margin-bottom:0.95rem;line-height:1.45;">
                     "{g.highlightsQuote}"
                   </div>
 
-                  <div style="font-family:var(--font-mono);font-size:0.65rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:0.35rem;">
+                  <div style="font-family:var(--font-mono);font-size:0.68rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.45rem;">
                     🎯 KEY ANCHORS ({g.keyActivities.length}):
                   </div>
-                  <ul style="list-style:none;display:flex;flex-direction:column;gap:0.35rem;margin-bottom:0.75rem;">
+                  <ul style="list-style:none;display:flex;flex-direction:column;gap:0.45rem;margin-bottom:0.95rem;">
                     {g.keyActivities.slice(0, 3).map((act) => (
-                      <li style="display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;">
-                        <span style="width:4px;height:4px;border-radius:50%;background:var(--m-Sky-glow);flex-shrink:0;"></span>
+                      <li style="display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;">
+                        <span style="width:5px;height:5px;border-radius:50%;background:var(--m-Sky-glow);flex-shrink:0;"></span>
                         <span style="font-weight:600;color:var(--text-primary);">{act.title}</span>
-                        <span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-muted);margin-left:auto;">{act.duration}</span>
+                        <span style="font-family:var(--font-mono);font-size:0.66rem;color:var(--text-muted);margin-left:auto;">{act.duration}</span>
                       </li>
                     ))}
                   </ul>
 
                   {g.automotiveAndEvents.length > 0 && (
-                    <div style="background:rgba(227,6,19,0.08);border:1px solid rgba(227,6,19,0.22);border-radius:6px;padding:0.5rem 0.65rem;margin-bottom:0.65rem;">
-                      <div style="font-family:var(--font-mono);font-size:0.68rem;font-weight:800;color:var(--m-red-glow);margin-bottom:0.15rem;">
+                    <div style="background:rgba(227,6,19,0.08);border:1px solid rgba(227,6,19,0.22);border-radius:12px;padding:0.75rem 0.95rem;margin-bottom:0.85rem;">
+                      <div style="font-family:var(--font-mono);font-size:0.72rem;font-weight:800;color:var(--m-red-glow);margin-bottom:0.2rem;">
                         🏎️ {g.automotiveAndEvents[0].title}
                       </div>
-                      <div style="font-size:0.72rem;color:var(--text-secondary);">
+                      <div style="font-size:0.76rem;color:var(--text-secondary);line-height:1.4;">
                         {g.automotiveAndEvents[0].venue} · {g.automotiveAndEvents[0].dates}
                       </div>
                     </div>
                   )}
                 </div>
 
-                <div style="display:flex;justify-content:space-between;align-items:center;padding-top:0.65rem;border-top:1px solid var(--border-hairline);margin-top:auto;">
-                  <a href={`./guides/${g.id}/`} class="cebpac-book-link" style="display:inline-flex;align-items:center;gap:0.3rem;padding:0.35rem 0.75rem;font-size:0.72rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding-top:0.85rem;border-top:1px solid var(--border-hairline);margin-top:auto;">
+                  <a href={`./guides/${g.id}/`} class="cebpac-book-link" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.42rem 0.95rem;font-size:0.74rem;">
                     <span>Open Field Guide</span>
                     <span>→</span>
                   </a>
-                  <button type="button" class="landmark-chip" data-guide-hub={g.id} style="font-size:0.68rem;padding:0.3rem 0.55rem;">
+                  <button type="button" class="landmark-chip" data-guide-hub={g.id} style="font-size:0.72rem;padding:0.38rem 0.75rem;">
                     <span>🗺️ Focus Map</span>
                   </button>
                 </div>
