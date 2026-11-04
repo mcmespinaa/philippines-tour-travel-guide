@@ -212,6 +212,13 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       border: 1px solid rgba(46, 154, 254, 0.3);
     }
 
+    .mobile-nav-utilities {
+      display: none;
+    }
+      color: var(--m-Sky-glow);
+      border: 1px solid rgba(46, 154, 254, 0.3);
+    }
+
     .badge-m-red {
       background: rgba(227, 6, 19, 0.14);
       color: var(--m-red-glow);
@@ -1832,17 +1839,26 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
     @media (max-width: 768px) {
       body {
         padding-bottom: 90px;
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
       }
-      /* Mobile Single-Row Sleek Header */
+      /* Mobile Single-Row Sleek 52px Native App Bar */
       .top-command-bar {
-        padding: 0.45rem 0.75rem;
+        height: 52px;
+        padding: 0.45rem 0.85rem;
         position: sticky;
         top: 0;
         z-index: 1050;
-        gap: 0.4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
       }
       .brand-cluster {
-        gap: 0.45rem;
+        gap: 0.5rem;
       }
       .m-crest {
         width: 38px;
@@ -1853,68 +1869,92 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         gap: 0.3rem;
       }
       .brand-titles p {
-        display: none;
+        display: none !important;
       }
       .badge-m-red {
-        display: none;
+        display: none !important;
       }
       .kpi-ribbon {
-        width: 100%;
+        display: none !important;
+      }
+      .m-drive-mode-bar {
+        display: none !important;
+      }
+      .mobile-nav-utilities {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        gap: 0.35rem;
+        gap: 0.4rem;
       }
-      .sheet-sync-btn {
-        display: none;
+      .mobile-curr-pill, .mobile-theme-pill, .mobile-guides-pill {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 0.32rem 0.65rem;
+        border-radius: var(--radius-pill);
+        background: var(--bg-card);
+        border: 1px solid var(--border-strong);
+        color: var(--text-primary);
+        cursor: pointer;
+        min-height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.15s ease;
       }
-      .kpi-chip {
-        flex: 1;
-        padding: 0.28rem 0.5rem;
-      }
-      .kpi-chip .val {
-        font-size: 0.82rem;
-      }
-      .segmented-control .curr-btn {
-        padding: 0.26rem 0.42rem;
-        font-size: 0.65rem;
-        min-height: 32px;
-      }
-      .theme-toggle-btn {
-        padding: 0.26rem 0.42rem;
-        font-size: 0.65rem;
-        min-height: 32px;
+      .mobile-curr-pill:hover, .mobile-theme-pill:hover, .mobile-guides-pill:hover {
+        border-color: var(--m-Sky-glow);
       }
 
       /* Hub Nav Strip Horizontal Touch Carousel */
       .hub-nav-strip {
-        padding: 0.35rem 0.75rem;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 0.45rem 0.85rem;
         position: static;
         top: auto;
-        gap: 0.35rem;
+        gap: 0.45rem;
         scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
+      }
+      .hub-nav-strip::-webkit-scrollbar {
+        display: none;
       }
       .hub-tab-btn {
         scroll-snap-align: start;
+        flex-shrink: 0;
+        white-space: nowrap;
         padding: 0.42rem 0.85rem;
         font-size: 0.76rem;
         min-height: 38px;
         border-radius: var(--radius-pill);
       }
 
-      /* Mobile Interactive Map */
+      /* Mobile App Shell Layout (Single Active View at a Time) */
       .cockpit-grid {
+        display: block !important;
         padding: 0.65rem 0.85rem 5.5rem;
-        gap: 1.15rem;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+      }
+      .map-column, .right-deck-column {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
       }
       #ph-interactive-map {
-        height: 250px;
+        height: 360px;
+        min-height: 320px;
         transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        border-radius: 16px;
+        border-radius: 18px;
       }
       #ph-interactive-map.map-expanded {
-        height: 68vh !important;
+        height: 72vh !important;
       }
       .map-control-group {
         display: flex;
@@ -2058,6 +2098,14 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         </h1>
         <p>32D Philippines Cockpit · {totalHotels} Stays (Ayala Triangle, Las Cabañas &amp; Lio) · Nov 8 – Dec 9, 2026</p>
       </div>
+    </div>
+
+    <div class="mobile-nav-utilities">
+      <button type="button" class="mobile-curr-pill" id="mobile-curr-btn" title="Tap to cycle currency (DKK → PHP → EUR)">
+        <span id="mobile-curr-label">DKK</span> ▾
+      </button>
+      <button type="button" class="mobile-theme-pill" id="mobile-theme-btn" title="Toggle Light / Dark mode">☀️</button>
+      <a href="./guides/" class="mobile-guides-pill" title="Destination Field Guides">📖</a>
     </div>
 
     <div class="kpi-ribbon">
@@ -2204,104 +2252,6 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
            DRIVE MODE 01: STAYS & 25k–30k DKK ACCOMMODATION BUDGET OPTIMIZER
            ===================================================================== -->
       <div class="deck-mode-section mode-active" id="mode-panel-stays" data-mode-panel="stays">
-        <!-- TOP RIGHT COCKPIT WIDGET: Travel Readiness, Checklist & Essential Apps (GCash, Grab, eTravel) -->
-        <div class="home-checklist-card" id="home-checklist-widget">
-          <div class="home-checklist-header">
-            <div class="home-checklist-title">
-              <span class="m-badge-inline"><span class="m-slash-1">/</span><span class="m-slash-2">/</span><span class="m-slash-3">/</span>MC</span>
-              <span>🎒 32-Day Travel Readiness, Checklist &amp; Essential Apps</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:0.75rem;">
-              <span class="home-checklist-progress" id="home-checklist-progress">0 / {totalPackingItems} Packed</span>
-              <button type="button" class="map-btn" id="btn-jump-full-checklist" style="font-size:0.68rem;padding:0.25rem 0.6rem;">
-                View All {totalPackingItems} Items ↗
-              </button>
-            </div>
-          </div>
-
-          <div class="home-subtab-bar">
-            <button type="button" class="home-subtab-btn active" id="subtab-btn-checklist" data-home-subtab="checklist">
-              🎒 Travel Checklist (<span id="home-checklist-tab-badge">0/{totalPackingItems}</span>)
-            </button>
-            <button type="button" class="home-subtab-btn" id="subtab-btn-apps" data-home-subtab="apps">
-              📱 Essential Apps · GCash, Grab &amp; More ({ESSENTIAL_APPS.length})
-            </button>
-          </div>
-
-          <!-- Subtab 1: Checklist -->
-          <div id="home-subtab-content-checklist">
-            <div class="home-checklist-bar-track">
-              <div class="home-checklist-bar-fill" id="home-checklist-bar-fill" style="width:0%;"></div>
-            </div>
-            <div class="home-checklist-grid">
-              {PACKING_CATEGORIES.slice(0, 4).map((cat) => {
-                const topItem = cat.items[0];
-                const secondItem = cat.items[1];
-                return (
-                  <div class="home-checklist-col">
-                    <div class="home-checklist-col-title">
-                      <span>{cat.icon}</span> <span>{cat.title}</span>
-                    </div>
-                    <label class="pack-item-label" for={`home-pack-${cat.id}-0`}>
-                      <input type="checkbox" id={`home-pack-${cat.id}-0`} class="pack-checkbox home-pack-synced" data-pack-id={`pack-${cat.id}-0`} />
-                      <span>{topItem}</span>
-                    </label>
-                    {secondItem && (
-                      <label class="pack-item-label" for={`home-pack-${cat.id}-1`}>
-                        <input type="checkbox" id={`home-pack-${cat.id}-1`} class="pack-checkbox home-pack-synced" data-pack-id={`pack-${cat.id}-1`} />
-                        <span>{secondItem}</span>
-                      </label>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <!-- Subtab 2: Essential Apps (GCash, Grab, eTravel, etc.) -->
-          <div id="home-subtab-content-apps" style="display:none;">
-            <div style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.4rem;">
-              Crucial mobile apps for cashless payments (QR Ph), on-demand transport, immigration clearance, and island roaming across the Philippines:
-            </div>
-            <div class="apps-bento-grid">
-              {ESSENTIAL_APPS.map((app) => (
-                <div class="app-card">
-                  <div>
-                    <div class="app-card-head">
-                      <div class="app-name-wrap">
-                        <span>{app.icon}</span>
-                        <span>{app.name}</span>
-                      </div>
-                      <span class="app-badge-tag">{app.badge}</span>
-                    </div>
-                    <p class="app-desc">{app.purpose}</p>
-                    <div class="app-tip-box">
-                      <strong>💡 Tip:</strong> {app.tip}
-                    </div>
-                  </div>
-                  <div class="app-links">
-                    {app.webUrl && (
-                      <a href={app.webUrl} target="_blank" rel="noopener noreferrer" class="app-link-btn">
-                        Web ↗
-                      </a>
-                    )}
-                    {app.iosUrl && (
-                      <a href={app.iosUrl} target="_blank" rel="noopener noreferrer" class="app-link-btn">
-                        App Store ↗
-                      </a>
-                    )}
-                    {app.androidUrl && (
-                      <a href={app.androidUrl} target="_blank" rel="noopener noreferrer" class="app-link-btn">
-                        Google Play ↗
-                      </a>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
         <div class="budget-optimizer-card" id="budget-optimizer">
           <div class="budget-opt-header">
             <div class="budget-opt-title">
@@ -3234,30 +3184,30 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
   <!-- Mobile Sticky Bottom App Navigation Bar -->
   <nav class="mobile-bottom-dock" aria-label="Mobile Quick Navigation">
-    <button type="button" class="dock-btn" id="dock-btn-map" title="Jump to Map & Telemetry">
+    <button type="button" class="dock-btn active" id="dock-btn-map" data-mobile-mode="map" title="Interactive Map & Telemetry">
       <span>🗺️</span>
       <span>Map</span>
     </button>
-    <button type="button" class="dock-btn active" data-mobile-mode="stays" title="Stays & Budget">
+    <button type="button" class="dock-btn" id="dock-btn-stays" data-mobile-mode="stays" title="Stays & Budget Optimizer">
       <span>🏨</span>
       <span>Stays</span>
     </button>
-    <button type="button" class="dock-btn" data-mobile-mode="msport" title="Car Shows & Roadtrip">
+    <button type="button" class="dock-btn" id="dock-btn-msport" data-mobile-mode="msport" title="Car Shows, RC & Meets">
       <span>🏎️</span>
       <span>///M</span>
     </button>
-    <button type="button" class="dock-btn" data-mobile-mode="schedule" title="32-Day Itinerary">
+    <button type="button" class="dock-btn" id="dock-btn-schedule" data-mobile-mode="schedule" title="32-Day Master Itinerary">
       <span>🗓️</span>
       <span>32D</span>
     </button>
-    <button type="button" class="dock-btn" data-mobile-mode="packing" title="Travel Checklist & Apps">
+    <button type="button" class="dock-btn" id="dock-btn-packing" data-mobile-mode="packing" title="Travel Checklist & Apps">
       <span>🎒</span>
       <span>Pack</span>
     </button>
-    <button type="button" class="dock-btn" data-mobile-mode="guides" title="Island Field Guides">
+    <a href="./guides/" class="dock-btn" id="dock-btn-guides" data-mobile-mode="guides" title="Island Field Guides">
       <span>📖</span>
       <span>Guides</span>
-    </button>
+    </a>
   </nav>
 
   <!-- Client-side Interactive Controller -->
@@ -3339,6 +3289,10 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         if (themeLabel) {
           themeLabel.textContent = isNordicLight ? '🌑 ///M Carbon' : '☀️ Nordic Light';
         }
+        const mobThemeBtn = document.getElementById('mobile-theme-btn');
+        if (mobThemeBtn) {
+          mobThemeBtn.textContent = isNordicLight ? '🌑' : '☀️';
+        }
         setMapStyleByIndex(isNordicLight ? 1 : 0);
       }
       if (isNordicLight) syncThemeUI();
@@ -3349,7 +3303,11 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         syncThemeUI();
       });
 
-      // BMW M Drive Mode Switcher (Stays / ///M Auto & Roadtrip / 32-Day Log / Flights / Packing / All)
+      document.getElementById('mobile-theme-btn')?.addEventListener('click', () => {
+        themeBtn?.click();
+      });
+
+      // BMW M Drive Mode Switcher (Map / Stays / ///M Auto & Roadtrip / 32-Day Log / Flights / Packing / All)
       function activateDriveMode(modeKey) {
         document.querySelectorAll('.m-mode-btn').forEach((btn) => {
           btn.classList.toggle('active', btn.getAttribute('data-drive-mode') === modeKey);
@@ -3357,11 +3315,42 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         document.querySelectorAll('.dock-btn').forEach((btn) => {
           btn.classList.toggle('active', btn.getAttribute('data-mobile-mode') === modeKey);
         });
-        document.querySelectorAll('.deck-mode-section').forEach((sec) => {
-          const panelKey = sec.getAttribute('data-mode-panel');
-          sec.classList.toggle('mode-active', modeKey === 'all' || panelKey === modeKey);
-        });
-        setTimeout(() => map.invalidateSize(), 150);
+
+        const isMobile = window.innerWidth <= 768;
+        const mapCol = document.getElementById('section-map');
+        const rightDeck = document.getElementById('right-deck');
+
+        if (isMobile) {
+          if (modeKey === 'map') {
+            if (mapCol) mapCol.style.display = 'block';
+            if (rightDeck) rightDeck.style.display = 'none';
+            setTimeout(() => map.invalidateSize(), 150);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else if (modeKey === 'guides') {
+            window.location.href = './guides/';
+          } else {
+            if (mapCol) mapCol.style.display = 'none';
+            if (rightDeck) rightDeck.style.display = 'block';
+
+            document.querySelectorAll('.deck-mode-section').forEach((sec) => {
+              const panelKey = sec.getAttribute('data-mode-panel');
+              sec.classList.toggle('mode-active', modeKey === 'all' || panelKey === modeKey);
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        } else {
+          if (mapCol) mapCol.style.display = 'block';
+          if (rightDeck) rightDeck.style.display = 'block';
+
+          document.querySelectorAll('.deck-mode-section').forEach((sec) => {
+            const panelKey = sec.getAttribute('data-mode-panel');
+            sec.classList.toggle('mode-active', modeKey === 'all' || panelKey === modeKey);
+          });
+          if (modeKey === 'guides') {
+            window.location.href = './guides/';
+          }
+          setTimeout(() => map.invalidateSize(), 150);
+        }
       }
 
       document.querySelectorAll('.m-mode-btn').forEach((btn) => {
@@ -3372,17 +3361,31 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       });
 
       document.querySelectorAll('.dock-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
           const modeKey = btn.getAttribute('data-mobile-mode');
+          if (modeKey === 'guides') {
+            return; // let link navigate
+          }
           if (modeKey) {
+            e.preventDefault();
             activateDriveMode(modeKey);
-            document.getElementById('right-deck')?.scrollIntoView({ behavior: 'smooth' });
           }
         });
       });
 
-      document.getElementById('dock-btn-map')?.addEventListener('click', () => {
-        document.getElementById('section-map')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // On mobile initial load, default to Map view
+      if (window.innerWidth <= 768) {
+        activateDriveMode('map');
+      }
+
+      window.addEventListener('resize', () => {
+        const isMobile = window.innerWidth <= 768;
+        const mapCol = document.getElementById('section-map');
+        const rightDeck = document.getElementById('right-deck');
+        if (!isMobile) {
+          if (mapCol) mapCol.style.display = 'block';
+          if (rightDeck) rightDeck.style.display = 'block';
+        }
       });
 
       // Mobile Map Expand / Compact Toggle
@@ -3767,20 +3770,36 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         return `${converted.toLocaleString()} DKK`;
       }
 
+      function setCurrency(newCurr) {
+        currentCurr = newCurr;
+        document.querySelectorAll('.curr-btn').forEach((b) => {
+          b.classList.toggle('active', b.getAttribute('data-curr') === newCurr);
+        });
+
+        const mobileLabel = document.getElementById('mobile-curr-label');
+        if (mobileLabel) mobileLabel.textContent = newCurr;
+
+        document.querySelectorAll('.price-convertible').forEach((el) => {
+          const dkk = parseFloat(el.getAttribute('data-dkk'));
+          const suffix = el.getAttribute('data-suffix') || '';
+          const prefix = suffix === '' ? '~' : '';
+          el.textContent = `${prefix}${formatCurrency(dkk, currentCurr)}${suffix}`;
+        });
+        updateShortlistSummary();
+      }
+
       document.querySelectorAll('.curr-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-          currentCurr = btn.getAttribute('data-curr') || 'DKK';
-          document.querySelectorAll('.curr-btn').forEach((b) => b.classList.remove('active'));
-          btn.classList.add('active');
-
-          document.querySelectorAll('.price-convertible').forEach((el) => {
-            const dkk = parseFloat(el.getAttribute('data-dkk'));
-            const suffix = el.getAttribute('data-suffix') || '';
-            const prefix = suffix === '' ? '~' : '';
-            el.textContent = `${prefix}${formatCurrency(dkk, currentCurr)}${suffix}`;
-          });
-          updateShortlistSummary();
+          const curr = btn.getAttribute('data-curr') || 'DKK';
+          setCurrency(curr);
         });
+      });
+
+      const mobileCurrBtn = document.getElementById('mobile-curr-btn');
+      mobileCurrBtn?.addEventListener('click', () => {
+        const currencies = ['DKK', 'PHP', 'EUR'];
+        const nextIdx = (currencies.indexOf(currentCurr) + 1) % currencies.length;
+        setCurrency(currencies[nextIdx]);
       });
 
       // 5. Interactive Hotel Shortlist & 25k-30k DKK Budget Presets
