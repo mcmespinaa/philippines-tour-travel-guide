@@ -1804,19 +1804,21 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       }
       .hub-tab-btn {
         scroll-snap-align: start;
-        padding: 0.38rem 0.65rem;
-        font-size: 0.72rem;
-        min-height: 36px;
+        padding: 0.42rem 0.85rem;
+        font-size: 0.76rem;
+        min-height: 38px;
+        border-radius: var(--radius-pill);
       }
 
       /* Mobile Interactive Map */
       .cockpit-grid {
-        padding: 0.45rem 0.75rem 5rem;
-        gap: 0.75rem;
+        padding: 0.65rem 0.85rem 5.5rem;
+        gap: 1.15rem;
       }
       #ph-interactive-map {
         height: 250px;
         transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        border-radius: 16px;
       }
       #ph-interactive-map.map-expanded {
         height: 68vh !important;
@@ -1826,7 +1828,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        gap: 0.35rem;
+        gap: 0.45rem;
         padding-bottom: 3px;
         flex-wrap: nowrap;
       }
@@ -1836,9 +1838,10 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       .map-btn {
         white-space: nowrap;
         flex-shrink: 0;
-        padding: 0.35rem 0.55rem;
-        font-size: 0.65rem;
-        min-height: 34px;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.68rem;
+        min-height: 36px;
+        border-radius: var(--radius-pill);
       }
 
       /* Grids and Touch Targets */
@@ -1888,16 +1891,31 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
         background: rgba(10, 13, 18, 0.95);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
+        width: 100%;
+        box-sizing: border-box;
       }
       .dock-btn {
-        flex: 1;
-        padding: 0.25rem 0.1rem;
-        font-size: 0.6rem;
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 0.25rem 0.05rem;
+        font-size: 0.58rem;
         min-height: 44px;
         border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
       }
       .dock-btn span:first-child {
         font-size: 1.1rem;
+        line-height: 1;
+      }
+      .dock-btn span:last-child {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
       }
     }
 
