@@ -1932,6 +1932,7 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
     region: 'Metro Manila · Luzon',
     dates: 'Nov 8–12 (5N) & Dec 4–6 (3N) · 8 Nights Total',
     nights: 8,
+    heroImage: './images/hubs/makati-bgc.jpg',
     vibeCheck: 'Cosmopolitan, pedestrian-friendly, high-design luxury. Manicured park canopy meets towering glass architectural statements, third-wave coffee roasters, and Manila’s most passionate automotive collector culture.',
     highlightsQuote: 'From candlelit dining inside a 1937 Art Deco air-traffic control tower to lunch beside race-ready Porsche GT3 RSs and the B2B Carshow with Sung Kang.',
     keyActivities: [
@@ -1987,7 +1988,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [14.4172, 121.0384],
         description: 'Cruising south down the elevated Skyway Stage 3 to Karrera Bistro, the epicenter of Philippine automotive culture. A motorsport cafe and rotating gallery where vintage air-cooled 911s, gated-shifter Ferraris, and rare JDM legends sit directly next to dining tables.',
         insiderTip: 'Drive down around 09:00 AM on Wednesday Nov 11 to avoid inbound commute traffic. Pair their single-origin espresso with a wood-fired breakfast pizza.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: './images/events/event-karrera-bistro.jpg'
       },
       {
         id: 'act-presidential-cars',
@@ -1999,7 +2001,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [14.6515, 121.0493],
         description: 'The National Historical Commission of the Philippines curated pavilion holding 12 historic state limousines. Highlights include Imelda Marcos’s bulletproof 1980 Rolls-Royce Phantom V, a 1980 Mercedes-Benz 600 Pullman Landaulet, and Manuel L. Quezon’s 1937 Chrysler Airflow.',
         insiderTip: 'Open Tue–Sun 08:00–16:00. Free admission. Accessible directly via Skyway Stage 3 off the Quezon Ave ramp.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: './images/museums/mus-presidential-cars.jpg'
       },
       {
         id: 'act-bgc-supercars',
@@ -2011,7 +2014,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [14.5505, 121.0505],
         description: 'A pedestrian open-air mall flanked by tropical landscaping, flagship architecture, and the highest concentration of exotic supercars in Southeast Asia. Friday and Saturday evenings bring spontaneous gatherings of GT3s, McLarens, and widebody builds.',
         insiderTip: 'Grab an outdoor patio table at Single Origin or Wildflour along 7th Ave for prime front-row views of the vehicle parades.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Bonifacio_High_Street_from_PSE_Tower%2C_BGC%2C_Taguig%2C_Aug_2025.jpg/1280px-Bonifacio_High_Street_from_PSE_Tower%2C_BGC%2C_Taguig%2C_Aug_2025.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       }
     ],
     automotiveAndEvents: [
@@ -2066,6 +2070,7 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
     region: 'Metro Manila Waterfront · Luzon',
     dates: 'Nov 13–14 (2 Nights)',
     nights: 2,
+    heroImage: './images/hubs/manila-bay.jpg',
     vibeCheck: 'Dramatic contrast between 400-year-old Spanish volcanic tuff stone fortifications, wide open bayfront sunset horizons, and electric custom automotive conventions.',
     highlightsQuote: 'Check into your bayfront suite on Friday Nov 13 just in time to walk 3 minutes to the international Liberty Walk meet at Parqal, followed by the Manila Auto Salon next door.',
     keyActivities: [
@@ -2079,7 +2084,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [14.5912, 120.9754],
         description: 'Step into the 16th-century Spanish colonial capital. Walk the ramparts of Fort Santiago overlooking the Pasig River, explore the UNESCO World Heritage San Agustin Church (built 1571 with baroque trompe-l’œil ceilings), and board a horse-drawn kalesa carriage through cobblestone plazas.',
         insiderTip: 'Start early at 08:30 AM before the sun peaks. Grab an iced ginger-infused Barako espresso at Papakape inside Fort Santiago’s stone arches.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Fort_Santiago%2C_Intramuros.JPG/1280px-Fort_Santiago%2C_Intramuros.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-liberty-walk',
@@ -2091,7 +2097,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [14.5256, 120.9902],
         description: 'An extraordinary live international gathering on Friday Nov 13, 2026. Legendary Japanese tuner Wataru Kato and Hyuma Kato bring their signature slammed, bolt-on widebody Lamborghini, Nissan GT-R, and Ferrari builds to Parqal’s climate-controlled glass-canopy boulevard.',
         insiderTip: 'Located only 1.2 km (3 minutes) from Shore Residences, Conrad, and Lanson Place. Walk through the covered Aseana boulevard; bring an action cam or camera for fan signings and night lighting.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: './images/events/event-liberty-walk.jpg'
       },
       {
         id: 'act-auto-salon',
@@ -2105,12 +2112,7 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         insiderTip: 'Directly across the footbridge from Shore Residences, Conrad Manila, and Lanson Place. Tickets are available at the door or via SM Tickets.',
         bookingRequired: true,
         bookingUrl: 'https://smtickets.com/',
-        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Bay_Area_City_Pasay_06.jpg/1280px-Bay_Area_City_Pasay_06.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Liberty_Walk_Nissan_GT-R_%2816045952677%29.jpg/1280px-Liberty_Walk_Nissan_GT-R_%2816045952677%29.jpg',
-        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Fort_Santiago%2C_Intramuros.JPG/1280px-Fort_Santiago%2C_Intramuros.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Bonifacio_High_Street_from_PSE_Tower%2C_BGC%2C_Taguig%2C_Aug_2025.jpg/1280px-Bonifacio_High_Street_from_PSE_Tower%2C_BGC%2C_Taguig%2C_Aug_2025.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-        imageUrl: 'https://thumb.wikimedia.org/wikipedia/en/thumb/9/9e/Presidential_Car_Museum_QMC.jpg/1280px-Presidential_Car_Museum_QMC.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-        imageUrl: 'https://thumb.wikimedia.org/wikipedia/en/thumb/2/23/Filinvest_City%2C_Festival_Mall_drone_%28Alabang%2C_Muntinlupa_City%3B_01-04-2026%29.jpg/1280px-Filinvest_City%2C_Festival_Mall_drone_%28Alabang%2C_Muntinlupa_City%3B_01-04-2026%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
+        imageUrl: './images/events/event-manila-auto-salon.jpg'
       },
       {
         id: 'act-bay-sunset',
@@ -2122,7 +2124,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [14.5350, 120.9780],
         description: 'Famed since the 19th century as one of the world’s most spectacular sunsets. Watch the sun dip into the South China Sea, casting molten gold and violet hues across the yacht marina and bay waters.',
         insiderTip: 'Watch from the open-air deck at Conrad Manila’s C Lounge or the rooftop bar at Admiral Hotel MGallery with live jazz accompaniment.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Bay_Area_City_Pasay_06.jpg/1280px-Bay_Area_City_Pasay_06.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-galleon-museum',
@@ -2135,7 +2138,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'Dedicated to the 250-year Manila-Acapulco Galleon Trade (1565–1815) that linked Asia, the Americas, and Europe. Houses an authentic full-scale 60-meter reconstruction of an 18th-century Spanish galleon ship, interactive navigational chambers, and recovered ocean trade treasures.',
         insiderTip: 'Steps from Conrad Manila and SMX Convention Center. Ideal indoor air-conditioned exploration during midday heat before the car shows.',
         bookingRequired: true,
-        bookingUrl: 'https://www.mallofasia.com/'
+        bookingUrl: 'https://www.mallofasia.com/',
+        imageUrl: './images/museums/mus-galleon.jpg'
       },
       {
         id: 'act-national-museum-complex',
@@ -2148,7 +2152,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'The premier national cultural sanctuary of the Philippines. Experience Juan Luna’s colossal 1884 masterpiece "Spoliarium" in the neoclassical Old Legislative Building, and marvel at the 6-story DNA-inspired "Tree of Life" glass canopy and scenic elevator in the Natural History Museum.',
         insiderTip: 'Free admission! Closed Mondays. Start at Natural History at 09:30 AM, then cross the Agrifina Circle courtyard to Fine Arts for the Spoliarium.',
         bookingRequired: false,
-        bookingUrl: 'https://www.nationalmuseum.gov.ph/'
+        bookingUrl: 'https://www.nationalmuseum.gov.ph/',
+        imageUrl: './images/museums/mus-fine-arts.jpg'
       }
     ],
     automotiveAndEvents: [
@@ -2200,6 +2205,7 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
     region: 'Central Luzon · Pampanga',
     dates: 'Nov 15 (1 Night)',
     nights: 1,
+    heroImage: './images/hubs/clark-subic.jpg',
     vibeCheck: 'Open-throttle motorsport energy meets tranquil tree-lined American aviation avenues and the richest culinary traditions in the archipelago.',
     highlightsQuote: 'Drive the smooth NLEX Skyway corridor to Clark International Speedway for circuit laps and paddock access, followed by a multi-course Kapampangan feast at 25 Seeds.',
     keyActivities: [
@@ -2242,7 +2248,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [15.1850, 120.5350],
         description: 'Recharge muscles after track laps with Swiss alpine-inspired wellness. Features thermal vitality pools, herbal saunas, experiential steam rooms, and deep-tissue muscle recovery massages.',
         insiderTip: 'Book the couples hydrotherapy suite directly upon checking into Swissôtel or Marriott.',
-        bookingRequired: true
+        bookingRequired: true,
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Hydrotherapy_pool_at_a_luxury_spa.jpg/1280px-Hydrotherapy_pool_at_a_luxury_spa.jpg'
       }
     ],
     automotiveAndEvents: [
@@ -2276,6 +2283,7 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
     region: 'Northern Palawan',
     dates: 'Nov 16–20 (5 Nights Total: 2N Lagoon Houseboat + 3N Tao Paraw Sail)',
     nights: 5,
+    heroImage: './images/hubs/coron.jpg',
     vibeCheck: 'Pure, untouched prehistoric wonder. Towering black karst monoliths rising sheer from neon emerald lagoons, zero dayboat noise at night, and authentic open-water bamboo paraw sailing.',
     highlightsQuote: 'Wake up floating directly inside a sheltered turquoise lagoon at Paolyn Eco-Houseboat, swim into Kayangan Lake before dawn, then sail the uninhabited Linapacan atolls with Tao Philippines.',
     keyActivities: [
@@ -2304,7 +2312,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [11.9542, 120.2248],
         description: 'Slip through hidden karst openings at 07:00 AM on a private wooden banca. Climb the 300 stone steps to the iconic Kayangan Lake viewpoint, then swim into the 98% pure brackish waters. Follow with Twin Lagoon, swimming under a limestone archway into an emerald inland sanctuary.',
         insiderTip: 'Because you sleep on the island at Paolyn, you reach Kayangan Lake 1.5 hours before boats arriving from Coron town.',
-        bookingRequired: true
+        bookingRequired: true,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Cayangan_Lake%2C_Coron_Islands%2C_Philippines_-_panoramio.jpg/1280px-Cayangan_Lake%2C_Coron_Islands%2C_Philippines_-_panoramio.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       },
       {
         id: 'act-barracuda-lake',
@@ -2316,7 +2325,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [11.9575, 120.2205],
         description: 'A geological phenomenon. Swim between towering underwater limestone cliffs where water temperatures shift dramatically from 28°C at the surface to an astonishing 38°C geothermal layer deeper down, creating visible halocline optical shimmers.',
         insiderTip: 'Rent quality snorkel gear with clear lenses. Bring a waterproof dive torch or action cam to capture the dramatic underwater karst formations.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Barracuda_Lake_%28Coron%2C_Palawan%3B_03-17-2024%29.jpg/1280px-Barracuda_Lake_%28Coron%2C_Palawan%3B_03-17-2024%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail'
       },
       {
         id: 'act-maquinit-springs',
@@ -2328,7 +2338,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [11.9962, 120.2458],
         description: 'One of the world’s very few natural saltwater geothermal hot springs. Cascading stone pools nestled in a dense coastal mangrove forest with water heated by an underground volcano to 39°C–41°C.',
         insiderTip: 'Arrive at 17:30 as the sun dips behind the mangroves. Bring a dry towel and light sandals for the wooden boardwalk.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Pier_of_Maquinit_Hot_Springs%2C_Coron%2C_Philipppines_-_panoramio.jpg/1280px-Pier_of_Maquinit_Hot_Springs%2C_Coron%2C_Philipppines_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail'
       },
       {
         id: 'act-tao-expedition',
@@ -2342,10 +2353,7 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         insiderTip: 'Pack your 20L waterproof drybag with essentials; large roller luggage stays safely below deck. Bring reef-safe sunscreen and a 20,000mAh power bank.',
         bookingRequired: true,
         bookingUrl: 'https://taophilippines.com/',
-        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Boracay_paraw_sailboats_015.jpg/1280px-Boracay_paraw_sailboats_015.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Pier_of_Maquinit_Hot_Springs%2C_Coron%2C_Philipppines_-_panoramio.jpg/1280px-Pier_of_Maquinit_Hot_Springs%2C_Coron%2C_Philipppines_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
-        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Barracuda_Lake_%28Coron%2C_Palawan%3B_03-17-2024%29.jpg/1280px-Barracuda_Lake_%28Coron%2C_Palawan%3B_03-17-2024%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
-        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Cayangan_Lake%2C_Coron_Islands%2C_Philippines_-_panoramio.jpg/1280px-Cayangan_Lake%2C_Coron_Islands%2C_Philippines_-_panoramio.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Boracay_paraw_sailboats_015.jpg/1280px-Boracay_paraw_sailboats_015.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'
       }
     ],
     automotiveAndEvents: [
@@ -2379,6 +2387,7 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
     region: 'Northern Palawan',
     dates: 'Nov 21–26 (6 Nights)',
     nights: 6,
+    heroImage: './images/hubs/el-nido.jpg',
     vibeCheck: 'Effortlessly chic tropical luxury. Golden sandbars facing world-famous western sunsets, private twin-engine speedboats through dramatic karst archipelagos, and peaceful eco-sanctuaries free of motorized traffic.',
     highlightsQuote: 'From the golden sunset sandbars of Las Cabañas to the 4km golden crescent of Nacpan Beach and private speedboat exploration of Big Lagoon.',
     keyActivities: [
@@ -2392,7 +2401,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         coords: [11.1458, 119.3948],
         description: 'The definitive sunset pilgrimage in Palawan. A wide golden-sand beach facing due west toward Depeldet Island. Lounge on plush daybeds at Maremegmeg Beach Club (MBC) with live acoustic musicians, chilled craft cocktails, and crimson evening skies.',
         insiderTip: 'Arrive by 16:30 to secure front-row beachfront loungers. At low tide, you can walk across the shallow sandbar directly to Depeldet Island.',
-        bookingRequired: false
+        bookingRequired: false,
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Sundown_in_Maremegmeg.jpg/1280px-Sundown_in_Maremegmeg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail'
       },
       {
         id: 'act-private-speedboat',
@@ -2406,8 +2416,7 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         insiderTip: 'Book a morning slot departing Lio or Town Beach at 08:00 AM. Having a private boat allows you to reverse the standard tour route to avoid all other boats.',
         bookingRequired: true,
         bookingUrl: 'https://elnidoresorts.com/',
-        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
-        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Sundown_in_Maremegmeg.jpg/1280px-Sundown_in_Maremegmeg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail'
+        imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail'
       },
       {
         id: 'act-nacpan-drive',
@@ -2481,6 +2490,7 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
     region: 'Central Visayas',
     dates: 'Nov 27–28 (2N) & Dec 3 (1N) · 3 Nights Total',
     nights: 3,
+    heroImage: './images/hubs/cebu-mactan.jpg',
     vibeCheck: 'Dynamic, high-energy metropolitan hub surrounded by thrilling mountain driving passes, deep marine sanctuaries, and landmark engineering achievements.',
     highlightsQuote: 'Carve through the mist-shrouded switchbacks of the 33km Cebu Transcentral Highway, cross the 8.9km CCLEX cable-stayed sea bridge, and savor crispy Carcar lechon.',
     keyActivities: [
@@ -2547,7 +2557,8 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
         description: 'Housed in the neoclassical 1910 Malacañang sa Sugbo / Old Aduana building. Central Visayas flagship museum with five curated galleries exploring maritime archaeology, 1521 Spanish contact, pre-colonial gold death masks, and ethnographic Visayan treasures.',
         insiderTip: 'Free admission! Located right beside Fort San Pedro and Cebu Pier 1 (OceanJet ferry to Bohol). Exceptional air-conditioned sanctuary with curated galleries.',
         bookingRequired: false,
-        bookingUrl: 'https://www.nationalmuseum.gov.ph/'
+        bookingUrl: 'https://www.nationalmuseum.gov.ph/',
+        imageUrl: './images/museums/mus-cebu-national.jpg'
       },
       {
         id: 'act-carcar-lechon',
@@ -2607,6 +2618,7 @@ export const DESTINATION_GUIDES: DestinationGuide[] = [
     region: 'Central Visayas',
     dates: 'Nov 29–Dec 2 (4 Nights)',
     nights: 4,
+    heroImage: './images/hubs/bohol-siquijor.jpg',
     vibeCheck: 'Enchanted island serenity. Driving beneath a surreal green cathedral of dense mahogany canopies, cruising jade-green jungle rivers, and gliding around a zero-traffic 72km oceanside ring road.',
     highlightsQuote: 'Drive through the iconic 2km Bilar Mahogany Forest tunnel to the Chocolate Hills, cruise the jade-green Loboc River with live guitar serenades, then carve around the 72km coastal loop of Siquijor.',
     keyActivities: [
