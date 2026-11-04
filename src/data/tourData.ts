@@ -11,6 +11,7 @@ export interface HotelOption {
   lat: number;
   lng: number;
   highlight: string;
+  imageUrl?: string;
 }
 
 export interface DiningOption {
@@ -34,6 +35,7 @@ export interface RcVenue {
   lng: number;
   openHours: string;
   tip: string;
+  imageUrl?: string;
 }
 
 export interface MuseumVenue {
@@ -52,6 +54,7 @@ export interface MuseumVenue {
   lng: number;
   tip: string;
   websiteUrl?: string;
+  imageUrl?: string;
 }
 
 export interface FlightRoute {
@@ -308,6 +311,7 @@ export const ESSENTIAL_APPS: EssentialApp[] = [
 export const RC_CAR_VENUES: RcVenue[] = [
   {
     id: 'rc-circulo-verde',
+    imageUrl: './images/rc/rc-circulo-verde.jpg',
     name: 'Circulo Verde RC Raceway (CV RC Track)',
     city: 'Metro Manila',
     hubId: 'makati-bgc',
@@ -322,6 +326,7 @@ export const RC_CAR_VENUES: RcVenue[] = [
   },
   {
     id: 'rc-brickyard-makati',
+    imageUrl: './images/rc/rc-brickyard-makati.jpg',
     name: 'The Brickyard by Lil’s Hobby Center (Glorietta 2, Makati)',
     city: 'Metro Manila',
     hubId: 'makati-bgc',
@@ -336,6 +341,7 @@ export const RC_CAR_VENUES: RcVenue[] = [
   },
   {
     id: 'rc-jp-raceway',
+    imageUrl: './images/rc/rc-jp-raceway.jpg',
     name: 'JP Raceway (EP On-Road & Mini-Z Track)',
     city: 'Metro Manila',
     hubId: 'makati-bgc',
@@ -350,6 +356,7 @@ export const RC_CAR_VENUES: RcVenue[] = [
   },
   {
     id: 'rc-speedzone-drift',
+    imageUrl: './images/rc/rc-speedzone-drift.jpg',
     name: 'Speedzone RC Drift Arena & Scale Garage',
     city: 'Metro Manila',
     hubId: 'manila-bay',
@@ -364,6 +371,7 @@ export const RC_CAR_VENUES: RcVenue[] = [
   },
   {
     id: 'rc-queen-city-cebu',
+    imageUrl: './images/rc/rc-queen-city-cebu.jpg',
     name: 'Queen City RC Raceway (Cebu RC Track)',
     city: 'Cebu',
     hubId: 'cebu-mactan',
@@ -378,6 +386,7 @@ export const RC_CAR_VENUES: RcVenue[] = [
   },
   {
     id: 'rc-brickyard-cebu',
+    imageUrl: './images/rc/rc-brickyard-cebu.jpg',
     name: 'The Brickyard & Tamiya Cebu (Ayala Center Cebu)',
     city: 'Cebu',
     hubId: 'cebu-mactan',
@@ -395,6 +404,7 @@ export const RC_CAR_VENUES: RcVenue[] = [
 export const TOP_MUSEUMS: MuseumVenue[] = [
   {
     id: 'mus-galleon',
+    imageUrl: './images/museums/mus-galleon.jpg',
     name: 'The Galleon Museum (Manila-Acapulco Maritime Trade)',
     city: 'Metro Manila',
     hubId: 'manila-bay',
@@ -412,6 +422,7 @@ export const TOP_MUSEUMS: MuseumVenue[] = [
   },
   {
     id: 'mus-natural-history',
+    imageUrl: './images/museums/mus-natural-history.jpg',
     name: 'National Museum of Natural History (Tree of Life)',
     city: 'Metro Manila',
     hubId: 'manila-bay',
@@ -429,6 +440,7 @@ export const TOP_MUSEUMS: MuseumVenue[] = [
   },
   {
     id: 'mus-fine-arts',
+    imageUrl: './images/museums/mus-fine-arts.jpg',
     name: 'National Museum of Fine Arts (Spoliarium & Old Congress)',
     city: 'Metro Manila',
     hubId: 'manila-bay',
@@ -446,6 +458,7 @@ export const TOP_MUSEUMS: MuseumVenue[] = [
   },
   {
     id: 'mus-anthropology',
+    imageUrl: './images/museums/mus-anthropology.jpg',
     name: 'National Museum of Anthropology (San Diego Shipwreck)',
     city: 'Metro Manila',
     hubId: 'manila-bay',
@@ -463,6 +476,7 @@ export const TOP_MUSEUMS: MuseumVenue[] = [
   },
   {
     id: 'mus-ayala',
+    imageUrl: './images/museums/mus-ayala.jpg',
     name: 'Ayala Museum & Filipinas Heritage Library',
     city: 'Metro Manila',
     hubId: 'makati-bgc',
@@ -480,6 +494,7 @@ export const TOP_MUSEUMS: MuseumVenue[] = [
   },
   {
     id: 'mus-presidential-cars',
+    imageUrl: './images/museums/mus-presidential-cars.jpg',
     name: 'Presidential Car Museum (Museo ng Pampangulong Sasakyan)',
     city: 'Metro Manila',
     hubId: 'makati-bgc',
@@ -497,6 +512,7 @@ export const TOP_MUSEUMS: MuseumVenue[] = [
   },
   {
     id: 'mus-san-agustin',
+    imageUrl: './images/museums/mus-san-agustin.jpg',
     name: 'San Agustin Church & Monastery Museum',
     city: 'Metro Manila',
     hubId: 'manila-bay',
@@ -514,6 +530,7 @@ export const TOP_MUSEUMS: MuseumVenue[] = [
   },
   {
     id: 'mus-mind-museum',
+    imageUrl: './images/museums/mus-mind-museum.jpg',
     name: 'The Mind Museum (Science & Discovery)',
     city: 'Metro Manila',
     hubId: 'makati-bgc',
@@ -531,6 +548,7 @@ export const TOP_MUSEUMS: MuseumVenue[] = [
   },
   {
     id: 'mus-met-manila',
+    imageUrl: './images/museums/mus-met-manila.jpg',
     name: 'Metropolitan Museum of Manila (The M)',
     city: 'Metro Manila',
     hubId: 'makati-bgc',
@@ -548,6 +566,7 @@ export const TOP_MUSEUMS: MuseumVenue[] = [
   },
   {
     id: 'mus-cebu-national',
+    imageUrl: './images/museums/mus-cebu-national.jpg',
     name: 'National Museum of the Philippines - Cebu (Old Customs House)',
     city: 'Cebu',
     hubId: 'cebu-mactan',
@@ -565,6 +584,7 @@ export const TOP_MUSEUMS: MuseumVenue[] = [
   },
   {
     id: 'mus-sugbo',
+    imageUrl: './images/museums/mus-sugbo.jpg',
     name: 'Museo Sugbo (1870 Coral Stone Provincial Jail)',
     city: 'Cebu',
     hubId: 'cebu-mactan',
@@ -582,6 +602,7 @@ export const TOP_MUSEUMS: MuseumVenue[] = [
   },
   {
     id: 'mus-casa-gorordo',
+    imageUrl: './images/museums/mus-casa-gorordo.jpg',
     name: 'Casa Gorordo Museum (1850s Bahay na Bato)',
     city: 'Cebu',
     hubId: 'cebu-mactan',
@@ -867,6 +888,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 1,
         name: 'The Peninsula Manila',
+        imageUrl: './images/hotels/the-peninsula-manila.jpg',
         stars: '5★ Heritage Flagship',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -881,6 +903,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 2,
         name: 'Discovery Primea Makati',
+        imageUrl: './images/hotels/discovery-primea-makati.jpg',
         stars: '5★ Executive Luxury Suites',
         tier: '5-Star Boutique',
         budgetBand: 'smart',
@@ -895,6 +918,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 3,
         name: 'Raffles Makati',
+        imageUrl: './images/hotels/raffles-makati.jpg',
         stars: '5★ All-Suite Flagship',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -909,6 +933,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 4,
         name: 'Airbnb: Paseo Parkview Suites / The Ellis (Salcedo Village)',
+        imageUrl: './images/hotels/airbnb-paseo-parkview-suites-the-ellis-salcedo-village.jpg',
         stars: '★4.95 Guest Favorite Airbnb (1BR King Balcony)',
         tier: 'Luxury Airbnb',
         budgetBand: 'value',
@@ -923,6 +948,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 5,
         name: 'Valero Grand Suites by Swiss-Belhotel',
+        imageUrl: './images/hotels/valero-grand-suites-by-swiss-belhotel.jpg',
         stars: '4★ Serviced Suite Hotel',
         tier: '4-Star Serviced',
         budgetBand: 'value',
@@ -937,6 +963,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 6,
         name: 'Citadines Salcedo Makati (Ascott Group)',
+        imageUrl: './images/hotels/citadines-salcedo-makati-ascott-group.jpg',
         stars: '4★+ Premier Serviced Residence',
         tier: '4-Star Serviced',
         budgetBand: 'smart',
@@ -951,6 +978,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 7,
         name: 'Somerset Central Salcedo Makati',
+        imageUrl: './images/hotels/somerset-central-salcedo-makati.jpg',
         stars: '4★+ Flagship Somerset Serviced Residence',
         tier: '4-Star Serviced',
         budgetBand: 'smart',
@@ -965,6 +993,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 8,
         name: 'Airbnb: The Residences at Greenbelt — TRAG (Legazpi Village)',
+        imageUrl: './images/hotels/airbnb-the-residences-at-greenbelt-trag-legazpi-village.jpg',
         stars: '★4.98 Luxe Executive Airbnb (High-Floor 1BR)',
         tier: 'Luxury Airbnb',
         budgetBand: 'smart',
@@ -979,6 +1008,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 9,
         name: 'Somerset Millennium Makati',
+        imageUrl: './images/hotels/somerset-millennium-makati.jpg',
         stars: '4★ Boutique Serviced Residence',
         tier: '4-Star Serviced',
         budgetBand: 'value',
@@ -993,6 +1023,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 10,
         name: 'Airbnb: Greenbelt Hamilton / KL Tower Serviced Residences',
+        imageUrl: './images/hotels/airbnb-greenbelt-hamilton-kl-tower-serviced-residences.jpg',
         stars: '★4.92 Designer Studio/1BR Airbnb',
         tier: 'Luxury Airbnb',
         budgetBand: 'value',
@@ -1007,6 +1038,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 11,
         name: 'Seda Residences Makati',
+        imageUrl: './images/hotels/seda-residences-makati.jpg',
         stars: '4★+ Modern Serviced Hotel',
         tier: '4-Star Serviced',
         budgetBand: 'smart',
@@ -1021,6 +1053,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 12,
         name: 'Shangri-La The Fort, Manila (BGC)',
+        imageUrl: './images/hotels/shangri-la-the-fort-manila-bgc.jpg',
         stars: '5★ Contemporary BGC Resort',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -1072,6 +1105,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 1,
         name: 'The Manila Hotel',
+        imageUrl: './images/hotels/the-manila-hotel.jpg',
         stars: '5★ Grand Dame Heritage',
         tier: '5-Star Flagship',
         budgetBand: 'smart',
@@ -1086,6 +1120,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 2,
         name: 'Conrad Manila',
+        imageUrl: './images/hotels/conrad-manila.jpg',
         stars: '5★ Iconic Cruise-Ship Design',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -1100,6 +1135,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 3,
         name: 'Admiral Hotel Manila - MGallery',
+        imageUrl: './images/hotels/admiral-hotel-manila-mgallery.jpg',
         stars: '5★ Art Deco Boutique',
         tier: '5-Star Boutique',
         budgetBand: 'smart',
@@ -1114,6 +1150,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 4,
         name: 'Lanson Place Mall of Asia Manila',
+        imageUrl: './images/hotels/lanson-place-mall-of-asia-manila.jpg',
         stars: '5★ Waterfront Serviced Suites',
         tier: '4-Star Serviced',
         budgetBand: 'smart',
@@ -1128,6 +1165,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 5,
         name: 'The Bayleaf Intramuros',
+        imageUrl: './images/hotels/the-bayleaf-intramuros.jpg',
         stars: '4★ Historic Walled Boutique',
         tier: '4-Star Premier',
         budgetBand: 'value',
@@ -1142,6 +1180,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 6,
         name: 'Airbnb: Shore 2 / Shore 3 Luxury Bayfront Balcony Suite',
+        imageUrl: './images/hotels/airbnb-shore-2-shore-3-luxury-bayfront-balcony-suite.jpg',
         stars: '★4.91 Waterfront Airbnb (Pool & Sunset View)',
         tier: 'Luxury Airbnb',
         budgetBand: 'value',
@@ -1187,6 +1226,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 1,
         name: 'Clark Marriott Hotel',
+        imageUrl: './images/hotels/clark-marriott-hotel.jpg',
         stars: '5★ International Luxury',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -1201,6 +1241,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 2,
         name: 'Swissôtel Clark Philippines',
+        imageUrl: './images/hotels/swiss-tel-clark-philippines.jpg',
         stars: '5★ Alpine-Inspired Luxury',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -1215,6 +1256,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 3,
         name: 'Hilton Clark Sun Valley Resort',
+        imageUrl: './images/hotels/hilton-clark-sun-valley-resort.jpg',
         stars: '5★ Hillside Golf & Spa Resort',
         tier: '5-Star Flagship',
         budgetBand: 'smart',
@@ -1229,6 +1271,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 4,
         name: 'Midori Clark Hotel and Casino',
+        imageUrl: './images/hotels/midori-clark-hotel-and-casino.jpg',
         stars: '5★ Zen Boutique Luxury',
         tier: '5-Star Boutique',
         budgetBand: 'smart',
@@ -1243,6 +1286,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 5,
         name: 'Park Inn by Radisson Clark',
+        imageUrl: './images/hotels/park-inn-by-radisson-clark.jpg',
         stars: '4★ Modern Boutique',
         tier: '4-Star Premier',
         budgetBand: 'value',
@@ -1257,6 +1301,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 6,
         name: 'Quest Plus Conference Center, Clark',
+        imageUrl: './images/hotels/quest-plus-conference-center-clark.jpg',
         stars: '4★ Golf & Park Resort',
         tier: '4-Star Premier',
         budgetBand: 'value',
@@ -1302,6 +1347,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 1,
         name: 'Paolyn Houseboats Coron Island (Zero-Carbon Bamboo Villa)',
+        imageUrl: './images/hotels/paolyn-houseboats-coron-island-zero-carbon-bamboo-villa.jpg',
         stars: '5★ Eco-Luxury Floating Villa',
         tier: '5-Star Boutique',
         budgetBand: 'smart',
@@ -1316,6 +1362,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 2,
         name: 'Two Seasons Coron Island Resort',
+        imageUrl: './images/hotels/two-seasons-coron-island-resort.jpg',
         stars: '5★ Private Peninsula Luxury',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -1330,6 +1377,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 3,
         name: 'Club Paradise Palawan',
+        imageUrl: './images/hotels/club-paradise-palawan.jpg',
         stars: '5★ Private Island Sanctuary',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -1344,6 +1392,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 4,
         name: 'The Funny Lion - Coron',
+        imageUrl: './images/hotels/the-funny-lion-coron.jpg',
         stars: '4★+ Safari Boutique Pride',
         tier: '4-Star Premier',
         budgetBand: 'smart',
@@ -1358,6 +1407,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 5,
         name: 'Bacau Bay Resort Coron',
+        imageUrl: './images/hotels/bacau-bay-resort-coron.jpg',
         stars: '4★+ Mangrove Marina Resort',
         tier: '4-Star Premier',
         budgetBand: 'value',
@@ -1372,6 +1422,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 6,
         name: 'Two Seasons Coron Bayside Hotel',
+        imageUrl: './images/hotels/two-seasons-coron-bayside-hotel.jpg',
         stars: '4★ Boutique Harbourfront',
         tier: '4-Star Premier',
         budgetBand: 'value',
@@ -1418,6 +1469,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 1,
         name: 'Pangulasian Island Resort (El Nido Resorts)',
+        imageUrl: './images/hotels/pangulasian-island-resort-el-nido-resorts.jpg',
         stars: '5★ Eco-Luxury Flagship',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -1432,6 +1484,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 2,
         name: 'Cauayan Island Resort',
+        imageUrl: './images/hotels/cauayan-island-resort.jpg',
         stars: '5★ Boutique Private Island',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -1446,6 +1499,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 3,
         name: 'Seda Lio Beach Resort (Lio Tourism Estate)',
+        imageUrl: './images/hotels/seda-lio-beach-resort-lio-tourism-estate.jpg',
         stars: '5★ Sustainable Beachfront Resort',
         tier: '5-Star Flagship',
         budgetBand: 'smart',
@@ -1460,6 +1514,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 4,
         name: 'Cadlao Resort & Restaurant',
+        imageUrl: './images/hotels/cadlao-resort-restaurant.jpg',
         stars: '4★+ Iconic Cliffside Boutique',
         tier: '4-Star Premier',
         budgetBand: 'smart',
@@ -1474,6 +1529,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 5,
         name: 'Maremegmeg Beach Club — MBC (Las Cabañas Beach)',
+        imageUrl: './images/hotels/maremegmeg-beach-club-mbc-las-caba-as-beach.jpg',
         stars: '4★+ Premier Beachfront Boutique',
         tier: '4-Star Premier',
         budgetBand: 'smart',
@@ -1488,6 +1544,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 6,
         name: 'Las Cabañas Beach Resort (Sunset Sandbar Tip)',
+        imageUrl: './images/hotels/las-caba-as-beach-resort-sunset-sandbar-tip.jpg',
         stars: '4★ Iconic Sunset Beachfront Cottages',
         tier: '4-Star Premier',
         budgetBand: 'smart',
@@ -1502,6 +1559,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 7,
         name: 'Piece Lio (MICHELIN Guide · Lio Beach Estate)',
+        imageUrl: './images/hotels/piece-lio-michelin-guide-lio-beach-estate.jpg',
         stars: '4★+ Japanese-Filipino Design Boutique',
         tier: '4-Star Serviced',
         budgetBand: 'smart',
@@ -1516,6 +1574,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 8,
         name: 'Huni Lio (Lio Beach Estate)',
+        imageUrl: './images/hotels/huni-lio-lio-beach-estate.jpg',
         stars: '4★+ Contemporary Beachfront Hotel',
         tier: '4-Star Premier',
         budgetBand: 'value',
@@ -1530,6 +1589,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 9,
         name: 'Balai Adlao / Isla Amara (Lio Beach Promenade)',
+        imageUrl: './images/hotels/balai-adlao-isla-amara-lio-beach-promenade.jpg',
         stars: '4★ Boutique Eco-Resorts (Lio Estate)',
         tier: '4-Star Premier',
         budgetBand: 'value',
@@ -1544,6 +1604,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 10,
         name: 'Karuna El Nido Villas / Sunset Cliff Airbnb (Las Cabañas)',
+        imageUrl: './images/hotels/karuna-el-nido-villas-sunset-cliff-airbnb-las-caba-as.jpg',
         stars: '★4.95 Panoramic Cliff Pool Villa / Airbnb',
         tier: 'Luxury Airbnb',
         budgetBand: 'value',
@@ -1558,6 +1619,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 11,
         name: 'H Hotel El Nido (Vegan-Friendly Luxury Boutique)',
+        imageUrl: './images/hotels/h-hotel-el-nido-vegan-friendly-luxury-boutique.jpg',
         stars: '4★+ Town Beachfront Boutique',
         tier: '4-Star Premier',
         budgetBand: 'value',
@@ -1613,6 +1675,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 1,
         name: 'Fili Hotel at NUSTAR Cebu',
+        imageUrl: './images/hotels/fili-hotel-at-nustar-cebu.jpg',
         stars: '5★ Filipino Five-Star Flagship',
         tier: '5-Star Flagship',
         budgetBand: 'smart',
@@ -1627,6 +1690,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 2,
         name: 'Shangri-La Mactan, Cebu',
+        imageUrl: './images/hotels/shangri-la-mactan-cebu.jpg',
         stars: '5★ Premier Beach & Marine Resort',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -1641,6 +1705,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 3,
         name: 'Marco Polo Plaza Cebu',
+        imageUrl: './images/hotels/marco-polo-plaza-cebu.jpg',
         stars: '5★ Highland Gateway Hotel',
         tier: '5-Star Boutique',
         budgetBand: 'value',
@@ -1655,6 +1720,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 4,
         name: 'Dusit Thani Mactan Cebu Resort',
+        imageUrl: './images/hotels/dusit-thani-mactan-cebu-resort.jpg',
         stars: '5★ Thai-Filipino Coastal Luxury',
         tier: '5-Star Flagship',
         budgetBand: 'smart',
@@ -1669,6 +1735,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 5,
         name: 'Radisson Blu Cebu',
+        imageUrl: './images/hotels/radisson-blu-cebu.jpg',
         stars: '5★ Harbor & Heritage Hub',
         tier: '5-Star Boutique',
         budgetBand: 'value',
@@ -1683,6 +1750,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 6,
         name: 'Seda Ayala Center Cebu',
+        imageUrl: './images/hotels/seda-ayala-center-cebu.jpg',
         stars: '4★+ Premier Lifestyle Hotel',
         tier: '4-Star Serviced',
         budgetBand: 'value',
@@ -1729,6 +1797,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 1,
         name: 'Amorita Resort, Panglao Bohol',
+        imageUrl: './images/hotels/amorita-resort-panglao-bohol.jpg',
         stars: '5★ SLH Cliffside Boutique',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -1743,6 +1812,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 2,
         name: 'Eskaya Beach Resort & Spa, Bohol',
+        imageUrl: './images/hotels/eskaya-beach-resort-spa-bohol.jpg',
         stars: '5★ All-Villa Private Sanctuary',
         tier: '5-Star Flagship',
         budgetBand: 'flagship',
@@ -1757,6 +1827,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 3,
         name: 'The Bellevue Resort, Panglao Bohol',
+        imageUrl: './images/hotels/the-bellevue-resort-panglao-bohol.jpg',
         stars: '5★ ASEAN Green Luxury Resort',
         tier: '5-Star Flagship',
         budgetBand: 'smart',
@@ -1771,6 +1842,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 4,
         name: 'Coco Grove Beach Resort, Siquijor',
+        imageUrl: './images/hotels/coco-grove-beach-resort-siquijor.jpg',
         stars: '4★+ Premier Island Sanctuary',
         tier: '4-Star Premier',
         budgetBand: 'smart',
@@ -1785,6 +1857,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 5,
         name: 'Oceanica Resort Panglao (formerly South Palms)',
+        imageUrl: './images/hotels/oceanica-resort-panglao-formerly-south-palms.jpg',
         stars: '4★+ White-Sand Palm Sanctuary',
         tier: '4-Star Premier',
         budgetBand: 'value',
@@ -1799,6 +1872,7 @@ export const DESTINATION_HUBS: DestinationHub[] = [
       {
         rank: 6,
         name: 'White Villas Resort, Siquijor',
+        imageUrl: './images/hotels/white-villas-resort-siquijor.jpg',
         stars: '4★ Mediterranean Boutique',
         tier: '4-Star Premier',
         budgetBand: 'value',

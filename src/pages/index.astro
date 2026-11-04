@@ -1163,7 +1163,7 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       background: var(--text-primary);
       color: var(--bg-canvas);
       text-decoration: none;
-      transition: opacity 0.15s ease;
+      transition: all 0.15s ease;
       min-height: 40px;
       display: inline-flex;
       align-items: center;
@@ -1172,6 +1172,99 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
     .hotel-book-btn:hover {
       opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    /* Google Directions Nav Pill */
+    .google-directions-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.45rem 0.95rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #38BDF8;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.32);
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      transition: all 0.18s ease;
+      min-height: 40px;
+      white-space: nowrap;
+    }
+
+    .google-directions-btn:hover {
+      background: rgba(56, 189, 248, 0.25);
+      border-color: #38BDF8;
+      color: #FFFFFF;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.28);
+      text-decoration: none;
+    }
+
+    /* Card Visual Imagery Wrapper */
+    .card-media-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--bg-panel);
+      margin-bottom: 0.85rem;
+      border: 1px solid var(--border-hairline);
+    }
+
+    .card-media-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hotel-card:hover .card-media-img,
+    .m-event-card:hover .card-media-img {
+      transform: scale(1.035);
+    }
+
+    .card-media-overlay {
+      position: absolute;
+      top: 0.55rem;
+      left: 0.55rem;
+      right: 0.55rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .hub-hero-banner {
+      position: relative;
+      width: 100%;
+      height: 170px;
+      border-radius: var(--radius-panel);
+      overflow: hidden;
+      margin-bottom: 1.15rem;
+      border: 1px solid var(--border-hairline);
+    }
+
+    .hub-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hub-hero-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 13, 18, 0.15) 0%, rgba(10, 13, 18, 0.88) 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 1rem 1.25rem;
     }
 
     /* Spacious Dining Strip */
@@ -2275,6 +2368,30 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
             id={`hub-panel-${hub.id}`}
             data-hub-panel={hub.id}
           >
+            {hub.heroImage && (
+              <div class="hub-hero-banner">
+                <img src={hub.heroImage} alt={hub.name} loading="lazy" class="hub-hero-img" onerror="this.parentElement.style.display='none'" />
+                <div class="hub-hero-scrim">
+                  <div>
+                    <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--m-light-blue);color:#FFFFFF;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:700;">
+                      HUB {hub.number} · {hub.nights} NIGHTS
+                    </span>
+                    <h3 style="font-size:1.15rem;font-weight:800;color:#FFFFFF;margin-top:0.35rem;text-shadow:0 2px 10px rgba(0,0,0,0.7);">{hub.name}</h3>
+                  </div>
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${hub.center[0]},${hub.center[1]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="google-directions-btn"
+                    style="background:rgba(10,13,18,0.78);backdrop-filter:blur(10px);border-color:rgba(56,189,248,0.4);"
+                    title={`Open Google Maps directions to ${hub.name}`}
+                  >
+                    🧭 Directions to Hub ↗
+                  </a>
+                </div>
+              </div>
+            )}
+
             <div class="hub-banner-head">
               <div class="hub-title-block">
                 <div class="region-kicker">HUB {hub.number} · {hub.region}</div>
@@ -2340,10 +2457,27 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
                     data-hotel-name={hotel.name}
                   >
                     <div>
-                      <div class="hotel-card-header">
-                        <span class={`option-badge ${tierClass}`}>#{hotel.rank} · {hotel.tier}</span>
-                        <span class="rate-pill price-convertible" data-dkk={hotel.rateDkk} data-suffix="/n">{hotel.rateDkk.toLocaleString()} DKK/n</span>
-                      </div>
+                      {hotel.imageUrl && (
+                        <div class="card-media-wrap">
+                          <img
+                            src={hotel.imageUrl}
+                            alt={hotel.name}
+                            loading="lazy"
+                            class="card-media-img"
+                            onerror="this.parentElement.style.display='none'"
+                          />
+                          <div class="card-media-overlay">
+                            <span class={`option-badge ${tierClass}`}>#{hotel.rank} · {hotel.tier}</span>
+                            <span class="rate-pill price-convertible" data-dkk={hotel.rateDkk} data-suffix="/n">{hotel.rateDkk.toLocaleString()} DKK/n</span>
+                          </div>
+                        </div>
+                      )}
+                      {!hotel.imageUrl && (
+                        <div class="hotel-card-header">
+                          <span class={`option-badge ${tierClass}`}>#{hotel.rank} · {hotel.tier}</span>
+                          <span class="rate-pill price-convertible" data-dkk={hotel.rateDkk} data-suffix="/n">{hotel.rateDkk.toLocaleString()} DKK/n</span>
+                        </div>
+                      )}
                       <h4 class="hotel-name" style="margin-top:0.32rem;">{hotel.name}</h4>
                       <div class="stars-line" style="margin-top:0.15rem;">
                         <span>{hotel.stars}</span>
@@ -2361,12 +2495,13 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
                     </div>
 
                     <div class="hotel-card-footer">
-                      <div style="display:flex;gap:0.3rem;">
+                      <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
                         <button
                           type="button"
                           class="locate-pin-btn"
                           data-lat={hotel.lat}
                           data-lng={hotel.lng}
+                          title="Pin and highlight on map"
                         >
                           📍 Pin
                         </button>
@@ -2377,19 +2512,31 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
                           data-hotel-name={hotel.name}
                           data-rate-dkk={hotel.rateDkk}
                           data-nights={hub.nights}
+                          title="Select stay into 29N budget optimizer"
                         >
                           ⭐ Select
                         </button>
                       </div>
-                      <a
-                        href={hotel.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="hotel-book-btn"
-                        title="Book or redeem One Key / Hotels.com points"
-                      >
-                        Hotels.com ↗
-                      </a>
+                      <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                        <a
+                          href={`https://www.google.com/maps/dir/?api=1&destination=${hotel.lat},${hotel.lng}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="google-directions-btn"
+                          title={`Google Maps Turn-by-Turn directions to ${hotel.name}`}
+                        >
+                          🧭 Directions ↗
+                        </a>
+                        <a
+                          href={hotel.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="hotel-book-btn"
+                          title="Book or redeem One Key / Hotels.com points"
+                        >
+                          Hotels.com ↗
+                        </a>
+                      </div>
                     </div>
                   </article>
                 );
@@ -2442,35 +2589,64 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.15rem;">
             {TOP_MUSEUMS.map((mus) => (
-              <div class="m-event-card landmark-chip" data-lat={mus.lat} data-lng={mus.lng} style="cursor:pointer;border-left:3.5px solid #6366F1;padding:1.25rem 1.45rem;" title="Tap to fly map directly to this museum">
-                <div style="display:flex;justify-content:space-between;align-items:center;gap:0.4rem;">
-                  <span style="font-family:var(--font-mono);font-size:0.68rem;color:#818CF8;font-weight:700;">
-                    📍 {mus.city.toUpperCase()} · {mus.area.split(',')[0]}
-                  </span>
-                  <span style="font-family:var(--font-mono);font-size:0.64rem;background:rgba(99,102,241,0.15);color:#C7D2FE;padding:0.18rem 0.55rem;border-radius:9999px;border:1px solid rgba(99,102,241,0.3);">
-                    {mus.category}
-                  </span>
+              <div class="m-event-card landmark-chip" data-lat={mus.lat} data-lng={mus.lng} style="border-left:3.5px solid #6366F1;padding:1.25rem 1.45rem;display:flex;flex-direction:column;justify-content:space-between;" title="Tap to fly map directly to this museum">
+                <div>
+                  {mus.imageUrl && (
+                    <div class="card-media-wrap" style="aspect-ratio:16/9;margin-bottom:0.75rem;">
+                      <img src={mus.imageUrl} alt={mus.name} loading="lazy" class="card-media-img" onerror="this.parentElement.style.display='none'" />
+                      <div class="card-media-overlay">
+                        <span style="font-family:var(--font-mono);font-size:0.64rem;background:rgba(99,102,241,0.85);color:#FFFFFF;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:700;">
+                          {mus.category}
+                        </span>
+                        <span style="font-family:var(--font-mono);font-size:0.64rem;background:rgba(10,13,18,0.8);color:#A5B4FC;padding:0.2rem 0.55rem;border-radius:9999px;">
+                          📍 {mus.city.toUpperCase()}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <div style="font-weight:800;font-size:0.98rem;margin-top:0.2rem;color:var(--text-primary);">
+                    {mus.name}
+                  </div>
+                  <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--amber-telemetry);margin-top:0.2rem;font-weight:700;">
+                    {mus.badge}
+                  </div>
+                  <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.35rem;line-height:1.5;">
+                    {mus.highlight}
+                  </div>
+                  <div style="font-size:0.78rem;color:var(--text-primary);margin-top:0.45rem;line-height:1.5;background:var(--bg-card);padding:0.55rem 0.75rem;border-radius:10px;border:1px solid var(--border-hairline);">
+                    ✨ <strong>Must-See:</strong> {mus.keyExhibit}
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.4rem;margin-top:0.65rem;font-size:0.72rem;font-family:var(--font-mono);border-top:1px dashed var(--border-hairline);padding-top:0.55rem;">
+                    <span style="color:var(--text-muted);">🕒 {mus.openHours}</span>
+                    <span style="color:var(--nordic-mint);font-weight:700;background:rgba(16,185,129,0.1);padding:0.18rem 0.55rem;border-radius:9999px;">
+                      🎟️ {mus.admission}
+                    </span>
+                  </div>
+                  <div style="font-size:0.72rem;color:var(--nordic-mint);margin-top:0.45rem;font-family:var(--font-mono);line-height:1.45;">
+                    💡 {mus.tip}
+                  </div>
                 </div>
-                <div style="font-weight:800;font-size:0.98rem;margin-top:0.35rem;color:var(--text-primary);">
-                  {mus.name}
-                </div>
-                <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--amber-telemetry);margin-top:0.2rem;font-weight:700;">
-                  {mus.badge}
-                </div>
-                <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.35rem;line-height:1.5;">
-                  {mus.highlight}
-                </div>
-                <div style="font-size:0.78rem;color:var(--text-primary);margin-top:0.45rem;line-height:1.5;background:var(--bg-card);padding:0.55rem 0.75rem;border-radius:10px;border:1px solid var(--border-hairline);">
-                  ✨ <strong>Must-See:</strong> {mus.keyExhibit}
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.4rem;margin-top:0.65rem;font-size:0.72rem;font-family:var(--font-mono);border-top:1px dashed var(--border-hairline);padding-top:0.55rem;">
-                  <span style="color:var(--text-muted);">🕒 {mus.openHours}</span>
-                  <span style="color:var(--nordic-mint);font-weight:700;background:rgba(16,185,129,0.1);padding:0.18rem 0.55rem;border-radius:9999px;">
-                    🎟️ {mus.admission}
-                  </span>
-                </div>
-                <div style="font-size:0.72rem;color:var(--nordic-mint);margin-top:0.45rem;font-family:var(--font-mono);line-height:1.45;">
-                  💡 {mus.tip}
+
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.4rem;margin-top:0.85rem;padding-top:0.65rem;border-top:1px solid var(--border-hairline);">
+                  <button type="button" class="locate-pin-btn" data-lat={mus.lat} data-lng={mus.lng} style="font-size:0.72rem;padding:0.38rem 0.75rem;">
+                    📍 Pin Map
+                  </button>
+                  <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                    {mus.websiteUrl && (
+                      <a href={mus.websiteUrl} target="_blank" rel="noopener noreferrer" class="hotel-book-btn" style="font-size:0.72rem;padding:0.38rem 0.8rem;background:rgba(255,255,255,0.08);color:var(--text-primary);">
+                        Official Site ↗
+                      </a>
+                    )}
+                    <a
+                      href={`https://www.google.com/maps/dir/?api=1&destination=${mus.lat},${mus.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="google-directions-btn"
+                      title={`Open Google Maps directions to ${mus.name}`}
+                    >
+                      🧭 Directions ↗
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
@@ -2495,52 +2671,124 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0.55rem;">
-            <div class="m-event-card m-red-accent landmark-chip" data-lat="14.5256" data-lng="120.9902">
-              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-red-glow);font-weight:700;">🔥 DAY 6 · FRI NOV 13, 2026 (EXACT MANILA BAY CHECK-IN DAY!)</div>
-              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">🇯🇵🇵🇭 Liberty Walk Manila Car Meet (Wataru &amp; Hyuma Kato)</div>
-              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
-                <strong>Venue:</strong> Parqal, Aseana City, Parañaque (3 mins from Shore / Conrad / Lanson!). Live appearance by Liberty Walk founders Wataru &amp; Hyuma Kato, R34/GT-R/Lamborghini LBWK builds, Show &amp; Shine &amp; fan signing.
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;">
+            <div class="m-event-card m-red-accent landmark-chip" data-lat="14.5256" data-lng="120.9902" style="display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div class="card-media-wrap" style="aspect-ratio:16/9;margin-bottom:0.65rem;">
+                  <img src="./images/events/event-liberty-walk.jpg" alt="Liberty Walk Manila Meet" loading="lazy" class="card-media-img" onerror="this.parentElement.style.display='none'" />
+                  <div class="card-media-overlay">
+                    <span style="font-family:var(--font-mono);font-size:0.64rem;background:var(--m-red);color:#fff;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:700;">🔥 DAY 6 · NOV 13</span>
+                  </div>
+                </div>
+                <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-red-glow);font-weight:700;">🔥 FRI NOV 13, 2026 (MANILA BAY CHECK-IN DAY)</div>
+                <div style="font-weight:800;font-size:0.92rem;margin-top:0.2rem;">🇯🇵🇵🇭 Liberty Walk Manila Car Meet (Wataru &amp; Hyuma Kato)</div>
+                <div style="font-size:0.73rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.45;">
+                  <strong>Venue:</strong> Parqal, Aseana City, Parañaque (3 mins from Shore / Conrad / Lanson!). Live appearance by Liberty Walk founders Wataru &amp; Hyuma Kato, R34/GT-R/Lamborghini LBWK builds, Show &amp; Shine &amp; fan signing.
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.75rem;padding-top:0.55rem;border-top:1px solid var(--border-hairline);">
+                <button type="button" class="locate-pin-btn" data-lat="14.5256" data-lng="120.9902" style="font-size:0.72rem;padding:0.38rem 0.75rem;">📍 Pin Map</button>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=14.5256,120.9902" target="_blank" rel="noopener noreferrer" class="google-directions-btn" title="Google Maps directions to Parqal Aseana">🧭 Directions ↗</a>
               </div>
             </div>
 
-            <div class="m-event-card m-red-accent landmark-chip" data-lat="14.5321" data-lng="120.9815">
-              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-red-glow);font-weight:700;">🔥 DAY 7–8 · SAT–SUN NOV 14–15, 2026 (200M WALK FROM HOTEL!)</div>
-              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">🏆 Manila Auto Salon 2026 &amp; Philippine Diecast Expo (SMX)</div>
-              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
-                <strong>Venue:</strong> SMX Convention Center, Mall of Asia Complex. Hosts the 30th Custom Car Show, 31st Sport Truck Show (lifted 4x4 Hilux/Land Cruiser builds), and Philippine Diecast Expo right beside your Manila Bay stay.
+            <div class="m-event-card m-red-accent landmark-chip" data-lat="14.5321" data-lng="120.9815" style="display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div class="card-media-wrap" style="aspect-ratio:16/9;margin-bottom:0.65rem;">
+                  <img src="./images/events/event-manila-auto-salon.jpg" alt="Manila Auto Salon 2026" loading="lazy" class="card-media-img" onerror="this.parentElement.style.display='none'" />
+                  <div class="card-media-overlay">
+                    <span style="font-family:var(--font-mono);font-size:0.64rem;background:var(--m-red);color:#fff;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:700;">🔥 DAY 7–8 · NOV 14–15</span>
+                  </div>
+                </div>
+                <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-red-glow);font-weight:700;">🔥 SAT–SUN NOV 14–15, 2026 (200M WALK FROM HOTEL)</div>
+                <div style="font-weight:800;font-size:0.92rem;margin-top:0.2rem;">🏆 Manila Auto Salon 2026 &amp; Philippine Diecast Expo (SMX)</div>
+                <div style="font-size:0.73rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.45;">
+                  <strong>Venue:</strong> SMX Convention Center, Mall of Asia Complex. Hosts the 30th Custom Car Show, 31st Sport Truck Show (lifted 4x4 Hilux/Land Cruiser builds), and Philippine Diecast Expo right beside your Manila Bay stay.
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.75rem;padding-top:0.55rem;border-top:1px solid var(--border-hairline);">
+                <button type="button" class="locate-pin-btn" data-lat="14.5321" data-lng="120.9815" style="font-size:0.72rem;padding:0.38rem 0.75rem;">📍 Pin Map</button>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=14.5321,120.9815" target="_blank" rel="noopener noreferrer" class="google-directions-btn" title="Google Maps directions to SMX Convention Center">🧭 Directions ↗</a>
               </div>
             </div>
 
-            <div class="m-event-card m-red-accent landmark-chip" data-lat="14.5505" data-lng="121.0505">
-              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-red-glow);font-weight:700;">🔥 DAY 28–29 · SAT–SUN DEC 5–6, 2026 (MANILA FINALE WEEKEND)</div>
-              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">🎬 Bumper 2 Bumper (B2B) Carshow XXII w/ Sung Kang ("Han")</div>
-              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
-                <strong>Special Guest:</strong> Sung Kang ("Han" from <em>Fast &amp; Furious: Tokyo Drift</em>) live in Manila on your final weekend before flying home, paired with BGC High Street supercar meets.
+            <div class="m-event-card m-red-accent landmark-chip" data-lat="14.5505" data-lng="121.0505" style="display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div class="card-media-wrap" style="aspect-ratio:16/9;margin-bottom:0.65rem;">
+                  <img src="./images/events/event-b2b-carshow.jpg" alt="B2B Carshow XXII w/ Sung Kang" loading="lazy" class="card-media-img" onerror="this.parentElement.style.display='none'" />
+                  <div class="card-media-overlay">
+                    <span style="font-family:var(--font-mono);font-size:0.64rem;background:var(--m-red);color:#fff;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:700;">🔥 DAY 28–29 · DEC 5–6</span>
+                  </div>
+                </div>
+                <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-red-glow);font-weight:700;">🔥 SAT–SUN DEC 5–6, 2026 (MANILA FINALE WEEKEND)</div>
+                <div style="font-weight:800;font-size:0.92rem;margin-top:0.2rem;">🎬 Bumper 2 Bumper (B2B) Carshow XXII w/ Sung Kang ("Han")</div>
+                <div style="font-size:0.73rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.45;">
+                  <strong>Special Guest:</strong> Sung Kang ("Han" from <em>Fast &amp; Furious: Tokyo Drift</em>) live in Manila on your final weekend before flying home, paired with BGC High Street supercar meets.
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.75rem;padding-top:0.55rem;border-top:1px solid var(--border-hairline);">
+                <button type="button" class="locate-pin-btn" data-lat="14.5505" data-lng="121.0505" style="font-size:0.72rem;padding:0.38rem 0.75rem;">📍 Pin Map</button>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=14.5505,121.0505" target="_blank" rel="noopener noreferrer" class="google-directions-btn" title="Google Maps directions to BGC High Street">🧭 Directions ↗</a>
               </div>
             </div>
 
-            <div class="m-event-card landmark-chip" data-lat="14.5994" data-lng="121.0568">
-              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-Sky-glow);font-weight:700;">DAY 3 · TUE NOV 10 (11:30 AM LUNCH)</div>
-              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">🍽️🏎️ Antonio’s Manila at PGA Cars Studio (202 EDSA)</div>
-              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
-                Fine dining (burrata salad &amp; steaks) integrated inside the official <strong>Porsche, Lamborghini, Bentley &amp; Audi</strong> flagship showroom studio (15 min from Ayala Triangle).
+            <div class="m-event-card landmark-chip" data-lat="14.5994" data-lng="121.0568" style="display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div class="card-media-wrap" style="aspect-ratio:16/9;margin-bottom:0.65rem;">
+                  <img src="./images/events/event-antonios-pga.jpg" alt="Antonio’s Manila at PGA Cars" loading="lazy" class="card-media-img" onerror="this.parentElement.style.display='none'" />
+                  <div class="card-media-overlay">
+                    <span style="font-family:var(--font-mono);font-size:0.64rem;background:var(--m-light-blue);color:#fff;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:700;">DAY 3 · TUE NOV 10</span>
+                  </div>
+                </div>
+                <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-Sky-glow);font-weight:700;">DAY 3 · TUE NOV 10 (11:30 AM LUNCH)</div>
+                <div style="font-weight:800;font-size:0.92rem;margin-top:0.2rem;">🍽️🏎️ Antonio’s Manila at PGA Cars Studio (202 EDSA)</div>
+                <div style="font-size:0.73rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.45;">
+                  Fine dining (burrata salad &amp; steaks) integrated inside the official <strong>Porsche, Lamborghini, Bentley &amp; Audi</strong> flagship showroom studio (15 min from Ayala Triangle).
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.75rem;padding-top:0.55rem;border-top:1px solid var(--border-hairline);">
+                <button type="button" class="locate-pin-btn" data-lat="14.5994" data-lng="121.0568" style="font-size:0.72rem;padding:0.38rem 0.75rem;">📍 Pin Map</button>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=14.5994,121.0568" target="_blank" rel="noopener noreferrer" class="google-directions-btn" title="Google Maps directions to PGA Cars Studio">🧭 Directions ↗</a>
               </div>
             </div>
 
-            <div class="m-event-card landmark-chip" data-lat="14.4172" data-lng="121.0384">
-              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-Sky-glow);font-weight:700;">DAY 4 · WED NOV 11 (09:30 AM SKYWAY RUN)</div>
-              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">☕🏎️ Karrera Bistro &amp; Showroom (Filinvest Alabang)</div>
-              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
-                360 Corporate Woods Ave, Alabang (18 min down Skyway). Rotating classic Porsche, Ferrari &amp; JDM sports cars displayed right beside the coffee &amp; brick-oven pizza seating area.
+            <div class="m-event-card landmark-chip" data-lat="14.4172" data-lng="121.0384" style="display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div class="card-media-wrap" style="aspect-ratio:16/9;margin-bottom:0.65rem;">
+                  <img src="./images/events/event-karrera-bistro.jpg" alt="Karrera Bistro & Motorsport Gallery" loading="lazy" class="card-media-img" onerror="this.parentElement.style.display='none'" />
+                  <div class="card-media-overlay">
+                    <span style="font-family:var(--font-mono);font-size:0.64rem;background:var(--m-light-blue);color:#fff;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:700;">DAY 4 · WED NOV 11</span>
+                  </div>
+                </div>
+                <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-Sky-glow);font-weight:700;">DAY 4 · WED NOV 11 (09:30 AM SKYWAY RUN)</div>
+                <div style="font-weight:800;font-size:0.92rem;margin-top:0.2rem;">☕🏎️ Karrera Bistro &amp; Showroom (Filinvest Alabang)</div>
+                <div style="font-size:0.73rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.45;">
+                  360 Corporate Woods Ave, Alabang (18 min down Skyway). Rotating classic Porsche, Ferrari &amp; JDM sports cars displayed right beside the coffee &amp; brick-oven pizza seating area.
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.75rem;padding-top:0.55rem;border-top:1px solid var(--border-hairline);">
+                <button type="button" class="locate-pin-btn" data-lat="14.4172" data-lng="121.0384" style="font-size:0.72rem;padding:0.38rem 0.75rem;">📍 Pin Map</button>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=14.4172,121.0384" target="_blank" rel="noopener noreferrer" class="google-directions-btn" title="Google Maps directions to Karrera Bistro">🧭 Directions ↗</a>
               </div>
             </div>
 
-            <div class="m-event-card landmark-chip" data-lat="14.6515" data-lng="121.0493">
-              <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-Sky-glow);font-weight:700;">DAY 5 · THU NOV 12 (OR DAY 8 EN ROUTE TO CLARK)</div>
-              <div style="font-weight:800;font-size:0.86rem;margin-top:0.15rem;">🏛️🚘 Presidential Car Museum (Quezon Memorial Circle)</div>
-              <div style="font-size:0.71rem;color:var(--text-secondary);margin-top:0.2rem;">
-                Tue–Sun 8 AM–4 PM (Free). Compact 20-min exhibit starring Imelda Marcos’s Rolls-Royce Phantom V &amp; Mercedes 600 Pullman right off the NLEX route to Clark Speedway.
+            <div class="m-event-card landmark-chip" data-lat="14.6515" data-lng="121.0493" style="display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div class="card-media-wrap" style="aspect-ratio:16/9;margin-bottom:0.65rem;">
+                  <img src="./images/events/event-presidential-cars.jpg" alt="Presidential Car Museum" loading="lazy" class="card-media-img" onerror="this.parentElement.style.display='none'" />
+                  <div class="card-media-overlay">
+                    <span style="font-family:var(--font-mono);font-size:0.64rem;background:var(--m-light-blue);color:#fff;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:700;">DAY 5 · THU NOV 12</span>
+                  </div>
+                </div>
+                <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--m-Sky-glow);font-weight:700;">DAY 5 · THU NOV 12 (OR EN ROUTE TO CLARK)</div>
+                <div style="font-weight:800;font-size:0.92rem;margin-top:0.2rem;">🏛️🚘 Presidential Car Museum (Quezon Memorial Circle)</div>
+                <div style="font-size:0.73rem;color:var(--text-secondary);margin-top:0.25rem;line-height:1.45;">
+                  Tue–Sun 8 AM–4 PM (Free). Compact 20-min exhibit starring Imelda Marcos’s Rolls-Royce Phantom V &amp; Mercedes 600 Pullman right off the NLEX route to Clark Speedway.
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.75rem;padding-top:0.55rem;border-top:1px solid var(--border-hairline);">
+                <button type="button" class="locate-pin-btn" data-lat="14.6515" data-lng="121.0493" style="font-size:0.72rem;padding:0.38rem 0.75rem;">📍 Pin Map</button>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=14.6515,121.0493" target="_blank" rel="noopener noreferrer" class="google-directions-btn" title="Google Maps directions to Presidential Car Museum">🧭 Directions ↗</a>
               </div>
             </div>
           </div>
@@ -2613,27 +2861,49 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.15rem;">
             {RC_CAR_VENUES.map((rc) => (
-              <div class="m-event-card landmark-chip" data-lat={rc.lat} data-lng={rc.lng} style="cursor:pointer;padding:1.25rem 1.45rem;" title="Tap to fly map to this RC venue">
-                <div style="display:flex;justify-content:space-between;align-items:center;gap:0.4rem;">
-                  <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--m-Sky-glow);font-weight:700;">
-                    📍 {rc.city.toUpperCase()} · {rc.area}
-                  </span>
-                  <span style="font-family:var(--font-mono);font-size:0.64rem;background:rgba(46,154,254,0.14);color:var(--m-Sky-glow);padding:0.18rem 0.55rem;border-radius:9999px;border:1px solid rgba(46,154,254,0.3);">
-                    {rc.trackType.split('&')[0].trim()}
-                  </span>
+              <div class="m-event-card landmark-chip" data-lat={rc.lat} data-lng={rc.lng} style="padding:1.25rem 1.45rem;display:flex;flex-direction:column;justify-content:space-between;" title="Tap to fly map to this RC venue">
+                <div>
+                  {rc.imageUrl && (
+                    <div class="card-media-wrap" style="aspect-ratio:16/9;margin-bottom:0.75rem;">
+                      <img src={rc.imageUrl} alt={rc.name} loading="lazy" class="card-media-img" onerror="this.parentElement.style.display='none'" />
+                      <div class="card-media-overlay">
+                        <span style="font-family:var(--font-mono);font-size:0.64rem;background:rgba(46,154,254,0.85);color:#FFFFFF;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:700;">
+                          {rc.trackType.split('&')[0].trim()}
+                        </span>
+                        <span style="font-family:var(--font-mono);font-size:0.64rem;background:rgba(10,13,18,0.8);color:var(--m-Sky-glow);padding:0.2rem 0.55rem;border-radius:9999px;">
+                          📍 {rc.city.toUpperCase()}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <div style="font-weight:800;font-size:0.98rem;margin-top:0.2rem;color:var(--text-primary);">
+                    {rc.name}
+                  </div>
+                  <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.3rem;line-height:1.5;">
+                    <strong>Surface:</strong> {rc.surface}
+                  </div>
+                  <div style="font-size:0.78rem;color:var(--text-primary);margin-top:0.3rem;line-height:1.5;">
+                    {rc.highlight}
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.6rem;font-size:0.72rem;font-family:var(--font-mono);color:var(--text-muted);border-top:1px dashed var(--border-hairline);padding-top:0.5rem;">
+                    <span>🕒 {rc.openHours}</span>
+                    <span style="color:var(--nordic-mint);font-weight:700;">💡 {rc.tip}</span>
+                  </div>
                 </div>
-                <div style="font-weight:800;font-size:0.98rem;margin-top:0.35rem;color:var(--text-primary);">
-                  {rc.name}
-                </div>
-                <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.3rem;line-height:1.5;">
-                  <strong>Surface:</strong> {rc.surface}
-                </div>
-                <div style="font-size:0.78rem;color:var(--text-primary);margin-top:0.3rem;line-height:1.5;">
-                  {rc.highlight}
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.6rem;font-size:0.72rem;font-family:var(--font-mono);color:var(--text-muted);border-top:1px dashed var(--border-hairline);padding-top:0.5rem;">
-                  <span>🕒 {rc.openHours}</span>
-                  <span style="color:var(--nordic-mint);font-weight:700;">💡 {rc.tip}</span>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.4rem;margin-top:0.85rem;padding-top:0.65rem;border-top:1px solid var(--border-hairline);">
+                  <button type="button" class="locate-pin-btn" data-lat={rc.lat} data-lng={rc.lng} style="font-size:0.72rem;padding:0.38rem 0.75rem;">
+                    📍 Pin Map
+                  </button>
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${rc.lat},${rc.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="google-directions-btn"
+                    title={`Open Google Maps directions to ${rc.name}`}
+                  >
+                    🧭 Directions ↗
+                  </a>
                 </div>
               </div>
             ))}
@@ -3218,10 +3488,13 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           });
           const m = L.marker([lm.lat, lm.lng], { icon: lmIcon }).addTo(landmarkMarkersLayer);
           m.bindPopup(`
-            <div style="font-family:'Plus Jakarta Sans',sans-serif;">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:210px;">
               <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#FF2836;font-weight:700;">///M LANDMARK · ${hub.name}</div>
               <div style="font-size:13px;font-weight:700;margin:2px 0;">${lm.name}</div>
-              <div style="font-size:11px;color:#94a3b8;">${lm.category} · ${lm.openHours}</div>
+              <div style="font-size:11px;color:#94a3b8;margin-bottom:6px;">${lm.category} · ${lm.openHours}</div>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=${lm.lat},${lm.lng}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 9px;background:rgba(56,189,248,0.2);border:1px solid #38BDF8;color:#38BDF8;font-weight:700;font-size:11px;border-radius:5px;text-decoration:none;">
+                🧭 Directions ↗
+              </a>
             </div>
           `);
         });
@@ -3237,13 +3510,17 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           });
           const m = L.marker([rc.lat, rc.lng], { icon: rcIcon }).addTo(landmarkMarkersLayer);
           m.bindPopup(`
-            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:210px;">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:220px;">
+              ${rc.imageUrl ? `<img src="${rc.imageUrl}" alt="${rc.name}" style="width:100%;height:100px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'"/>` : ''}
               <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#2E9AFE;font-weight:700;">🏎️ RC TRACK · ${rc.city.toUpperCase()}</div>
               <div style="font-size:12px;font-weight:800;margin:2px 0;">${rc.name}</div>
               <div style="font-size:11px;color:#94a3b8;margin-bottom:3px;">${rc.trackType}</div>
               <div style="font-size:11px;color:#cbd5e1;line-height:1.35;margin-bottom:4px;">${rc.highlight}</div>
               <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#94a3b8;">🕒 ${rc.openHours}</div>
-              <div style="font-size:10px;color:#10B981;margin-top:2px;">💡 ${rc.tip}</div>
+              <div style="font-size:10px;color:#10B981;margin-top:2px;margin-bottom:6px;">💡 ${rc.tip}</div>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=${rc.lat},${rc.lng}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 9px;background:rgba(56,189,248,0.2);border:1px solid #38BDF8;color:#38BDF8;font-weight:700;font-size:11px;border-radius:5px;text-decoration:none;">
+                🧭 Directions ↗
+              </a>
             </div>
           `);
         });
@@ -3260,7 +3537,8 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
           });
           const m = L.marker([mus.lat, mus.lng], { icon: musIcon }).addTo(landmarkMarkersLayer);
           m.bindPopup(`
-            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:220px;">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:230px;">
+              ${mus.imageUrl ? `<img src="${mus.imageUrl}" alt="${mus.name}" style="width:100%;height:100px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'"/>` : ''}
               <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#818CF8;font-weight:700;">🏛️ MUSEUM · ${mus.city.toUpperCase()}</div>
               <div style="font-size:12px;font-weight:800;margin:2px 0;">${mus.name}</div>
               <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#F59E0B;margin-bottom:3px;">${mus.badge}</div>
@@ -3270,7 +3548,13 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
                 <span style="color:#94a3b8;">🕒 ${mus.openHours}</span>
                 <span style="color:#10B981;font-weight:700;">${mus.admission}</span>
               </div>
-              <div style="font-size:10px;color:#10B981;margin-top:3px;">💡 ${mus.tip}</div>
+              <div style="font-size:10px;color:#10B981;margin-top:3px;margin-bottom:6px;">💡 ${mus.tip}</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=${mus.lat},${mus.lng}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 9px;background:rgba(56,189,248,0.2);border:1px solid #38BDF8;color:#38BDF8;font-weight:700;font-size:11px;border-radius:5px;text-decoration:none;">
+                  🧭 Directions ↗
+                </a>
+                ${mus.websiteUrl ? `<a href="${mus.websiteUrl}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 9px;background:rgba(255,255,255,0.08);color:#fff;font-weight:700;font-size:11px;border-radius:5px;text-decoration:none;">Site ↗</a>` : ''}
+              </div>
             </div>
           `);
         });
@@ -3290,7 +3574,8 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
           const marker = L.marker([hotel.lat, hotel.lng], { icon }).addTo(hotelMarkersLayer);
           marker.bindPopup(`
-            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:220px;">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:230px;">
+              ${hotel.imageUrl ? `<img src="${hotel.imageUrl}" alt="${hotel.name}" style="width:100%;height:105px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'"/>` : ''}
               <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#2E9AFE;font-weight:700;">
                 ${hub.name} · #${hotel.rank} (${hotel.tier})
               </div>
@@ -3302,9 +3587,14 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
                 <strong>📍 ${hotel.distance}:</strong> ${hotel.landmark}
               </div>
               <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">${hotel.highlight}</div>
-              <a href="${hotel.url}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 10px;background:#0066B1;color:#fff;font-weight:700;font-size:11px;border-radius:5px;text-decoration:none;">
-                Hotels.com Points ↗
-              </a>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=${hotel.lat},${hotel.lng}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 9px;background:rgba(56,189,248,0.2);border:1px solid #38BDF8;color:#38BDF8;font-weight:700;font-size:11px;border-radius:5px;text-decoration:none;">
+                  🧭 Directions ↗
+                </a>
+                <a href="${hotel.url}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 9px;background:#0066B1;color:#fff;font-weight:700;font-size:11px;border-radius:5px;text-decoration:none;">
+                  Hotels.com ↗
+                </a>
+              </div>
             </div>
           `);
 
