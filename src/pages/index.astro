@@ -1846,27 +1846,49 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       /* Mobile Single-Row Sleek 52px Native App Bar */
       .top-command-bar {
         height: 52px;
-        padding: 0.45rem 0.85rem;
+        min-height: 52px;
+        max-height: 52px;
+        padding: 0.45rem 0.75rem;
         position: sticky;
         top: 0;
         z-index: 1050;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: nowrap;
         width: 100%;
         max-width: 100vw;
         box-sizing: border-box;
+        overflow: hidden;
       }
       .brand-cluster {
-        gap: 0.5rem;
+        gap: 0.45rem;
+        min-width: 0;
+        flex-shrink: 1;
+        display: flex;
+        align-items: center;
       }
       .m-crest {
-        width: 38px;
-        height: 32px;
+        width: 34px;
+        height: 28px;
+        flex-shrink: 0;
       }
       .brand-titles h1 {
-        font-size: 0.88rem;
-        gap: 0.3rem;
+        font-size: 0.82rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        gap: 0.25rem;
+        display: flex;
+        align-items: center;
+      }
+      .brand-titles .m-badge-inline {
+        display: none !important;
+      }
+      .brand-titles .badge-pill {
+        font-size: 0.6rem;
+        padding: 0.12rem 0.4rem;
+        white-space: nowrap;
       }
       .brand-titles p {
         display: none !important;
@@ -1883,19 +1905,20 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
       .mobile-nav-utilities {
         display: flex;
         align-items: center;
-        gap: 0.4rem;
+        gap: 0.35rem;
+        flex-shrink: 0;
       }
       .mobile-curr-pill, .mobile-theme-pill, .mobile-guides-pill {
         font-family: var(--font-mono);
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         font-weight: 700;
-        padding: 0.32rem 0.65rem;
+        padding: 0.28rem 0.55rem;
         border-radius: var(--radius-pill);
         background: var(--bg-card);
         border: 1px solid var(--border-strong);
         color: var(--text-primary);
         cursor: pointer;
-        min-height: 34px;
+        min-height: 32px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
