@@ -4194,8 +4194,12 @@ const cartoApiKey = import.meta.env.PUBLIC_CARTO_API_KEY || '';
 
       updatePackingProgress();
 
-      // Check URL query parameters (e.g. ?hub=el-nido)
+      // Check URL query parameters (e.g. ?hub=makati-bgc or ?mode=packing)
       const urlParams = new URLSearchParams(window.location.search);
+      const queryMode = urlParams.get('mode');
+      if (queryMode) {
+        activateDriveMode(queryMode);
+      }
       const queryHub = urlParams.get('hub');
       if (queryHub && hubsData.some((h) => h.id === queryHub)) {
         activateDriveMode('stays');
